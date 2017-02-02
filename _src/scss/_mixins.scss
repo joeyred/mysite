@@ -1,0 +1,248 @@
+////
+/// Mixins
+///
+/// @since 1.0.0
+///
+
+////
+/// Media Query Mixin for Breakpoints
+///
+/// @since 0.1.0
+///
+/// @param {String} $_bp - The key name for the breakpoint to be used.
+///
+@mixin mq($_bp) {
+  // If passed breakpoint is currently enabled.
+  @if map-get($active-breakpoints, $_bp) {
+    // Get the value of the passed breakpoint.
+    $current-bp: map-get($breakpoints, $_bp);
+    // Generate the Media Query string.
+    $current-media: bp($current-bp);
+    // If `$current-media` is 0, thus false, then just spit the content out with no query,
+    @if $current-media == false {
+      @content;
+    }
+    // Else take the value of `$current-media`, use it to make the query, and put the
+    // content inside the query.
+    @else {
+      @media screen and (#{$current-media}) { @content; }
+    }
+  }
+  // Else throw a warning.
+  @else {
+    @warn '#{$_bp} is not an enabled breakpoint. Please check the $active-breakpoints map in _settings.scss.';
+  }
+}
+
+////
+/// Responsive Ratio
+///
+/// Use for creating scalable elements that must retain their ratio.
+///
+/// @since 1.0.0
+///
+@mixin responsive-ratio($_x,$_y, $_pseudo: false) {
+
+  $_padding: unquote(( $_y / $_x ) * 100 + '%');
+
+  @if $_pseudo {
+    &::before {
+      content: '';
+      display: block;
+      position: relative;
+      width: 100%;
+      padding-top: $_padding;
+    }
+  }
+
+  @else {
+    padding-top: $_padding;
+  }
+}
+
+////
+/// Placeholder Styling
+///
+/// @since 1.0.0
+///
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+/////////////////////////////
+// // // // Group // // // //
+// Style Generating Mixins //
+/////////////////////////////
+
+// TODO Document heading sizes mixin.
+@mixin generate_heading-sizes {
+
+  $_maps: map-keys($font-heading_sizes);
+
+  @each $_map in $_maps {
+
+    $_media: map-get($font-heading_sizes, $map);
+
+    $_keys: map-keys($_media);
+
+    @include mq($_map) {
+      @each $_key in $_keys {
+        #{$_key} {
+          font-size: to-rem(map-get($_media, $_key));
+        }
+        // @debug $_key;
+      }
+    }
+  }
+}
+// TODO Document grid property mixin.
+@mixin generate_grid-property($_prefix, $_class, $_property, $_value) {
+  &.#{$_prefix}-#{$_class} {
+    #{$_property}: #{$_value};
+  }
+}
+// TODO Document no gutter mixin.
+@mixin generate_grid-no-gutters($_prefix) {
+  &.#{$_prefix}-no-gutters {
+    .block {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+// TODO Document grid block order mixin.
+@mixin generate_grid-block-order($_prefix) {
+  @for $_i from 1 through 12 {
+    &.order-#{$_prefix}-#{$_i} {
+      order: #{$_i};
+    }
+  }
+}
+// TODO Document block fixed width mixin.
+@mixin generate_block-widths($_prefix) {
+  @for $_i from 1 through 12 {
+
+    $_fraction: $_i / 12;
+    $_width: $_fraction * 100%;
+
+    &.#{$_prefix}-#{$_i} {
+      flex: 0 0 $_width;
+      max-width: $_width;
+    }
+  }
+}
+// TODO Document flex property mixin.
+@mixin generate_block-flex($_prefix) {
+  @for $_i from 1 through 12 {
+    &.#{$_prefix}-grow-#{$_i} {
+      flex: $_i 0 auto;
+    }
+
+    &.#{$_prefix}-shrink-#{$_i} {
+      flex: 0 $_i auto;
+    }
+  }
+}
+// TODO Document grid block style generator mixin.
+@mixin generate_query-prefixed-block-styles {
+
+  $_keys: map-keys($active-breakpoints);
+
+  @each $_key in $_keys {
+
+    $_is-active: map-get($active-breakpoints, $_key);
+
+    @if $_is-active {
+      @include mq($_key) {
+        @include generate_block-widths($_key);
+        @include generate_grid-block-order($_key);
+        @include generate_block-flex($_key);
+        // $prefix, $class, $property, $value
+        @include generate_grid-property($_key, align-top, align-self, flex-start);
+        @include generate_grid-property($_key, align-middle, align-self, center);
+        @include generate_grid-property($_key, align-bottom, align-self, flex-end);
+      }
+    }
+  }
+}
+// TODO Document grid container style generator mixin.
+@mixin generate_query-prefixed-container-styles {
+
+  $_keys: map-keys($active-breakpoints);
+
+  @each $_key in $_keys {
+
+    $_is-active: map-get($active-breakpoints, $_key);
+
+    @if $_is-active {
+      @include mq($_key) {
+        // $prefix, $class, $property, $value
+        // Flex Direction
+        @include generate_grid-property($_key, row-reverse, flex-direction, row-reverse);
+        @include generate_grid-property($_key, col, flex-direction, column);
+        @include generate_grid-property($_key, col-reverse, flex-direction, column-reverse);
+        // Flex Wrap
+        @include generate_grid-property($_key, wrap, flex-wrap, wrap);
+        @include generate_grid-property($_key, nowrap, flex-wrap, nowrap);
+        @include generate_grid-property($_key, wrap-reverse, flex-wrap, wrap-reverse);
+        // Align Items
+        @include generate_grid-property($_key, align-top, align-items, flex-start);
+        @include generate_grid-property($_key, align-middle, align-items, center);
+        @include generate_grid-property($_key, align-bottom, align-items, flex-end);
+        // Align content
+        @include generate_grid-property($_key, align-left, align-content, flex-start);
+        @include generate_grid-property($_key, align-center, align-content, center);
+        @include generate_grid-property($_key, align-right, align-content, flex-end);
+        @include generate_grid-property($_key, space-between, align-content, space-between);
+        @include generate_grid-property($_key, space-around, align-content, space-around);
+        @include generate_grid-property($_key, stretch, align-content, stretch);
+        // No Gutter
+        @include generate_grid-no-gutters($_key);
+        // Full Width
+        @include generate_grid-property($_key, full, max-width, 100%);
+      }
+    }
+  }
+}
+// TODO Document styled content block color classes mixin.
+@mixin generate_styled-section-color-classes {
+
+  $_palette: map-keys($color-palette);
+
+  @each $_color in $_palette {
+    $_color-value: map-get($color-palette, $_color);
+    // @debug $color-value;
+    // @debug $color;
+    &.#{$_color} {
+      h4,
+      h5,
+      h6 {
+        color: $_color-value;
+      }
+
+      .styled-section-title {
+        h1,
+        h2,
+        h3 {
+          color: $_color-value;
+          border-left-color: $_color-value;
+        }
+      }
+
+      .styled-section-inner {
+        // NOTE maybe replace lighten() with a function so both this and whats in settings
+        //      ends up with the same percentage value, editable from one location.
+        background: lighten($_color-value, 33%);
+        border-left-color: $_color-value;
+      }
+
+      &::after {
+        background: lighten($_color-value, 33%);
+      }
+    }
+  }
+}
