@@ -1,0 +1,126 @@
+// Base Units
+// ----------
+$spacing-unit_base:               to-rem(30);
+$spacing-unit_vertical:           gld($spacing-unit_base, 10, false);
+$spacing-unit_vertical-heading:   gld($spacing-unit_base, 10);
+$spacing-unit_vertical-paragraph: gld($spacing-unit_base, 9);
+
+// Breakpoints
+// -----------
+$breakpoints: (
+  sm:  0,
+  md:  640,
+  lg:  1024,
+  xl:  1200,
+  xxl: 1440,
+);
+$active-breakpoints: (
+  sm:  true,
+  md:  true,
+  lg:  true,
+  xl:  true,
+  xxl: true,
+);
+
+// The Grid
+// --------
+$grid_gutter: $spacing-unit_base / 2;
+$grid_container_max-width: to-rem(1200);
+
+// Color
+// -----
+$color-palette: (
+  red:    #ff664e,
+  orange: #ff924e,
+  yellow: #ffc74e,
+  green:  #92ff4e,
+  cyan:   #4ee7ff,
+  blue:   #4e86ff,
+  purple: #c84eff,
+  pink:   #ff4ee2,
+);
+$color-red:          #ff664e;
+$color-orange:       #ff924e;
+$color-yellow:       #ffc74e;
+$color-green:        #92ff4e;
+$color-cyan:         #4ee7ff;
+$color-blue:         #4e86ff;
+$color-purple:       #c84eff;
+$color-pink:         #ff4ee2;
+$color-white:        #fdfdfd;
+$color-black:        #222;
+$color-grey_lighter: #eee;
+$color-grey_light:   #e5e5e5;
+$color-grey:         silver;
+$color-grey_dark:    #5e5e5e;
+$color-grey_darker:  #333;
+
+// Typography
+// ----------
+
+// Base Styles
+$font-size_base:      100%;
+$font-size_small:     gld($font-size_base, 8);
+$line-height_base:    1.5;
+$font-weight_bold:    700;
+// Headings
+$font-heading_family: "Lato", sans-serif;
+$font-heading_weight: 300;
+$font-heading_color:  $color-purple;
+// $font-heading_color-secondary: ;
+// $font-heading_color-tertiary: ;
+$font-heading_base-size: to-rem(80);
+$font-heading_sizes: (
+  sm: (
+    h1: 22,
+    h2: 18,
+    h3: 17,
+    h4: 16,
+    h5: 15,
+    h6: 14,
+  ),
+  md: (
+    h1: 30,
+    h2: 26,
+    h3: 22,
+    h4: 20,
+    h5: 18,
+    h6: 16,
+  ),
+);
+// Section Heading
+$section-heading_padding: to-rem(16) to-rem(10);
+
+// Body
+$font-body_family:        "Roboto", Helvetica, Arial, sans-serif;
+$font-body_weight:        400;
+$font-body_color:         $color-black;
+// Mono
+$font-family_mono:        "Roboto Mono", monospace;
+$font-weight_mono:        200;
+// Inline Code
+$inline-code_background:  $color-grey_darker;
+$inline-code_text-color:  $color-white;
+$inline-code_padding:     0.05rem 0.25rem;
+$inline-code_margin:      0.1rem;
+// Links
+$link-color:              $color-purple;
+$link-color_hover:        $color-cyan;
+$link-color_visted:       $color-pink;
+$link-decoration:         none;
+// Horizontal Rule
+$horizontal-rule_width:   90%;
+// Lists
+$list_margin-left:        to-rem(16);
+$list_margin-bottom:      $spacing-unit_vertical;
+$list-item_margin-bottom: 0.25rem;
+// Blockquotes
+$blockquote-margin_left:  0.5rem;
+$blockquote-border_left:  $color-grey_dark solid 2px;
+$blockquote-padding_left: 0.5rem;
+// Tables
+$table_background:        $color-grey;
+$table-header_background: $color-grey_dark;
+$table-header_color:      $color-white;
+$table-header_padding:    0.675rem;
+$table-cell_padding:      0.5rem;
