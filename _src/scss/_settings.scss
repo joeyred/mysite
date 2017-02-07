@@ -98,6 +98,11 @@ $font-body_color:         $color-black;
 // Mono
 $font-family_mono:        "Roboto Mono", monospace;
 $font-weight_mono:        200;
+// Code Blocks
+$code-block: to-rem(10);
+$code-block_padding: to-rem(6) to-rem(10);
+$code-block_margin: gld($spacing-unit_base, 10) 0;
+$code-block_background: $color-black;
 // Inline Code
 $inline-code_background:  $color-grey_darker;
 $inline-code_text-color:  $color-white;
@@ -124,3 +129,29 @@ $table-header_background: $color-grey_dark;
 $table-header_color:      $color-white;
 $table-header_padding:    0.675rem;
 $table-cell_padding:      0.5rem;
+
+// Syntax Highlighting - Rogue
+// //
+// Global
+$sh-c_string:              #78ffb1;
+$sh-c_comment:             $color-grey;
+$sh-c_comment-special:     $color-purple;
+$sh-c_variable:            $color-blue;
+$sh-c_keyword:             $color-yellow;
+$sh-c_keyword-constant:    $color-red;
+$sh-c_keyword-declaration: $color-pink;
+$sh-c_keyword-psuedo:      $color-cyan;
+// $sh-c_keyword-reserved: ;
+// $sh-c_keyword-type: ;
+$sh-c_operator:            $color-yellow;
+$sh-c_class:               $color-pink;
+// HTML
+$sh-c_html-tag:            $color-yellow;
+$sh-c_html-attribute:      $color-pink;
+// CSS
+$sh-c_css-property:        $color-green;
+$sh-c_css-psuedo:          $color-cyan;
+$sh-c_css-property-value:  $color-blue;
+$sh-c_number:              $color-red;
+// PHP
+$sh-c_php-function-name:   $color-cyan;
