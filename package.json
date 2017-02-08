@@ -15,5 +15,36 @@
   "bugs": {
     "url": "https://github.com/joeyred/mysite/issues"
   },
-  "homepage": "https://github.com/joeyred/mysite#readme"
+  "homepage": "https://github.com/joeyred/mysite#readme",
+  "devDependencies": {
+    "xo": "^0.17.1"
+  },
+  "xo": {
+    "env": ["browser", "node", "jquery"],
+    "space": true,
+    "globals": [
+      "Debug",
+      "Overlay",
+      "Helper"
+    ],
+    "rules": {
+      "space-before-function-paren": ["error", "never"],
+      "key-spacing": [
+        "error",
+        {
+          "align": "value"
+        }
+      ],
+      "no-multi-spaces": [
+        "error",
+        {
+          "exceptions": {
+            "Property": true,
+            "VariableDeclarator": true
+          }
+        }
+      ],
+      "quote-props": ["error", "consistent-as-needed"]
+    }
+  }
 }
