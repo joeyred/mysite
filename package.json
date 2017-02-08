@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/joeyred/mysite/issues"
   },
-  "homepage": "https://github.com/joeyred/mysite#readme"
+  "homepage": "https://github.com/joeyred/mysite#readme",
+  "devDependencies": {
+    "xo": "^0.17.1"
+  }
 }
