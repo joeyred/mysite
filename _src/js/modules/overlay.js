@@ -26,7 +26,7 @@ Overlay.prototype = {
   getDocument: function(contentTarget, documentPath, loadModules) {
     if (this.hasDocument() && !this.documentHasLoaded()) {
 
-      var sectionTarget = '[data-modal="' + id + '"] [data-document]';
+      var sectionTarget = '[data-modal="' + this.id + '"] [data-document]';
       var $section = $(sectionTarget);
       // New AJAX object
       var xhr = new XMLHttpRequest();
@@ -44,6 +44,12 @@ Overlay.prototype = {
           // TODO Check if this works correctly.
           $modalWindow.attr('data-document-loaded', '');
 
+          // TODO Either way, other modules called in the document need to be checked for
+          //      and any module called needs to be initialized.
+          //
+          // IDEA Maybe there needs to be a general init function. This may be overkill
+          //      for now as there really is only one that needs to be initialized so far.
+          //
           // Let's see if we really need this or not, but if we do, then at least check if
           // it's there first.
           if (loadModules !== undefined || loadModules !== null) {
