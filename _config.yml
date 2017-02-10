@@ -36,13 +36,19 @@ collections:
 
 # Set More Defaults
 defaults:
-  - # This is needed between each `scope`
+  - # A check if something is a post.
     scope:
       path: "" # an empty string here means all files in the project
       type: posts   # limit to posts
     values:
       is_post: true # automatically set is_post=true for all posts
       og_type: article
+  -
+    scope:
+      path: ""
+      type: [pages, posts]
+    values:
+      overlays: false # Set default overlay value as false for posts and pages
 # Icons
 icons:
   menu: <svg><use xlink:href="#menu"></use></svg>
