@@ -35,7 +35,7 @@ gulp.task('images', function() {
 
 /* Compile SCSS */
 gulp.task('scss', function() {
-  return gulp.src()
+  return gulp.src(config.scss.paths.src + '/*.scss')
 	.pipe($.sourcemaps.init())
 	.pipe($.sass(config.scss.options.sass).on('error', $.sass.logError))
 	.pipe($.mmq(config.scss.options.mmq))
@@ -51,6 +51,22 @@ gulp.task('scss', function() {
       match: '**/*.css'
     })
   );
+});
+
+/* Copy Over jQuery */
+gulp.task('jquery', function() {
+  return gulp.src(config.jquery.paths.src)
+  .pipe(gulp.dest(config.jquery.paths.build));
+});
+
+/* Concatinate Main JS Files */
+gulp.task('scripts', function() {
+  return gulp.src(config.js.paths.src)
+	.pipe($.sourcemaps.init())
+	.pipe($.concat('app.js'))
+  .pipe($.if(DEPLOY, $.uglify()))
+	.pipe($.sourcemaps.write('./'))
+	.pipe(gulp.dest(config.js.paths.build));
 });
 
 /**
@@ -85,4 +101,80 @@ gulp.task('jekyll', function(cb) {
   jekyll.on('exit', function(code) {
     cb(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
   });
+});
+
+/**
+ * Reloading Tasks
+ */
+
+// BrowserSync
+gulp.task('browserSyncReload', function(done) {
+  browserSync.reload();
+  done();
+});
+
+// JavaScript
+gulp.task('scriptsReload', function(cb) {
+  sequence(
+    'scripts',
+    // 'jekyll',
+    'browserSyncReload',
+    cb
+  );
+});
+
+// Images
+gulp.task('imagesReload', function(cb) {
+  sequence(
+    'images',
+    // 'jekyll',
+    'browserSyncReload',
+    cb
+  );
+});
+
+// Jekyll
+gulp.task('jekyllReload', function(cb) {
+  sequence(
+    'jekyll',
+    'browserSyncReload',
+    cb
+  );
+});
+
+/**
+ * Watch Task
+ */
+gulp.task('watch', function() {
+  // Watch SCSS
+  gulp.watch(config.scss.paths.src + '/**/*.scss', ['scss']);
+  // Watch JS
+  gulp.watch(config.js.paths.src, ['scriptsReload']);
+  // Watch HTML
+  gulp.watch(
+    [
+      '_includes/**/*',
+      '_layouts/**/*',
+      '_posts/*',
+      '_projects/*',
+      '_styleguide/**/*',
+      '*.html',
+      './*.md',
+      './_config.yml'
+    ],
+    ['jekyllReload']
+  );
+  // Watch Images
+  gulp.watch(config.images.paths.src, ['imagesReload']);
+});
+
+gulp.task('default', function(cb) {
+  sequence(
+    'clean',
+    ['scss', 'jquery', 'scripts', 'images'],
+    'jekyll',
+    'browserSync',
+    'watch',
+    cb
+  );
 });

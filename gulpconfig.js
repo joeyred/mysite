@@ -14,17 +14,44 @@ module.exports = {
     // Autoprefixer browser compatability.
     compatability: ['last 2 versions', 'ie >= 9', 'safari 8'],
     paths:         {
-      src: [
-        '_src/scss',
-        '_src/scss/base',
-        '_src/scss/components',
-        '_src/scss/pages',
-        '_src/scss/projects'
-      ],
+      src:   '_src/scss',
       build: '_site/assets/css'
+    },
+    options: {
+      // Sass Compiler
+      sass: {
+        includePaths: [
+          '_src/scss/base',
+          '_src/scss/components',
+          '_src/scss/pages',
+          '_src/scss/projects'
+        ],
+        percision: 10
+      },
+      // Merge Media Queries
+      mmq: {
+        log: true
+      }
+    }
+  },
+  // jQuery
+  jquery: {
+    paths: {
+      src:   '',
+      build: '_site/assets/js'
     }
   },
   // JS
+  js: {
+    paths: {
+      src:      '_src/js/**/*.js',
+      partials: [
+        'src/assets/js/!(app).js',
+        'src/assets/js/app.js'
+      ],
+      build: '_site/assets/js'
+    }
+  },
   // Images
   images: {
     paths: {
