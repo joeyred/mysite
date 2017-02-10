@@ -52,3 +52,37 @@ gulp.task('scss', function() {
     })
   );
 });
+
+/**
+ * Jekyll Task
+ *
+ * Make Jekyll run stuff when told to by gulp.
+ *
+ * The result of this task is a CLI input based on if the '--production' flag exists.
+ *
+ * If `--production` argument is passed, then the output to the Jekyll will be:
+ *
+ * 'JEKYLL_ENV=production jekyll build'
+ *
+ * Else it will be:
+ *
+ * 'jekyll build'
+ *
+ * @see https://nodejs.org/api/child_process.htm
+ */
+gulp.task('jekyll', function(cb) {
+  var spawn = require('child_process').spawn;
+  // After build: cleanup HTML
+  var options = {stdio: 'inherit'};
+  // Run Jekyll build in production mode if --deploy flag is passed.
+  if (DEPLOY) {
+    var env = Object.create(process.env);
+    env.JEKYLL_ENV = 'production';
+    options.env = env;
+  }
+  var jekyll = spawn('jekyll', ['build'], options);
+
+  jekyll.on('exit', function(code) {
+    cb(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
+  });
+});
