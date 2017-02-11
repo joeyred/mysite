@@ -5,7 +5,7 @@ module.exports = {
   browserSync: {
     server: '_site',
     port:   8000,
-    ui:     8001,
+    ui:     {port: 8001},
     notify: false, // boolean value, Toggle notifications of bsync activity.
     open:   false // toggle auotmatic opening of webpage upong bsync starting.
   },
