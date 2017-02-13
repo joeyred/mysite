@@ -11,6 +11,18 @@
 
     <div class="site-inner">
 
+      {% if page.overlays %}
+        <div class="overlay-wrapper">
+
+          {% for overlay in page.overlays %}
+
+            {% include {{ overlay | prepend: "overlays/" }} %}
+
+          {% endfor %}
+
+        </div>
+      {% endif %}
+      
       <main class="content">
 
         {{ content }}
