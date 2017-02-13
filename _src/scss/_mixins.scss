@@ -85,7 +85,7 @@
 
   @each $_map in $_maps {
 
-    $_media: map-get($font-heading_sizes, $map);
+    $_media: map-get($font-heading_sizes, $_map);
 
     $_keys: map-keys($_media);
 
