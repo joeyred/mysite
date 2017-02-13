@@ -99,7 +99,7 @@ $font-body_color:         $color-black;
 $font-family_mono:        "Roboto Mono", monospace;
 $font-weight_mono:        200;
 // Code Blocks
-$code-block: to-rem(10);
+$code-block_font-size: to-rem(10);
 $code-block_padding: to-rem(6) to-rem(10);
 $code-block_margin: gld($spacing-unit_base, 10) 0;
 $code-block_background: $color-black;
@@ -115,6 +115,8 @@ $link-color_visted:       $color-pink;
 $link-decoration:         none;
 // Horizontal Rule
 $horizontal-rule_width:   90%;
+$horizontal-rule_border: 2px solid #333;
+$horizontal-rule_margin-bottom: 10px;
 // Lists
 $list_margin-left:        to-rem(16);
 $list_margin-bottom:      $spacing-unit_vertical;
@@ -155,3 +157,14 @@ $sh-c_css-property-value:  $color-blue;
 $sh-c_number:              $color-red;
 // PHP
 $sh-c_php-function-name:   $color-cyan;
+
+// // // // // // //
+// UI Components  //
+// // // // // // //
+
+// Buttons
+// -------
+$button_padding: 1rem;
+$button_font-size: 1rem;
+$button_background: $color-blue;
+$button_text-color: $color-white;
