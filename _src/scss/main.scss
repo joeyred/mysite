@@ -4,7 +4,14 @@
 // Import partials
 @import
   // SCSS stuff
-  "functions",
-  "settings",
-  "mixins"
+  'functions',
+  'settings',
+  'mixins',
+  // Base
+  'typography',
+  'grid',
+  // Components
+  'navigation',
+  'buttons',
+  'topbar'
 ;
