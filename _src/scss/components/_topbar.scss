@@ -1,0 +1,15 @@
+.top-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 0.625rem;
+  background: $color-black;
+  align-items: center;
+  // Left
+  .left {
+    flex: 1;
+  }
+
+  .center {
+    flex: auto;
+  }
+}
