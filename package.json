@@ -1,0 +1,78 @@
+{
+  "name": "brian-hayes-personal-site",
+  "version": "0.1.0",
+  "description": "A personal site for Brian Hayes.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeyred/mysite.git"
+  },
+  "author": "Brian Hayes <brianh.d4@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/joeyred/mysite/issues"
+  },
+  "homepage": "https://github.com/joeyred/mysite#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.7",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^3.1.1",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-merge-media-queries": "^0.2.1",
+    "gulp-pixrem": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-uglify": "^2.0.1",
+    "gulp-uncss": "^1.0.6",
+    "run-sequence": "^1.2.2",
+    "xo": "^0.17.1",
+    "yargs": "^6.6.0"
+  },
+  "xo": {
+    "env": [
+      "browser",
+      "node",
+      "jquery"
+    ],
+    "space": true,
+    "globals": [
+      "Debug",
+      "Overlay",
+      "Helper"
+    ],
+    "rules": {
+      "space-before-function-paren": [
+        "error",
+        "never"
+      ],
+      "key-spacing": [
+        "error",
+        {
+          "align": "value"
+        }
+      ],
+      "no-multi-spaces": [
+        "error",
+        {
+          "exceptions": {
+            "Property": true,
+            "VariableDeclarator": true
+          }
+        }
+      ],
+      "quote-props": [
+        "error",
+        "consistent-as-needed"
+      ]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+////
+/// Navigation
+///
+/// @since 0.1.0
+///
+
+.nav-overlay {
+  flex-flow: column nowrap;
+
+  .icon-button {
+    text-align: left;
+  }
+}
+
+.main-nav {
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+
+  a {
+    padding: 0.5rem;
+    font-size: 1.4rem;
+    color: $navigation-color_link;
+    margin: auto;
+  }
+}
