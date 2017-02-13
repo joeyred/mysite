@@ -177,3 +177,20 @@ $navigation-color_background: $color-black;
 $navigation-color_text:       $color-white;
 $navigation-color_link:       $color-white;
 $navigation-color_link-hover: $color-purple;
+
+// Titled Callout
+// --------------
+$titled-callout_primary-color: $color-red;
+// Colors
+$titled-callout_title_background-color: $color-black;
+$titled-callout_border-left-color: $titled-callout_primary-color;
+$titled-callout_content_background-color: lighten($titled-callout_primary-color, 30%);
+// Structure
+$titled-callout_title_left-extension: to-rem(12);
+$titled-callout_content_right-extension: to-rem(24);
+$titled-callout_content_bottom-extension: to-rem(12);
+$titled-callout_border-left-size: to-rem(9);
+$titled-callout_left-offset: $titled-callout_title_left-extension + $titled-callout_border-left-size;
+// Padding
+$titled-callout_content-padding: to-rem(15);
+$titled-callout_title-padding: to-rem(8) to-rem(10);
