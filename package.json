@@ -61,6 +61,10 @@
           "outerIIFEBody": 0
         }
       ],
+      "wrap-iife": [
+        "error",
+        "any"
+      ],
       "key-spacing": [
         "error",
         {
