@@ -5,6 +5,15 @@ $spacing-unit_vertical:           gld($spacing-unit_base, 10, false);
 $spacing-unit_vertical-heading:   gld($spacing-unit_base, 10);
 $spacing-unit_vertical-paragraph: gld($spacing-unit_base, 9);
 
+// Z-Indexes
+// ---------
+$z-indexes: (
+  "overlay-header",
+  "overlay",
+  "site-header",
+  "sticky-footer"
+);
+
 // Breakpoints
 // -----------
 $breakpoints: (
@@ -171,12 +180,20 @@ $button_text-color: $color-white;
 
 // Navigation
 // -------------
-
 // Colors
 $navigation-color_background: $color-black;
 $navigation-color_text:       $color-white;
 $navigation-color_link:       $color-white;
 $navigation-color_link-hover: $color-purple;
+
+// Overlay
+// -------
+$overlay_background-color: $color-grey_darker;
+$overlay_text-color: $color-white;
+
+// Top Bar
+// -------
+$topbar_height: 5rem;
 
 // Titled Callout
 // --------------

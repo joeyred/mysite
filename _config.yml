@@ -36,15 +36,13 @@ collections:
 
 # Set More Defaults
 defaults:
-  - # A check if something is a post.
-    scope:
+  - scope:
       path: "" # an empty string here means all files in the project
       type: posts   # limit to posts
     values:
       is_post: true # automatically set is_post=true for all posts
       og_type: article
-  -
-    scope:
+  - scope:
       path: ""
       type: [pages, posts]
     values:

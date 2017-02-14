@@ -54,6 +54,17 @@
         "error",
         "never"
       ],
+      "indent": [
+        "error",
+        2,
+        {
+          "outerIIFEBody": 0
+        }
+      ],
+      "wrap-iife": [
+        "error",
+        "any"
+      ],
       "key-spacing": [
         "error",
         {
