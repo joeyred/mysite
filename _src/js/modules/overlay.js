@@ -1,75 +1,120 @@
+!function($) {
 'use strict';
 
-!function($) {
-
-function Overlay(options, $modalWindow, id) {
-  this.modalOpenClass  = options.modalOpenClass;
-  this.modalAttr       = options.modalAttr;
-  this.openButtonAttr  = options.openButtonAttr;
-  this.closeButtonAttr = options.closeButtonAttr;
-  this.$modalWindow    = $modalWindow;
-  this.id              = id;
+/**
+ * Overlay Window Module
+ * @method Overlay
+ * @param  {jQuery} $overlayWindow - jQuery object for the overlay window.
+ * @param  {jQuery} $pageContent   - jQuery object for main page content.
+ * @param  {String} id             - ID for the overlay.
+ * @param  {object} options        - options passed to the constructor.
+ */
+function Overlay($overlayWindow, $pageContent, id, options) {
+  this.options = this.getOptions(options || {});
+  this.overlayOpenClass = this.options.overlayOpenClass;
+  this.overlayAttr = this.options.overlayAttr;
+  this.openButtonAttr = this.options.openButtonAttr;
+  this.closeButtonAttr = this.options.closeButtonAttr;
+  this.$overlayWindow = $overlayWindow;
+  this.$pageContent = $pageContent;
+  this.id = id;
 }
 
 Overlay.prototype = {
   constructor: Overlay,
-
+  /**
+   * Defaults to be used in each overlay object.
+   * @type {Object}
+   */
+  defaults: {
+    overlayOpenClass: 'overlay-open',
+    overlayAttr:      'data-overlay',
+    openButtonAttr:   'data-overlay-open',
+    closeButtonAttr:  'data-overlay-close'
+  },
+  /**
+   * Parse any passed options with the default settings.
+   * @method getOptions
+   * @param  {Object}   options - Passed options into the constructor.
+   * @return {Object}           - Parsed options for use in the object.
+   */
+  getOptions: function(options) {
+    return $.extend(true, this.defaults, options);
+  },
+  /**
+   * Builds the button target based on the data attribute passed and the id passed to the
+   * Object constructor.
+   * @method getButtonTarget
+   * @param  {String}        attribute - The attribute name.
+   * @return {String}                  - Usable target to be made into a jQuery object.
+   */
   getButtonTarget: function(attribute) {
     return '[' + attribute + '="' + this.id + '"]';
   },
-  hasDocument: function() {
-    return this.$modalWindow.attr('data-has-document');
-  },
-  documentHasLoaded: function() {
-    return this.$modalWindow.attr('data-document-loaded');
-  },
-  getDocument: function(contentTarget, documentPath, loadModules) {
-    if (this.hasDocument() && !this.documentHasLoaded()) {
-
-      var sectionTarget = '[data-modal="' + this.id + '"] [data-document]';
-      var $section = $(sectionTarget);
-      // New AJAX object
-      var xhr = new XMLHttpRequest();
-      // NOTE Might need `contentTarget` passed through the function here.
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          // Make the response text a jQuery object.
-          var $response = $(xhr.responseText);
-          // Grab just the part that we need from the full content jQuery object.
-          var $content = $response.find(contentTarget);
-
-          // Inject Content
-          $section.append($content);
-          // Add data attr stating document has been loaded.
-          // TODO Check if this works correctly.
-          $modalWindow.attr('data-document-loaded', '');
-
-          // TODO Either way, other modules called in the document need to be checked for
-          //      and any module called needs to be initialized.
-          //
-          // IDEA Maybe there needs to be a general init function. This may be overkill
-          //      for now as there really is only one that needs to be initialized so far.
-          //
-          // Let's see if we really need this or not, but if we do, then at least check if
-          // it's there first.
-          if (loadModules !== undefined || loadModules !== null) {
-            loadModules();
-          }
-        }
-      };
-      xhr.open('GET', documentPath);
-      xhr.send();
-
-    }
-  },
+  /**
+   * Returns the target for the open button.
+   * @method getOpenButton
+   * @return {String}      - Target for open button.
+   */
   getOpenButton: function() {
     return this.getButtonTarget(this.openButtonAttr);
   },
-  getCloseBtuuon: function() {
+  /**
+   * Returns the target for the close button.
+   * @method getCloseButton
+   * @return {String}       - Target for close button.
+   */
+  getCloseButton: function() {
     return this.getButtonTarget(this.closeButtonAttr);
   },
-  bindOpenEvent: function() {},
-  bindCloseEvent: function() {}
+  /**
+   * Binds and sets the event for opening the overlay.
+   * @method bindOpenEvent
+   */
+  bindOpenEvent: function() {
+    var $overlay = this.$overlayWindow;
+    var $pageContent    = this.$pageContent;
+    var overlayOpenClass = this.overlayOpenClass;
+    $(this.getOpenButton()).click(function() {
+      $overlay.addClass(overlayOpenClass);
+      $pageContent.addClass('disable-scrolling');
+      // console.log('open the overlay');
+    });
+  },
+  /**
+   * Binds and sets the event for closing the overlay.
+   * @method bindCloseEvent
+   */
+  bindCloseEvent: function() {
+    var $overlay = this.$overlayWindow;
+    var $pageContent    = this.$pageContent;
+    var overlayOpenClass = this.overlayOpenClass;
+    $(this.getCloseButton()).click(function() {
+      $overlay.removeClass(overlayOpenClass);
+      $pageContent.removeClass('disable-scrolling');
+      // console.log('close the overlay');
+    });
+  }
 };
+
+var Overlays = {
+  overlaysOnPage: $('[data-overlay]'),
+  pageBody: $('main.content'),
+
+  initOverlays: function() {
+    $('[data-overlay]').each(function() {
+      var $overlay = $(this);
+      var id = $overlay.attr('data-overlay')
+      var overlay = new Overlay($overlay, Overlays.pageBody, id);
+
+      overlay.bindOpenEvent();
+      overlay.bindCloseEvent();
+    })
+  }
+}
+
+$(document).ready(function() {
+  Overlays.initOverlays();
+});
 
 }(jQuery);
