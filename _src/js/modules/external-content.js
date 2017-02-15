@@ -7,6 +7,8 @@ function Inject(documentPath, contentTarget, options) {
   this.$contentContainer = $('[' + this.options.injectContentAttr + ']');
   this.documentPath = documentPath;
   this.contentTarget = contentTarget;
+  this.status = 'no content';
+  this.updateStatusAttr();
 }
 
 Inject.prototype = {
@@ -19,11 +21,21 @@ Inject.prototype = {
   getOptions: function(options) {
     return $.extend(true, this.defaults, options);
   },
+  getStatusAttr: function() {
+    return this.options.injectContentAttr + '-status';
+  },
   contentHasLoaded: function() {
-    if (this.$contentContainer.attr(this.options.injectContentAttr) === 'loaded') {
+    if (this.$contentContainer.attr(this.getStatusAttr()) === this.options.contentLoadedValue) {
       return true;
     }
     return false;
+  },
+  updateStatus: function(status) {
+    this.status = status;
+    this.updateStatusAttr();
+  },
+  updateStatusAttr: function() {
+    this.$contentContainer.attr(this.getStatusAttr(), this.status);
   },
   // requiresContentLoaded: function() {
   //   this.debug.values('requiresContentLoaded', {
@@ -42,25 +54,24 @@ Inject.prototype = {
   },
   injectContent: function() {
     this.debug.values('injectContent', {readyState: this.xhr.readyState});
-    if (this.xhr.readyState === 4) {
-      var contentToInject = this.getContent();
-      this.debug.functionReturn('injectContent', contentToInject);
-      this.$contentContainer.append(contentToInject);
+    if (this.contentIsReady()) {
+      // Inject Content
+      this.$contentContainer.append(this.getContent());
+      // Update Status
+      this.updateStatus(this.options.contentLoadedValue);
     }
   },
-  init: function() {
-    console.log('inject fired');
+  event: function() {
     if (!this.contentHasLoaded()) {
-      console.log('no loaded content found. content can be injected now.');
       this.xhr.onreadystatechange = this.injectContent.bind(this);
       this.xhr.open('GET', this.documentPath);
       this.xhr.send();
     }
   }
 };
-var inject = new Inject($('[data-inject-parent]'), './inject-test/index.html', '.inject-this');
-$(document).ready(function() {
-  $('[data-test-injection]').click(function() {
-    inject.init();
-  });
-});
+// var inject = new Inject('/inject-test/index.html', '.inject-this');
+// $(document).ready(function() {
+//   $('[data-test-injection]').click(function() {
+//     inject.event();
+//   });
+// });
