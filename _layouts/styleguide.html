@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+  {% include styleguide/head.html %}
+
+  <body class="styleguide">
+
+    {% include icons.html %}
+
+    {% include styleguide/header.html %}
+
+    {% if page.overlays %}
+      {% for overlay in page.overlays %}
+
+        {% include overlay.html id=overlay.id class=overlay.class content=overlay.content%}
+
+      {% endfor %}
+    {% endif %}
+
+
+
+    <main class="content">
+
+      {{ content }}
+
+    </main>
+
+    {% include footer.html %}
+
+    {% include scripts.html %}
+
+  </body>
+
+</html>
