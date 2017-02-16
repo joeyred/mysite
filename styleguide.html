@@ -1,0 +1,53 @@
+---
+layout: styleguide
+title: Styleguide
+permalink: /styleguide/
+overlays:
+  - id: styleguideNav
+    class: sg-nav-overlay
+    content: styleguide-nav.html
+  - id: exampleOverlay
+    class: sg-example-overlay
+    content: sg-example-overlay.html
+
+---
+
+{% assign sorted_sections = site.styleguide | sort: 'order' %}
+
+<section class="wrapper header">
+
+  <div class="container">
+    <div class="block">
+
+      <h1 class="sg-page-heading">
+        The Super Awesome Great (and stuff) Styleguide
+      </h1>
+
+    </div>
+  </div>
+
+</section>
+
+{% for section in sorted_sections %}
+
+  <section id="{{ section.class }}" class="sg-{{ section.class }}">
+
+    <div class="section-heading wrapper">
+      <div class="container">
+        <div class="block">
+          <h1>{{ section.title }}</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <div class="container">
+        <div class="block">
+          {{ section.content }}
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+{% endfor %}

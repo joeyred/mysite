@@ -4,6 +4,13 @@
 /// @since 0.1.0
 ///
 
+.site-header {
+  display: block;
+  position: fixed;
+  width: 100%;
+  z-index: z("site-header");
+}
+
 .nav-overlay {
   flex-flow: column nowrap;
 
