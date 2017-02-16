@@ -156,7 +156,7 @@
   @return $number;
 }
 // TODO Document breakpoint function.
-@function bp($bp, $min-max: max) {
+@function bp($bp, $min-max: min) {
 
   $bf: strip-unit($font-size_base);
   $em: $bp / $bf;

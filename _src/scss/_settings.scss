@@ -69,13 +69,13 @@ $color-grey_darker:  #333;
 
 // Base Styles
 $font-size_base:      16px;
-$font-size_small:     gld($font-size_base, 8);
+$font-size_small:     gld($font-size_base * 2, 9);
 $line-height_base:    1.5;
 $font-weight_bold:    700;
 // Headings
-$font-heading_family: "Lato", sans-serif;
+$font-heading_family: "rucksack", lato, sans-serif;
 $font-heading_weight: 300;
-$font-heading_color:  $color-purple;
+$font-heading_color:  $color-red;
 // $font-heading_color-secondary: ;
 // $font-heading_color-tertiary: ;
 $font-heading_base-size: to-rem(80);
@@ -101,22 +101,22 @@ $font-heading_sizes: (
 $section-heading_padding: to-rem(16) to-rem(10);
 
 // Body
-$font-body_family:        "Roboto", Helvetica, Arial, sans-serif;
+$font-body_family:        "aktiv-grotesk", "Roboto", Helvetica, Arial, sans-serif;
 $font-body_weight:        400;
-$font-body_color:         $color-black;
+$font-body_color:         $color-white;
 // Mono
 $font-family_mono:        "Roboto Mono", monospace;
 $font-weight_mono:        200;
 // Code Blocks
 $code-block_font-size: to-rem(10);
-$code-block_padding: to-rem(6) to-rem(10);
+$code-block_padding: to-rem(16) to-rem(24);
 $code-block_margin: gld($spacing-unit_base, 10) 0;
 $code-block_background: $color-black;
 // Inline Code
-$inline-code_background:  $color-grey_darker;
-$inline-code_text-color:  $color-white;
-$inline-code_padding:     0.05rem 0.25rem;
-$inline-code_margin:      0.1rem;
+$inline-code_background:  $color-black;
+$inline-code_text-color:  $color-cyan;
+$inline-code_padding:     gld($spacing-unit_base, 4) gld($spacing-unit_base, 7);
+$inline-code_margin:      gld($spacing-unit_base, 4);
 // Links
 $link-color:              $color-purple;
 $link-color_hover:        $color-cyan;
@@ -124,22 +124,22 @@ $link-color_visted:       $color-pink;
 $link-decoration:         none;
 // Horizontal Rule
 $horizontal-rule_width:   90%;
-$horizontal-rule_border: 2px solid #333;
+$horizontal-rule_border: 2px solid #ccc;
 $horizontal-rule_margin-bottom: 10px;
 // Lists
-$list_margin-left:        to-rem(16);
+$list_margin-left:        gld($spacing-unit_base, 9);
 $list_margin-bottom:      $spacing-unit_vertical;
 $list-item_margin-bottom: 0.25rem;
 // Blockquotes
-$blockquote-margin_left:  0.5rem;
-$blockquote-border_left:  $color-grey_dark solid 2px;
-$blockquote-padding_left: 0.5rem;
+$blockquote-margin_left:  gld($spacing-unit_base, 9);
+$blockquote-border_left:  $color-blue solid 2px;
+$blockquote-padding_left: gld($spacing-unit_base, 8);
 // Tables
-$table_background:        $color-grey;
-$table-header_background: $color-grey_dark;
+$table_background:        $color-grey_dark;
+$table-header_background: $color-blue;
 $table-header_color:      $color-white;
-$table-header_padding:    0.675rem;
-$table-cell_padding:      0.5rem;
+$table-header_padding:    gld($spacing-unit_base, 9);
+$table-cell_padding:      gld($spacing-unit_base, 8);
 
 // Syntax Highlighting - Rogue
 // //

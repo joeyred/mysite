@@ -9,7 +9,7 @@
 
     $_keys: map-keys($_media);
 
-    @include mq($_map) {
+    @include mq(#{$_map}) {
       @each $_key in $_keys {
         #{$_key} {
           font-size: to-rem(map-get($_media, $_key));
@@ -70,7 +70,34 @@ h6 {
   margin-bottom: $spacing-unit_vertical-heading;
 }
 
+h1,
+h2 {
+  margin-bottom: $spacing-unit_vertical-heading;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: $spacing-unit_vertical-heading;
+  letter-spacing: 3px;
+}
+
 @include generate_heading-sizes;
+
+.section-heading {
+  background: $color-black;
+  margin-bottom: $spacing-unit_vertical;
+
+  h1 {
+    margin-bottom: 0;
+    padding: $section-heading_padding;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+}
 
 // Paragraphs
 p {
@@ -198,9 +225,17 @@ pre {
   margin-bottom: $spacing-unit_vertical;
   overflow: auto;
   line-height: 1;
+  @include mq('md') {
+    line-height: 1.4;
+  }
 
   code {
     font-size: $code-block_font-size;
+
+    @include mq('md') {
+      font-size: $font-size_base;
+    }
+
     background-color: $code-block_background;
     color: $color-white;
   }

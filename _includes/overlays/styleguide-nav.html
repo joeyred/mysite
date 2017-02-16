@@ -1,0 +1,11 @@
+<nav class="sg-nav">
+  {% assign sorted_sections = site.styleguide | sort: 'order' %}
+
+  {% for section in sorted_sections %}
+  <div class="">
+    <a href="{{ page.url }}#{{ section.class }}" class="sg-nav-item">
+      {{ section.title }}
+    </a>
+  </div>
+  {% endfor %}
+</nav>
