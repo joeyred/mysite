@@ -1,0 +1,210 @@
+////
+/// For Styleguide specific styles.
+///
+/// @since 1.0.0
+///
+@import
+  "functions",
+  "settings",
+  // "utility",
+  "mixins"
+;
+
+.styleguide {
+  background: $color-grey_darker;
+
+  main {
+    color: $color-grey_lighter;
+  }
+  // .debug {
+  //   padding: 2rem 1rem;
+  //   pre {
+  //     width: 100%;
+  //     word-wrap: break-word;
+  //   }
+  // }
+  .modal-window {
+    .sg-example {
+      .container {
+        height: calc(100vh - #{$topbar_height});
+      }
+
+      .block {
+        text-align: center;
+      }
+    }
+  }
+
+  .sg-nav-modal {
+    width: auto;
+    display: block;
+
+    .icon-button {
+      text-align: left;
+    }
+  }
+
+  .sg-nav {
+    padding-top: 1rem;
+    // display: block;
+    .sg-nav-item {
+      display: block;
+      padding: 0.65rem 1rem;
+      font-size: 1.2rem;
+
+      &:hover,
+      &:focus {
+        background: $color-blue;
+        color: $color-white;
+      }
+
+      &.active {
+        background: $color-purple;
+        color: $color-white;
+      }
+    }
+  }
+}
+
+.sg-grid {
+  .sg-grid-example {
+    margin-bottom: $spacing-unit_vertical;
+  }
+
+  .container.sg-example {
+    &:nth-child(1) {
+      background: $color-red;
+    }
+
+    &:nth-child(2) {
+      background: $color-orange;
+    }
+
+    &:nth-child(3) {
+      background: $color-yellow;
+    }
+
+    &:nth-child(4) {
+      background: $color-green;
+    }
+
+    &:nth-child(5) {
+      background: $color-cyan;
+    }
+
+    &:nth-child(6) {
+      background: $color-blue;
+    }
+
+    &:nth-child(7) {
+      background: $color-purple;
+    }
+
+    &:nth-child(8) {
+      background: $color-pink;
+    }
+
+    .block {
+      height: 30px;
+      text-align: center;
+
+      &:nth-child(odd) {
+        background: rgba(0, 0, 0, 0.2);
+      }
+
+      &:nth-child(even) {
+        background: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}
+
+.sg-colors {
+  .colors,
+  .colors-greyscale {
+    margin-bottom: $spacing-unit_vertical;
+  }
+
+  .colors {
+    color: $color-black;
+
+    .block {
+      &:nth-child(1) {
+        background: $color-red;
+      }
+
+      &:nth-child(2) {
+        background: $color-orange;
+      }
+
+      &:nth-child(3) {
+        background: $color-yellow;
+      }
+
+      &:nth-child(4) {
+        background: $color-green;
+      }
+
+      &:nth-child(5) {
+        background: $color-cyan;
+      }
+
+      &:nth-child(6) {
+        background: $color-blue;
+      }
+
+      &:nth-child(7) {
+        background: $color-purple;
+      }
+
+      &:nth-child(8) {
+        background: $color-pink;
+      }
+    }
+  }
+
+  .colors-greyscale {
+    .block {
+      &:nth-child(1) {
+        background: $color-black;
+      }
+
+      &:nth-child(2) {
+        background: $color-grey_darker;
+      }
+
+      &:nth-child(3) {
+        background: $color-grey_dark;
+      }
+
+      &:nth-child(4) {
+        background: $color-grey;
+        color: $color-black;
+      }
+
+      &:nth-child(5) {
+        background: $color-grey_light;
+        color: $color-black;
+      }
+
+      &:nth-child(6) {
+        background: $color-grey_lighter;
+        color: $color-black;
+      }
+
+      &:nth-child(7) {
+        background: $color-white;
+        color: $color-black;
+      }
+    }
+  }
+
+  .color-swatch {
+    height: 5rem;
+
+    figcaption {
+      text-align: center;
+      padding-top: 2rem;
+    }
+  }
+}
