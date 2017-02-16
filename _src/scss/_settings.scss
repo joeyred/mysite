@@ -193,7 +193,10 @@ $overlay_text-color: $color-white;
 
 // Top Bar
 // -------
-$topbar_height: 5rem;
+$topbar-icon_size: to-rem(16);
+$topbar-icon_color: $color-black;
+$topbar_padding: to-rem(10);
+$topbar_height: $topbar-icon_size * $line-height_base + $topbar_padding * 2;
 
 // Titled Callout
 // --------------
