@@ -23,19 +23,19 @@
   //     word-wrap: break-word;
   //   }
   // }
-  .modal-window {
-    .sg-example {
-      .container {
-        height: calc(100vh - #{$topbar_height});
-      }
+  .overlay {
+    background: lighten($color-purple, 30%);
 
-      .block {
-        text-align: center;
-      }
+    .container {
+      height: calc(100vh - #{$topbar_height});
+    }
+
+    .block {
+      text-align: center;
     }
   }
 
-  .sg-nav-modal {
+  .sg-nav-overlay {
     width: auto;
     display: block;
 
