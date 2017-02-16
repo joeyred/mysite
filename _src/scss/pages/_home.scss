@@ -1,0 +1,55 @@
+$home-page_logo_vertical-spacing: gld($spacing-unit_vertical, 8);
+
+// Name & Short Bio
+.home-page-short-bio {
+  text-align: center;
+
+  h1 {
+    margin-bottom: gld($spacing-unit_vertical, 5);
+    text-transform: none;
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+
+  p {
+    margin-bottom: $home-page_logo_vertical-spacing;
+  }
+}
+
+// Centered Logo
+.home-page-logo {
+  .svg-wrapper {
+    margin: 0 auto;
+    width: 50%;
+    height: auto;
+    margin-bottom: $home-page_logo_vertical-spacing;
+  }
+
+  svg {
+    .mark-logo-hair {
+      fill: $color-red;
+    }
+
+    .mark-logo-bottom {
+      fill: $color-white;
+    }
+  }
+}
+
+.titled-callout {
+  &.no-content {
+    margin-bottom: gld($spacing-unit_vertical, 8);
+  }
+
+  &.accordion {
+    margin-bottom: gld($spacing-unit_vertical, 8);
+
+    .titled-callout-inner {
+      display: none;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+}
