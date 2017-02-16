@@ -1,3 +1,42 @@
+// TODO Document styled content block color classes mixin.
+@mixin generate_titled-callout-color-classes {
+
+  $_palette: map-keys($color-palette);
+
+  @each $_color in $_palette {
+    $_color-value: map-get($color-palette, $_color);
+    // @debug $color-value;
+    // @debug $color;
+    &.#{$_color} {
+      h4,
+      h5,
+      h6 {
+        color: $_color-value;
+      }
+
+      .titled-callout-title {
+        h1,
+        h2,
+        h3 {
+          color: $_color-value;
+          border-left-color: $_color-value;
+        }
+      }
+
+      .titled-callout-inner {
+        // NOTE maybe replace lighten() with a function so both this and whats in settings
+        //      ends up with the same percentage value, editable from one location.
+        background: lighten($_color-value, 33%);
+        border-left-color: $_color-value;
+      }
+
+      &::after {
+        background: lighten($_color-value, 33%);
+      }
+    }
+  }
+}
+
 .titled-callout {
   // margin-left: -#{$titled-callout_left-offset};
   margin-bottom: $spacing-unit_vertical;

@@ -1,3 +1,25 @@
+// TODO Document heading sizes mixin.
+@mixin generate_heading-sizes {
+
+  $_maps: map-keys($font-heading_sizes);
+
+  @each $_map in $_maps {
+
+    $_media: map-get($font-heading_sizes, $_map);
+
+    $_keys: map-keys($_media);
+
+    @include mq($_map) {
+      @each $_key in $_keys {
+        #{$_key} {
+          font-size: to-rem(map-get($_media, $_key));
+        }
+        // @debug $_key;
+      }
+    }
+  }
+}
+
 // Typography resets
 div,
 dl,
