@@ -225,9 +225,17 @@ pre {
   margin-bottom: $spacing-unit_vertical;
   overflow: auto;
   line-height: 1;
+  @include mq('md') {
+    line-height: 1.4;
+  }
 
   code {
     font-size: $code-block_font-size;
+
+    @include mq('md') {
+      font-size: $font-size_base;
+    }
+
     background-color: $code-block_background;
     color: $color-white;
   }

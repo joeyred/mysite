@@ -17,15 +17,16 @@
       {% endfor %}
     {% endif %}
 
+    <div class="site-inner">
+      <main class="content">
 
+        {{ content }}
 
-    <main class="content">
+      </main>
 
-      {{ content }}
+      {% include footer.html %}
 
-    </main>
-
-    {% include footer.html %}
+    </div>
 
     {% include scripts.html %}
 

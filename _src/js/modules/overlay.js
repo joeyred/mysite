@@ -99,7 +99,7 @@ Overlay.prototype = {
 
 var Overlays = {
   overlaysOnPage: $('[data-overlay]'),
-  pageBody: $('main.content'),
+  pageBody: $('.site-inner'),
 
   initOverlays: function() {
     $('[data-overlay]').each(function() {
