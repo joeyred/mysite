@@ -1,0 +1,134 @@
+// // content height transition
+// %ch-transition {
+//   transition: all 600ms ease-out;
+// }
+// // content opacity transition
+// //
+//
+// .titled-callout {
+//   &.expanding-tab {
+//     .titled-callout-title {
+//       display: flex;
+//       flex-flow: row nowrap;
+//
+//       button {
+//         flex: 0 1;
+//         padding-right: $titled-callout_title_left-extension;
+//       }
+//
+//       h2 {
+//         flex: auto;
+//       }
+//     }
+//
+//     .titled-callout-inner {
+//       transition: height 600ms ease-out;
+//     }
+//
+//     &:not(.active) {
+//       margin-bottom: gld($spacing-unit_vertical, 8);
+//
+//       &::after {
+//         height: 0;
+//       }
+//
+//       .titled-callout-title {
+//         button {
+//           flex: 0;
+//           padding-right: 0;
+//         }
+//
+//         .icon {
+//           > svg {
+//             opacity: 0;
+//             width: 0;
+//           }
+//         }
+//       }
+//
+//       .titled-callout-inner {
+//         transition: all 600ms ease-out;
+//         padding: 0;
+//         height: 0;
+//         opacity: 0;
+//       }
+//     }
+//   }
+// }
+
+.expanding-tab {
+  margin-bottom: gld($spacing-unit_vertical, 8);
+  transition: transform 1s;
+  z-index: z("expanding-tab-active");
+
+  &::after {
+    height: 0;
+    transition: all 400ms 1s;
+  }
+
+  .tab {
+    display: flex;
+    flex-flow: row nowrap;
+
+    button {
+      flex: 0;
+      padding-right: 0;
+      transition: padding 600ms 1s;
+      // opacity: 0;
+      // width: 0;
+    }
+
+    .icon {
+      > svg {
+        opacity: 0;
+        transition: opacity 600ms 1s;
+        // width: 0;
+      }
+    }
+
+    h2 {
+      flex: auto;
+    }
+  }
+
+  .tab-content {
+    padding: 0;
+    height: 0;
+    opacity: 0;
+    transition: all 600ms 1s;
+  }
+
+  // Active State
+  &.active {
+    transform: translate(0, -235px);
+
+    .tab {
+      h2 {
+        flex: auto;
+      }
+
+      button {
+        flex: 0 1;
+        padding-right: $titled-callout_title_left-extension;
+        opacity: 1;
+      }
+
+      .icon {
+        > svg {
+          opacity: 1;
+          // width: 1rem;
+        }
+      }
+    }
+
+    .tab-content {
+      height: 340px;
+      padding: $titled-callout_content-padding;
+      opacity: 1;
+    }
+
+    &::after {
+      height: $titled-callout_content_bottom-extension;
+    }
+  }
+}
