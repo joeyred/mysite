@@ -64,6 +64,10 @@ gulp.task('scripts', function() {
   return gulp.src(config.js.paths.src)
 	.pipe($.sourcemaps.init())
   .pipe($.babel())
+  .on('error', function(e) {
+    console.error(e);
+    this.emit('end');
+  })
 	.pipe($.concat('app.js'))
   .pipe($.if(DEPLOY, $.uglify()))
 	.pipe($.sourcemaps.write('./'))
