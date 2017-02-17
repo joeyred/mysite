@@ -63,7 +63,9 @@
 
   &::after {
     height: 0;
-    transition: all 400ms 1s;
+    transition-property: height, opacity;
+    transition-duration: 100ms;
+    transition-delay: 1.3s, 0;
   }
 
   .tab {
@@ -95,7 +97,10 @@
     padding: 0;
     height: 0;
     opacity: 0;
-    transition: all 600ms 1s;
+    // transition: all 600ms 1s;
+    transition-property: height, opacity, padding;
+    transition-duration: 600ms;
+    transition-delay: 1s, 1s, 1.3s;
   }
 
   // Active State
