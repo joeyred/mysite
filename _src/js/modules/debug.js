@@ -2,7 +2,7 @@
  * Controls whether debug functions have any output to console.
  * @type {Boolean}
  */
-var GLOBAL_DEBUG_ENABLED = true;
+const GLOBAL_DEBUG_ENABLED = true;
 
 /**
  * Debug constructor
