@@ -63,7 +63,7 @@ Inject.prototype = {
   },
   event: function() {
     if (!this.contentHasLoaded()) {
-      this.xhr.onreadystatechange = this.injectContent.bind(this);
+      this.xhr.onreadystatechange = () => this.injectContent;
       this.xhr.open('GET', this.documentPath);
       this.xhr.send();
     }
