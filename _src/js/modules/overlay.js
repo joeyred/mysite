@@ -99,19 +99,19 @@ Overlay.prototype = {
 
 var Overlays = {
   overlaysOnPage: $('[data-overlay]'),
-  pageBody: $('.site-inner'),
+  pageBody:       $('.site-inner'),
 
   initOverlays: function() {
     $('[data-overlay]').each(function() {
       var $overlay = $(this);
-      var id = $overlay.attr('data-overlay')
+      var id = $overlay.attr('data-overlay');
       var overlay = new Overlay($overlay, Overlays.pageBody, id);
 
       overlay.bindOpenEvent();
       overlay.bindCloseEvent();
-    })
+    });
   }
-}
+};
 
 $(document).ready(function() {
   Overlays.initOverlays();
