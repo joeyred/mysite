@@ -1,64 +1,7 @@
-// // content height transition
-// %ch-transition {
-//   transition: all 600ms ease-out;
-// }
-// // content opacity transition
-// //
-//
-// .titled-callout {
-//   &.expanding-tab {
-//     .titled-callout-title {
-//       display: flex;
-//       flex-flow: row nowrap;
-//
-//       button {
-//         flex: 0 1;
-//         padding-right: $titled-callout_title_left-extension;
-//       }
-//
-//       h2 {
-//         flex: auto;
-//       }
-//     }
-//
-//     .titled-callout-inner {
-//       transition: height 600ms ease-out;
-//     }
-//
-//     &:not(.active) {
-//       margin-bottom: gld($spacing-unit_vertical, 8);
-//
-//       &::after {
-//         height: 0;
-//       }
-//
-//       .titled-callout-title {
-//         button {
-//           flex: 0;
-//           padding-right: 0;
-//         }
-//
-//         .icon {
-//           > svg {
-//             opacity: 0;
-//             width: 0;
-//           }
-//         }
-//       }
-//
-//       .titled-callout-inner {
-//         transition: all 600ms ease-out;
-//         padding: 0;
-//         height: 0;
-//         opacity: 0;
-//       }
-//     }
-//   }
-// }
-
 .expanding-tab {
   margin-bottom: gld($spacing-unit_vertical, 8);
-  transition: transform 1s;
+  transition-property: top, position;
+  transition-duration: 1s;
   z-index: z("expanding-tab-active");
 
   &::after {
@@ -105,7 +48,10 @@
 
   // Active State
   &.active {
-    transform: translate(0, -235px);
+    position: fixed;
+    top: 0;
+    transition-property: top;
+    transition-duration: 1s;
 
     .tab {
       h2 {
