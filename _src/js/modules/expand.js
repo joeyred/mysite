@@ -21,6 +21,9 @@ class Expand {
   get distanceToMove() {
     return this.elementPosition.top - this.topbarHeight;
   }
+  get contentHeight() {
+    return $(window).height() - (this.topbarHeight + this.elementHeight) - 36;
+  }
   get transform() {
     return {transform: `translate(0, -${this.distanceToMove}px)`};
   }
@@ -30,9 +33,11 @@ class Expand {
   }
   openEvent() {
     this.$element.css(this.transform).addClass('active');
+    this.$element.children('.tab-content').css({height: `${this.contentHeight}px`});
   }
   closeEvent() {
-    this.$element.css({transform: `translate(0, 0)`}).removeClass('active');
+    this.$element.css({transform: `none`}).removeClass('active');
+    this.$element.children('.tab-content').css({height: `0px`});
   }
   bindEvents() {
     this.$openElement.click(() => this.openEvent());
