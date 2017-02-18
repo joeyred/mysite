@@ -36,7 +36,7 @@ class Expand {
     this.$element.children('.tab-content').css({height: `${this.contentHeight}px`});
   }
   closeEvent() {
-    this.$element.css({transform: `none`}).removeClass('active');
+    this.$element.removeAttr('style').removeClass('active');
     this.$element.children('.tab-content').css({height: `0px`});
   }
   bindEvents() {
