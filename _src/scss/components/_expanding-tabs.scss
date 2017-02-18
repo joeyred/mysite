@@ -1,0 +1,86 @@
+.expanding-tab {
+  margin-bottom: gld($spacing-unit_vertical, 8);
+  transition: transform 1s;
+  z-index: z("expanding-tab-active");
+
+  &::after {
+    height: 0;
+    transition-property: height, opacity;
+    transition-duration: 100ms;
+    transition-delay: 1.3s, 0;
+  }
+
+  .tab {
+    display: flex;
+    flex-flow: row nowrap;
+
+    button {
+      flex: 0;
+      padding-right: 0;
+      transition: padding 600ms 1s;
+      // opacity: 0;
+      // width: 0;
+    }
+
+    .icon {
+      > svg {
+        opacity: 0;
+        transition: opacity 600ms 1s;
+        // width: 0;
+      }
+    }
+
+    h2 {
+      flex: auto;
+    }
+  }
+
+  .tab-content {
+    padding: 0;
+    height: 0;
+    opacity: 0;
+    // transition: all 600ms 1s;
+    transition-property: height, opacity, padding;
+    transition-duration: 600ms;
+    transition-delay: 1s, 1s, 1.3s;
+  }
+
+  // Active State
+  &.active {
+    // transform: translate(0, -182.390625px);
+    // position: fixed;
+
+    .tab {
+      h2 {
+        flex: auto;
+      }
+
+      button {
+        flex: 0 1;
+        padding-right: $titled-callout_title_left-extension;
+        opacity: 1;
+      }
+
+      .icon {
+        > svg {
+          opacity: 1;
+          // width: 1rem;
+        }
+      }
+    }
+
+    .tab-content {
+      // height: 340px;
+      padding: $titled-callout_content-padding;
+      opacity: 1;
+    }
+
+    &::after {
+      height: $titled-callout_content_bottom-extension;
+    }
+  }
+}
+
+.block.my-skills {
+  // margin-top: -200px;
+}

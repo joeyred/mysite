@@ -25,23 +25,33 @@ layout: default
       </div>
     </div>
 
-    <div class="block sm-12">
-      <div class="titled-callout purple accordion">
+    <!-- <div class=""> -->
+      <div class="block sm-12 titled-callout purple expanding-tab" data-expand>
 
-        <div class="titled-callout-title">
-          <h2>About Me</h2>
+        <div class="titled-callout-title tab">
+
+          <h2 data-expand-open>
+            About Me
+          </h2>
+
+          <button class=" icon-button" data-expand-close>
+            <span class="icon close">
+              {{ site.icons.close }}
+            </span>
+          </button>
+
         </div>
 
-        <div class="titled-callout-inner">
+        <div class="titled-callout-inner tab-content">
 
           Content...
 
         </div>
 
       </div>
-    </div>
+    <!-- </div> -->
 
-    <div class="block sm-12">
+    <div class="block sm-12 my-skills">
       <div class="titled-callout yellow no-content">
 
         <div class="titled-callout-title">
