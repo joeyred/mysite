@@ -1,5 +1,7 @@
 'use strict';
 
+!function($) {
+
 function Inject(documentPath, contentTarget, options) {
   this.options = this.getOptions(options || {});
   this.xhr = new XMLHttpRequest();
@@ -70,11 +72,5 @@ Inject.prototype = {
   }
 };
 
-Gingabulous.registerModule('inject');
-
-// var inject = new Inject('/inject-test/index.html', '.inject-this');
-// $(document).ready(function() {
-//   $('[data-test-injection]').click(function() {
-//     inject.event();
-//   });
-// });
+Gingabulous.registerModule(Inject);
+}(jQuery);
