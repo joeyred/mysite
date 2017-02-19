@@ -69,6 +69,9 @@ Inject.prototype = {
     }
   }
 };
+
+Gingabulous.registerModule('inject');
+
 // var inject = new Inject('/inject-test/index.html', '.inject-this');
 // $(document).ready(function() {
 //   $('[data-test-injection]').click(function() {
