@@ -49,6 +49,7 @@
     "globals": [
       "Debug",
       "Overlay",
+      "Gingabulous",
       "Helper"
     ],
     "rules": {
