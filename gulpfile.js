@@ -61,7 +61,7 @@ gulp.task('jquery', function() {
 
 /* Concatinate Main JS Files */
 gulp.task('scripts', function() {
-  return gulp.src(config.js.paths.src)
+  return gulp.src(config.js.paths.partials)
 	.pipe($.sourcemaps.init())
   .pipe($.babel())
   .on('error', function(e) {

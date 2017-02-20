@@ -46,8 +46,10 @@ module.exports = {
     paths: {
       src:      '_src/js/**/*.js',
       partials: [
-        'src/assets/js/!(app).js',
-        'src/assets/js/app.js'
+        '_src/js/modules/core.js',
+        '_src/js/modules/util.*.js',
+        '_src/js/**/!(app).js',
+        '_src/js/app.js'
       ],
       build: '_site/assets/js'
     }
