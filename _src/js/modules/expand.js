@@ -1,5 +1,5 @@
 'use strict';
-
+!function($) {
 class Expand {
 
   get elementPosition() {
@@ -45,15 +45,19 @@ class Expand {
   }
 }
 
-function initExpands() {
-  let $expandElements = $('[data-expand]');
+Gingabulous.registerModule(Expand);
 
-  $expandElements.each(function() {
-    let expand = new Expand($(this));
-    expand.bindEvents();
-  });
-}
+// function initExpands() {
+//   var $expandElements = $('[data-expand]');
+//
+//   $expandElements.each(function() {
+//     var expand = new Expand($(this));
+//     expand.bindEvents();
+//   });
+// }
+//
+// $(document).ready(function() {
+//   initExpands();
+// });
 
-$(document).ready(function() {
-  initExpands();
-});
+}(jQuery);

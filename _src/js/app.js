@@ -10,6 +10,11 @@ function init() {
     overlay.bindOpenEvent();
     overlay.bindCloseEvent();
   });
+
+  $(Gingabulous.modules.Expand.dataAttrTarget).each(function() {
+    var expand = new Gingabulous.Expand($(this));
+    expand.bindEvents();
+  });
 }
 
 init();
