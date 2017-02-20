@@ -35,7 +35,6 @@ class Expand {
     this.resp = new Gingabulous.Responsive(element);
   }
   openEvent() {
-    console.log(this.isActive);
     if (this.isActive) {
       this.$element.css(this.transform).addClass('active');
       this.$element.children('.tab-content').css({height: `${this.contentHeight}px`});
@@ -54,18 +53,5 @@ class Expand {
 }
 
 Gingabulous.registerModule(Expand);
-
-// function initExpands() {
-//   var $expandElements = $('[data-expand]');
-//
-//   $expandElements.each(function() {
-//     var expand = new Expand($(this));
-//     expand.bindEvents();
-//   });
-// }
-//
-// $(document).ready(function() {
-//   initExpands();
-// });
 
 }(jQuery);
