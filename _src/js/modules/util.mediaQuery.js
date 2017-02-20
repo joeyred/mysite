@@ -4,15 +4,6 @@ class MediaQuery {
   get windowInEms() {
     return this.$window.width() / parseFloat($('html').css('font-size'));
   }
-  get breakpointArray() {
-    var breakpointArray = [];
-    for (var key in this.breakpoints) {
-      if ({}.hasOwnProperty.call(this.breakpoints, key)) {
-        breakpointArray.push(key);
-      }
-    }
-    return breakpointArray;
-  }
   constructor(breakpoints) {
     this.breakpoints = breakpoints;
     this.$window = $(window);
