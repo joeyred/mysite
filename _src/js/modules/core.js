@@ -38,7 +38,11 @@ var Gingabulous = {
     // If no value for `dataAttrName` is passed, then assign `name` to the value.
     dataAttrName = dataAttrName || this._hyphenate(name);
     // Add the module to the `modules` object.
-    this.modules[name] = {name: name, dataAttr: `data-${dataAttrName}`};
+    this.modules[name] = {
+      name:           name,
+      dataAttr:       `data-${dataAttrName}`,
+      dataAttrTarget: `[data-${dataAttrName}]`
+    };
     this[name] = module;
   }
 };
