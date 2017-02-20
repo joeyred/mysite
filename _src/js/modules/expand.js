@@ -11,7 +11,6 @@ class Expand {
   get $closeElement() {
     return this.$element.children('.tab').children('[data-expand-close]');
   }
-  // get tabElement() {}
   get elementHeight() {
     return this.$openElement.height();
   }
@@ -27,17 +26,26 @@ class Expand {
   get transform() {
     return {transform: `translate(0, -${this.distanceToMove}px)`};
   }
+  get isActive() {
+    return this.resp.active();
+  }
   constructor(element, options) {
     this.$element = element;
     this.options = options || {};
+    this.resp = new Gingabulous.Responsive(element);
   }
   openEvent() {
-    this.$element.css(this.transform).addClass('active');
-    this.$element.children('.tab-content').css({height: `${this.contentHeight}px`});
+    console.log(this.isActive);
+    if (this.isActive) {
+      this.$element.css(this.transform).addClass('active');
+      this.$element.children('.tab-content').css({height: `${this.contentHeight}px`});
+    }
   }
   closeEvent() {
-    this.$element.removeAttr('style').removeClass('active');
-    this.$element.children('.tab-content').css({height: `0px`});
+    if (this.isActive) {
+      this.$element.removeAttr('style').removeClass('active');
+      this.$element.children('.tab-content').css({height: `0px`});
+    }
   }
   bindEvents() {
     this.$openElement.click(() => this.openEvent());
