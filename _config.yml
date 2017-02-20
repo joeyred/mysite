@@ -21,7 +21,7 @@ images:
 markdown: kramdown
 highlighter: rouge
 permalink: /:title/
-exclude: [node_modules, gulpfile.js, package.json, bower_components, bower.json]
+exclude: [node_modules, gulpfile.js, gulpconfig.js, package.json, bower_components, bower.json]
 keep_files: [assets]
 
 # Content
