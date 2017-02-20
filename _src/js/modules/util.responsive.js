@@ -95,8 +95,10 @@ class Responsive {
       }
     }
   }
-  isEnabledForCurrentQuery() {
-
+  active() {
+    let enabledQueries = this.queryValues;
+    let currentQuery = Gingabulous.MediaQuery.currentMediaQuery();
+    return enabledQueries[currentQuery];
   }
 }
 Gingabulous.Responsive = Responsive;
