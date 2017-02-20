@@ -1,12 +1,17 @@
-!function($) {
+!function() {
 
 class Responsive {
   get valuesArray() {
+    if (this.valueString === undefined || this.valueString === null) {
+      return [];
+    }
     return this.valueString.split(' ');
   }
-  // Make this return an array of enabled keys
   get enabledQueries() {
     let output = [];
+    if (this.valuesArray <= 0) {
+      return this.breakpointArray;
+    }
     for (var index in this.valuesArray) {
       if ({}.hasOwnProperty.call(this.valuesArray, index)) {
         let parsedValue = this.parseParam(this.valuesArray[index]);
@@ -34,7 +39,6 @@ class Responsive {
     this.valueString = element.attr('data-responsive');
     this.breakpoints = Gingabulous.breakpoints;
     this.breakpointArray = Gingabulous.MediaQuery.breakpointArray;
-    this.debug = new Debug('Responsive', true);
   }
   isAKey(param) {
     for (var key in this.breakpoints) {
@@ -78,13 +82,11 @@ class Responsive {
           if (newArray[nIndex] === oldArray[oIndex]) {
             isInOldArray = true;
           }
-          // this.debug.loop('parseArray', oIndex, {isInOldArray});
         }
         if (!isInOldArray) {
           output.push(newArray[nIndex]);
         }
       }
-      // this.debug.loop('parseArray', nIndex, {output, isInOldArray});
     }
     return output;
   }
@@ -102,13 +104,5 @@ class Responsive {
   }
 }
 Gingabulous.Responsive = Responsive;
-// parse the value.
-// take the first part and make that determine the key for the breakpoints object
 
-// sm-only
-// md-up
-// md-down
-// md-only
-// etc...
-
-}(jQuery);
+}();
