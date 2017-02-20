@@ -1,5 +1,6 @@
-!function($) {
 'use strict';
+
+!function($) {
 
 /**
  * Overlay Window Module
@@ -22,6 +23,7 @@ function Overlay($overlayWindow, $pageContent, id, options) {
 
 Overlay.prototype = {
   constructor: Overlay,
+
   /**
    * Defaults to be used in each overlay object.
    * @type {Object}
@@ -97,24 +99,6 @@ Overlay.prototype = {
   }
 };
 
-var Overlays = {
-  overlaysOnPage: $('[data-overlay]'),
-  pageBody:       $('.site-inner'),
-
-  initOverlays: function() {
-    $('[data-overlay]').each(function() {
-      var $overlay = $(this);
-      var id = $overlay.attr('data-overlay');
-      var overlay = new Overlay($overlay, Overlays.pageBody, id);
-
-      overlay.bindOpenEvent();
-      overlay.bindCloseEvent();
-    });
-  }
-};
-
-$(document).ready(function() {
-  Overlays.initOverlays();
-});
+Gingabulous.registerModule(Overlay);
 
 }(jQuery);
