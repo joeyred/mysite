@@ -46,7 +46,12 @@ defaults:
       path: ""
       type: [pages, posts]
     values:
-      overlays: false # Set default overlay value as false for posts and pages
+      # Set default overlay value as false for posts and pages
+      overlays: false
+      # Set full page value to false by default
+      full-page:
+        enabled: false
+        responsive: false
 # Icons
 icons:
   menu: <svg><use xlink:href="#menu"></use></svg>
