@@ -47,5 +47,13 @@ var Gingabulous = {
   }
 };
 
+Gingabulous.breakpoints = {
+  sm:  0,
+  md:  40,
+  lg:  64,
+  xl:  75,
+  xxl: 90
+};
+
 window.Gingabulous = Gingabulous;
 }(jQuery);
