@@ -104,7 +104,7 @@ gulp.task('jekyll', function(cb) {
   var jekyll = spawn('jekyll', ['build'], options);
 
   jekyll.on('exit', function(code) {
-    cb(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
+    cb(code === 0 ? null : 'Jekyll exited with code: ' + code);
   });
 });
 
