@@ -1,6 +1,8 @@
 .expanding-tab {
   margin-bottom: gld($spacing-unit_vertical, 8);
-  transition: transform 1s;
+  transition-property: transform, margin;
+  transition-duration: 1s, 600ms;
+  transition-delay: 0, 1s;
   z-index: z("expanding-tab-active");
 
   &::after {
