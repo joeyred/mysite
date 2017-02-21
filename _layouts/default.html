@@ -7,13 +7,13 @@
 
   {% include head.html %}
 
-  <body>
+  <body {% if page.body-class %}class="{{page.body-class}}"{% endif %}>
 
     {% include icons.html %}
 
     {% include header.html %}
 
-    <div class="site-inner">
+    <div class="site-inner" {{full_page}}>
 
       {% if page.overlays %}
         {% for overlay in page.overlays %}
@@ -25,7 +25,7 @@
 
 
 
-      <main class="content"{{full_page}}>
+      <main class="content">
 
         {{ content }}
 

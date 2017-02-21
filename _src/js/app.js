@@ -15,6 +15,8 @@ function init() {
     var expand = new Gingabulous.Expand($(this));
     expand.bindEvents();
   });
+  var fullPage = new Gingabulous.FullPage($(Gingabulous.modules.FullPage.dataAttrTarget));
+  // fullPage.applyFixedDimentions();
 }
 
 init();

@@ -46,6 +46,7 @@ defaults:
       path: ""
       type: [pages, posts]
     values:
+      body-class: false
       # Set default overlay value as false for posts and pages
       overlays: false
       # Set full page value to false by default
