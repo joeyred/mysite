@@ -72,5 +72,5 @@ Inject.prototype = {
   }
 };
 
-Gingabulous.registerModule(Inject);
+Gingabulous.Inject = Inject;
 }(jQuery);
