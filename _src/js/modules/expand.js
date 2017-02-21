@@ -20,17 +20,25 @@ class Expand {
   get distanceToMove() {
     return this.elementPosition.top - this.topbarHeight;
   }
+  get elementMarginOnMove() {
+    let margin =  Number(this.elementMargin);
+    return this.distanceToMove - margin;
+  }
   get contentHeight() {
     return $(window).height() - (this.topbarHeight + this.elementHeight) - 36;
   }
   get transform() {
-    return {transform: `translate(0, -${this.distanceToMove}px)`};
+    return {
+      transform: `translate(0, -${this.distanceToMove}px)`,
+      margin:    `0 0 -${this.elementMarginOnMove}px`
+    };
   }
   get isActive() {
     return this.resp.active();
   }
   constructor(element, options) {
     this.$element = element;
+    this.elementMargin = element.css('marginBottom').replace(/[^-\d.]/g, '');
     this.options = options || {};
     this.resp = new Gingabulous.Responsive(element);
   }
