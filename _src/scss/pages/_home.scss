@@ -1,5 +1,11 @@
 $home-page_logo_vertical-spacing: gld($spacing-unit_vertical, 8);
 
+.home-page {
+  main.content {
+    padding-top: 1rem;
+  }
+}
+
 // Name & Short Bio
 .home-page-short-bio {
   text-align: center;
