@@ -1,0 +1,10 @@
+
+ul.cards {
+  list-style: none;
+  padding: 0;
+  li.card {
+    .block {
+      border: 1px solid $color-pink;
+    }
+  }
+}
