@@ -15,6 +15,10 @@ function init() {
     var expand = new Gingabulous.Expand($(this));
     expand.bindEvents();
   });
+
+  var focus = new Gingabulous.Focus($('[data-focus]'));
+
+  focus.init();
 }
 
 init();

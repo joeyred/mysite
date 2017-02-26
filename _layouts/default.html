@@ -9,8 +9,6 @@
 
     {% include header.html %}
 
-    <div class="site-inner">
-
       {% if page.overlays %}
         {% for overlay in page.overlays %}
 
@@ -20,6 +18,7 @@
       {% endif %}
 
 
+    <div class="site-inner" data-focus>
 
       <main class="content">
 
