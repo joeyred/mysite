@@ -1,0 +1,14 @@
+.icon-bar {
+  display: flex;
+  flex-flow: row;
+
+  .icon {
+    height: 2rem;
+    width: 2rem;
+
+    > svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
