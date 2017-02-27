@@ -1,0 +1,36 @@
+.card {
+  flex: 0 1 auto;
+  background: $color-black;
+  box-shadow: 1px 2px 10px #111;
+
+  .card-bottom {
+    padding: 0.5rem 1rem;
+  }
+
+  margin-bottom: 2rem;
+}
+
+.card.horizontal {
+  display: flex;
+  flex-flow: row;
+
+  .card-thumbnail,
+  .car-info {
+    flex: 0 1 50%;
+  }
+
+  .card-info {
+    padding: 0.5rem 1rem;
+    border-left: to-rem(4) solid $color-red;
+
+    h3 {
+      font-size: to-rem(14);
+      letter-spacing: 1px;
+      margin-bottom: 0.6rem;
+    }
+
+    .icon > svg {
+      fill: $color-grey_dark;
+    }
+  }
+}
