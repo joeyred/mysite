@@ -3,12 +3,10 @@
 {% for icon in site.svg_icons %}
 
 <symbol id="{{ icon.title }}" viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet">
-  <title>{{ icon.title }}</title>
+  <title>{{ icon.title | capitalize }}</title>
   {{ icon.content }}
 </symbol>
 
 {% endfor %}
-
-
 
 </svg>
