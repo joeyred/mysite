@@ -26,6 +26,8 @@ keep_files: [assets]
 
 # Content
 collections:
+  # Icons
+  svg_icons:
   # Projects Config
   projects:
     output: true

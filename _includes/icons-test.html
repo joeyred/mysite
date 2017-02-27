@@ -1,0 +1,14 @@
+<svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
+
+{% for icon in site.svg_icons %}
+
+<symbol id="{{ icon.title }}" viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet">
+  <title>{{ icon.title }}</title>
+  {{ icon.content }}
+</symbol>
+
+{% endfor %}
+
+
+
+</svg>
