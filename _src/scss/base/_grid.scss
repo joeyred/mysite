@@ -143,4 +143,20 @@
   margin-left: auto;
 
   @include generate_query-prefixed-container-styles;
+
+  .block {
+    > .container {
+      margin: {
+        left: -#{$grid_gutter};
+        right: -#{$grid_gutter};
+      }
+
+      &.keep-gutters {
+        margin: {
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+  }
 }
