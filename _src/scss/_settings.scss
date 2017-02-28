@@ -4,6 +4,7 @@ $spacing-unit_base:               to-rem(30);
 $spacing-unit_vertical:           gld($spacing-unit_base, 10, false);
 $spacing-unit_vertical-heading:   gld($spacing-unit_base, 10);
 $spacing-unit_vertical-paragraph: gld($spacing-unit_base, 9);
+$content-padding_base:            gld($spacing-unit_base, 9);
 
 // Z-Indexes
 // ---------
@@ -195,6 +196,9 @@ $navigation-color_link-hover: $color-purple;
 // -------
 $overlay_background-color: $color-grey_darker;
 $overlay_text-color: $color-white;
+
+// Cards
+// -----
 
 // Top Bar
 // -------
