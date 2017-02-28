@@ -158,14 +158,17 @@ gulp.task('watch', function() {
   // Watch HTML
   gulp.watch(
     [
-      '_includes/**/*',
-      '_layouts/**/*',
-      '_posts/*',
-      '_projects/*',
-      '_styleguide/**/*',
+      // '_includes/**/*',
+      // '_layouts/**/*',
+      // '_posts/*',
+      // '_projects/*',
+      // '_styleguide/**/*',
       '*.html',
       './*.md',
-      './_config.yml'
+      './_config.yml',
+      '_*/**/*',
+      '!_src/**/*',
+      '!_site/**/*'
     ],
     ['jekyllReload']
   );
