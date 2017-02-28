@@ -1,0 +1,59 @@
+.fullscreen-panes {
+  display: flex;
+  position: fixed;
+  flex-flow: row nowrap;
+  height: 100vh;
+  width: 100vw;
+  transform: translate(-100%, 0);
+
+  .pane {
+    flex: 0 0 100%;
+    height: 100vh;
+    width: 100vw;
+
+    &.left {
+      background: $color-red;
+      transition: all 300ms ease-out;
+
+      &:target {
+        transform: translate(100%, 0);
+      }
+    }
+
+    &.center {
+      background: $color-cyan;
+      transition: all 300ms ease-out;
+    }
+
+    &.right {
+      background: $color-purple;
+      transition: all 300ms ease-out;
+
+      &:target {
+        transform: translate(-100%, 0);
+      }
+    }
+  }
+}
+
+.fixed-bottom-bar {
+  display: block;
+  padding: $content-padding_base;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: z('pane-bottom-bar');
+  background: $color-black;
+}
+
+.nav-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-content: space-around;
+
+  button,
+  a {
+    flex: 0 0 auto;
+  }
+}
