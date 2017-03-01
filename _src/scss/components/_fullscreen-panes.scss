@@ -1,36 +1,108 @@
+// .fullscreen-panes {
+//   display: flex;
+//   // position: fixed;
+//   flex-flow: row nowrap;
+//   height: 100vh;
+//   width: 100vw;
+//   overflow: hidden;
+//   // transform: translate(-100%, 0);
+//
+//   .pane {
+//     flex: 0 0 100%;
+//     min-height: 100vh;
+//     // position: absolute;
+//     width: 100vw;
+//     padding: $spacing-unit_vertical 0;
+//     overflow-y: scroll;
+//
+//     &.left {
+//       background: $color-grey_darker;
+//       transition: all 300ms ease-out;
+//
+//       &:target {
+//         order: -2;
+//       }
+//     }
+//
+//     &.center {
+//       background: $color-cyan;
+//       transition: all 300ms ease-out;
+//
+//       &:target {
+//         order: -1;
+//       }
+//     }
+//
+//     &.right {
+//       background: $color-purple;
+//       transition: order 300ms ease-out;
+//
+//       &:target {
+//         order: -2;
+//       }
+//     }
+//   }
+// }
+
+// TRANSFORM METHOD
 .fullscreen-panes {
   display: flex;
-  position: fixed;
   flex-flow: row nowrap;
   height: 100vh;
   width: 100vw;
+  position: fixed;
+  overflow: visible;
+  transition: transform 300ms ease-out;
   transform: translate(-100%, 0);
 
   .pane {
     flex: 0 0 100%;
     height: 100vh;
     width: 100vw;
+    padding: $spacing-unit_vertical 0;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    // background: $color-grey_darker;
 
     &.left {
-      background: $color-red;
-      transition: all 300ms ease-out;
-
-      &:target {
-        transform: translate(100%, 0);
+      background: $color-yellow;
+      color: $color-black;
+      h1 {
+        color: $color-black;
+      }
+      .button {
+        background: darken($color-yellow, 30%);
+        margin: 1rem auto;
+      }
+      .icon > svg {
+        fill: darken($color-yellow, 30%);
       }
     }
 
     &.center {
       background: $color-cyan;
-      transition: all 300ms ease-out;
+      color: $color-black;
+      h1 {
+        color: $color-black;
+      }
+      img {
+        max-height: 10rem;
+        width: auto;
+        margin: 1rem auto 2rem;
+      }
     }
 
     &.right {
       background: $color-purple;
-      transition: all 300ms ease-out;
-
-      &:target {
-        transform: translate(-100%, 0);
+      color: $color-black;
+      h1 {
+        color: $color-white;
+      }
+      h3 {
+        color: $color-white;
+        background: darken($color-purple, 30%);
+        padding: 0.5rem;
+        margin-bottom: 0;
       }
     }
   }
@@ -41,7 +113,10 @@
   padding: $content-padding_base;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  // top: 0;
+  // top: calc(100vh - 32px);
+  // top: 70vh;
+  width: 100vw;
   z-index: z('pane-bottom-bar');
   background: $color-black;
 }
@@ -49,11 +124,22 @@
 .nav-bar {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: space-around;
   align-content: space-around;
 
   button,
   a {
     flex: 0 0 auto;
+  }
+
+  a {
+    &:active,
+    &:focus,
+    &:hover {
+      .icon > svg {
+        fill: $color-pink;
+      }
+    }
   }
 }
