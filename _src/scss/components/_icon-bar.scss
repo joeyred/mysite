@@ -1,8 +1,13 @@
 .icon-bar {
   display: flex;
   flex-flow: row;
+  align-items: center;
+  align-content: space-around;
+  justify-content: space-around;
+  margin-bottom: $spacing-unit_vertical;
 
   .icon {
+    flex: 0 0 auto;
     height: 2rem;
     width: 2rem;
 
