@@ -1,0 +1,19 @@
+// .panes {
+//   display: flex;
+// }
+
+.pane {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  padding: $spacing-unit_vertical 0;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  transform: translateX(-100%);
+  transition: transform 300ms ease-out;
+}
+
+.main-pane {
+  transition: transform 300ms ease-out;
+  width: 100vw;
+}
