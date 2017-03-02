@@ -4,7 +4,7 @@ title: Cards
 order: 6
 ---
 
-<div class="container keep-gutters">
+<div class="container cards keep-gutters">
 
   <!-- Card CLOSED/NON-EXPANDED -->
   <div class="card">
@@ -77,13 +77,11 @@ order: 6
 
 
 
-  <div class="card horizontal after">
+  <div class="card horizontal" data-card>
 
     <div class="card-options-bar">
 
-      <span class="icon">
-        {{ site.icons.close }}
-      </span>
+      {% include icon.html id="close" class="card-collapse" %}
 
       <button class="button">
         See More
@@ -129,13 +127,11 @@ order: 6
 
 
 
-  <div class="card bright horizontal after">
+  <div class="card horizontal bright" data-card>
 
     <div class="card-options-bar">
 
-      <span class="icon">
-        {{ site.icons.close }}
-      </span>
+      {% include icon.html id="close" class="card-collapse" %}
 
       <button class="button">
         See More
@@ -177,6 +173,7 @@ order: 6
     </div>
 
   </div><!-- Card Close -->
+
 
 
 </div>

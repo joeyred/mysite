@@ -18,15 +18,19 @@ ul.tags {
   }
 }
 
+.cards {
+  
+}
+
 .card {
   flex: 0 1 auto;
   box-shadow: 1px 2px 10px #111;
   border-left: to-rem(6) solid $color-red;
   margin-left: -#{to-rem(6)};
 
-  .card-bottom {
-    padding: 0.5rem 1rem;
-  }
+  // .card-bottom {
+  //   padding: 0.5rem 1rem;
+  // }
 
   margin-bottom: 8rem;
 }
@@ -34,6 +38,7 @@ ul.tags {
 .card.horizontal {
   display: flex;
   flex-flow: row wrap;
+  // transition: all 300ms ease-in;
 
   .card-cover {
     flex: 0 0 100%;
@@ -61,10 +66,12 @@ ul.tags {
   }
 
   .bottom-container {
+    height: 0;
     flex: 0 0 100%;
-    padding: $content-padding_base;
+    // padding: $content-padding_base;
     background: $color-black;
     color: $color-white;
+    opacity: 0;
 
     p:last-child {
       margin-bottom: 0;
@@ -76,11 +83,17 @@ ul.tags {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    margin-top: -48px;
+    transform: translateY(100%);
+    // height: 0;
+    // opacity: 0;
     background: $color-red;
+    transition: margin 300ms ease-out, transform 300ms ease-out, border 300ms ease-out;
 
     .icon {
       flex: auto;
       padding-left: 0.5rem;
+      // opacity: 0;
 
       > svg {
         fill: $color-black;
@@ -89,18 +102,40 @@ ul.tags {
 
     .button {
       margin-left: auto;
-      background: $color-red;
+      background: none;
+      // transition: height 300ms ease-in, opacity 200ms ease-in-out 300ms;
+      // height: 0;
+      // opacity: 0;
     }
   }
 
-  &.after {
+  &.expanded {
+    .card-options-bar {
+      height: to-rem(48);
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 0;
+
+      .button {
+        // height: to-rem(48);
+        opacity: 1;
+        transition: height 300ms ease-in, opacity 200ms ease-in-out;
+      }
+    }
+
     .bottom-container {
-      // height: 0;
+      height: 100%;
+      opacity: 1;
+      padding: $content-padding_base;
     }
   }
 }
 
+////
+/// Bright Card
+///
 .card.horizontal.bright {
+  // Base Styles
   border: none;
   margin-left: 0;
   flex: 0 1 auto;
@@ -108,24 +143,33 @@ ul.tags {
   flex-flow: row wrap;
   position: relative;
 
+  // Border on the Left
   &::before {
     content: '';
     width: to-rem(6);
     margin-left: -#{to-rem(6)};
     position: absolute;
-    height: 101px;
+    height: 100%;
     background: $color-red;
+    // transition: height 400ms ease;
   }
 
+  // Card Cover
   .card-cover {
     flex: 0 0 100%;
     display: flex;
     flex-flow: row;
     background: $color-black;
-    // border-left: to-rem(4) solid $color-red;
 
     .car-info {
       flex: 0 1 auto;
+      padding: 0.5rem 1rem;
+
+      h3 {
+        font-size: to-rem(14);
+        letter-spacing: 1px;
+        margin-bottom: 0.4rem;
+      }
     }
 
     .card-thumbnail {
@@ -133,41 +177,27 @@ ul.tags {
     }
   }
 
-  .card-info {
-    padding: 0.5rem 1rem;
-    // border-left: to-rem(4) solid $color-red;
-
-    h3 {
-      font-size: to-rem(14);
-      letter-spacing: 1px;
-      margin-bottom: 0.4rem;
-    }
-
-    .icon > svg {
-      fill: $color-grey_dark;
-    }
-  }
-
+  // Bottom content section
   .bottom-container {
     flex: 0 0 100%;
     padding: $content-padding_base;
     background: lighten($color-red, 30%);
     color: $color-black;
-    // border-left: to-rem(4) solid $color-red;
 
     p:last-child {
       margin-bottom: 0;
     }
   }
 
+  // Options Top Bar
   .card-options-bar {
-    flex: 0 0 100%;
+    flex: 0 0 calc(100% + #{to-rem(6)});
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    // background: lighten($color-red, 30%);
     background: $color-red;
-    // border-left: to-rem(4) solid $color-red;
+    border-left: to-rem(6) solid $color-red;
+    margin-left: -#{to-rem(6)};
 
     .icon {
       flex: auto;
@@ -184,13 +214,13 @@ ul.tags {
     }
   }
 
-  &.after {
+  &.expanded {
     &::before {
-      height: calc(101px + 48px + 134px);
+      height: calc(100% - 5px);
     }
 
     .bottom-container {
-      // height: 0;
+
     }
   }
 }
