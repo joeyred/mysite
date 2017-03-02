@@ -20,6 +20,11 @@ function init() {
     var panes = new Gingabulous.Panes($(this));
     panes.bindEvents();
   });
+
+  $(Gingabulous.modules.Card.dataAttrTarget).each(function() {
+    var card = new Gingabulous.Card($(this));
+    card.bindEvents();
+  });
 }
 
 init();
