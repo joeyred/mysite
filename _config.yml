@@ -48,7 +48,9 @@ defaults:
       path: ""
       type: [pages, posts]
     values:
-      overlays: false # Set default overlay value as false for posts and pages
+      # Set optional addon content to false by default
+      overlays: false
+      panes: false
 # Icons
 icons:
   menu: <svg><use xlink:href="#menu"></use></svg>
