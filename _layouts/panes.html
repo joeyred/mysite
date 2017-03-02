@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+
+    {% include icons.html %}
+
+    {% include panes/header.html %}
+
+    <!-- The main area of content we play with -->
+    <div class="site-inner" data-panes>
+
+      <!-- Panes -->
+      {% include panes/main-nav.html %}
+
+      {% if page.panes %}
+      {% for pane in page.panes %}
+
+      {% include ui/pane.html id=pane.id class=pane.class content=pane.content %}
+
+      {% endfor %}
+      {% endif %}
+
+      <!-- Main Content -->
+      <main class="content" data-pane-main>
+        {{ content }}
+      </main>
+
+      {% include footer.html %}
+
+    </div>
+    {% include scripts.html %}
+
+  </body>
+
+</html>
