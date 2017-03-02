@@ -29,6 +29,24 @@ class Panes {
       paneDataAttr: 'data-pane'
     };
   }
+  get attr() {
+    return {
+      parent: this.options.dataAttr,
+      main:   `${this.options.paneDataAttr}-main`,
+      pane:   this.options.paneDataAttr,
+      open:   `${this.options.paneDataAttr}-open`,
+      close:  `${this.options.paneDataAttr}-close`
+    };
+  }
+  get target() {
+    return {
+      parent: `[${this.options.dataAttr}]`,
+      main:   `[${this.options.paneDataAttr}-main]`,
+      pane:   `[${this.options.paneDataAttr}]`,
+      open:   `[${this.options.paneDataAttr}-open]`,
+      close:  `[${this.options.paneDataAttr}-close]`
+    };
+  }
   get mainPaneAttr() {
     return `${this.options.paneDataAttr}-main`;
   }
@@ -58,20 +76,20 @@ class Panes {
     this.debug.values('init', {panes: this.panes});
   }
   registerMainPane() {
-    this.panes.main = [$(this.mainPaneTarget), false];
+    this.panes.main = $(this.target.main);
   }
   registerPane(index, element) {
     let $pane = $(element);
-    let key = $pane.attr(this.options.paneDataAttr);
+    let key = $pane.attr(this.attr.pane);
     // if the data attr has no value, then it's a nested pane.
     if (key !== '') {
       let children = false;
-      let hasChildren = $pane.children(this.panesTarget).attr(this.options.dataAttr);
+      let hasChildren = $pane.children(this.target.parent).attr(this.attr.parent);
       // does this pane have children?
       if (hasChildren !== undefined) {
         children = [];
         // time to count the children.
-        $pane.children(this.panesTarget).children(this.paneTarget).each(function() {
+        $pane.children(this.target.parent).children(this.target.pane).each(function() {
           // shove the child into the happy funtime playpen array.
           children.push($(this));
         });
@@ -81,6 +99,9 @@ class Panes {
       this.debug.values('registerPane', {$pane, key, hasChildren, children});
     }
   }
+  // bindOpenEvents() {
+  //
+  // }
   // bindEvents() {}
   // paneEvents() {}
   // updateActivePane(id) {
