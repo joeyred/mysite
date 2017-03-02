@@ -16,10 +16,8 @@ function init() {
     expand.bindEvents();
   });
 
-  $(Gingabulous.modules.Panes.dataAttrTarget).each(function() {
-    var panes = new Gingabulous.Panes($(this));
-    panes.bindEvents();
-  });
+  var panes = new Gingabulous.Panes($(Gingabulous.modules.Panes.dataAttrTarget));
+  panes.init();
 }
 
 init();
