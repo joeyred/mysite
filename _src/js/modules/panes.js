@@ -13,23 +13,20 @@
 // need to deal with nested panes
   // should nested panes be folded in, and expanded once the parent pane is active?
 
-// IDEA Loop through all panes in document (or element passed to the constructor), and
-//      store them in an object. While doing this make a jQuery object out of each and
-//      use the id of the element as the key and the jQuery object as the value. Then
-//      when a change in state is triggered, the id of the open trigger will pass as the
-//      key to access the jQuery object of the new active element.
-// NOTE - Would this be slower or faster than just using `find()` or `children()` on the
-//        element passed to the constructor?
-//      - It comes down to which being faster. One jQuery object that has to continually
-//        traverse nodes, or traversing it once on init and accessing from the registered
-//        pane elements?
 class Panes {
 
   get defaults() {
     return {
       dataAttr:           Gingabulous.modules.Panes.dataAttr,
       paneDataAttr:       'data-pane',
-      translateXDistance: '100%';
+      translateXDistance: '100%',
+      classes:            {
+        panes: 'panes',
+        pane:  'pane',
+        right: 'right',
+        above: 'above',
+        below: 'below'
+      }
     };
   }
   get attr() {
@@ -75,6 +72,7 @@ class Panes {
     this.$element = element;
     this.$window = $(window);
     this.options = $.extend(true, this.defaults, options);
+    this.classes = this.options.classes;
     this.debug = new Debug('Panes', true);
     this.scroll = new Gingabulous.ScrollPosition($(this.target.main));
     this.state = {
@@ -82,11 +80,18 @@ class Panes {
       previous: false
     };
     this.panes = {};
+    this.paneInactivePositions = {};
   }
   init() {
     this.registerMainPane();
+    // Loop and register each pane
     $(this.paneTarget).each((index, element) => this.registerPane(index, element));
-    this.debug.values('init', {panes: this.panes});
+    // Debug
+    this.debug.values('init', {
+      panes:         this.panes,
+      panePositions: this.paneInactivePositions
+    });
+    // Bind state change triggers
     this.bindEventsToEachOpen();
     this.bindEventsToEachClose();
   }
@@ -102,7 +107,7 @@ class Panes {
     this.debug.values('updatePositions', {pane, main: this.panes.main});
 
     if (!Array.isArray(pane) && this.state.active !== 'main') {
-      pane.css({transform: 'translateX(0)'});
+      pane.css({transform: ''});
       this.panes.main.css({transform: 'translateX(100%)'});
     }
     if (this.state.active === 'main') {
@@ -116,63 +121,70 @@ class Panes {
   registerPane(index, element) {
     let $pane = $(element);
     let key = $pane.attr(this.attr.pane);
-    // if the data attr has no value, then it's a nested pane.
+
+    // if the data attr has no value, then it's a nested pane, and will be skipped.
     if (key !== '') {
-      let children = false;
       let hasChildren = $pane.children(this.target.parent).attr(this.attr.parent);
+      // Register the pane's inactive position.
+      // let position = getPaneInactivePosition($pane);
+      this.paneInactivePositions[key] = this.getPaneInactivePosition($pane);
       // does this pane have children?
       if (hasChildren === undefined) {
         this.panes[key] = $pane;
       } else {
-        children = [];
+        let children = [];
         // time to count the children.
         $pane.children(this.target.parent).children(this.target.pane).each(function() {
           // shove the child into the happy funtime playpen array.
           children.push($(this));
         });
         this.panes[key] = [$pane, children];
-      }
 
-      this.debug.values('registerPane', {$pane, key, hasChildren, children});
+        this.debug.values('registerPane', {$pane, key, hasChildren, children});
+      }
     }
   }
-  translate(value, direction = 'x') {
-    if (direction === 'x') {
-      return `translateX(${value})`;
+  getPaneInactivePosition($pane) {
+    if ($pane.hasClass(this.classes.right)) {
+      return this.classes.right;
     }
-    if (direction === 'y') {
-      return `translateY(${value})`;
+    if ($pane.hasClass(this.classes.above)) {
+      return this.classes.above;
     }
-    if (direction === 'z') {
-      return `translateZ(${value})`;
+    if ($pane.hasClass(this.classes.below)) {
+      return this.classes.below;
     }
+    return 'left';
   }
+
   // ///////////////// //
   // Main Pane Methods //
   // ///////////////// //
   makeMainPaneInactive() {
     // Save the scroll position to restore it later.
     this.scroll.setLastPosition();
-
+    // Move to the right.
+    this.panel.main.css({transform: ''});
     // set fixed height & width and make overflow hidden.
     // QUESTION Do we need the 'pointer-events' property set to `none`?
     this.freezeMainPane();
   }
+  makeMainPaneActive() {
+    this.panel.main.css({transform: ''});
+  }
   unfreezeMainPane() {
-    this.panel.main.css(freezeScrollStyles());
+    this.panel.main.css(this.freezeScrollStyles());
     // Restore scroll position before pane was made inactive.
     this.scroll.restoreLastPosition();
   }
   freezeMainPane() {
     let height = this.$window.height();
     let width = this.$window.width();
-    this.panel.main.css({freezeScrollStyles(height, width, 'hidden'));
+    this.panel.main.css(this.freezeScrollStyles(height, width, 'hidden'));
   }
   freezeScrollStyles(height = '', width = '', overflow = '') {
     return {height, width, overflow};
   }
-
-
 
   // /////////////////// //
   // Common Pane Methods //
@@ -217,6 +229,17 @@ class Panes {
 
     this.debug.values('bindOpenEvents', {$element, id});
     $element.click(() => this.closeEvents(id));
+  }
+  translate(value, direction = 'x') {
+    if (direction === 'x') {
+      return `translateX(${value})`;
+    }
+    if (direction === 'y') {
+      return `translateY(${value})`;
+    }
+    if (direction === 'z') {
+      return `translateZ(${value})`;
+    }
   }
 
 }
