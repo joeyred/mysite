@@ -1,10 +1,10 @@
 ---
 layout: panes
 title: Panes
-permalink: /panes/
+permalink: tests/panes/
 panes:
   - id: nestedExample
-    class: is-parent-pane
+    class: is-parent-pane above
     content: test
 ---
 
@@ -52,6 +52,12 @@ panes:
  </nav>
 </div>
 {% endhighlight %}
+  </div>
+
+  <div class="block sm-12">
+    <button class="button" data-pane-open="nestedExample">
+      Click me to open a pane with nested panes!
+    </button>
   </div>
 
   <div class="block sm-12">
