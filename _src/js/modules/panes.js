@@ -41,6 +41,36 @@ class Pane {
   }
 }
 
+class CarouselPanes {
+
+  constructor(element, dataAttr) {
+    this.$element = element;
+    this.dataAttr = dataAttr;
+    this.$carousel = element.children(`[${dataAttr}]`);
+
+    console.log(element, dataAttr, this.$carousel);
+  }
+  button(id) {
+    console.log(`[${this.dataAttr}-nav="${id}"]`);
+    return this.$element.find(`[${this.dataAttr}-nav="${id}"]`);
+  }
+  goToLeft() {
+    this.$carousel.css({transform: `translateX(0)`});
+  }
+  goToCenter() {
+    this.$carousel.css({transform: `translateX(-100%)`});
+  }
+  goToRight() {
+    this.$carousel.css({transform: `translateX(-200%)`});
+  }
+  bindEvents() {
+    console.log('bind stuff', this.button('left'), this.button('center'), this.button('right'));
+    this.button('left').click(() => this.goToLeft());
+    this.button('center').click(() => this.goToCenter());
+    this.button('right').click(() => this.goToRight());
+  }
+}
+
 // translate(x, y)
 
 class Panes {
@@ -125,6 +155,8 @@ class Panes {
           // shove the child into the happy funtime playpen array.
           children.push($(this));
         });
+        let carousel = new CarouselPanes($pane, this.attr.parent);
+        carousel.bindEvents();
       } else {
         children = false;
       }
@@ -169,10 +201,13 @@ class Panes {
       console.log('%c coordinates reversed', 'color: red');
       // Freeze the main pane
       this.scroll.setLastPosition();
-      this.freezeMainPane();
+      setTimeout(() => this.freezeMainPane(), 300);
     }
     this.panes[this.state.previous].setPosition(coordinates);
     this.panes[this.state.previous].element.css(this.translate(coordinates));
+    // if (this.state.previous === 'main') {
+    //   this.freezeMainPane();
+    // }
   }
   moveActivatedPaneInToViewport() {
     let coordinates = [0, 0];
@@ -195,10 +230,10 @@ class Panes {
   freezeMainPane() {
     let height = this.$window.height();
     let width = this.$window.width();
-    this.panes.main.element.css(this.freezeScrollStyles(height, width, 'hidden'));
+    this.panes.main.element.css(this.freezeScrollStyles(height, width, 'hidden', 'fixed'));
   }
-  freezeScrollStyles(height = '', width = '', overflow = '') {
-    return {height, width, overflow};
+  freezeScrollStyles(height = '', width = '', overflow = '', position = '') {
+    return {height: height, width: width, overflow: overflow, position: position};
   }
 
   translate(coordinates) {

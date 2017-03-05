@@ -28,7 +28,7 @@ class ScrollPosition {
     this.lastPosition = this.position;
   }
   restoreLastPosition() {
-    this.$element.scrollTop(this.lastPosition);
+    this.$window.scrollTop(this.lastPosition);
   }
 }
 
