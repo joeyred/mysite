@@ -2,6 +2,60 @@
 
 !function($) {
 
+class Pane {
+
+  constructor(element, position, children, isMain = false) {
+    // const origin = position;
+    // function exposeOrigin() {
+    //   return origin;
+    // }
+    this.element = element;
+    this.origin = position;
+    this.position = position;
+    this.children = children;
+    this.isMain = isMain;
+    // this.whatsTheOrigin = exposeOrigin();
+  }
+  getOrigin() {
+    return Array.from(this.origin);
+  }
+  setPosition(coordinates) {
+    if (this.isMain) {
+      this.position = this._oppositeCoordinantes(coordinates);
+    } else {
+      this.position = coordinates;
+    }
+  }
+  _oppositeCoordinantes(coordinates) {
+    let _output2 = coordinates;
+    for (let i = 0; i < _output2.length; i++) {
+      if (_output2[i] === 0) {
+        continue;
+      }
+      _output2[i] *= -1;
+
+      // this.debug.loop('oppositeCoordinantes', i, {coordinate: coordinates[i]});
+    }
+    console.log(_output2);
+    return _output2;
+  }
+  // _oppositeCoordinantes(coordinates) {
+  //   let _output2 = Array.from(coordinates);
+  //   for (let i = 0; i < _output2.length; i++) {
+  //     if (_output2[i] === 0) {
+  //       continue;
+  //     }
+  //     _output2[i] *= -1;
+  //
+  //     // this.debug.loop('oppositeCoordinantes', i, {coordinate: coordinates[i]});
+  //   }
+  //   console.log(_output2);
+  //   return _output2;
+  // }
+}
+
+// translate(x, y)
+
 // IDEA The Basic Concept:
 // -----------------------
 // detect panes
@@ -17,10 +71,10 @@ class Panes {
 
   get defaults() {
     return {
-      dataAttr:           Gingabulous.modules.Panes.dataAttr,
-      paneDataAttr:       'data-pane',
-      translateXDistance: '100%',
-      classes:            {
+      dataAttr:          Gingabulous.modules.Panes.dataAttr,
+      paneDataAttr:      'data-pane',
+      translateDistance: 100,
+      classes:           {
         panes: 'panes',
         pane:  'pane',
         right: 'right',
@@ -47,18 +101,6 @@ class Panes {
       close:  `[${this.options.paneDataAttr}-close]`
     };
   }
-  get mainPaneAttr() {
-    return `${this.options.paneDataAttr}-main`;
-  }
-  get mainPaneTarget() {
-    return `[${this.options.paneDataAttr}-main]`;
-  }
-  get paneTarget() {
-    return `[${this.options.paneDataAttr}]`;
-  }
-  get panesTarget() {
-    return `[${this.options.dataAttr}]`;
-  }
   /**
    * Creates a new insatnce of Panels
    * @class
@@ -80,169 +122,187 @@ class Panes {
       previous: false
     };
     this.panes = {};
-    this.paneInactivePositions = {};
   }
   init() {
+    // Register the Main Pane
     this.registerMainPane();
-    // Loop and register each pane
-    $(this.paneTarget).each((index, element) => this.registerPane(index, element));
-    // Debug
-    this.debug.values('init', {
-      panes:         this.panes,
-      panePositions: this.paneInactivePositions
-    });
-    // Bind state change triggers
-    this.bindEventsToEachOpen();
-    this.bindEventsToEachClose();
+    // Now register the rest
+    $(this.target.pane).each((index, element) => this.registerPane(index, element));
+
+    // for (let pane in this.panes) {
+    //   if ({}.hasOwnProperty.call(this.panes, pane)) {
+    //     this.panes[pane].element.css(this.translate(this.panes[pane].origin));
+    //     // this.debug.loop('init', pane, {
+    //     //   element: this.panes[pane].element,
+    //     //   origin:  this.panes[pane].origin
+    //     // });
+    //   }
+    // }
+    // bind events
+    this.bindEventsToEachTrigger();
+    this.debug.values('init', {panes: this.panes});
   }
+  registerMainPane() {
+    this.panes.main = new Pane($(this.target.main), [0, 0], false, true);
+  }
+  registerPane(index, element) {
+    let $pane = $(element);
+    let key = $pane.attr(this.attr.pane);
+    let children = [];
+    // if the data attr has no value, then it's a nested pane, and will be skipped.
+    if (key !== '') {
+      let origin = this.getPaneOrigin($pane);
+      $pane.css(this.translate(origin));
+      if (this.hasChildren($pane)) {
+        $pane.children(this.target.parent).children(this.target.pane).each(function() {
+          // shove the child into the happy funtime playpen array.
+          children.push($(this));
+        });
+      } else {
+        children = false;
+      }
+      this.panes[key] = new Pane($pane, origin, children);
+    }
+    // this.debug.values('registerPane', {$pane, key, children});
+  }
+  hasChildren($pane) {
+    return $pane.children(this.target.parent).attr(this.attr.parent) !== undefined;
+  }
+  getPaneOrigin($pane) {
+    if ($pane.hasClass(this.classes.right)) {
+      return [100, 0];
+    }
+    if ($pane.hasClass(this.classes.above)) {
+      return [0, -100];
+    }
+    if ($pane.hasClass(this.classes.below)) {
+      return [0, 100];
+    }
+    return [-100, 0];
+  }
+
   updateState(id) {
     if (this.state.active !== id) {
       this.state.previous = this.state.active;
       this.state.active = id;
       this.updatePositions();
+      this.debug.values('updateState', {panes: this.panes});
     }
   }
   updatePositions() {
-    let pane = this.panes[this.state.active];
-    this.debug.values('updatePositions', {pane, main: this.panes.main});
+    this.moveDeactivatedPaneOutOfViewport();
+    this.moveActivatedPaneInToViewport();
+  }
+  moveDeactivatedPaneOutOfViewport() {
+    // Where to move to off screen
+    let coordinates = this.panes[this.state.previous].getOrigin();
 
-    if (!Array.isArray(pane) && this.state.active !== 'main') {
-      pane.css({transform: ''});
-      this.panes.main.css({transform: 'translateX(100%)'});
+    if (this.state.previous === 'main') {
+      coordinates = this.panes[this.state.active].getOrigin();
+      console.log('%c coordinates reversed', 'color: red');
+      // coordinates = this.oppositeCoordinantes(toReverse);
     }
-    if (this.state.active === 'main') {
-      pane.removeAttr('style');
-      this.panes[this.state.previous].css({transform: 'translateX(-100%)'});
+    this.panes[this.state.previous].setPosition(coordinates);
+    this.panes[this.state.previous].element.css(this.translate(coordinates));
+  }
+  moveActivatedPaneInToViewport() {
+    let coordinates = [0, 0];
+    this.panes[this.state.active].setPosition(coordinates);
+    this.panes[this.state.active].element.css(this.translate(coordinates));
+  }
+  // oppositeCoordinantes(coordinates) {
+  //   for (let i = 0; i < coordinates.length; i++) {
+  //     if (coordinates[i] === 0) {
+  //       continue;
+  //     }
+  //     coordinates[i] *= -1;
+  //
+  //     // this.debug.loop('oppositeCoordinantes', i, {coordinate: coordinates[i]});
+  //   }
+  //   return coordinates;
+  // }
+  translate(coordinates) {
+    if (coordinates[0] === 0 && coordinates[1] === 0) {
+      // console.log('0, 0 was passed');
+      return {transform: ''};
     }
-  }
-  registerMainPane() {
-    this.panes.main = $(this.target.main);
-  }
-  registerPane(index, element) {
-    let $pane = $(element);
-    let key = $pane.attr(this.attr.pane);
 
-    // if the data attr has no value, then it's a nested pane, and will be skipped.
-    if (key !== '') {
-      let hasChildren = $pane.children(this.target.parent).attr(this.attr.parent);
-      // Register the pane's inactive position.
-      // let position = getPaneInactivePosition($pane);
-      this.paneInactivePositions[key] = this.getPaneInactivePosition($pane);
-      // does this pane have children?
-      if (hasChildren === undefined) {
-        this.panes[key] = $pane;
-      } else {
-        let children = [];
-        // time to count the children.
-        $pane.children(this.target.parent).children(this.target.pane).each(function() {
-          // shove the child into the happy funtime playpen array.
-          children.push($(this));
-        });
-        this.panes[key] = [$pane, children];
-
-        this.debug.values('registerPane', {$pane, key, hasChildren, children});
-      }
-    }
-  }
-  getPaneInactivePosition($pane) {
-    if ($pane.hasClass(this.classes.right)) {
-      return this.classes.right;
-    }
-    if ($pane.hasClass(this.classes.above)) {
-      return this.classes.above;
-    }
-    if ($pane.hasClass(this.classes.below)) {
-      return this.classes.below;
-    }
-    return 'left';
+    return {transform: `translate(${coordinates[0]}%, ${coordinates[1]}%)`};
   }
 
-  // ///////////////// //
-  // Main Pane Methods //
-  // ///////////////// //
-  makeMainPaneInactive() {
-    // Save the scroll position to restore it later.
-    this.scroll.setLastPosition();
-    // Move to the right.
-    this.panel.main.css({transform: ''});
-    // set fixed height & width and make overflow hidden.
-    // QUESTION Do we need the 'pointer-events' property set to `none`?
-    this.freezeMainPane();
-  }
-  makeMainPaneActive() {
-    this.panel.main.css({transform: ''});
-  }
-  unfreezeMainPane() {
-    this.panel.main.css(this.freezeScrollStyles());
-    // Restore scroll position before pane was made inactive.
-    this.scroll.restoreLastPosition();
-  }
-  freezeMainPane() {
-    let height = this.$window.height();
-    let width = this.$window.width();
-    this.panel.main.css(this.freezeScrollStyles(height, width, 'hidden'));
-  }
-  freezeScrollStyles(height = '', width = '', overflow = '') {
-    return {height, width, overflow};
-  }
-
-  // /////////////////// //
-  // Common Pane Methods //
-  // /////////////////// //
-
-  // //////////////////// //
-  // Open Trigger Methods //
-  // //////////////////// //
-
-  // ///////////////////// //
-  // Close Trigger Methods //
-  // ///////////////////// //
-
-  // /////////////////// //
-  // Parent Pane Methods //
-  // /////////////////// //
-
-  bindEventsToEachOpen() {
+  bindEventsToEachTrigger() {
     $(this.target.open).each((index, element) => this.bindOpenEvents(index, element));
-  }
-  bindEventsToEachClose() {
     $(this.target.close).each((index, element) => this.bindCloseEvents(index, element));
   }
   openEvents(id) {
     this.updateState(id);
-    console.log(this.state);
+    console.log('open event triggered');
+    // console.log(this.state);
   }
   closeEvents() {
     this.updateState('main');
-    console.log(this.state);
+    console.log('close event triggered');
+    // console.log(this.state);
   }
   bindOpenEvents(index, element) {
     let $element = $(element);
     let id = $element.attr(this.attr.open);
 
-    this.debug.values('bindOpenEvents', {$element, id});
+    // this.debug.values('bindOpenEvents', {$element, id});
     $element.click(() => this.openEvents(id));
   }
   bindCloseEvents(index, element) {
     let $element = $(element);
     let id = $element.attr(this.attr.open);
 
-    this.debug.values('bindOpenEvents', {$element, id});
+    // this.debug.values('bindOpenEvents', {$element, id});
     $element.click(() => this.closeEvents(id));
   }
-  translate(value, direction = 'x') {
-    if (direction === 'x') {
-      return `translateX(${value})`;
-    }
-    if (direction === 'y') {
-      return `translateY(${value})`;
-    }
-    if (direction === 'z') {
-      return `translateZ(${value})`;
-    }
-  }
-
 }
+
+// IDEA Maybe panes can handle themselves a bit? know where they are?
+//      and be able to tell the Panes class where they are when asked?
+// function Pane(element, position = [], children = [], isMain = false) {
+//   const origin = position;
+//   this.getOrigin = function() {
+//     return origin;
+//   };
+//   this.element = element;
+//   // Object.defineProperty(this, 'origin', {
+//   //   value:    position,
+//   //   writable: false
+//   // });
+//   // this.whatsTheOrigin = this.getOrigin();
+//   this.position = position;
+//   this.children = children;
+//   this.isMain = isMain;
+// }
+// Pane.prototype = {
+//   constructor: Pane,
+//   getOrigin:   function() {
+//     const _output1 = this.origin;
+//     return _output1;
+//   },
+//   setPosition: function(coordinates) {
+//     if (this.isMain) {
+//       this.position = this._oppositeCoordinantes(coordinates);
+//     } else {
+//       this.position = coordinates;
+//     }
+//   },
+//   _oppositeCoordinantes(coordinates) {
+//     const _output2 = coordinates;
+//     for (let i = 0; i < _output2.length; i++) {
+//       if (_output2[i] === 0) {
+//         continue;
+//       }
+//       _output2[i] *= -1;
+//
+//       // this.debug.loop('oppositeCoordinantes', i, {coordinate: coordinates[i]});
+//     }
+//     return _output2;
+//   }
+// };
 
 Gingabulous.registerModule(Panes);
 
