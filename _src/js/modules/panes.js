@@ -268,10 +268,10 @@ class Panes {
   }
   bindCloseEvents(index, element) {
     let $element = $(element);
-    let id = $element.attr(this.attr.open);
+    // let id = $element.attr(this.attr.open);
 
     // this.debug.values('bindOpenEvents', {$element, id});
-    $element.click(() => this.closeEvents(id));
+    $element.click(() => this.closeEvents());
   }
 }
 
