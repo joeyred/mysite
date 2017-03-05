@@ -39,33 +39,9 @@ class Pane {
     console.log(_output2);
     return _output2;
   }
-  // _oppositeCoordinantes(coordinates) {
-  //   let _output2 = Array.from(coordinates);
-  //   for (let i = 0; i < _output2.length; i++) {
-  //     if (_output2[i] === 0) {
-  //       continue;
-  //     }
-  //     _output2[i] *= -1;
-  //
-  //     // this.debug.loop('oppositeCoordinantes', i, {coordinate: coordinates[i]});
-  //   }
-  //   console.log(_output2);
-  //   return _output2;
-  // }
 }
 
 // translate(x, y)
-
-// IDEA The Basic Concept:
-// -----------------------
-// detect panes
-// check if a pane is the main content pane
-  // if pane is body content position it correctly and allow full scrolling.
-  // this will also be push aside when another pane is active.
-// all panes need to live either to the right or the left of the viewport
-
-// need to deal with nested panes
-  // should nested panes be folded in, and expanded once the parent pane is active?
 
 class Panes {
 
@@ -129,15 +105,6 @@ class Panes {
     // Now register the rest
     $(this.target.pane).each((index, element) => this.registerPane(index, element));
 
-    // for (let pane in this.panes) {
-    //   if ({}.hasOwnProperty.call(this.panes, pane)) {
-    //     this.panes[pane].element.css(this.translate(this.panes[pane].origin));
-    //     // this.debug.loop('init', pane, {
-    //     //   element: this.panes[pane].element,
-    //     //   origin:  this.panes[pane].origin
-    //     // });
-    //   }
-    // }
     // bind events
     this.bindEventsToEachTrigger();
     this.debug.values('init', {panes: this.panes});
@@ -200,27 +167,40 @@ class Panes {
     if (this.state.previous === 'main') {
       coordinates = this.panes[this.state.active].getOrigin();
       console.log('%c coordinates reversed', 'color: red');
-      // coordinates = this.oppositeCoordinantes(toReverse);
+      // Freeze the main pane
+      this.scroll.setLastPosition();
+      this.freezeMainPane();
     }
     this.panes[this.state.previous].setPosition(coordinates);
     this.panes[this.state.previous].element.css(this.translate(coordinates));
   }
   moveActivatedPaneInToViewport() {
     let coordinates = [0, 0];
+    if (this.state.active === 'main') {
+      this.unfreezeMainPane();
+      this.scroll.restoreLastPosition();
+    }
     this.panes[this.state.active].setPosition(coordinates);
     this.panes[this.state.active].element.css(this.translate(coordinates));
   }
-  // oppositeCoordinantes(coordinates) {
-  //   for (let i = 0; i < coordinates.length; i++) {
-  //     if (coordinates[i] === 0) {
-  //       continue;
-  //     }
-  //     coordinates[i] *= -1;
-  //
-  //     // this.debug.loop('oppositeCoordinantes', i, {coordinate: coordinates[i]});
-  //   }
-  //   return coordinates;
-  // }
+
+  // ///////////////// //
+  // Main Pane Methods //
+  // ///////////////// //
+  unfreezeMainPane() {
+    this.panes.main.element.css(this.freezeScrollStyles());
+    // Restore scroll position before pane was made inactive.
+    this.scroll.restoreLastPosition();
+  }
+  freezeMainPane() {
+    let height = this.$window.height();
+    let width = this.$window.width();
+    this.panes.main.element.css(this.freezeScrollStyles(height, width, 'hidden'));
+  }
+  freezeScrollStyles(height = '', width = '', overflow = '') {
+    return {height, width, overflow};
+  }
+
   translate(coordinates) {
     if (coordinates[0] === 0 && coordinates[1] === 0) {
       // console.log('0, 0 was passed');
@@ -259,50 +239,6 @@ class Panes {
     $element.click(() => this.closeEvents(id));
   }
 }
-
-// IDEA Maybe panes can handle themselves a bit? know where they are?
-//      and be able to tell the Panes class where they are when asked?
-// function Pane(element, position = [], children = [], isMain = false) {
-//   const origin = position;
-//   this.getOrigin = function() {
-//     return origin;
-//   };
-//   this.element = element;
-//   // Object.defineProperty(this, 'origin', {
-//   //   value:    position,
-//   //   writable: false
-//   // });
-//   // this.whatsTheOrigin = this.getOrigin();
-//   this.position = position;
-//   this.children = children;
-//   this.isMain = isMain;
-// }
-// Pane.prototype = {
-//   constructor: Pane,
-//   getOrigin:   function() {
-//     const _output1 = this.origin;
-//     return _output1;
-//   },
-//   setPosition: function(coordinates) {
-//     if (this.isMain) {
-//       this.position = this._oppositeCoordinantes(coordinates);
-//     } else {
-//       this.position = coordinates;
-//     }
-//   },
-//   _oppositeCoordinantes(coordinates) {
-//     const _output2 = coordinates;
-//     for (let i = 0; i < _output2.length; i++) {
-//       if (_output2[i] === 0) {
-//         continue;
-//       }
-//       _output2[i] *= -1;
-//
-//       // this.debug.loop('oppositeCoordinantes', i, {coordinate: coordinates[i]});
-//     }
-//     return _output2;
-//   }
-// };
 
 Gingabulous.registerModule(Panes);
 
