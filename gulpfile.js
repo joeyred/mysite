@@ -94,15 +94,15 @@ gulp.task('scripts', function() {
 gulp.task('jekyll', function(cb) {
   var spawn = require('child_process').spawn;
   // After build: cleanup HTML
-  var options = {stdio: 'inherit'};
+  var options = {stdio: 'inherit', config: '"_config.yml,_config_dev.yml"'};
   // Run Jekyll build in production mode if --deploy flag is passed.
   if (DEPLOY) {
     var env = Object.create(process.env);
     env.JEKYLL_ENV = 'production';
     options.env = env;
   }
-  var jekyll = spawn('jekyll', ['build'], options);
-
+  var jekyll = spawn('jekyll', ['build', '--config', '_config.yml,_config_dev.yml'], options);
+  // console.log(jekyll);
   jekyll.on('exit', function(code) {
     cb(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
   });
@@ -171,7 +171,9 @@ gulp.task('watch', function() {
       '!_site/**/*'
     ],
     ['jekyllReload']
-  );
+  ).on('error', function(e) {
+    console.log(e);
+  });
   // Watch Images
   gulp.watch(config.images.paths.src, ['imagesReload']);
 });
