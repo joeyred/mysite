@@ -6,14 +6,103 @@
   position: fixed;
   width: 100vw;
   height: 100vh;
-  padding: $spacing-unit_vertical 0;
+  padding: 0 0 $spacing-unit_vertical;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  transform: translateX(-100%);
+  // transform: translateX(-100%);
   transition: transform 300ms ease-out;
+
+  &.right {
+    // transform: translateX(100%);
+  }
+
+  &.above {
+    // transform: translateY(-100%);
+  }
+
+  &.below {
+    // transform: translateY(100%);
+  }
+}
+
+.pane-header {
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  // margin-top: -#{$spacing-unit_vertical};
 }
 
 .main-pane {
   transition: transform 300ms ease-out;
   width: 100vw;
+}
+
+.carousel-panes {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  overflow: visible;
+  transition: transform 300ms ease-out;
+  transform: translate(-100%, 0);
+
+  > .pane {
+    flex: 0 0 100%;
+    position: relative;
+    padding: $spacing-unit_vertical 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    // padding: $spacing-unit_vertical 0;
+
+    &.left {
+      order: 1;
+    }
+
+    &.center {
+      order: 2;
+    }
+
+    &.right {
+      order: 3;
+    }
+  }
+}
+
+.fixed-bottom-bar {
+  display: block;
+  padding: $content-padding_base;
+  position: fixed;
+  bottom: 0;
+  // top: 0;
+  // top: calc(100vh - 32px);
+  // top: 70vh;
+  width: 100vw;
+  z-index: z('pane-bottom-bar');
+  background: $color-black;
+}
+
+.nav-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+  align-content: space-around;
+
+  button,
+  a {
+    flex: 0 0 auto;
+  }
+
+  a {
+    &:active,
+    &:focus,
+    &:hover {
+      .icon > svg {
+        fill: $color-pink;
+      }
+    }
+  }
 }
