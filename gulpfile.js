@@ -10,9 +10,14 @@ var	browserSync = require('browser-sync').create();
 var	sequence    = require('run-sequence');
 var	del         = require('del');
 var yargs       = require('yargs');
+var cleanStack  = require('clean-stack');
 var config      = require('./gulpconfig.js');
 
 var DEPLOY = Boolean(yargs.argv.production);
+
+// function cleanUpStackTrace(e) {
+//   return e.toString().split(/[\r\n]+/).filter(line => !line.match(/^\s+at Parser/)).join(os.EOL);
+// }
 
 /* browserSync */
 gulp.task('browserSync', function() {
@@ -65,7 +70,10 @@ gulp.task('scripts', function() {
 	.pipe($.sourcemaps.init())
   .pipe($.babel())
   .on('error', function(e) {
-    console.error(e);
+    // e.showStack = false;
+    // console.dir(e);
+    console.error('\x1b[31m%s\x1b[0m', e.message);
+    console.log(e.codeFrame);
     this.emit('end');
   })
 	.pipe($.concat('app.js'))
@@ -105,6 +113,11 @@ gulp.task('jekyll', function(cb) {
   // console.log(jekyll);
   jekyll.on('exit', function(code) {
     cb(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
+  });
+  jekyll.on('error', function(e) {
+    // cb(e);
+    console.log(e);
+    this.emit('end');
   });
 });
 
