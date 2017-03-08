@@ -2,13 +2,22 @@
 //   display: flex;
 // }
 
+.panes {
+  // display: flex;
+  // flex-flow: row nowrap;
+  position: absolute;
+}
+
 .pane {
-  position: fixed;
+  display: block;
+  flex: 0 0 100%;
+  // position: fixed;
   width: 100vw;
-  height: 100vh;
+  // height: 100vh;
+  min-height: 100vh;
   padding: 0 0 $spacing-unit_vertical;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  // overflow-y: scroll;
+  // -webkit-overflow-scrolling: touch;
   // transform: translateX(-100%);
   transition: transform 300ms ease-out;
 
@@ -33,6 +42,7 @@
 }
 
 .main-pane {
+  flex: 0 0 100%;
   transition: transform 300ms ease-out;
   width: 100vw;
 }
@@ -40,7 +50,7 @@
 .carousel-panes {
   display: flex;
   flex-flow: row nowrap;
-  height: 100vh;
+  // height: 100vh;
   width: 100vw;
   position: fixed;
   overflow: visible;
@@ -67,6 +77,55 @@
 
     &.right {
       order: 3;
+    }
+
+    &.left {
+      background: $color-yellow;
+      color: $color-black;
+
+      h1 {
+        color: $color-black;
+      }
+
+      .button {
+        background: darken($color-yellow, 30%);
+        margin: 1rem auto;
+      }
+
+      .icon > svg {
+        fill: darken($color-yellow, 30%);
+      }
+    }
+
+    &.center {
+      background: $color-cyan;
+      color: $color-black;
+
+      h1 {
+        color: $color-black;
+      }
+
+      img {
+        max-height: 10rem;
+        width: auto;
+        margin: 1rem auto 2rem;
+      }
+    }
+
+    &.right {
+      background: $color-purple;
+      color: $color-black;
+
+      h1 {
+        color: $color-white;
+      }
+
+      h3 {
+        color: $color-white;
+        background: darken($color-purple, 30%);
+        padding: 0.5rem;
+        margin-bottom: 0;
+      }
     }
   }
 }
@@ -105,4 +164,58 @@
       }
     }
   }
+}
+
+.fixed-carousel-bottom-bar {
+  display: block;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  margin-top: calc(165% - 42px);
+
+  > .container {
+    background: $color-black;
+    text-align: center;
+  }
+}
+
+.pane-carousel-title-bar {
+  background: $color-black;
+  text-align: center;
+  transition: transform 300ms ease-out;
+  align-items: center;
+  transform: translate(-100%, 0);
+
+  h4 {
+    margin-bottom: 0;
+    padding: 0.5rem 0;
+  }
+}
+
+.pane-to-back {
+  order: -1;
+}
+
+.fixed-pane {
+  position: fixed;
+}
+
+.frozen-pane {
+  // order: -1;
+  // position: absolute;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+body.test {
+  height: 1000px;
+}
+
+.emulate-scrolling-test {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
