@@ -54,8 +54,8 @@ class CarouselPanes {
     this.$titleBar.css({transform: `translateX(0)`});
   }
   goToCenter() {
-    this.$carousel.css({transform: `translateX(-100%)`});
-    this.$titleBar.css({transform: `translateX(-100%)`});
+    this.$carousel.css({transform: ''});
+    this.$titleBar.css({transform: ''});
   }
   goToRight() {
     this.$carousel.css({transform: `translateX(-200%)`});
@@ -158,7 +158,7 @@ class Panes {
       // let width = this.$window.width();
       let origin = this.getPaneOrigin($pane);
       $pane
-        .css(this.translate(origin))
+        // .css(this.translate(origin))
         .addClass(this.classes.frozen)
         .addClass(this.classes.fixed);
       // $pane.css(this.setScrollStyles(height, width, 'hidden', 'fixed'));
@@ -179,17 +179,33 @@ class Panes {
   hasChildren($pane) {
     return $pane.children(this.target.parent).attr(this.attr.parent) !== undefined;
   }
+  /**
+   * This will assign grid positions for panes based on css classes.
+   * @method getPaneOrigin
+   *
+   * @example
+   * The panes grid, with [0, 0] being the viewport:
+   *
+   * | -1,-1 | 0,-1 | 1,-1 |
+   * |-------|------|------|
+   * | -1,0  | 0,0  | 1,0  |
+   * |-------|------|------|
+   * | -1,1  | 0,1  | 1,1  |
+   *
+   * @param  {jQuery}      $pane - The pane element to check.
+   * @return {Array}             - The coordinates of the pane on the panes grid.
+   */
   getPaneOrigin($pane) {
     if ($pane.hasClass(this.classes.right)) {
-      return [100, 0];
+      return [1, 0];
     }
     if ($pane.hasClass(this.classes.above)) {
-      return [0, -100];
+      return [0, -1];
     }
     if ($pane.hasClass(this.classes.below)) {
-      return [0, 100];
+      return [0, 1];
     }
-    return [-100, 0];
+    return [-1, 0];
   }
   // ////////////// //
   // State Updating //
@@ -213,61 +229,110 @@ class Panes {
     // this.moveDeactivatedPaneOutOfViewport();
     // this.moveActivatedPaneInToViewport();
   }
+  // IDEA - maybe use the scrolling even to detect down scrolling and then check height
+  //        value differences? Maybe update the margin-top value right then and there?
+  //      - maybe the height and width of inactive panes, as well as any required margin
+  //        properties to properly have stuff sit right in the DOM order, should be
+  //        updated on these events as well?
   toActive(pane) {
     let $pane = pane.element;
-    // IDEA - maybe use the scrolling even to detect down scrolling and then check height
-    //        value differences? Maybe update the margin-top value right then and there?
-    //      - maybe the height and width of inactive panes, as well as any required margin
-    //        properties to properly have stuff sit right in the DOM order, should be
-    //        updated on these events as well?
-    // move into viewport
-    $pane.css(this.translate([0, 0]));
-    // After the move
+
+    // Get correct css class
+    let cssClass = this.getPositionClass(pane.getOrigin());
+    if (!cssClass) {
+      cssClass = this.getPositionClass(pane.position);
+    }
+    console.log('Active pane class:', cssClass);
+
+    // NOTE: BEFORE TRANSITION STARTS
+    // ------------------------------
+
+    // Remove fixed class
+    $pane.removeClass(this.classes.fixed);
+
+    // Update the pane position value in its instance
+    pane.setPosition([0, 0]);
+
+    // unfreeze the pane
+    $pane.removeClass(this.classes.frozen);
+
+    // Remove flex-order class
+    $pane.removeClass(`${cssClass}-order`);
+    // Add active class FIXME
+    $pane.addClass('active');
+
+    // NOTE: BEGIN TRANSITION
+    // ----------------------
+    // Remove transform class
+    $pane.removeClass(cssClass);
+
+    // NOTE: AFTER TRANSITION IS OVER
+    // ------------------------------
     this.transitionDelay(() => {
-      // unfreeze and unfix the pane
-      $pane.removeClass(this.classes.frozen);
-      // if its not restoring correctly, might need to get it to the top first.
+      console.log(pane.scrollPosition);
+
+      // Add active class FIXME: see line: 262
+      // $pane.addClass('active');
 
       // give the window the panes old scroll position.
-      console.log(pane.scrollPosition);
-      $pane.removeClass(this.classes.fixed);
-      if (this.state.active === 'main') {
-        $pane.css({marginTop: ''});
-      }
       this.$window.scrollTop(pane.scrollPosition);
-
     });
   }
   toInactive(pane) {
     let coordinates = pane.getOrigin();
-    let $pane = pane.element;
-    // If it's the main pane, then it has some stuff to do.
-    if (this.state.previous === 'main') {
+    console.log('coordinates before conditional:', coordinates);
+    let cssClass = this.getPositionClass(coordinates);
+
+    if (!cssClass) {
       coordinates = this.panes[this.state.active].getOrigin();
-      console.log('%c coordinates reversed', 'color: red');
+      pane.setPosition(coordinates);
+      cssClass = this.getPositionClass(pane.position);
+    } else {
+      pane.setPosition(coordinates);
     }
+    console.log('coordinates after conditional:', coordinates);
+    console.log('Inactive pane class:', cssClass);
+    let $pane = pane.element;
+
+
+
+    // NOTE: BEFORE TRANSITION STARTS
+    // ------------------------------
+
     // store current scroll position
     pane.scrollPosition = this.scroll.position;
-    // set fixed height & width, and set overflow to hidden
-    // NOTE Leaving position out until after trasnition.
-    // $pane.css({height: $pane.height(), width: $pane.width(), overflow: 'hidden'});
+
+    // Add freeze class
     $pane.addClass(this.classes.frozen);
-    // $pane.addClass(this.classes.fixed);
-    // set the scroll position on the element so it doesnt jump to the top.
+
+    // Add fixed class
+    $pane.addClass(this.classes.fixed);
+
+    // set the scroll position of the element to the value from the window.
     $pane.scrollTop(pane.scrollPosition);
+
     // Update the pane's position data
-    pane.setPosition(coordinates);
-    // Move the pane (applying transform)
-    // IDEA This should probably move to a css class based approach in the future.
-    $pane.css(this.translate(coordinates));
+
+
+    $pane.removeClass('active');
+    $pane.addClass(`${cssClass}-order`);
+
+    // NOTE: BEGIN TRANSITION
+    // ----------------------
+    // Add transform class
+    $pane.addClass(cssClass);
+
+
+
+
+    // NOTE: AFTER TRANSITION IS OVER
+    // ------------------------------
     this.transitionDelay(() => {
-      $pane.addClass(this.classes.fixed);
-      if (this.state.previous === 'main') {
-        // let height = this.panes[this.state.active].element.height();
-        // let height = this.$window.height() + 70;
-        let height = window.innerHeight;
-        $pane.css({marginTop: `-${height}px`});
-      }
+
+      // if (this.state.previous === 'main') {
+      //   let height = window.innerHeight;
+      //   // $pane.css({marginTop: `-${height}px`});
+      // }
     });
   }
 
@@ -290,6 +355,25 @@ class Panes {
     }
 
     return {transform: `translate(${coordinates[0]}%, ${coordinates[1]}%)`};
+  }
+  getPositionClass(coordinates) {
+    let cssClass = [];
+    if (coordinates[1] === -1) {
+      cssClass.push('above');
+    }
+    if (coordinates[1] === 1) {
+      cssClass.push('below');
+    }
+    if (coordinates[0] === -1) {
+      cssClass.push('left');
+    }
+    if (coordinates[0] === 1) {
+      cssClass.push('right');
+    }
+    if (coordinates[0] === 0 && coordinates[1] === 0) {
+      return false; // should this be an empty string?
+    }
+    return cssClass.join('-');
   }
 
   // ////////////// //
