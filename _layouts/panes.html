@@ -11,7 +11,7 @@
     <div class="site-wrapper panes" data-panes>
 
       <!-- Panes -->
-      {% include panes/main-nav.html %}
+
 
       {% if page.panes %}
       {% for pane in page.panes %}
@@ -20,6 +20,9 @@
 
       {% endfor %}
       {% endif %}
+
+      {% include panes/main-nav.html %}
+      
       <div class="site-inner main-pane" data-pane-main>
         {% include panes/header.html %}
         <!-- Main Content -->
