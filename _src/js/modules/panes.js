@@ -1,20 +1,14 @@
-'use strict';
-
 !function($) {
 
 class Pane {
 
   constructor(element, position, children, isMain = false) {
-    // const origin = position;
-    // function exposeOrigin() {
-    //   return origin;
-    // }
-    this.element = element;
-    this.origin = position;
-    this.position = position;
-    this.children = children;
-    this.isMain = isMain;
-    // this.whatsTheOrigin = exposeOrigin();
+    this.element        = element;
+    this.origin         = position;
+    this.position       = position;
+    this.children       = children;
+    this.isMain         = isMain;
+    this.scrollPosition = 0;
   }
   getOrigin() {
     return Array.from(this.origin);
@@ -47,6 +41,7 @@ class CarouselPanes {
     this.$element = element;
     this.dataAttr = dataAttr;
     this.$carousel = element.children(`[${dataAttr}]`);
+    this.$titleBar = element.find('.pane-carousel-title-bar');
 
     console.log(element, dataAttr, this.$carousel);
   }
@@ -56,12 +51,15 @@ class CarouselPanes {
   }
   goToLeft() {
     this.$carousel.css({transform: `translateX(0)`});
+    this.$titleBar.css({transform: `translateX(0)`});
   }
   goToCenter() {
     this.$carousel.css({transform: `translateX(-100%)`});
+    this.$titleBar.css({transform: `translateX(-100%)`});
   }
   goToRight() {
     this.$carousel.css({transform: `translateX(-200%)`});
+    this.$titleBar.css({transform: `translateX(-200%)`});
   }
   bindEvents() {
     console.log('bind stuff', this.button('left'), this.button('center'), this.button('right'));
@@ -81,11 +79,13 @@ class Panes {
       paneDataAttr:      'data-pane',
       translateDistance: 100,
       classes:           {
-        panes: 'panes',
-        pane:  'pane',
-        right: 'right',
-        above: 'above',
-        below: 'below'
+        panes:  'panes',
+        pane:   'pane',
+        frozen: 'frozen-pane',
+        fixed:  'fixed-pane',
+        right:  'right',
+        above:  'above',
+        below:  'below'
       }
     };
   }
@@ -119,10 +119,11 @@ class Panes {
   constructor(element, options = {}) {
     this.$element = element;
     this.$window = $(window);
+    this.$body = $('body');
     this.options = $.extend(true, this.defaults, options);
     this.classes = this.options.classes;
     this.debug = new Debug('Panes', true);
-    this.scroll = new Gingabulous.ScrollPosition($(this.target.main));
+    this.scroll = new Gingabulous.ScrollPosition(this.$window);
     this.state = {
       active:   'main',
       previous: false
@@ -139,17 +140,28 @@ class Panes {
     this.bindEventsToEachTrigger();
     this.debug.values('init', {panes: this.panes});
   }
+
+  // ///////////////// //
+  // Pane Registration //
+  // ///////////////// //
+
   registerMainPane() {
     this.panes.main = new Pane($(this.target.main), [0, 0], false, true);
   }
   registerPane(index, element) {
     let $pane = $(element);
     let key = $pane.attr(this.attr.pane);
-    let children = [];
+    let children = []
     // if the data attr has no value, then it's a nested pane, and will be skipped.
     if (key !== '') {
+      // let height = this.$window.height();
+      // let width = this.$window.width();
       let origin = this.getPaneOrigin($pane);
-      $pane.css(this.translate(origin));
+      $pane
+        .css(this.translate(origin))
+        .addClass(this.classes.frozen)
+        .addClass(this.classes.fixed);
+      // $pane.css(this.setScrollStyles(height, width, 'hidden', 'fixed'));
       if (this.hasChildren($pane)) {
         $pane.children(this.target.parent).children(this.target.pane).each(function() {
           // shove the child into the happy funtime playpen array.
@@ -179,60 +191,103 @@ class Panes {
     }
     return [-100, 0];
   }
-
+  // ////////////// //
+  // State Updating //
+  // ////////////// //
   updateState(id) {
     if (this.state.active !== id) {
       this.state.previous = this.state.active;
       this.state.active = id;
-      this.updatePositions();
+      this.updatePositions(id, this.state.previous);
       this.debug.values('updateState', {panes: this.panes});
     }
   }
-  updatePositions() {
-    this.moveDeactivatedPaneOutOfViewport();
-    this.moveActivatedPaneInToViewport();
-  }
-  moveDeactivatedPaneOutOfViewport() {
-    // Where to move to off screen
-    let coordinates = this.panes[this.state.previous].getOrigin();
 
+  // //////////////////// //
+  // Update Pane Postions //
+  // //////////////////// //
+
+  updatePositions(active, previous) {
+    this.toInactive(this.panes[previous]);
+    this.toActive(this.panes[active]);
+    // this.moveDeactivatedPaneOutOfViewport();
+    // this.moveActivatedPaneInToViewport();
+  }
+  toActive(pane) {
+    let $pane = pane.element;
+    // if (this.state.active === 'main') {
+    //   // console.log('current innerHeight:', window.innerHeight);
+    //   // console.log('current returned margin value:', parseFloat($pane.css('margin-top')) * -1);
+    //   // let lastMargin = parseFloat($pane.css('margin-top'));
+    //   // lastMargin *= -1;
+    //   // let windowHeight = window.innerHeight;
+    //   // if (window.innerHeight !== parseFloat($pane.css('margin-top')) * -1) {
+    //   //   var difference = (parseFloat($pane.css('margin-top')) * -1) - window.innerHeight;
+    //   //   let margin = parseFloat($pane.css('margin-top')) + difference;
+    //   //   $pane.css({marginTop: `-${margin}px`});
+    //   // }
+    // }
+
+    // move into viewport
+    $pane.css(this.translate([0, 0]));
+
+    // After the move
+    this.transitionDelay(() => {
+      // unfreeze and unfix the pane
+      $pane.removeClass(this.classes.fixed).removeClass(this.classes.frozen);
+      // if its not restoring correctly, might need to get it to the top first.
+      // $pane.scrollTop(0);
+      // give the window the panes old scroll position.
+
+      console.log(pane.scrollPosition);
+      this.$window.scrollTop(pane.scrollPosition);
+      if (this.state.active === 'main') {
+        $pane.css({marginTop: ''});
+      }
+
+    });
+  }
+  toInactive(pane) {
+    let coordinates = pane.getOrigin();
+    let $pane = pane.element;
+    // If it's the main pane, then it has some stuff to do.
     if (this.state.previous === 'main') {
       coordinates = this.panes[this.state.active].getOrigin();
       console.log('%c coordinates reversed', 'color: red');
-      // Freeze the main pane
-      this.scroll.setLastPosition();
-      setTimeout(() => this.freezeMainPane(), 300);
     }
-    this.panes[this.state.previous].setPosition(coordinates);
-    this.panes[this.state.previous].element.css(this.translate(coordinates));
-    // if (this.state.previous === 'main') {
-    //   this.freezeMainPane();
-    // }
-  }
-  moveActivatedPaneInToViewport() {
-    let coordinates = [0, 0];
-    if (this.state.active === 'main') {
-      this.unfreezeMainPane();
-      this.scroll.restoreLastPosition();
-    }
-    this.panes[this.state.active].setPosition(coordinates);
-    this.panes[this.state.active].element.css(this.translate(coordinates));
+    // store current scroll position
+    pane.scrollPosition = this.scroll.position;
+    // set fixed height & width, and set overflow to hidden
+    // NOTE Leaving position out until after trasnition.
+    // $pane.css({height: $pane.height(), width: $pane.width(), overflow: 'hidden'});
+    $pane.addClass(this.classes.frozen);
+    // set the scroll position on the element so it doesnt jump to the top.
+    $pane.scrollTop(pane.scrollPosition);
+    // Update the pane's position data
+    pane.setPosition(coordinates);
+    // Move the pane (applying transform)
+    // IDEA This should probably move to a css class based approach in the future.
+    $pane.css(this.translate(coordinates));
+    this.transitionDelay(() => {
+      $pane.addClass(this.classes.fixed);
+      if (this.state.previous === 'main') {
+        // let height = this.panes[this.state.active].element.height();
+        // let height = this.$window.height() + 70;
+        let height = window.innerHeight;
+        $pane.css({marginTop: `-${height}px`});
+      }
+    });
   }
 
-  // ///////////////// //
-  // Main Pane Methods //
-  // ///////////////// //
-  unfreezeMainPane() {
-    this.panes.main.element.css(this.freezeScrollStyles());
-    // Restore scroll position before pane was made inactive.
-    this.scroll.restoreLastPosition();
+  transitionDelay(cb) {
+    setTimeout(() => cb(), 300);
   }
-  freezeMainPane() {
-    let height = this.$window.height();
-    let width = this.$window.width();
-    this.panes.main.element.css(this.freezeScrollStyles(height, width, 'hidden', 'fixed'));
-  }
-  freezeScrollStyles(height = '', width = '', overflow = '', position = '') {
+
+  // /////////////////// //
+  // Helpers / Utilities //
+  // /////////////////// //
+
+  setScrollStyles(height = '', width = '', overflow = '', position = '') {
     return {height: height, width: width, overflow: overflow, position: position};
   }
 
@@ -244,6 +299,10 @@ class Panes {
 
     return {transform: `translate(${coordinates[0]}%, ${coordinates[1]}%)`};
   }
+
+  // ////////////// //
+  // Event Handling //
+  // ////////////// //
 
   bindEventsToEachTrigger() {
     $(this.target.open).each((index, element) => this.bindOpenEvents(index, element));
