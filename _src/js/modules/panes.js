@@ -215,35 +215,26 @@ class Panes {
   }
   toActive(pane) {
     let $pane = pane.element;
-    // if (this.state.active === 'main') {
-    //   // console.log('current innerHeight:', window.innerHeight);
-    //   // console.log('current returned margin value:', parseFloat($pane.css('margin-top')) * -1);
-    //   // let lastMargin = parseFloat($pane.css('margin-top'));
-    //   // lastMargin *= -1;
-    //   // let windowHeight = window.innerHeight;
-    //   // if (window.innerHeight !== parseFloat($pane.css('margin-top')) * -1) {
-    //   //   var difference = (parseFloat($pane.css('margin-top')) * -1) - window.innerHeight;
-    //   //   let margin = parseFloat($pane.css('margin-top')) + difference;
-    //   //   $pane.css({marginTop: `-${margin}px`});
-    //   // }
-    // }
-
+    // IDEA - maybe use the scrolling even to detect down scrolling and then check height
+    //        value differences? Maybe update the margin-top value right then and there?
+    //      - maybe the height and width of inactive panes, as well as any required margin
+    //        properties to properly have stuff sit right in the DOM order, should be
+    //        updated on these events as well?
     // move into viewport
     $pane.css(this.translate([0, 0]));
-
     // After the move
     this.transitionDelay(() => {
       // unfreeze and unfix the pane
-      $pane.removeClass(this.classes.fixed).removeClass(this.classes.frozen);
+      $pane.removeClass(this.classes.frozen);
       // if its not restoring correctly, might need to get it to the top first.
-      // $pane.scrollTop(0);
-      // give the window the panes old scroll position.
 
+      // give the window the panes old scroll position.
       console.log(pane.scrollPosition);
-      this.$window.scrollTop(pane.scrollPosition);
+      $pane.removeClass(this.classes.fixed);
       if (this.state.active === 'main') {
         $pane.css({marginTop: ''});
       }
+      this.$window.scrollTop(pane.scrollPosition);
 
     });
   }
@@ -261,6 +252,7 @@ class Panes {
     // NOTE Leaving position out until after trasnition.
     // $pane.css({height: $pane.height(), width: $pane.width(), overflow: 'hidden'});
     $pane.addClass(this.classes.frozen);
+    // $pane.addClass(this.classes.fixed);
     // set the scroll position on the element so it doesnt jump to the top.
     $pane.scrollTop(pane.scrollPosition);
     // Update the pane's position data
