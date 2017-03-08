@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 !function($) {
 
@@ -44,6 +44,28 @@ var Gingabulous = {
       dataAttrTarget: `[data-${dataAttrName}]`
     };
     this[name] = module;
+  },
+  /**
+   * For big modules that have child modules specific to to them, this is how you register
+   * a child module in the library. The child module will be attacthed to the parent if
+   * the parent is registered as a module in the library. This is a bit of "Library in a
+   * library."
+   * @method registerChildModule
+   * @param  {String}            parent - The name of the registered parent module.
+   * @param  {Object}            child  - The child module to be registered.
+   */
+  registerChildModule: function(parent, child) {
+    // Make sure the parent module exists.
+    if (this[parent] !== undefined) {
+      // Make sure the child module is infringing on another child's namespace.
+      if (this[parent][child] !== undefined) {
+        this[parent][child] = child;
+      } else {
+        throw new(Error(`Already a child module called ${child}`));
+      }
+    } else {
+      throw new(Error(`${parent} module does not exist`));
+    }
   }
 };
 
