@@ -325,15 +325,10 @@ class Panes {
     console.log('deactivated pane scroll position:', pane.scrollPosition);
     // Update the pane's position data
 
-
-    // $pane.removeClass('absolute-to-fixed');
-
     // NOTE: BEGIN TRANSITION
     // ----------------------
     // Add transform class
     $pane.addClass(cssClass);
-
-
 
     $pane.addClass('transforming');
     // NOTE: AFTER TRANSITION IS OVER
@@ -347,26 +342,14 @@ class Panes {
     });
   }
 
-  transitionDelay(cb) {
-    setTimeout(() => cb(), 300);
-  }
-
   // /////////////////// //
   // Helpers / Utilities //
   // /////////////////// //
 
-  setScrollStyles(height = '', width = '', overflow = '', position = '') {
-    return {height: height, width: width, overflow: overflow, position: position};
+  transitionDelay(cb) {
+    setTimeout(() => cb(), 300);
   }
 
-  translate(coordinates) {
-    if (coordinates[0] === 0 && coordinates[1] === 0) {
-      // console.log('0, 0 was passed');
-      return {transform: ''};
-    }
-
-    return {transform: `translate(${coordinates[0]}%, ${coordinates[1]}%)`};
-  }
   getPositionClass(coordinates) {
     let cssClass = [];
     if (coordinates[1] === -1) {
