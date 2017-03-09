@@ -10,13 +10,13 @@
 
 .pane {
   // @extend .sm-4;
-
+  z-index: z('pane');
   order: 1;
   display: block;
   // flex: 0 0 calc(100% / 3);
   // position: fixed;
   width: 100vw;
-  height: 100vh;
+  // height: 100vh;
   min-height: 100vh;
   padding: 0 0 $spacing-unit_vertical;
 }
@@ -25,16 +25,17 @@
   order: 5;
   // flex: 0 0 100%;
   width: 100vw;
+  z-index: 0;
 }
 
 .pane,
 .main-pane {
-  @extend .sm-4;
-
+  // @extend .sm-4;
   transition: transform 300ms ease-out;
 
   &.active {
     order: 5;
+    z-index: z('active-pane');
   }
 
   &.left {
@@ -47,6 +48,10 @@
 
   &.above {
     transform: translateY(-100%);
+
+    &.transform {
+      z-index: z('transforming');
+    }
   }
 
   &.below {
@@ -70,14 +75,8 @@
   }
 }
 
-.pane-header {
-  position: fixed;
-  width: 100%;
-  z-index: 99;
-  // margin-top: -#{$spacing-unit_vertical};
-}
-
 .carousel-panes {
+  flex: 0 0 100%;
   display: flex;
   flex-flow: row nowrap;
   // height: 100vh;
@@ -97,19 +96,19 @@
     -webkit-overflow-scrolling: touch;
     // padding: $spacing-unit_vertical 0;
 
-    &.left {
+    &.nested-left {
       order: 1;
     }
 
-    &.center {
+    &.nested-center {
       order: 2;
     }
 
-    &.right {
+    &.nested-right {
       order: 3;
     }
 
-    &.left {
+    &.nested-left {
       background: $color-yellow;
       color: $color-black;
 
@@ -127,7 +126,7 @@
       }
     }
 
-    &.center {
+    &.nested-center {
       background: $color-cyan;
       color: $color-black;
 
@@ -142,7 +141,7 @@
       }
     }
 
-    &.right {
+    &.nested-right {
       background: $color-purple;
       color: $color-black;
 
@@ -160,17 +159,33 @@
   }
 }
 
+.pane-header {
+  position: fixed;
+  width: 100%;
+  z-index: z('pane-top-bar');
+}
+
 .fixed-bottom-bar {
   display: block;
   padding: $content-padding_base;
   position: fixed;
-  bottom: 0;
+  bottom: -1px;
   // top: 0;
   // top: calc(100vh - 32px);
   // top: 70vh;
   width: 100vw;
   z-index: z('pane-bottom-bar');
   background: $color-black;
+}
+// Hopefully this will fix issues with fixed elements in the panes.
+.absolute-to-fixed {
+  .pane-header {
+    position: fixed;
+  }
+
+  .fixed-bottom-bar {
+    position: fixed;
+  }
 }
 
 .nav-bar {
@@ -196,19 +211,6 @@
   }
 }
 
-.fixed-carousel-bottom-bar {
-  display: block;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  margin-top: calc(165% - 42px);
-
-  > .container {
-    background: $color-black;
-    text-align: center;
-  }
-}
-
 .pane-carousel-title-bar {
   background: $color-black;
   text-align: center;
@@ -219,6 +221,25 @@
   h4 {
     margin-bottom: 0;
     padding: 0.5rem 0;
+    text-transform: uppercase;
+  }
+
+  .block:nth-child(1) {
+    h4 {
+      color: $color-yellow;
+    }
+  }
+
+  .block:nth-child(2) {
+    h4 {
+      color: $color-cyan;
+    }
+  }
+
+  .block:nth-child(3) {
+    h4 {
+      color: $color-purple;
+    }
   }
 }
 
@@ -230,21 +251,6 @@
   position: fixed;
   top: 0;
   left: 0;
-  // &.left {
-  //
-  // }
-  //
-  // &.right {
-  //
-  // }
-  //
-  // &.above {
-  //
-  // }
-  //
-  // &.below {
-  //
-  // }
 }
 
 .frozen-pane {
@@ -252,6 +258,8 @@
   // position: absolute;
   height: 100vh;
   width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
   overflow: hidden;
 }
 

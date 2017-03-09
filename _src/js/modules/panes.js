@@ -243,18 +243,23 @@ class Panes {
       cssClass = this.getPositionClass(pane.position);
     }
     console.log('Active pane class:', cssClass);
+    // Update the pane position value in its instance
+    pane.setPosition([0, 0]);
 
     // NOTE: BEFORE TRANSITION STARTS
     // ------------------------------
 
+    // unfreeze the pane
+    $pane.removeClass(this.classes.frozen);
+
     // Remove fixed class
     $pane.removeClass(this.classes.fixed);
 
-    // Update the pane position value in its instance
-    pane.setPosition([0, 0]);
+    // $pane.addClass('absolute-to-fixed');
 
-    // unfreeze the pane
-    $pane.removeClass(this.classes.frozen);
+    // $pane.scrollTop(0);
+
+    this.$window.scrollTop(pane.scrollPosition);
 
     // Remove flex-order class
     $pane.removeClass(`${cssClass}-order`);
@@ -265,24 +270,30 @@ class Panes {
     // ----------------------
     // Remove transform class
     $pane.removeClass(cssClass);
-
+    $pane.addClass('transforming');
     // NOTE: AFTER TRANSITION IS OVER
     // ------------------------------
     this.transitionDelay(() => {
-      console.log(pane.scrollPosition);
+      console.log('scroll position after trasnition:', pane.scrollPosition);
+      $pane.removeClass('transforming');
+      // $pane.removeClass(this.classes.fixed);
+      // $pane.removeClass(this.classes.frozen);
 
-      // Add active class FIXME: see line: 262
+      // $pane.removeClass(`${cssClass}-order`);
+      // Add active class FIXME: see line: 266
       // $pane.addClass('active');
 
-      // give the window the panes old scroll position.
+      // give the window the panes old scroll position. FIXME: see line: 261
       this.$window.scrollTop(pane.scrollPosition);
+
     });
   }
   toInactive(pane) {
     let coordinates = pane.getOrigin();
-    console.log('coordinates before conditional:', coordinates);
+    // console.log('coordinates before conditional:', coordinates);
     let cssClass = this.getPositionClass(coordinates);
-
+    // If it's the main pane, then we have to get the origin of the active pane and
+    // flip it to its negative.
     if (!cssClass) {
       coordinates = this.panes[this.state.active].getOrigin();
       pane.setPosition(coordinates);
@@ -290,11 +301,9 @@ class Panes {
     } else {
       pane.setPosition(coordinates);
     }
-    console.log('coordinates after conditional:', coordinates);
-    console.log('Inactive pane class:', cssClass);
+    // console.log('coordinates after conditional:', coordinates);
+    // console.log('Inactive pane class:', cssClass);
     let $pane = pane.element;
-
-
 
     // NOTE: BEFORE TRANSITION STARTS
     // ------------------------------
@@ -308,14 +317,16 @@ class Panes {
     // Add fixed class
     $pane.addClass(this.classes.fixed);
 
-    // set the scroll position of the element to the value from the window.
-    $pane.scrollTop(pane.scrollPosition);
+    $pane.removeClass('active');
+    $pane.addClass(`${cssClass}-order`);
 
+    $pane.scrollTop(pane.scrollPosition);
+    // set the scroll position of the element to the value from the window.
+    console.log('deactivated pane scroll position:', pane.scrollPosition);
     // Update the pane's position data
 
 
-    $pane.removeClass('active');
-    $pane.addClass(`${cssClass}-order`);
+    // $pane.removeClass('absolute-to-fixed');
 
     // NOTE: BEGIN TRANSITION
     // ----------------------
@@ -324,11 +335,11 @@ class Panes {
 
 
 
-
+    $pane.addClass('transforming');
     // NOTE: AFTER TRANSITION IS OVER
     // ------------------------------
     this.transitionDelay(() => {
-
+      $pane.removeClass('transforming');
       // if (this.state.previous === 'main') {
       //   let height = window.innerHeight;
       //   // $pane.css({marginTop: `-${height}px`});
