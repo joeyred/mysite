@@ -10,9 +10,14 @@ var	browserSync = require('browser-sync').create();
 var	sequence    = require('run-sequence');
 var	del         = require('del');
 var yargs       = require('yargs');
+var cleanStack  = require('clean-stack');
 var config      = require('./gulpconfig.js');
 
 var DEPLOY = Boolean(yargs.argv.production);
+
+// function cleanUpStackTrace(e) {
+//   return e.toString().split(/[\r\n]+/).filter(line => !line.match(/^\s+at Parser/)).join(os.EOL);
+// }
 
 /* browserSync */
 gulp.task('browserSync', function() {
@@ -65,7 +70,10 @@ gulp.task('scripts', function() {
 	.pipe($.sourcemaps.init())
   .pipe($.babel())
   .on('error', function(e) {
-    console.error(e);
+    // e.showStack = false;
+    // console.dir(e);
+    console.error('\x1b[31m%s\x1b[0m', e.message);
+    console.log(e.codeFrame);
     this.emit('end');
   })
 	.pipe($.concat('app.js'))
@@ -94,17 +102,22 @@ gulp.task('scripts', function() {
 gulp.task('jekyll', function(cb) {
   var spawn = require('child_process').spawn;
   // After build: cleanup HTML
-  var options = {stdio: 'inherit'};
+  var options = {stdio: 'inherit', config: '"_config.yml,_config_dev.yml"'};
   // Run Jekyll build in production mode if --deploy flag is passed.
   if (DEPLOY) {
     var env = Object.create(process.env);
     env.JEKYLL_ENV = 'production';
     options.env = env;
   }
-  var jekyll = spawn('jekyll', ['build'], options);
-
+  var jekyll = spawn('jekyll', ['build', '--config', '_config.yml,_config_dev.yml'], options);
+  // console.log(jekyll);
   jekyll.on('exit', function(code) {
     cb(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
+  });
+  jekyll.on('error', function(e) {
+    // cb(e);
+    console.log(e);
+    this.emit('end');
   });
 });
 
@@ -158,17 +171,22 @@ gulp.task('watch', function() {
   // Watch HTML
   gulp.watch(
     [
-      '_includes/**/*',
-      '_layouts/**/*',
-      '_posts/*',
-      '_projects/*',
-      '_styleguide/**/*',
+      // '_includes/**/*',
+      // '_layouts/**/*',
+      // '_posts/*',
+      // '_projects/*',
+      // '_styleguide/**/*',
       '*.html',
       './*.md',
-      './_config.yml'
+      './_config.yml',
+      '_*/**/*',
+      '!_src/**/*',
+      '!_site/**/*'
     ],
     ['jekyllReload']
-  );
+  ).on('error', function(e) {
+    console.log(e);
+  });
   // Watch Images
   gulp.watch(config.images.paths.src, ['imagesReload']);
 });

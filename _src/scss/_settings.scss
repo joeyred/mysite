@@ -4,6 +4,7 @@ $spacing-unit_base:               to-rem(30);
 $spacing-unit_vertical:           gld($spacing-unit_base, 10, false);
 $spacing-unit_vertical-heading:   gld($spacing-unit_base, 10);
 $spacing-unit_vertical-paragraph: gld($spacing-unit_base, 9);
+$content-padding_base:            gld($spacing-unit_base, 9);
 
 // Z-Indexes
 // ---------
@@ -11,7 +12,13 @@ $z-indexes: (
   "expanding-tab-active",
   "overlay-header",
   "overlay",
+  "transforming",
   "site-header",
+  "pane-top-bar",
+  "pane-bottom-bar",
+  "active-pane",
+  "pane",
+  "fixed-icons",
   "sticky-footer"
 );
 
@@ -172,6 +179,10 @@ $sh-c_php-function-name:   $color-cyan;
 // UI Components  //
 // // // // // // //
 
+// Icons
+// -----
+$icon-size: 1rem;
+
 // Buttons
 // -------
 $button_padding: 1rem;
@@ -191,6 +202,9 @@ $navigation-color_link-hover: $color-purple;
 // -------
 $overlay_background-color: $color-grey_darker;
 $overlay_text-color: $color-white;
+
+// Cards
+// -----
 
 // Top Bar
 // -------

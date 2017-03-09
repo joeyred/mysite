@@ -1,0 +1,276 @@
+// .panes {
+//   display: flex;
+// }
+
+.panes {
+  display: flex;
+  flex-flow: row;
+  width: 100vw;
+}
+
+.pane {
+  // @extend .sm-4;
+  z-index: z('pane');
+  order: 1;
+  display: block;
+  // flex: 0 0 calc(100% / 3);
+  // position: fixed;
+  width: 100vw;
+  // height: 100vh;
+  min-height: 100vh;
+  padding: 0 0 $spacing-unit_vertical;
+}
+
+.main-pane {
+  order: 5;
+  // flex: 0 0 100%;
+  width: 100vw;
+  z-index: 0;
+}
+
+.pane,
+.main-pane {
+  // @extend .sm-4;
+  transition: transform 300ms ease-out;
+
+  &.active {
+    order: 5;
+    z-index: z('active-pane');
+  }
+
+  &.left {
+    transform: translateX(-100%);
+  }
+
+  &.right {
+    transform: translateX(100%);
+  }
+
+  &.above {
+    transform: translateY(-100%);
+
+    &.transform {
+      z-index: z('transforming');
+    }
+  }
+
+  &.below {
+    transform: translateY(100%);
+  }
+  // Order
+  &.order-left {
+    order: 4;
+  }
+
+  &.order-right {
+    order: 6;
+  }
+
+  &.order-above {
+    order: 2;
+  }
+
+  &.order-below {
+    order: 8;
+  }
+}
+
+.carousel-panes {
+  flex: 0 0 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  // height: 100vh;
+  width: 100vw;
+  position: fixed;
+  overflow: visible;
+  transition: transform 300ms ease-out;
+  transform: translate(-100%, 0);
+
+  > .pane {
+    flex: 0 0 100%;
+    position: relative;
+    padding: $spacing-unit_vertical 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    // padding: $spacing-unit_vertical 0;
+
+    &.nested-left {
+      order: 1;
+    }
+
+    &.nested-center {
+      order: 2;
+    }
+
+    &.nested-right {
+      order: 3;
+    }
+
+    &.nested-left {
+      background: $color-yellow;
+      color: $color-black;
+
+      h1 {
+        color: $color-black;
+      }
+
+      .button {
+        background: darken($color-yellow, 30%);
+        margin: 1rem auto;
+      }
+
+      .icon > svg {
+        fill: darken($color-yellow, 30%);
+      }
+    }
+
+    &.nested-center {
+      background: $color-cyan;
+      color: $color-black;
+
+      h1 {
+        color: $color-black;
+      }
+
+      img {
+        max-height: 10rem;
+        width: auto;
+        margin: 1rem auto 2rem;
+      }
+    }
+
+    &.nested-right {
+      background: $color-purple;
+      color: $color-black;
+
+      h1 {
+        color: $color-white;
+      }
+
+      h3 {
+        color: $color-white;
+        background: darken($color-purple, 30%);
+        padding: 0.5rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.pane-header {
+  position: fixed;
+  width: 100%;
+  z-index: z('pane-top-bar');
+}
+
+.fixed-bottom-bar {
+  display: block;
+  padding: $content-padding_base;
+  position: fixed;
+  bottom: -1px;
+  // top: 0;
+  // top: calc(100vh - 32px);
+  // top: 70vh;
+  width: 100vw;
+  z-index: z('pane-bottom-bar');
+  background: $color-black;
+}
+// Hopefully this will fix issues with fixed elements in the panes.
+.absolute-to-fixed {
+  .pane-header {
+    position: fixed;
+  }
+
+  .fixed-bottom-bar {
+    position: fixed;
+  }
+}
+
+.nav-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+  align-content: space-around;
+
+  button,
+  a {
+    flex: 0 0 auto;
+  }
+
+  a {
+    &:active,
+    &:focus,
+    &:hover {
+      .icon > svg {
+        fill: $color-pink;
+      }
+    }
+  }
+}
+
+.pane-carousel-title-bar {
+  background: $color-black;
+  text-align: center;
+  transition: transform 300ms ease-out;
+  align-items: center;
+  transform: translate(-100%, 0);
+
+  h4 {
+    margin-bottom: 0;
+    padding: 0.5rem 0;
+    text-transform: uppercase;
+  }
+
+  .block:nth-child(1) {
+    h4 {
+      color: $color-yellow;
+    }
+  }
+
+  .block:nth-child(2) {
+    h4 {
+      color: $color-cyan;
+    }
+  }
+
+  .block:nth-child(3) {
+    h4 {
+      color: $color-purple;
+    }
+  }
+}
+
+.pane-to-back {
+  order: -1;
+}
+
+.fixed-pane {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.frozen-pane {
+  // order: -1;
+  // position: absolute;
+  height: 100vh;
+  width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
+}
+
+body.test {
+  height: 1000px;
+}
+
+.emulate-scrolling-test {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}

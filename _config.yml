@@ -21,11 +21,13 @@ images:
 markdown: kramdown
 highlighter: rouge
 permalink: /:title/
-exclude: [node_modules, gulpfile.js, gulpconfig.js, package.json, bower_components, bower.json]
+exclude: [node_modules, gulpfile.js, gulpconfig.js, package.json, bower_components, bower.json, _tests]
 keep_files: [assets]
 
 # Content
 collections:
+  # Icons
+  svg_icons:
   # Projects Config
   projects:
     output: true
@@ -46,7 +48,9 @@ defaults:
       path: ""
       type: [pages, posts]
     values:
-      overlays: false # Set default overlay value as false for posts and pages
+      # Set optional addon content to false by default
+      overlays: false
+      panes: false
 # Icons
 icons:
   menu: <svg><use xlink:href="#menu"></use></svg>

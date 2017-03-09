@@ -11,8 +11,10 @@
   z-index: z("site-header");
 }
 
-.nav-overlay {
+.main-nav {
+  display: flex;
   flex-flow: column nowrap;
+  padding-top: $topbar_height;
 
   .icon-button {
     text-align: left;

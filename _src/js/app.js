@@ -15,6 +15,9 @@ function init() {
     var expand = new Gingabulous.Expand($(this));
     expand.bindEvents();
   });
+
+  var panes = new Gingabulous.Panes($(Gingabulous.modules.Panes.dataAttrTarget));
+  panes.init();
 }
 
 init();
