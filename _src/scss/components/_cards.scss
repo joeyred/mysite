@@ -18,8 +18,23 @@ ul.tags {
   }
 }
 
+ul.cards {
+  list-style: none;
+  padding-left: 0;
+}
+
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  > li {
+    flex: 1 0 to-rem(340);
+    padding: 0 $grid_gutter;
+  }
+}
+
 .card {
-  flex: 0 1 auto;
   box-shadow: 1px 2px 10px #111;
   border-left: to-rem(6) solid $color-red;
   margin-left: -#{to-rem(6)};
@@ -28,7 +43,7 @@ ul.tags {
     padding: 0.5rem 1rem;
   }
 
-  margin-bottom: 8rem;
+  margin-bottom: $spacing-unit_vertical;
 }
 
 .card.horizontal {

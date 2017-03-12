@@ -118,7 +118,7 @@
 
 .block {
   box-sizing: border-box;
-  flex: 1;
+  flex: 0 1 auto;
   max-width: 100%; // Keep the block respecting its container.
   padding: {
     left: $grid_gutter;
