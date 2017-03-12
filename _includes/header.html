@@ -4,18 +4,9 @@
 
     <div class="left">
       <button class="icon-button overlay-open" data-overlay-open="mainNav">
-        <span class="icon menu">
-          {{ site.icons.menu }}
-        </span>
+        {% include icon.html id="menu" %}
       </button>
     </div>
-
-    <div class="center">
-      <a class="site-title" href="{{ site.baseurl }}/">
-        <img src="/assets/imgs/main/mark_logo.svg" alt="">
-      </a>
-    </div>
-
 
   </div>
 
@@ -39,13 +30,9 @@
 
     <nav class="main-nav">
 
-      <a href="{{ site.baseurl }}/portfolio/" class="my-work">My Work</a>
+      <a href="{{ site.baseurl }}/my-work/" class="my-work">My Work</a>
 
       <a href="{{ site.baseurl }}/skills/" class="my-skills">My Skills</a>
-
-      <a href="{{ site.baseurl }}/components/" class="my-components">
-        Components/Snippets I've Written
-      </a>
 
       <a href="{{ site.baseurl }}/about/" class="about-me">About Me</a>
 

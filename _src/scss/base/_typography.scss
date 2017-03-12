@@ -85,6 +85,10 @@ h6 {
   letter-spacing: 3px;
 }
 
+h2 {
+  color: $font-heading_color-secondary;
+}
+
 @include generate_heading-sizes;
 
 .section-heading {

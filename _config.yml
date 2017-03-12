@@ -32,6 +32,8 @@ collections:
   projects:
     output: true
     # permalink: /portfolio/:path/
+  pens:
+    output: true
   # Styleguide
   styleguide:
     label: Styleguide

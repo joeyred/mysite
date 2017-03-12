@@ -3,7 +3,7 @@
   transition-property: transform, margin;
   transition-duration: 1s, 600ms;
   transition-delay: 0, 1s;
-  z-index: z("expanding-tab-active");
+  // z-index: z("expanding-tab-active");
 
   &::after {
     height: 0;

@@ -116,7 +116,7 @@ gulp.task('jekyll', function(cb) {
   });
   jekyll.on('error', function(e) {
     // cb(e);
-    console.log(e);
+    // console.dir(e);
     this.emit('end');
   });
 });
