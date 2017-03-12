@@ -3,74 +3,91 @@ layout: default
 permalink: /my-work/
 ---
 
-<div class="sticky-bar">
+<div class="wrapper">
+  <div class="container">
 
-  <ul class="filter-bar active-first-child">
+    <div class="block">
+      <h1>My Work</h1>
 
-    <li class="active">
-      <a href="#portfolio">Portfolio</a>
-    </li>
+      <p>
+        Quam diu etiam furor iste tuus nos eludet? Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae. Morbi fringilla convallis sapien, id pulvinar odio volutpat. Quo usque tandem abutere, Catilina, patientia nostra?
+      </p>
+    </div>
 
-    <li>
-      <a href="#projects">Projects</a>
-    </li>
-
-    <li>
-      <a href="#components">Components</a>
-    </li>
-
-  </ul>
-
+  </div>
 </div>
 
-<div class="container">
+<div class="container sm-no-gutters sm-row-reverse sm-space-around">
+  <div class="block pane-activator-tab">
 
-  <!-- Page Title -->
-  <div class="block sm-12">
-    <h1>UI Components</h1>
+
+    <button class="button">
+      Filters
+    </button>
+
+
   </div>
+</div>
 
-  <div class="block sm-12">
-    <h2>Portfolio Piece Card</h2>
 
-    <div class="container">
-      <ul class="cards">
-        <li class="portfolio-card card">
-          <div class="container">
 
-            <div class="block sm-12">
-              <h3>Title of the Piece</h3>
-            </div>
+<ul class="cards portfolio">
 
-            <div class="block sm-12">
-              <img src="/assets/imgs/mock/mock_300x200.jpg" alt="filler">
-            </div>
+  {% for pen in site.pens %}
+  <li>
+    <div class="card horizontal after">
 
-            <div class="block sm-12">
-              <p>
-                Quisque ut dolor gravida, placerat libero vel, euismod. Prima luce, cum
-                quibus mons aliud consensu ab eo. Tu quoque, Brute, fili mi, nihil timor
-                populi, nihil!
-              </p>
-            </div>
+      <div class="card-options-bar">
+
+        {% include icon.html id="close" %}
+
+        <button class="button">
+          See More
+        </button>
+
+      </div>
+
+      <!-- The Cover of the Card -->
+      <div class="card-cover">
+
+        <div class="card-thumbnail">
+          <!-- TODO Set up Image stuff -->
+          <img src="/assets/imgs/mock/soullessMark.png" alt="">
+        </div>
+
+        <div class="card-info">
+
+          <h3>{{ pen.title }}</h3>
+
+          <div class="tags-container">
+
+            <ul class="tags">
+            {% for tag in pen.tags %}
+              <!-- TODO Set up links for tags? or maybe make is sort
+              dynamically if you click a tag? hence interaction
+              with the filter? -->
+              <li>
+                <!-- <a href=""> -->
+                  {{ tag }}
+                <!-- </a> -->
+              </li>
+
+            {% endfor %}
+            </ul>
 
           </div>
-        </li>
-      </ul>
-    </div>
-  </div>
 
-  <div class="block sm-12">
-    <h2>Project Card</h2>
+        </div><!-- Card Info Close -->
+      </div>
 
-    <div class="container"></div>
-  </div>
+      <div class="bottom-container">
+        <p>
+          {{ pen.description }}
+        </p>
+      </div>
 
-  <div class="block sm-12">
-    <h2>Component Card</h2>
+    </div><!-- Card Close -->
+  </li>
+  {% endfor %}
 
-    <div class="container"></div>
-  </div>
-
-
-</div>
+</ul>
