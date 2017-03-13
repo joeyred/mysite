@@ -7,32 +7,30 @@
 
     {% include icons.html %}
 
-    {% include header.html %}
+    <div class="site-wrapper panes" data-panes>
 
-    <div class="site-inner">
+      <!-- Panes -->
+      {% if page.panes %}
+      {% for pane in page.panes %}
 
-      {% if page.overlays %}
-        {% for overlay in page.overlays %}
+      {% include ui/pane.html id=pane.id class=pane.class content=pane.content %}
 
-          {% include overlay.html id=overlay.id class=overlay.class content=overlay.content%}
-
-        {% endfor %}
+      {% endfor %}
       {% endif %}
 
+      {% include panes/main-nav.html %}
 
+      <div class="site-inner main-pane" data-pane-main>
+        {% include panes/header.html %}
+        <!-- Main Content -->
+        <main class="content">
+          {{ content }}
+        </main>
 
-      <main class="content">
-
-        {{ content }}
-
-      </main>
-
-      {% include footer.html %}
+        {% include footer.html %}
+      </div>
 
     </div>
-
-    {% include sticky-footer.html %}
-
     {% include scripts.html %}
 
   </body>
