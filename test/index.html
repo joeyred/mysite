@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tests</title>
+    <link rel="stylesheet" media="all" href="lib/mocha.css">
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="messages"></div>
+    <div id="fixtures"></div>
+    <script src="lib/jquery.slim.js"></script>
+    <script src="lib/mocha.js"></script>
+    <script src="lib/chai.js"></script>
+    <script src="lib/chai-jquery.js"></script>
+
+    <!-- Scripts to Test -->
+    <script src="assets/gingabulous.js"></script>
+
+    <script>mocha.setup('bdd')</script>
+
+    <!-- Test Scripts -->
+    <script src="assets/tests.js"></script>
+    <script>mocha.run();</script>
+  </body>
+</html>

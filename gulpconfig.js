@@ -7,7 +7,24 @@ module.exports = {
     port:   8000,
     ui:     {port: 8001},
     notify: false, // boolean value, Toggle notifications of bsync activity.
-    open:   false // toggle auotmatic opening of webpage upong bsync starting.
+    open:   false, // toggle auotmatic opening of webpage upong bsync starting.
+    // routes: {
+    //   "/test": 'test',
+    //   "/mocha": "node_modules/mocha",
+    //   "/chai": "node_modules/chai"
+    // }
+  },
+  testServer: {
+    server: 'test',
+    port:   8000,
+    ui:     {port: 8001},
+    notify: false,
+    open:   false,
+    routes: {
+      "/jquery": "bower_components/jquery/dist",
+      "/mocha": "node_modules/mocha",
+      "/chai": "node_modules/chai"
+    }
   },
   // Styles
   scss: {
