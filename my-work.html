@@ -2,6 +2,9 @@
 layout: default
 permalink: /my-work/
 panes:
+  - id: pen
+    class: above
+    content: pen-inject
   - id: filters
     class: card-filters right
     content: card-filter
@@ -45,7 +48,7 @@ panes:
 
         {% include icon.html id="close" %}
 
-        <button class="button">
+        <button class="button" data-pane-open="pen">
           See More
         </button>
 
