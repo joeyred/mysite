@@ -262,20 +262,24 @@ gulp.task('testScripts', function() {
 
 gulp.task('watchTestServer', function() {
   gulp.watch(['./test/index.html', '!./test/*.js'], ['browserSyncReload']);
-  gulp.watch('./test/scripts/*.js', function(cb) {
-    sequence(
-      'unitTests',
-      'browserSyncReload',
-      cb
-    );
-  });
-  gulp.watch(config.js.paths.src, function(cb) {
-    sequence(
-      'testScripts',
-      'browserSyncReload',
-      cb
-    );
-  });
+  gulp.watch('./test/scripts/*.js', ['reloadTestScripts']);
+  gulp.watch(config.js.paths.src, ['reloadTestAssets']);
+});
+
+gulp.task('reloadTestScripts', function(cb) {
+  sequence(
+    'testScripts',
+    'browserSyncReload',
+    cb
+  );
+});
+
+gulp.task('reloadTestAssets', function(cb) {
+  sequence(
+    'testAssets',
+    'browserSyncReload',
+    cb
+  );
 });
 
 gulp.task('test', function(cb) {
