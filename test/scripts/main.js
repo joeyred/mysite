@@ -1,5 +1,3 @@
-var expect = chai.expect;
-
 // Test Suite
 describe('Mocha', function() {
   // Test Spec (Unit Test)

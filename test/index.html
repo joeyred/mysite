@@ -17,7 +17,10 @@
     <!-- Scripts to Test -->
     <script src="assets/gingabulous.js"></script>
 
-    <script>mocha.setup('bdd')</script>
+    <script>
+    mocha.setup('bdd');
+    var expect = chai.expect;
+    </script>
 
     <!-- Test Scripts -->
     <script src="assets/tests.js"></script>
