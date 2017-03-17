@@ -18,6 +18,7 @@ module.exports = {
 	},
 	globals: {
 		Gingabulous: true,
+		expect: true,
 	},
 	rules: {
 		'comma-dangle': ['error', 'never'],
@@ -106,7 +107,7 @@ module.exports = {
 		'no-sequences': 'error',
 		'no-throw-literal': 'error',
 		'no-unmodified-loop-condition': 'error',
-		'no-unused-expressions': 'error',
+		'no-unused-expressions': 0,
 		'no-unused-labels': 'error',
 		'no-useless-call': 'error',
 		'no-useless-concat': 'error',
@@ -147,12 +148,12 @@ module.exports = {
 		camelcase: ['error', {
 			properties: 'always'
 		}],
-		'capitalized-comments': ['error', 'always', {
-			// You can also ignore this rule by wrapping the first word in quotes
-			ignorePattern: 'pragma|ignore',
-			ignoreInlineComments: true,
-			ignoreConsecutiveComments: true
-		}],
+		// 'capitalized-comments': ['error', 'always', {
+		// 	// You can also ignore this rule by wrapping the first word in quotes
+		// 	ignorePattern: 'pragma|ignore',
+		// 	ignoreInlineComments: true,
+		// 	ignoreConsecutiveComments: true
+		// }],
 		'comma-spacing': ['error', {
 			before: false,
 			after: true
