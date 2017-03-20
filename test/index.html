@@ -2,11 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Tests</title>
-    <link rel="stylesheet" media="all" href="lib/mocha.css">
+
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" media="all" href="mocha/mocha.css">
     <style>
       body {
         background-color: #E3C486;
+        color: #4A402C;
+      }
+      h1, h2, h3 {
+        text-transform: none;
+        letter-spacing: normal;
+      }
+      h2 {
         color: #4A402C;
       }
       #mocha-stats {
@@ -35,13 +45,13 @@
     <div id="mocha"></div>
     <div id="messages"></div>
     <div id="fixtures"></div>
-    <script src="lib/jquery.slim.js"></script>
-    <script src="lib/mocha.js"></script>
-    <script src="lib/chai.js"></script>
-    <script src="lib/chai-jquery.js"></script>
+    <script src="jquery/jquery.slim.js"></script>
+    <script src="mocha/mocha.js"></script>
+    <script src="chai/chai.js"></script>
+    <script src="chai-jquery/chai-jquery.js"></script>
 
     <!-- Scripts to Test -->
-    <script src="assets/gingabulous.js"></script>
+    <script src="assets/js/app.js"></script>
 
     <script>
     mocha.setup('bdd');
@@ -49,7 +59,7 @@
     </script>
 
     <!-- Test Scripts -->
-    <script src="assets/tests.js"></script>
+    <script src="tests.js"></script>
     <script>mocha.run();</script>
   </body>
 </html>
