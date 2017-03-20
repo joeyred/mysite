@@ -200,8 +200,6 @@ gulp.task('watch', function() {
   });
   // Watch Images
   gulp.watch(config.images.paths.src, ['imagesReload']);
-  // Watch Test Files
-  gulp.watch('./test/**/*', ['browserSyncReload']);
 });
 
 gulp.task('default', function(cb) {
@@ -220,7 +218,7 @@ gulp.task('default', function(cb) {
  */
 
 gulp.task('testClean', function() {
-  return del(['./test/lib', './test/assets']);
+  return del(['./test/test.js', './test/test.js.map']);
 });
 
 gulp.task('testServer', function() {
@@ -257,13 +255,14 @@ gulp.task('testScripts', function() {
 	.pipe($.sourcemaps.init())
 	.pipe($.concat('tests.js'))
 	.pipe($.sourcemaps.write('./'))
-	.pipe(gulp.dest('./test/assets'));
+	.pipe(gulp.dest('./test'));
 });
 
 gulp.task('watchTestServer', function() {
-  gulp.watch(['./test/index.html', '!./test/*.js'], ['browserSyncReload']);
+  gulp.watch('./test/index.html', ['browserSyncReload']);
   gulp.watch('./test/scripts/*.js', ['reloadTestScripts']);
-  gulp.watch(config.js.paths.src, ['reloadTestAssets']);
+  gulp.watch(config.js.paths.src, ['scriptsReload']);
+  gulp.watch(config.scss.paths.src + '/**/*.scss', ['scss']);
 });
 
 gulp.task('reloadTestScripts', function(cb) {
@@ -285,9 +284,9 @@ gulp.task('reloadTestAssets', function(cb) {
 gulp.task('test', function(cb) {
   sequence(
     'testClean',
-    'testAssets',
-    'testLib',
-    'testScripts',
+    // 'testAssets',
+    // 'testLib',
+    ['scss', 'scripts', 'testScripts'],
     'testServer',
     'watchTestServer',
     cb
