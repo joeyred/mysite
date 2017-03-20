@@ -8,5 +8,5 @@ dump.js
 mock
 
 # Test Assets
-test/lib
-test/assets
+test/tests.js
+test/tests.js.map
