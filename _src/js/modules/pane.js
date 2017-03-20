@@ -1,6 +1,6 @@
 'use strict';
 
-!function($) {
+!function() {
 
 class Pane {
   get origin() {
@@ -27,21 +27,21 @@ class Pane {
   _init() {
     this.element.classList.add(this.classes.frozen, this.classes.fixed);
   }
-  _getPositionClass() {
+  _getPositionClass(coordinates) {
     let cssClass = [];
-    if (this.position[1] === -1) {
+    if (coordinates[1] === -1) {
       cssClass.push(this.classes.above);
     }
-    if (this.position[1] === 1) {
+    if (coordinates[1] === 1) {
       cssClass.push(this.classes.below);
     }
-    if (this.position[0] === -1) {
+    if (coordinates[0] === -1) {
       cssClass.push(this.classes.left);
     }
-    if (this.position[0] === 1) {
+    if (coordinates[0] === 1) {
       cssClass.push(this.classes.right);
     }
-    if (this.position[0] === 0 && this.position[1] === 0) {
+    if (coordinates[0] === 0 && coordinates[1] === 0) {
       return false; // should this be an empty string?
     }
     if (cssClass.length >= 2) {
@@ -56,14 +56,31 @@ class Pane {
     this.element.classList.remove(this.classes.frozen, this.classes.fixed);
   }
   _storeScrollPosition() {
-    this.scrollPoisiton = window.scrollTop;
+    this.scrollPoisiton = this.element.scrollTop;
+  }
+  _restoreScrollPosition() {
+    window.scrollTo(0, this.scrollPoisiton);
+    // this.element.scrollTop(this.scrollPoisiton);
+  }
+  _transform() {
+    let cssClass = this._getPositionClass(this.position);
+    // If the value is `false`, position is [0, 0]
+    // and transform class needs to be removed.
+    if (cssClass) {
+      this.element.classList.add(cssClass);
+    } else {
+      this.element.classList.remove(this._getPositionClass(this.origin));
+    }
   }
   // activate() {}
   // deactivate(scrollPoisiton) {}
   retriveOrigin() {
     return Array.from(this.origin);
   }
+  updatePosition(coordinates) {
+    this.position = coordinates;
+  }
 }
 
 Gingabulous.registerModule(Pane);
-}(jQuery);
+}();

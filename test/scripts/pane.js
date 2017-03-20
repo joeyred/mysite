@@ -91,29 +91,30 @@ describe('Pane Constructor', function() {
   });
 
   describe('_getPositionClass', function() {
-    it('Returns "left" if position is [-1, 0]', function() {
-      module.position = [-1, 0];
-      expect(module._getPositionClass()).to.equal('left');
+    it('Returns "left" if coordinates are [-1, 0]', function() {
+      expect(module._getPositionClass([-1, 0])).to.equal('left');
     });
 
-    it('Returns "right" if position is [1, 0]', function() {
-      module.position = [1, 0];
-      expect(module._getPositionClass()).to.equal('right');
+    it('Returns "right" if coordinates are [1, 0]', function() {
+      expect(module._getPositionClass([1, 0])).to.equal('right');
     });
 
-    it('Returns "above" if position is [0, -1]', function() {
-      module.position = [0, -1];
-      expect(module._getPositionClass()).to.equal('above');
+    it('Returns "above" if coordinates are [0, -1]', function() {
+      expect(module._getPositionClass([0, -1])).to.equal('above');
     });
 
-    it('Returns "below" if position is [0, 1]', function() {
-      module.position = [0, 1];
-      expect(module._getPositionClass()).to.equal('below');
+    it('Returns "below" if coordinates are [0, 1]', function() {
+      expect(module._getPositionClass([0, 1])).to.equal('below');
     });
 
-    it('Returns false if position is [0, 0]', function() {
-      module.position = [0, 0];
-      expect(module._getPositionClass()).to.be.false;
+    it('Returns false if coordinates are [0, 0]', function() {
+      expect(module._getPositionClass([0, 0])).to.be.false;
+    });
+
+    it('Doesnt overwrite the value passed', function() {
+      var origin = module.origin;
+      module._getPositionClass(module.origin);
+      expect(module.origin).to.deep.equal(origin);
     });
   });
 
@@ -143,6 +144,44 @@ describe('Pane Constructor', function() {
     it('Stores the current window scroll position in ScrollPosition', function() {
       module._storeScrollPosition();
       expect(module.scrollPosition).to.equal(module.element.scrollTop);
+    });
+  });
+  // FIXME figure out how this can actually be tested.
+  describe('_restoreScrollPosition', function() {
+    it('Sets the scroll position to the value stored in scrollPosition', function() {
+      module.element.classList.remove(classes.frozen, classes.fixed);
+      module.element.style.height = '1000px';
+      module.scrollPosition = 100;
+      module._restoreScrollPosition();
+      expect(module.element.scrollTop).to.equal(100);
+    });
+  });
+
+  describe('_transform', function() {
+    it('Removes the transform class if position is [0, 0]', function() {
+      // Set up the correct module state
+      module.position = [0, 0];
+      // run the function
+      module._transform();
+      // what we expect to happen
+      expect(module.element.classList.contains(classes.left)).to.be.false;
+    });
+
+    it('Adds the transform class if position is the pane\'s origin', function() {
+      // Set up the correct module state
+      module.element.classList.remove(classes.left);
+      // module.position = module.origin;
+      // run the function
+      module._transform();
+      // what we expect to happen
+      expect(module.element.classList.contains(classes.left)).to.be.true;
+    });
+  });
+
+  describe('updatePosition', function() {
+    it('Updates the position property on the Pane instance', function() {
+      module.updatePosition([0, 0]);
+      expect(module.position).to.deep.equal([0, 0]);
     });
   });
   // describe('activate', function() {
