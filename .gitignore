@@ -6,3 +6,7 @@ _site
 # Code Dump Files
 dump.js
 mock
+
+# Test Assets
+test/tests.js
+test/tests.js.map

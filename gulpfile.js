@@ -10,7 +10,7 @@ var	browserSync = require('browser-sync').create();
 var	sequence    = require('run-sequence');
 var	del         = require('del');
 var yargs       = require('yargs');
-var cleanStack  = require('clean-stack');
+// var cleanStack  = require('clean-stack');
 var config      = require('./gulpconfig.js');
 
 var DEPLOY = Boolean(yargs.argv.production);
@@ -121,6 +121,8 @@ gulp.task('jekyll', function(cb) {
   });
 });
 
+
+
 /**
  * Reloading Tasks
  */
@@ -132,6 +134,15 @@ gulp.task('browserSyncReload', function(done) {
 });
 
 // JavaScript
+gulp.task('scriptsReload', function(cb) {
+  sequence(
+    'scripts',
+    // 'jekyll',
+    'browserSyncReload',
+    cb
+  );
+});
+//
 gulp.task('scriptsReload', function(cb) {
   sequence(
     'scripts',
@@ -198,6 +209,86 @@ gulp.task('default', function(cb) {
     'jekyll',
     'browserSync',
     'watch',
+    cb
+  );
+});
+
+/**
+ * Test Tasks
+ */
+
+gulp.task('testClean', function() {
+  return del(['./test/test.js', './test/test.js.map']);
+});
+
+gulp.task('testServer', function() {
+  return browserSync.init(config.testServer);
+});
+
+gulp.task('testLib', function() {
+  return gulp.src([
+    './node_modules/mocha/mocha.js',
+    './node_modules/mocha/mocha.css',
+    './node_modules/chai/chai.js',
+    './node_modules/chai-jquery/chai-jquery.js',
+    './bower_components/jquery/dist/jquery.slim.js'
+  ])
+  .pipe(gulp.dest('./test/lib'));
+});
+
+gulp.task('testAssets', function() {
+  return gulp.src(config.js.paths.partials)
+	.pipe($.sourcemaps.init())
+  .pipe($.babel())
+  .on('error', function(e) {
+    console.error('\x1b[31m%s\x1b[0m', e.message);
+    console.log(e.codeFrame);
+    this.emit('end');
+  })
+	.pipe($.concat('gingabulous.js'))
+	.pipe($.sourcemaps.write('./'))
+	.pipe(gulp.dest('./test/assets'));
+});
+
+gulp.task('testScripts', function() {
+  return gulp.src('test/scripts/*.js')
+	.pipe($.sourcemaps.init())
+	.pipe($.concat('tests.js'))
+	.pipe($.sourcemaps.write('./'))
+	.pipe(gulp.dest('./test'));
+});
+
+gulp.task('watchTestServer', function() {
+  gulp.watch('./test/index.html', ['browserSyncReload']);
+  gulp.watch('./test/scripts/*.js', ['reloadTestScripts']);
+  gulp.watch(config.js.paths.src, ['scriptsReload']);
+  gulp.watch(config.scss.paths.src + '/**/*.scss', ['scss']);
+});
+
+gulp.task('reloadTestScripts', function(cb) {
+  sequence(
+    'testScripts',
+    'browserSyncReload',
+    cb
+  );
+});
+
+gulp.task('reloadTestAssets', function(cb) {
+  sequence(
+    'testAssets',
+    'browserSyncReload',
+    cb
+  );
+});
+
+gulp.task('test', function(cb) {
+  sequence(
+    'testClean',
+    // 'testAssets',
+    // 'testLib',
+    ['scss', 'scripts', 'testScripts'],
+    'testServer',
+    'watchTestServer',
     cb
   );
 });

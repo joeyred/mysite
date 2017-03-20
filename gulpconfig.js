@@ -9,6 +9,22 @@ module.exports = {
     notify: false, // boolean value, Toggle notifications of bsync activity.
     open:   false // toggle auotmatic opening of webpage upong bsync starting.
   },
+  testServer: {
+    server: {
+      baseDir: 'test',
+      routes:  {
+        '/jquery':      'bower_components/jquery/dist',
+        '/mocha':       'node_modules/mocha',
+        '/chai':        'node_modules/chai',
+        '/chai-jquery': 'node_modules/chai-jquery',
+        '/assets':      '_site/assets'
+      }
+    },
+    port:   8000,
+    ui:     {port: 8001},
+    notify: false,
+    open:   false
+  },
   // Styles
   scss: {
     // Autoprefixer browser compatability.
