@@ -17,7 +17,7 @@ function init() {
   });
 
   var panes = new Gingabulous.Panes($(Gingabulous.modules.Panes.dataAttrTarget));
-  panes.init();
+  // panes.init();
 }
 
 init();

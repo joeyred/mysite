@@ -17,6 +17,8 @@ module.exports = {
         '/mocha':       'node_modules/mocha',
         '/chai':        'node_modules/chai',
         '/chai-jquery': 'node_modules/chai-jquery',
+        '/sinon-chai':  'node_modules/sinon-chai',
+        '/sinon':       'node_modules/sinon',
         '/assets':      '_site/assets'
       }
     },

@@ -19,6 +19,7 @@ module.exports = {
 	globals: {
 		Gingabulous: true,
 		expect: true,
+		sinon: true
 	},
 	rules: {
 		'comma-dangle': ['error', 'never'],
@@ -235,7 +236,7 @@ module.exports = {
 		}],
 		'template-tag-spacing': ['error', 'never'],
 		'unicode-bom': ['error', 'never'],
-		'arrow-parens': ['error', 'as-needed'],
+		'arrow-parens': ['error', 'always'],
 		'arrow-spacing': ['error', {
 			before: true,
 			after: true
