@@ -31,6 +31,7 @@ describe('Pane Constructor', function() {
     pane:   'pane',
     frozen: 'frozen-pane',
     fixed:  'fixed-pane',
+    active: 'active',
     left:   'left',
     right:  'right',
     above:  'above',
@@ -62,6 +63,7 @@ describe('Pane Constructor', function() {
   afterEach(function() {
     // Remove the template node when testing is done
     document.body.removeChild(html);
+    window.scrollTo(0, 0);
   });
 
   describe('constructor', function() {
@@ -118,65 +120,76 @@ describe('Pane Constructor', function() {
     });
   });
 
-  describe('_freeze', function() {
-    it('Adds frozen and fixed classes', function() {
-      // Run the function to remove the classes.
-      module._unfreeze();
-      // Run the function to add them again.
-      module._freeze();
-      // Check the results on the element.
-      expect(module.element.classList.contains(classes.frozen)).to.be.true;
-      expect(module.element.classList.contains(classes.fixed)).to.be.true;
+  describe('_getOrderClass', function() {
+    it('Ammends the position class with "-order"', function() {
+      var positionClass = 'left';
+      expect(module._getOrderClass(positionClass)).to.equal('left-order');
     });
   });
 
-  describe('_unfreeze', function() {
-    it('Removes frozen and fixed classes', function() {
-      // Run the function
-      module._unfreeze();
-      // Check the results on the element.
-      expect(module.element.classList.contains(classes.frozen)).to.be.false;
-      expect(module.element.classList.contains(classes.fixed)).to.be.false;
-    });
-  });
+  // describe('_freeze', function() {
+  //   it('Adds frozen and fixed classes', function() {
+  //     // Run the function to remove the classes.
+  //     module._unfreeze();
+  //     // Run the function to add them again.
+  //     module._freeze();
+  //     // Check the results on the element.
+  //     expect(module.element.classList.contains(classes.frozen)).to.be.true;
+  //     expect(module.element.classList.contains(classes.fixed)).to.be.true;
+  //   });
+  // });
+  //
+  // describe('_unfreeze', function() {
+  //   it('Removes frozen and fixed classes', function() {
+  //     // Run the function
+  //     module._unfreeze();
+  //     // Check the results on the element.
+  //     expect(module.element.classList.contains(classes.frozen)).to.be.false;
+  //     expect(module.element.classList.contains(classes.fixed)).to.be.false;
+  //   });
+  // });
 
   describe('_storeScrollPosition', function() {
     it('Stores the current window scroll position in ScrollPosition', function() {
+      module.element.classList.remove(classes.frozen, classes.fixed);
+      // module.element.style.height = '1000px';
+      window.scrollTo(0, 100);
       module._storeScrollPosition();
-      expect(module.scrollPosition).to.equal(module.element.scrollTop);
+      expect(module.scrollPosition).to.equal(100);
     });
   });
   // FIXME figure out how this can actually be tested.
   describe('_restoreScrollPosition', function() {
-    it('Sets the scroll position to the value stored in scrollPosition', function() {
+    it('Sets the scroll position of passed element to the value stored in scrollPosition',
+    function() {
       module.element.classList.remove(classes.frozen, classes.fixed);
-      module.element.style.height = '1000px';
+      // module.element.style.height = '1000px';
       module.scrollPosition = 100;
-      module._restoreScrollPosition();
-      expect(module.element.scrollTop).to.equal(100);
+      module._restoreScrollPosition(window);
+      expect(document.body.scrollTop).to.equal(100);
     });
   });
 
-  describe('_transform', function() {
-    it('Removes the transform class if position is [0, 0]', function() {
-      // Set up the correct module state
-      module.position = [0, 0];
-      // run the function
-      module._transform();
-      // what we expect to happen
-      expect(module.element.classList.contains(classes.left)).to.be.false;
-    });
-
-    it('Adds the transform class if position is the pane\'s origin', function() {
-      // Set up the correct module state
-      module.element.classList.remove(classes.left);
-      // module.position = module.origin;
-      // run the function
-      module._transform();
-      // what we expect to happen
-      expect(module.element.classList.contains(classes.left)).to.be.true;
-    });
-  });
+  // describe('_transform', function() {
+  //   it('Removes the transform class if position is [0, 0]', function() {
+  //     // Set up the correct module state
+  //     module.position = [0, 0];
+  //     // run the function
+  //     module._transform();
+  //     // what we expect to happen
+  //     expect(module.element.classList.contains(classes.left)).to.be.false;
+  //   });
+  //
+  //   it('Adds the transform class if position is the pane\'s origin', function() {
+  //     // Set up the correct module state
+  //     module.element.classList.remove(classes.left);
+  //     // module.position = module.origin;
+  //     // run the function
+  //     module._transform('left');
+  //     // what we expect to happen
+  //     expect(module.element.classList.contains(classes.left)).to.be.true;
+  //   });
+  // });
 
   describe('updatePosition', function() {
     it('Updates the position property on the Pane instance', function() {
@@ -184,12 +197,61 @@ describe('Pane Constructor', function() {
       expect(module.position).to.deep.equal([0, 0]);
     });
   });
-  // describe('activate', function() {
-  //   it('Removes frozen and fixed classes before the transition', function() {
-  //
-  //     expect(module.element.classList.contains(classes.frozen)).to.be.false;
-  //     expect(module.element.classList.contains(classes.fixed)).to.be.false;
-  //     expect(module.element.classList.contains('left')).to.be.true;
-  //   });
-  // });
+  describe('activate', function() {
+    context('Before the transition', function() {
+      it('Removes frozen and fixed classes', function() {
+        module.activate();
+        expect(module.element.classList.contains(classes.frozen)).to.be.false;
+        expect(module.element.classList.contains(classes.fixed)).to.be.false;
+      });
+      it('Removes flex order class and adds active class', function() {
+        module.activate();
+        expect(module.element.classList.contains('left-order')).to.be.false;
+        expect(module.element.classList.contains(classes.active)).to.be.true;
+      });
+      it('Removes tansform class', function() {
+        module.activate();
+        expect(module.element.classList.contains('left')).to.be.false;
+      });
+    });
+  });
+  describe('deactivate', function() {
+    beforeEach(function() {
+      module.element.classList.remove(
+        classes.frozen,
+        classes.fixed,
+        'left-order'
+      );
+      module.element.classList.add(classes.active);
+      module.element.classList.remove('left');
+    });
+    context('Before the transition', function() {
+      it('Adds frozen, fixed, and order classes, and removes active class', function() {
+        module.deactivate();
+        expect(module.element.classList.contains(classes.frozen)).to.be.true;
+        expect(module.element.classList.contains(classes.fixed)).to.be.true;
+        expect(module.element.classList.contains('left-order')).to.be.true;
+        expect(module.element.classList.contains(classes.active)).to.be.false;
+      });
+      it('Fires #_storeScrollPosition', function() {
+        var spy = sinon.spy(module, '_storeScrollPosition');
+        module.deactivate();
+        expect(spy).to.be.calledOnce;
+        // Cleanup
+        module._storeScrollPosition.restore();
+      });
+      it('Fires #_restoreScrollPosition passing the pane as the element', function() {
+        var spy = sinon.spy(module, '_restoreScrollPosition');
+        module.deactivate();
+        expect(spy).to.be.calledOnce;
+        expect(spy).to.be.calledWith(module.element);
+        // Cleanup
+        module._restoreScrollPosition.restore();
+      });
+      it('Adds the transform class to begin transition', function() {
+        module.deactivate();
+        expect(module.element.classList.contains('left')).to.be.true;
+      });
+    });
+  });
 }); // End of Suite
