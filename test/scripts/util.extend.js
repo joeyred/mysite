@@ -1,4 +1,4 @@
-describe('Module Helper Methods', function() {
+describe('Object Extend Methods', function() {
   describe('extend()', function() {
     it('Overwrites values in objectA with any matching keys in objectB', function() {
       var objectA = {
