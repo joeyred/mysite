@@ -61,6 +61,12 @@ class Pane {
     this.element.classList.add(this.classes.frozen, this.classes.fixed);
     this.element.classList.add(this.originClass);
   }
+  /**
+   * Gets the proper css class based on the pane's coordinates.
+   * @method _getPositionClass
+   * @param  {Array}          coordinates - The coordinates of the pane.
+   * @return {String|Boolean}             - The css class, or false if [0, 0] is passed.
+   */
   _getPositionClass(coordinates) {
     let cssClass = [];
     if (coordinates[1] === -1) {
@@ -89,18 +95,18 @@ class Pane {
     }
     return `${this.originClass}-order`;
   }
-  _freeze() {
-    this.element.classList.add(this.classes.frozen, this.classes.fixed);
-  }
-  _unfreeze() {
-    this.element.classList.remove(this.classes.frozen, this.classes.fixed);
-  }
-  _toggleActiveClass() {
-    this.element.classList.toggle(this.classes.active);
-  }
-  _toggleOrderClass(cssClass) {
-    this.element.classList.toggle(this._getOrderClass(cssClass));
-  }
+  // _freeze() {
+  //   this.element.classList.add(this.classes.frozen, this.classes.fixed);
+  // }
+  // _unfreeze() {
+  //   this.element.classList.remove(this.classes.frozen, this.classes.fixed);
+  // }
+  // _toggleActiveClass() {
+  //   this.element.classList.toggle(this.classes.active);
+  // }
+  // _toggleOrderClass(cssClass) {
+  //   this.element.classList.toggle(this._getOrderClass(cssClass));
+  // }
   _storeScrollPosition() {
     this.scrollPosition = document.body.scrollTop;
   }
@@ -111,20 +117,23 @@ class Pane {
       element.scrollTop = this.scrollPosition;
     }
   }
-  _transform(cssClass) {
-    // If the value is `false`, position is [0, 0]
-    // and transform class needs to be removed.
-    if (cssClass) {
-      this.element.classList.add(cssClass);
-    } else {
-      this.element.classList.remove(this.originClass);
-    }
-  }
+  // _transform(cssClass) {
+  //   // If the value is `false`, position is [0, 0]
+  //   // and transform class needs to be removed.
+  //   if (cssClass) {
+  //     this.element.classList.add(cssClass);
+  //   } else {
+  //     this.element.classList.remove(this.originClass);
+  //   }
+  // }
+  /**
+   * Brings the pane into an active state.
+   * @method activate
+   */
   activate() {
     // Update the position of the pane
     this.position = [0, 0];
     // let cssClass = this._getPositionClass(this.position);
-    // Update position
     // Unfreeze pane
     this.element.classList.remove(this.classes.frozen, this.classes.fixed);
     // Remove flex order class
@@ -136,6 +145,10 @@ class Pane {
     // Remove transform class to begin transition
     this.element.classList.remove(this.originClass);
   }
+  /**
+   * Brings the pane into an inactive state
+   * @method deactivate
+   */
   deactivate() {
     // Update the position of the pane
     this.position = this.origin;
@@ -162,8 +175,52 @@ class Pane {
 }
 
 class HomePane extends Pane {
-  activate() {}
-  deactivate() {}
+  _init() {
+    this.element.classList.add(this.classes.active);
+  }
+  _oppositeCoordinantes(coordinates) {
+    let output = coordinates;
+    for (let i = 0; i < output.length; i++) {
+      if (output[i] === 0) {
+        continue;
+      }
+      output[i] *= -1;
+    }
+    return output;
+  }
+  activate() {
+    let cssClass = this._getPositionClass(this.position);
+    this.position = [0, 0];
+    // Unfreeze pane and remove order class
+    this.element.classList.remove(
+      this.classes.frozen,
+      this.classes.fixed,
+      this._getOrderClass(cssClass)
+    );
+    // Add active class
+    this.element.classList.add(this.classes.active);
+    // Restore scroll position
+    this._restoreScrollPosition(window);
+    // Remove transform class to begin transition
+    this.element.classList.remove(cssClass);
+  }
+  deactivate(originOfActivePane) {
+    // Update the position of the pane
+    this.position = this._oppositeCoordinantes(originOfActivePane);
+    let cssClass = this._getPositionClass(this.position);
+    // Take care of most of the classes
+    this.element.classList.add(
+      this.classes.frozen,
+      this.classes.fixed,
+      this._getOrderClass(cssClass)
+    );
+    this.element.classList.remove(this.classes.active);
+    // Take care of scroll position
+    this._storeScrollPosition();
+    this._restoreScrollPosition(this.element);
+    // Add the transform class to begin transition
+    this.element.classList.add(cssClass);
+  }
 }
 
 // Gingabulous.Panes.Pane = Pane;

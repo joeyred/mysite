@@ -110,7 +110,11 @@ class Panes {
   }
   _updatePositions() {
     this.panes[this.state.active].activate();
-    this.panes[this.state.previous].deactivate();
+    if (this.state.previous === 'home') {
+      this.panes[this.state.previous].deactivate(this.panes[this.state.active].origin);
+    } else {
+      this.panes[this.state.previous].deactivate();
+    }
   }
   _registerPanes() {
     let panesInDocument = this.element.querySelectorAll(this.target.pane);

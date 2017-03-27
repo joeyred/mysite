@@ -158,7 +158,7 @@ describe('Pane Constructor', function() {
       expect(module.scrollPosition).to.equal(100);
     });
   });
-  // FIXME figure out how this can actually be tested.
+
   describe('_restoreScrollPosition', function() {
     it('Sets the scroll position of passed element to the value stored in scrollPosition',
     function() {
