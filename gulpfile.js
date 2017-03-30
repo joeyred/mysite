@@ -15,7 +15,8 @@ var yargs       = require('yargs');
 var config      = require('./gulpconfig.js');
 
 var DEPLOY = Boolean(yargs.argv.production);
-var FULLTEST = Boolean(yargs.argv.full);
+var FULLTEST = Boolean(yargs.argv.fulltest);
+var TEST = Boolean(yargs.argv.test);
 // function cleanUpStackTrace(e) {
 //   return e.toString().split(/[\r\n]+/).filter(line => !line.match(/^\s+at Parser/)).join(os.EOL);
 // }
@@ -67,7 +68,11 @@ gulp.task('jquery', function() {
 
 /* Concatinate Main JS Files */
 gulp.task('scripts', function() {
-  return gulp.src(config.js.paths.partials)
+  return gulp.src($.if(
+    TEST || FULLTEST,
+    config.js.paths.testPartials,
+    config.js.paths.partials
+  ))
 	.pipe($.sourcemaps.init())
   .pipe($.babel())
   .on('error', function(e) {
@@ -199,14 +204,35 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', function(cb) {
-  sequence(
-    'clean',
-    ['scss', 'jquery', 'scripts', 'images'],
-    'jekyll',
-    'browserSync',
-    'watch',
-    cb
-  );
+
+  if (TEST) {
+    sequence(
+      'testClean',
+      ['scss', 'scripts', 'testScripts'],
+      'testServer',
+      'watchTestServer',
+      cb
+    );
+  } else if (FULLTEST) {
+    sequence(
+      'testClean',
+      ['scss', 'scripts', 'testScripts'],
+      'jekyll',
+      'browserSync',
+      'testServer',
+      'watchBothServers',
+      cb
+    );
+  } else {
+    sequence(
+      'clean',
+      ['scss', 'jquery', 'scripts', 'images'],
+      'jekyll',
+      'browserSync',
+      'watch',
+      cb
+    );
+  }
 });
 
 /**
@@ -214,7 +240,12 @@ gulp.task('default', function(cb) {
  */
 
 gulp.task('testClean', function() {
-  return del(['./test/test.js', './test/test.js.map']);
+  return del([
+    './test/test.js',
+    './test/test.js.map',
+    './_site/assets/css',
+    './_site/assets/js'
+  ]);
 });
 
 gulp.task('testServer', function() {
@@ -317,28 +348,6 @@ gulp.task('test:scriptsReload', function(cb) {
     sequence(
       'scripts',
       'testServerReload',
-      cb
-    );
-  }
-});
-
-gulp.task('test', function(cb) {
-  if (FULLTEST) {
-    sequence(
-      'testClean',
-      ['scss', 'scripts', 'testScripts'],
-      'jekyll',
-      'browserSync',
-      'testServer',
-      'watchBothServers',
-      cb
-    );
-  } else {
-    sequence(
-      'testClean',
-      ['scss', 'scripts', 'testScripts'],
-      'testServer',
-      'watchTestServer',
       cb
     );
   }

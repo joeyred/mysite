@@ -62,7 +62,12 @@ module.exports = {
   // JS
   js: {
     paths: {
-      src:      '_src/js/**/*.js',
+      src:          '_src/js/**/*.js',
+      testPartials: [
+        '_src/js/modules/core.js',
+        '_src/js/modules/util.*.js',
+        '_src/js/modules/**.js'
+      ],
       partials: [
         '_src/js/modules/core.js',
         '_src/js/modules/util.*.js',
