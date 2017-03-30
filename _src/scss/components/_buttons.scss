@@ -3,6 +3,19 @@ button {
   border: none;
   margin: 0;
   padding: 0;
+  padding: 0.625rem;
+}
+
+button.icon-button {
+  // Pointer events fix doesnt work, so this is the new fix.
+  &::before {
+    content: ' ';
+    display: inline-block;
+    position: absolute;
+    width: $icon-size;
+    height: $icon-size;
+    z-index: z("pane-icon-button");
+  }
 }
 
 .button,

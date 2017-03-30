@@ -1,20 +1,15 @@
-// .panes {
-//   display: flex;
-// }
-
 .panes {
   display: flex;
   flex-flow: row;
+  width: 100%;
   width: 100vw;
 }
 
 .pane {
-  // @extend .sm-4;
+  flex: 0 0 100%;
   z-index: z('pane');
-  order: 1;
+  // order: 1;
   display: block;
-  // flex: 0 0 calc(100% / 3);
-  // position: fixed;
   width: 100vw;
   // height: 100vh;
   min-height: 100vh;
@@ -28,7 +23,7 @@
 .main-pane {
   order: 5;
   // flex: 0 0 100%;
-  width: 100vw;
+  width: 100%;
   z-index: 0;
 }
 
