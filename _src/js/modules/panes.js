@@ -106,15 +106,18 @@ class Panes {
       this.state.previous = this.state.active;
       this.state.active = id;
       this._updatePositions();
+      // console.log(this.state, this.panes);
     }
   }
   _updatePositions() {
-    this.panes[this.state.active].activate();
+    // NOTE YOU MUST RUN THE DEACTIVATE METHOD BEFORE THE ACTIVATE METHOD.
+    //      Failing to do so will result in the scroll position not being stored.
     if (this.state.previous === 'home') {
-      this.panes[this.state.previous].deactivate(this.panes[this.state.active].origin);
+      this.panes[this.state.previous].deactivate(this.panes[this.state.active].retriveOrigin());
     } else {
       this.panes[this.state.previous].deactivate();
     }
+    this.panes[this.state.active].activate();
   }
   _registerPanes() {
     let panesInDocument = this.element.querySelectorAll(this.target.pane);
@@ -137,6 +140,7 @@ class Panes {
         this._updateState(id);
       }
       if (event.target.hasAttribute(this.attr.close)) {
+        // console.log('fired closing event');
         this._updateState('home');
       }
     });

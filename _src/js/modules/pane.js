@@ -15,16 +15,28 @@ class Pane {
    */
   constructor(element, inheritedOptions) {
     this.element        = element;
+    this.origin         = this._getOrigin();
     this.position       = this.origin;
     this.classes        = inheritedOptions.classes;
-    this.attr           = inheritedOptions.attr;
-    this.target         = inheritedOptions.target;
     this.scrollPosition = 0;
     this._init();
   }
+
+  get originClass() {
+    return this._getPositionClass(this.retriveOrigin());
+  }
+  /**
+   * Initializes the pane by adding the proper classes for an inactive pane.
+   * @method _init
+   * @private
+   */
+  _init() {
+    this.element.classList.add(this.classes.frozen, this.classes.fixed);
+    this.element.classList.add(this._getOrderClass(this.originClass));
+  }
   /**
    * Returns the coordinates of the pane's origin based on it's class on document load.
-   * @method origin
+   * @method getOrigin
    *
    * @example
    * The panes grid, with [0, 0] being the viewport:
@@ -37,7 +49,7 @@ class Pane {
    *
    * @return {Array} The x and y coordinates on the grid.
    */
-  get origin() {
+  _getOrigin() {
     if (this.element.classList.contains('right')) {
       return [1, 0];
     }
@@ -48,18 +60,6 @@ class Pane {
       return [0, 1];
     }
     return [-1, 0];
-  }
-  get originClass() {
-    return this._getPositionClass(this.origin);
-  }
-  /**
-   * Initializes the pane by adding the proper classes for an inactive pane.
-   * @method _init
-   * @private
-   */
-  _init() {
-    this.element.classList.add(this.classes.frozen, this.classes.fixed);
-    this.element.classList.add(this.originClass);
   }
   /**
    * Gets the proper css class based on the pane's coordinates.
@@ -95,37 +95,26 @@ class Pane {
     }
     return `${this.originClass}-order`;
   }
-  // _freeze() {
-  //   this.element.classList.add(this.classes.frozen, this.classes.fixed);
-  // }
-  // _unfreeze() {
-  //   this.element.classList.remove(this.classes.frozen, this.classes.fixed);
-  // }
-  // _toggleActiveClass() {
-  //   this.element.classList.toggle(this.classes.active);
-  // }
-  // _toggleOrderClass(cssClass) {
-  //   this.element.classList.toggle(this._getOrderClass(cssClass));
-  // }
   _storeScrollPosition() {
-    this.scrollPosition = document.body.scrollTop;
+    this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    console.log('stored:', this.scrollPosition);
   }
   _restoreScrollPosition(element) {
     if (element === window) {
       element.scrollTo(0, this.scrollPosition);
     } else {
       element.scrollTop = this.scrollPosition;
+      // console.log('restore:', this.scrollPosition);
     }
   }
-  // _transform(cssClass) {
-  //   // If the value is `false`, position is [0, 0]
-  //   // and transform class needs to be removed.
-  //   if (cssClass) {
-  //     this.element.classList.add(cssClass);
-  //   } else {
-  //     this.element.classList.remove(this.originClass);
-  //   }
-  // }
+  _setWindowScrollPosition() {
+    // window.scrollTo(0, this.scrollPosition);
+    document.documentElement.scrollTop = document.body.scrollTop = this.scrollPosition;
+    // window.pageYOffset = this.scrollPosition;
+  }
+  _setScrollPositionWhenFixed() {
+    this.element.scrollTop = this.scrollPosition;
+  }
   /**
    * Brings the pane into an active state.
    * @method activate
@@ -141,17 +130,24 @@ class Pane {
     // Add active class
     this.element.classList.add(this.classes.active);
     // Restore scroll position
-    this._restoreScrollPosition(window);
+    // this._restoreScrollPosition(this.element);
+    // if ()
+    this._setWindowScrollPosition();
     // Remove transform class to begin transition
     this.element.classList.remove(this.originClass);
+    // setTimeout(() => {
+    //   this._restoreScrollPosition(window);
+    // }, 300);
   }
   /**
    * Brings the pane into an inactive state
    * @method deactivate
    */
   deactivate() {
+    this._storeScrollPosition();
     // Update the position of the pane
     this.position = this.origin;
+    // console.log(this.retriveOrigin());
     // let cssClass = this._getPositionClass(this.position);
     // Take care of most of the classes
     this.element.classList.add(
@@ -161,8 +157,7 @@ class Pane {
     );
     this.element.classList.remove(this.classes.active);
     // Take care of scroll position
-    this._storeScrollPosition();
-    this._restoreScrollPosition(this.element);
+    this._setScrollPositionWhenFixed();
     // Add the transform class to begin transition
     this.element.classList.add(this.originClass);
   }
@@ -190,6 +185,7 @@ class HomePane extends Pane {
   }
   activate() {
     let cssClass = this._getPositionClass(this.position);
+
     this.position = [0, 0];
     // Unfreeze pane and remove order class
     this.element.classList.remove(
@@ -200,11 +196,16 @@ class HomePane extends Pane {
     // Add active class
     this.element.classList.add(this.classes.active);
     // Restore scroll position
-    this._restoreScrollPosition(window);
+    // this._restoreScrollPosition(this.element);
+    this._setWindowScrollPosition();
     // Remove transform class to begin transition
     this.element.classList.remove(cssClass);
+    // setTimeout(() => {
+    //   this._restoreScrollPosition(window);
+    // }, 300);
   }
   deactivate(originOfActivePane) {
+    this._storeScrollPosition();
     // Update the position of the pane
     this.position = this._oppositeCoordinantes(originOfActivePane);
     let cssClass = this._getPositionClass(this.position);
@@ -216,8 +217,7 @@ class HomePane extends Pane {
     );
     this.element.classList.remove(this.classes.active);
     // Take care of scroll position
-    this._storeScrollPosition();
-    this._restoreScrollPosition(this.element);
+    this._setScrollPositionWhenFixed();
     // Add the transform class to begin transition
     this.element.classList.add(cssClass);
   }

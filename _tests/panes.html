@@ -1,143 +1,130 @@
 ---
-layout: panes
+layout: testing
 title: Panes
 permalink: tests/panes/
-panes:
-  - id: nestedExample
-    class: is-parent-pane above
-    content: test
+init: panes-init
 ---
 
-<div class="container">
-  <div class="block sm-12">
-    <h1>This is a page to test the panes module</h1>
+<div class="site-wrapper panes" data-panes>
 
-    <p>
-      Quid securi etiam tamquam eu fugiat nulla pariatur. Quis aute iure reprehenderit in
-      voluptate velit esse. Vivamus sagittis lacus vel augue laoreet rutrum faucibus.
-      Ab illo tempore, ab est sed immemorabili. Quo usque tandem abutere, Catilina,
-      patientia nostra?
-    </p>
+  <!-- PANE -->
+  <div class="pane left" data-pane="exampleA">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Left Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="block sm-12">
-
-    <h3>HTML</h3>
-
-{% highlight html %}
-<div class="fullscreen-panes" data-panes="example">
- <!-- PANE - LEFT -->
- <div id="details" class="pane left">
-   ...Content
- </div>
-
- <!-- PANE - CENTER -->
- <div id="demo" class="pane center">
-   ...Content
- </div>
-
- <!-- PANE - CENTER -->
- <div id="code" class="pane right">
-   ...Content
- </div>
-</div>
-
-<div class="fixed-bottom-bar">
- <nav class="nav-bar" data-panes-nav="example">
-
-   <button data-pane-go="left">Left</button>
-   <button data-pane-go="center">Center</button>
-   <button data-pane-go="right">Right</button>
-
- </nav>
-</div>
-{% endhighlight %}
+  <!-- PANE -->
+  <div class="pane right" data-pane="exampleB">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Right Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="block sm-12">
-    <button class="button" data-pane-open="nestedExample">
-      Click me to open a pane with nested panes!
-    </button>
+  <!-- PANE -->
+  <div class="pane above" data-pane="exampleC">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Above Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="block sm-12">
-
-    <h3>SCSS</h3>
-
-{% highlight scss %}
-.fullscreen-panes {
- display: flex;
- flex-flow: row nowrap;
- height: 100vh;
- width: 100vw;
- position: fixed;
- overflow: visible;
- transition: transform 300ms ease-out;
- transform: translate(-100%, 0);
-
- .pane {
-   flex: 0 0 100%;
-   height: 100vh;
-   width: 100vw;
-   padding: $spacing-unit_vertical 0;
-   overflow-y: scroll;
-   -webkit-overflow-scrolling: touch;
-   background: $color-grey_darker;
- }
-}
-{% endhighlight %}
+  <!-- PANE -->
+  <div class="pane below" data-pane="exampleD">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Below Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="block sm-12">
+  <!-- HOME PANE -->
+  <div class="site-inner main-pane" data-pane="home">
+    <div class="container">
+      <div class="block sm-12">
+        <h1>This is a page to test the panes module</h1>
 
-    <h3>JS (ES2015)</h3>
+        <p>
+          Quid securi etiam tamquam eu fugiat nulla pariatur. Quis aute iure reprehenderit in
+          voluptate velit esse. Vivamus sagittis lacus vel augue laoreet rutrum faucibus.
+          Ab illo tempore, ab est sed immemorabili. Quo usque tandem abutere, Catilina,
+          patientia nostra?
+        </p>
 
-{% highlight js %}
-class Panes {
+        <button class="button" data-pane-open="exampleA">Left</button>
+        <button class="button" data-pane-open="exampleB">Right</button>
+        <button class="button" data-pane-open="exampleC">Above</button>
+        <button class="button" data-pane-open="exampleD">Below</button>
+      </div>
 
- get defaults() {
-   return {
-     dataAttr:     Gingabulous.modules.Panes.dataAttr,
-     paneDataAttr: 'data-pane'
-   };
- }
- get id() {
-   return this.$element.attr(this.options.dataAttr);
- }
- get $panesNav() {
-   return $(`[${this.options.dataAttr}-nav="${this.id}"]`);
- }
+      <div class="block sm-12">
+        {% include test-content.html num="3" %}
+      </div>
 
- constructor(element, options = {}) {
-   this.$element = element;
-   this.options = $.extend(true, this.defaults, options);
- }
+      <div class="block sm-12">
+        <button class="button" data-pane-open="exampleA">Left</button>
+        <button class="button" data-pane-open="exampleB">Right</button>
+        <button class="button" data-pane-open="exampleC">Above</button>
+        <button class="button" data-pane-open="exampleD">Below</button>
+      </div>
 
- buttonTarget(id) {
-   return this.$panesNav.children(`[${this.options.paneDataAttr}-go="${id}"]`);
- }
+      <div class="block sm-12">
+        {% include test-content.html num="7" %}
+      </div>
 
- goToLeft() {
-   this.$element.css({transform: `translateX(0)`});
- }
- goToCenter() {
-   this.$element.css({transform: `translateX(-100%)`});
- }
- goToRight() {
-   this.$element.css({transform: `translateX(-200%)`});
- }
-
- bindEvents() {
-   this.buttonTarget('left').click(() => this.goToLeft());
-   this.buttonTarget('center').click(() => this.goToCenter());
-   this.buttonTarget('right').click(() => this.goToRight());
- }
-}
-
-Gingabulous.registerModule(Panes);
-{% endhighlight %}
+    </div>
   </div>
-
-
-
 </div>

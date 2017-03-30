@@ -56,7 +56,10 @@ describe('Panes Module', function() {
   });
 
   describe('_events', function() {
-    var clickEvent = new Event('click', {bubbles: true, cancelable: true});
+    var clickEvent;
+    beforeEach(function() {
+      clickEvent = new Event('click', {bubbles: true, cancelable: true});
+    });
     it('Fires _updateState when el with an open attr is clicked, passing it the atts id',
     function() {
       var spy = sinon.spy(module, '_updateState');
@@ -68,8 +71,9 @@ describe('Panes Module', function() {
     function() {
       var spy = sinon.spy(module, '_updateState');
       module.state = {active: 'exampleA', previous: 'home'};
-      html.querySelector('[data-pane-close]').dispatchEvent(clickEvent);
+      html.querySelectorAll('[data-pane-close]')[0].dispatchEvent(clickEvent);
       expect(spy).to.be.calledOnce;
+      expect(spy).to.be.calledWith('home');
       expect(module.state).to.deep.equal({active: 'home', previous: 'exampleA'});
     });
   });
