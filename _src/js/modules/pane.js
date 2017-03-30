@@ -1,5 +1,7 @@
 'use strict';
-
+// IDEA Split up major steps of the activation process so that extended pane classes can
+//      basically define their own activation method without having to rewrite
+//      functionality
 !function() {
 /**
  * Pane Module
@@ -108,9 +110,8 @@ class Pane {
     }
   }
   _setWindowScrollPosition() {
-    // window.scrollTo(0, this.scrollPosition);
-    document.documentElement.scrollTop = document.body.scrollTop = this.scrollPosition;
-    // window.pageYOffset = this.scrollPosition;
+    document.documentElement.scrollTop = this.scrollPosition;
+    document.body.scrollTop = this.scrollPosition;
   }
   _setScrollPositionWhenFixed() {
     this.element.scrollTop = this.scrollPosition;
