@@ -32,6 +32,7 @@ class EventListener {
 }
 
 const registerGlobalEventListener = function(name, element, listener) {
+  listener = name || listener;
   if (Gingabulous.events[name] === undefined) {
     Gingabulous.events[name] = new Gingabulous.EventListener(element, listener);
   }
