@@ -22,8 +22,8 @@ module.exports = {
         '/assets':      '_site/assets'
       }
     },
-    port:   8000,
-    ui:     {port: 8001},
+    port:   8002,
+    ui:     {port: 8003},
     notify: false,
     open:   false
   },
@@ -66,6 +66,7 @@ module.exports = {
       partials: [
         '_src/js/modules/core.js',
         '_src/js/modules/util.*.js',
+        '!_src/js/dump.js',
         '_src/js/**/!(app).js',
         '_src/js/app.js'
       ],
