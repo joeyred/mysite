@@ -17,11 +17,13 @@ module.exports = {
         '/mocha':       'node_modules/mocha',
         '/chai':        'node_modules/chai',
         '/chai-jquery': 'node_modules/chai-jquery',
+        '/sinon-chai':  'node_modules/sinon-chai',
+        '/sinon':       'node_modules/sinon',
         '/assets':      '_site/assets'
       }
     },
-    port:   8000,
-    ui:     {port: 8001},
+    port:   8002,
+    ui:     {port: 8003},
     notify: false,
     open:   false
   },
@@ -60,10 +62,16 @@ module.exports = {
   // JS
   js: {
     paths: {
-      src:      '_src/js/**/*.js',
+      src:          '_src/js/**/*.js',
+      testPartials: [
+        '_src/js/modules/core.js',
+        '_src/js/modules/util.*.js',
+        '_src/js/modules/**.js'
+      ],
       partials: [
         '_src/js/modules/core.js',
         '_src/js/modules/util.*.js',
+        '!_src/js/dump.js',
         '_src/js/**/!(app).js',
         '_src/js/app.js'
       ],

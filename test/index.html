@@ -39,6 +39,14 @@
       #mocha code .comment {
         color: #7D683E;
       }
+      #mocha .test pre {
+        font-size: 0.625rem;
+      }
+      #mocha code {
+        color: #4A402C;
+        background: none;
+        font-size: 0.75rem;
+      }
     </style>
   </head>
   <body>
@@ -48,13 +56,17 @@
     <script src="jquery/jquery.slim.js"></script>
     <script src="mocha/mocha.js"></script>
     <script src="chai/chai.js"></script>
+    <script src="sinon-chai/lib/sinon-chai.js"></script>
+    <script src="sinon/pkg/sinon.js"></script>
     <script src="chai-jquery/chai-jquery.js"></script>
 
     <!-- Scripts to Test -->
     <script src="assets/js/app.js"></script>
 
     <script>
-    mocha.setup('bdd');
+    mocha.setup({
+      ui: 'bdd'
+    });
     var expect = chai.expect;
     </script>
 
