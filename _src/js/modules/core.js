@@ -1,13 +1,13 @@
 // 'use strict';
 
-!function($) {
-
+!function() {
 var Gingabulous = {
   modules: {},
 
   // init: function() {
-  //   for (var module in this.modules) {
+  //   for (let module in this.modules) {
   //     if ({}.hasOwnProperty.call(this.modules, module)) {
+  //       if (module)
   //       $(module.dataAttr).each(this._initInstance(module));
   //     }
   //   }
@@ -33,7 +33,7 @@ var Gingabulous = {
   // _getDataAttr: function(dataAttrName) {
   //   return `data-${dataAttrName}`;
   // },
-  registerModule: function(module, dataAttrName) {
+  registerModule: function(module, jquery = false, dataAttrName) {
     var name = module.prototype.constructor.name;
     // If no value for `dataAttrName` is passed, then assign `name` to the value.
     dataAttrName = dataAttrName || this._hyphenate(name);
@@ -41,32 +41,28 @@ var Gingabulous = {
     this.modules[name] = {
       name:           name,
       dataAttr:       `data-${dataAttrName}`,
-      dataAttrTarget: `[data-${dataAttrName}]`
+      dataAttrTarget: `[data-${dataAttrName}]`,
+      jquery:         jquery
     };
     this[name] = module;
-  },
-  /**
-   * For big modules that have child modules specific to to them, this is how you register
-   * a child module in the library. The child module will be attacthed to the parent if
-   * the parent is registered as a module in the library. This is a bit of "Library in a
-   * library."
-   * @method registerChildModule
-   * @param  {String}            parent - The name of the registered parent module.
-   * @param  {Object}            child  - The child module to be registered.
-   */
-  registerChildModule: function(parent, child) {
-    // Make sure the parent module exists.
-    if (this[parent] !== undefined) {
-      // Make sure the child module is infringing on another child's namespace.
-      if (this[parent][child] !== undefined) {
-        this[parent][child] = child;
-      } else {
-        throw new(Error(`Already a child module called ${child}`));
-      }
-    } else {
-      throw new(Error(`${parent} module does not exist`));
-    }
   }
+  // TODO Turn this into a registration of a namespace for a group of modules.
+  // registerNamespacedModule: function(parent, child) {
+  //   // let parentName = parent.prototype.constructor.name;
+  //   let childName = child.prototype.constructor.name;
+  //
+  //   // Make sure the parent module exists.
+  //   if (this[parent] !== undefined) {
+  //     // Make sure the child module isn't infringing on another child's namespace.
+  //     if (this[parent][childName] === undefined) {
+  //       this[parent][childName] = child;
+  //     } else {
+  //       throw new Error(`Already a child module called ${childName}`);
+  //     }
+  //   } else {
+  //     throw new Error(`${parent} module does not exist`);
+  //   }
+  // }
 };
 
 Gingabulous.breakpoints = {
@@ -77,5 +73,7 @@ Gingabulous.breakpoints = {
   xxl: 90
 };
 
+// Gingabulous.registerGlobalEventListener('scroll', window);
+
 window.Gingabulous = Gingabulous;
-}(jQuery);
+}();

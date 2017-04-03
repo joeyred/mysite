@@ -1,4 +1,4 @@
-describe('Pane Constructor', function() {
+describe('Pane Class', function() {
   var module;
   var html;
   var template = function(cssClass) {

@@ -1,7 +1,4 @@
 'use strict';
-// IDEA Split up major steps of the activation process so that extended pane classes can
-//      basically define their own activation method without having to rewrite
-//      functionality
 !function() {
 /**
  * Pane Module
@@ -119,6 +116,8 @@ class Pane {
   /**
    * Brings the pane into an active state.
    * @method activate
+   *
+   * @fires Panes#_setScrollPosition
    */
   activate() {
     // Update the position of the pane
@@ -224,9 +223,47 @@ class HomePane extends Pane {
   }
 }
 
-// Gingabulous.Panes.Pane = Pane;
-// Gingabulous.registerChildModule('Panes', Pane);
-// Gingabulous.Panes.HomePane = HomePane;
+class CarouselPane extends Pane {
+  constructor(element, inheritedOptions) {
+    super(element, inheritedOptions);
+    this.carousel = this.element.querySelector('[data-carousel-panes]');
+    this.titleBar = this.element.querySelector('.pane-carousel-title-bar');
+    this._events();
+  }
+  _goToPane(pane) {
+    let translate;
+    if (pane === 'left') {
+      translate = 'translateX(0)';
+    }
+    if (pane === 'center') {
+      translate = '';
+    }
+    if (pane === 'right') {
+      translate = 'translateX(-200%)';
+    }
+    this.carousel.style.transform = translate;
+    this.titleBar.style.transform = translate;
+  }
+  _events() {
+    let attr = 'data-panes-nav';
+    this.element.addEventListener('click', (event) => {
+      if (event.target.hasAttribute(attr)) {
+        let attrValue = event.target.getAttribute(attr);
+        if (attrValue === 'left') {
+          this._goToPane('left');
+        }
+        if (attrValue === 'center') {
+          this._goToPane('center');
+        }
+        if (attrValue === 'right') {
+          this._goToPane('right');
+        }
+      }
+    });
+  }
+}
+
 Gingabulous.registerModule(Pane);
 Gingabulous.registerModule(HomePane);
+Gingabulous.registerModule(CarouselPane);
 }();

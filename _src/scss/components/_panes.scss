@@ -95,19 +95,19 @@
     -webkit-overflow-scrolling: touch;
     // padding: $spacing-unit_vertical 0;
 
-    &.nested-left {
+    &.carousel-left {
       order: 1;
     }
 
-    &.nested-center {
+    &.carousel-center {
       order: 2;
     }
 
-    &.nested-right {
+    &.carousel-right {
       order: 3;
     }
 
-    &.nested-left {
+    &.carousel-left {
       background: $color-yellow;
       color: $color-black;
 
@@ -125,7 +125,7 @@
       }
     }
 
-    &.nested-center {
+    &.carousel-center {
       background: $color-cyan;
       color: $color-black;
 
@@ -140,7 +140,7 @@
       }
     }
 
-    &.nested-right {
+    &.carousel-right {
       background: $color-purple;
       color: $color-black;
 

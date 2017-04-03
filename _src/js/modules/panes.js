@@ -1,45 +1,4 @@
-!function($) {
-
-class CarouselPanes {
-
-  constructor(element, dataAttr) {
-    this.$element = element;
-    this.dataAttr = dataAttr;
-    this.$carousel = element.children(`[${dataAttr}]`);
-    this.$titleBar = element.find('.pane-carousel-title-bar');
-
-    console.log(element, dataAttr, this.$carousel);
-  }
-  button(id) {
-    console.log(`[${this.dataAttr}-nav="${id}"]`);
-    return this.$element.find(`[${this.dataAttr}-nav="${id}"]`);
-  }
-  goToLeft() {
-    this.$carousel.css({transform: `translateX(0)`});
-    this.$titleBar.css({transform: `translateX(0)`});
-  }
-  goToCenter() {
-    this.$carousel.css({transform: ''});
-    this.$titleBar.css({transform: ''});
-  }
-  goToRight() {
-    this.$carousel.css({transform: `translateX(-200%)`});
-    this.$titleBar.css({transform: `translateX(-200%)`});
-  }
-  bindEvents() {
-    console.log(
-      'bind stuff',
-      this.button('left'),
-      this.button('center'),
-      this.button('right')
-    );
-    this.button('left').click(() => this.goToLeft());
-    this.button('center').click(() => this.goToCenter());
-    this.button('right').click(() => this.goToRight());
-  }
-}
-
-// translate(x, y)
+!function() {
 
 class Panes {
   /**
@@ -125,7 +84,14 @@ class Panes {
       let key = panesInDocument[i].getAttribute(this.attr.pane);
       // if the data attr has no value, then it's a nested pane, and will be skipped
       if (key !== '' && key !== 'home') {
-        this.panes[key] = new Gingabulous.Pane(panesInDocument[i], this.options);
+        if (!!panesInDocument[i].querySelector('[data-carousel-panes]')) {
+          this.panes[key] = new Gingabulous.CarouselPane(
+            panesInDocument[i],
+            this.options
+          );
+        } else {
+          this.panes[key] = new Gingabulous.Pane(panesInDocument[i], this.options);
+        }
       }
       if (key === 'home') {
         this.panes[key] = new Gingabulous.HomePane(panesInDocument[i], this.options);
@@ -149,4 +115,4 @@ class Panes {
 
 Gingabulous.registerModule(Panes);
 
-}(jQuery);
+}();
