@@ -18,6 +18,8 @@ images:
   projects: /assets/imgs/projects
 
 # Build settings
+source: ./src/jekyll
+destination: ./build
 markdown: kramdown
 highlighter: rouge
 permalink: /:title/

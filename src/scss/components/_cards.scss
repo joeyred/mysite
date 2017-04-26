@@ -94,7 +94,8 @@ ul.cards {
     background: $color-red;
 
     .icon {
-      flex: auto;
+      flex: 0 1 2rem;
+      height: 2rem;
       padding-left: 0.5rem;
 
       > svg {

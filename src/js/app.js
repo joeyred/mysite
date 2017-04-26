@@ -15,9 +15,9 @@ function init() {
     var expand = new Gingabulous.Expand($(this));
     expand.bindEvents();
   });
-  // var panesNode = document.querySelector(Gingabulous.modules.Panes.dataAttrTarget);
-  // var panes = new Gingabulous.Panes(panesNode);
-  // panes.init();
+  var panesNode = document.querySelector(Gingabulous.modules.Panes.dataAttrTarget);
+  var panes = new Gingabulous.Panes(panesNode);
+  panes.init();
 }
 
 init();
