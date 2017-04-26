@@ -1,7 +1,7 @@
 node_modules
 bower_components
 
-_site
+build
 
 # Code Dump Files
 dump.js
