@@ -8,23 +8,77 @@
 //   dynamic content is opened, it doesnt have to load again.
 !function() {
 class Inject {
-  constructor(element) {
+  constructor(element, options) {
     this.element = element;
-    this.injectTargets = {};
-    this.requests = {};
-    this.content = {};
+    this.options = Gingabulous.deepExtend(this.defaults, options);
+    this.xhr = new XMLHttpRequest();
+    this.api;
+    this.activeContent;
+  }
+  get defaults() {
+    return {
+      dataAttr: 'data-inject'
+    };
+  }
+  get attr() {
+    return {
+      container: `${this.options.dataAttr}-container`,
+      content:   `${this.options.dataAttr}-content`,
+      api:       `${this.options.dataAttr}-api`,
+      bind:      `${this.options.dataAttr}-bind`
+    };
+  }
+  get path() {
+    return this.element.getAttribute(this.attr.api);
+  }
+  get boundElements() {
+    return this.element.querySelectorAll(`[${this.attr.bind}]`);
   }
   _init() {}
-  _registerTargetContainers() {}
-  _newRequest(id) {
-    this.requests[id] = new XMLHttpRequest();
+  _ajax() {
+    this.xhr.onreadystatechange = () => this._loadAPI();
+    this.xhr.open('GET', this.path);
+    this.xhr.send();
   }
-  removeContent() {}
-  injectContent(id) {
-    // If the id hasnt been registered yet, then creaet a new xhr object.
-    if (!this.requests[id]) {
-      this._newRequest(id);
+  _loadAPI() {
+    if (this.xhr.readyState === 4) {
+      this.api = JSON.parse(this.xhr.responseText);
+      console.log('response text', this.xhr.responseText);
+      console.log(this.api);
     }
+    console.log(this.api);
+  }
+  _forEachBindAttr(callback) {
+    let binds = this.element.querySelectorAll(`[${this.attr.bind}]`);
+    for (let bind in binds) {
+      if (Object.prototype.hasOwnProperty.call(binds, bind)) {
+        callback(binds[bind]);
+      }
+    }
+  }
+  _updateAttr(key) {
+    this.element.setAttribute(this.attr.content, key);
+  }
+  _getContent(objectChain) {
+    let data = objectChain.split('.');
+    let output = this.activeContent;
+    for (let i = 0; i < data.length; i++) {
+      output = output[data[i]];
+    }
+    return output;
+  }
+  _removeContent() {}
+  _injectContent() {
+    for (let bind in this.boundElements) {
+      if (Object.prototype.hasOwnProperty.call(this.boundElements, bind)) {
+
+      }
+    }
+  }
+  updateContent(eventElement) {
+    let key = eventElement.getAttribute(this.options.dataAttr);
+    this._updateAttr(key);
+    this.activeContent = this.api[key];
   }
 }
 
