@@ -37,7 +37,7 @@ module.exports = {
 			allowEmptyCatch: true
 		}],
 		'no-ex-assign': 'error',
-		'no-extra-boolean-cast': 'error',
+		// 'no-extra-boolean-cast': 'error',
 		'no-extra-semi': 'error',
 		'no-func-assign': 'error',
 		'no-inner-declarations': 'error',
@@ -78,7 +78,7 @@ module.exports = {
 		'no-fallthrough': 'error',
 		'no-floating-decimal': 'error',
 		'no-global-assign': 'error',
-		'no-implicit-coercion': 'error',
+		// 'no-implicit-coercion': 'error',
 		'no-implicit-globals': 'error',
 		'no-implied-eval': 'error',
 		'no-iterator': 'error',
