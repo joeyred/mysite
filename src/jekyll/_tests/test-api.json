@@ -1,0 +1,20 @@
+{
+  "contentA": {
+    "exampleA": "parent A content",
+    "exampleB": "parent B content",
+    "exampleC": {
+      "childA": "parent C - child A content",
+      "childB": "parent C - child B content",
+      "childC": "parent C - child C content"
+    }
+  },
+  "contentB": {
+    "exampleA": "parent A content",
+    "exampleB": "<h1>Look at This Content!</h1><p>It's pretty awesome right?</p>",
+    "exampleC": {
+      "childA": "Content",
+      "childB": "<span>Hello</span>",
+      "childC": "parent C - child C content B"
+    }
+  }
+}

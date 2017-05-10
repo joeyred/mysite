@@ -14,6 +14,7 @@ class Inject {
     this.xhr = new XMLHttpRequest();
     this.api;
     this.activeContent;
+    this._init();
   }
   get defaults() {
     return {
@@ -34,7 +35,9 @@ class Inject {
   get boundElements() {
     return this.element.querySelectorAll(`[${this.attr.bind}]`);
   }
-  _init() {}
+  _init() {
+    this._ajax();
+  }
   _ajax() {
     this.xhr.onreadystatechange = () => this._loadAPI();
     this.xhr.open('GET', this.path);
@@ -67,18 +70,20 @@ class Inject {
     }
     return output;
   }
-  _removeContent() {}
   _injectContent() {
-    for (let bind in this.boundElements) {
-      if (Object.prototype.hasOwnProperty.call(this.boundElements, bind)) {
-
-      }
+    for (let i = 0; i < this.boundElements.length; i++) {
+      // Get the object chain to parse.
+      let objectChain = this.boundElements[i]
+        .getAttribute(this.attr.bind);
+      // Inject the content, replacing whatever is already there.
+      this.boundElements[i].innerHTML = this._getContent(objectChain);
     }
   }
   updateContent(eventElement) {
     let key = eventElement.getAttribute(this.options.dataAttr);
-    this._updateAttr(key);
+    // this._updateAttr(key);
     this.activeContent = this.api[key];
+    this._injectContent();
   }
 }
 

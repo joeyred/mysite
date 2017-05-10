@@ -204,7 +204,6 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', function(cb) {
-
   if (TEST) {
     sequence(
       'testClean',

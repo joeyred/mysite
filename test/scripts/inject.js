@@ -3,7 +3,7 @@ describe('Inject Utility Module', function() {
   var module;
   var html;
   var template = `
-    <div data-inject-api="example/url/api.json" data-inject-content>
+    <div data-inject-api="example/url/api.json">
       <div data-inject-bind="exampleA"></div>
       <div data-inject-bind="exampleB"></div>
       <div>
@@ -104,15 +104,15 @@ describe('Inject Utility Module', function() {
     });
   });
 
-  describe('_updateAttr', function() {
-    it('Updates data-inject-content with the param value passed',
-    function() {
-      let example = 'exampleValue';
-      module._updateAttr(example);
-      // expect(module.activeContent).to.equal(example);
-      expect(html.getAttribute('data-inject-content')).to.equal(example);
-    });
-  });
+  // describe('_updateAttr', function() {
+  //   it('Updates data-inject-content with the param value passed',
+  //   function() {
+  //     let example = 'exampleValue';
+  //     module._updateAttr(example);
+  //     // expect(module.activeContent).to.equal(example);
+  //     expect(html.getAttribute('data-inject-content')).to.equal(example);
+  //   });
+  // });
 
   describe('_getContent', function() {
     var exampleObject = {
@@ -132,7 +132,43 @@ describe('Inject Utility Module', function() {
     });
   });
 
-  describe('injectContent', function() {
-    it('Injects content provided');
+  describe('_injectContent', function() {
+    it('injects content into bound containers', function() {
+      module.activeContent = exampleAPIObject.contentA;
+      module._injectContent();
+      expect(html.querySelector('[data-inject-bind="exampleA"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentA.exampleA);
+      expect(html.querySelector('[data-inject-bind="exampleB"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentA.exampleB);
+      expect(html.querySelector('[data-inject-bind="exampleC.childA"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentA.exampleC.childA);
+      expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentA.exampleC.childB);
+      expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentA.exampleC.childB);
+      // Data Change
+      module.activeContent = exampleAPIObject.contentB;
+      module._injectContent();
+      expect(html.querySelector('[data-inject-bind="exampleA"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentB.exampleA);
+      expect(html.querySelector('[data-inject-bind="exampleB"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentB.exampleB);
+      expect(html.querySelector('[data-inject-bind="exampleC.childA"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentB.exampleC.childA);
+      expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentB.exampleC.childB);
+      expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
+      .to
+      .equal(exampleAPIObject.contentB.exampleC.childB);
+    });
   });
 });
