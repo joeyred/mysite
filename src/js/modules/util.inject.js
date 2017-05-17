@@ -40,7 +40,7 @@ class Inject {
   }
   _ajax() {
     this.xhr.onreadystatechange = () => this._loadAPI();
-    this.xhr.open('GET', this.path);
+    this.xhr.open('GET',this.element.getAttribute(this.attr.api));
     this.xhr.send();
   }
   _loadAPI() {
@@ -49,7 +49,6 @@ class Inject {
       console.log('response text', this.xhr.responseText);
       console.log(this.api);
     }
-    console.log(this.api);
   }
   _forEachBindAttr(callback) {
     let binds = this.element.querySelectorAll(`[${this.attr.bind}]`);
@@ -79,8 +78,8 @@ class Inject {
       this.boundElements[i].innerHTML = this._getContent(objectChain);
     }
   }
-  updateContent(eventElement) {
-    let key = eventElement.getAttribute(this.options.dataAttr);
+  updateContent(key) {
+    // let key = eventElement.getAttribute(this.options.dataAttr);
     // this._updateAttr(key);
     this.activeContent = this.api[key];
     this._injectContent();

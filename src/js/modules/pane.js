@@ -222,7 +222,12 @@ class HomePane extends Pane {
     this.element.classList.add(cssClass);
   }
 }
-
+class DynamicPane extends Pane {
+  constructor(element, inheritedOptions) {
+    super(element, inheritedOptions);
+    this.inject = new Gingabulous.Inject(element);
+  }
+}
 class CarouselPane extends Pane {
   constructor(element, inheritedOptions) {
     super(element, inheritedOptions);
@@ -265,5 +270,6 @@ class CarouselPane extends Pane {
 
 Gingabulous.registerModule(Pane);
 Gingabulous.registerModule(HomePane);
+Gingabulous.registerModule(DynamicPane);
 Gingabulous.registerModule(CarouselPane);
 }();
