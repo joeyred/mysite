@@ -3,12 +3,15 @@
 var PATHS = {
   src:   'src',
   build: 'build',
-  dist:  'dist'
+  dist:  'dist',
+  test:  'test',
+  node:  'node_modules',
+  bower: 'bower_components'
 };
 
 module.exports = {
   // Development Server - Browser Sync
-  browserSync: {
+  devServer: {
     server: PATHS.build,
     port:   8000,
     ui:     {port: 8001},
