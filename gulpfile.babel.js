@@ -12,9 +12,51 @@ const	del         = require('del');
 const yargs       = require('yargs');
 const config      = require('./gulpconfig.js');
 
+// Metalsmith Plugins
+const ms = {
+  markdown:      require('metalsmith-markdown'),
+  layouts:       require('metalsmith-layouts'),
+  rename:        require('metalsmith-rename'),
+  writeMetadata: require('metalsmith-writemetadata')
+};
+// const markdown = require('metalsmith-markdown');
+// const layouts = require('metalsmith-layouts');
+// const rename =
+// const pug = require('pug');
+
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
+
+export function site() {
+  return gulp.src('src/metalsmith/pages/**/*')
+  .pipe($.metalsmith({
+    metadata: {
+      site: {
+        title: 'Hello World'
+      }
+    },
+    frontmatter: true,
+    root:        './src/metalsmith',
+    use:         [
+
+      ms.markdown(),
+      ms.layouts({
+        engine:    'pug',
+        partials:  'partials',
+        directory: 'layouts',
+        pretty:    true,
+        rename:    true
+      }),
+      ms.writeMetadata({
+        pattern:        ['./src/metalsmith/**/*'],
+        ignorekeys:     ['next', 'previous'],
+        bufferencoding: 'utf8'
+      })
+    ]
+  }))
+  .pipe(gulp.dest('build'));
+}
 
 export function devServer() {
   return bsDev.init(config.devServer);
@@ -95,41 +137,6 @@ export function watch() {
   gulp.watch(config.js.paths.src, gulp.series(scripts, reload));
   gulp.watch(config.images.paths.src, gulp.series(images, bsDev.reload()));
 }
-
-// export function dev() {
-//   if (FULLTEST) {
-//     return gulp.series(
-//       clean,
-//       gulp.parallel(
-//         styles,
-//         scripts,
-//         testScripts,
-//         images
-//       ),
-//       // metalsmith,
-//       devServer,
-//       testServer,
-//       watch
-//     );
-//   } else if (TEST) {
-//     return gulp.series(
-//       testScripts,
-//       watch
-//     );
-//   } else {
-//     return gulp.series(
-//       clean,
-//       gulp.parallel(
-//         styles,
-//         scripts,
-//         images
-//       ),
-//       // metalsmith,
-//       devServer,
-//       watch
-//     );
-//   }
-// }
 
 const dev = gulp.series(
   clean,
