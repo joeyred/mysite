@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Tests</title>
+
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" media="all" href="mocha/mocha.css">
+    <style>
+      body {
+        background-color: #E3C486;
+        color: #4A402C;
+      }
+      h1, h2, h3 {
+        text-transform: none;
+        letter-spacing: normal;
+      }
+      h2 {
+        color: #4A402C;
+      }
+      #mocha-stats {
+        color: #7D683E;
+      }
+      #mocha .suite h1 {
+        color: #5D2D73;
+      }
+      #mocha .suite .suite h1 {
+        color: #A15EBF;
+      }
+      #mocha .test.pass::before {
+        color: #3CB079;
+      }
+      #mocha .test pre {
+        border-color: #C9AE77;
+        border-color-bottom: #A38D60;
+        box-shadow: 0 1px 3px #A38D60;
+      }
+      #mocha code .comment {
+        color: #7D683E;
+      }
+      #mocha .test pre {
+        font-size: 0.625rem;
+      }
+      #mocha code {
+        color: #4A402C;
+        background: none;
+        font-size: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="messages"></div>
+    <div id="fixtures"></div>
+    <script src="jquery/jquery.slim.js"></script>
+    <script src="mocha/mocha.js"></script>
+    <script src="chai/chai.js"></script>
+    <script src="sinon-chai/lib/sinon-chai.js"></script>
+    <script src="sinon/pkg/sinon.js"></script>
+    <script src="chai-jquery/chai-jquery.js"></script>
+
+    <!-- Scripts to Test -->
+    <script src="assets/js/app.js"></script>
+
+    <script>
+    mocha.setup({
+      ui: 'bdd'
+    });
+    var expect = chai.expect;
+    </script>
+
+    <!-- Test Scripts -->
+    <script src="tests.js"></script>
+    <script>mocha.run();</script>
+  </body>
+</html>

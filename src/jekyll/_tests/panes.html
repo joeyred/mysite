@@ -1,0 +1,130 @@
+---
+layout: testing
+title: Panes
+permalink: tests/panes/
+init: panes-init
+---
+
+<div class="site-wrapper panes" data-panes>
+
+  <!-- PANE -->
+  <div class="pane left" data-pane="exampleA">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Left Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANE -->
+  <div class="pane right" data-pane="exampleB">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Right Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANE -->
+  <div class="pane above" data-pane="exampleC">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Above Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANE -->
+  <div class="pane below" data-pane="exampleD">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pane-content">
+      <div class="container">
+        <div class="block sm-12">
+          <h2>Below Pane</h2>
+          {% include test-content.html num="10" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME PANE -->
+  <div class="site-inner main-pane" data-pane="home">
+    <div class="container">
+      <div class="block sm-12">
+        <h1>This is a page to test the panes module</h1>
+
+        <p>
+          Quid securi etiam tamquam eu fugiat nulla pariatur. Quis aute iure reprehenderit in
+          voluptate velit esse. Vivamus sagittis lacus vel augue laoreet rutrum faucibus.
+          Ab illo tempore, ab est sed immemorabili. Quo usque tandem abutere, Catilina,
+          patientia nostra?
+        </p>
+
+        <button class="button" data-pane-open="exampleA">Left</button>
+        <button class="button" data-pane-open="exampleB">Right</button>
+        <button class="button" data-pane-open="exampleC">Above</button>
+        <button class="button" data-pane-open="exampleD">Below</button>
+      </div>
+
+      <div class="block sm-12">
+        {% include test-content.html num="3" %}
+      </div>
+
+      <div class="block sm-12">
+        <button class="button" data-pane-open="exampleA">Left</button>
+        <button class="button" data-pane-open="exampleB">Right</button>
+        <button class="button" data-pane-open="exampleC">Above</button>
+        <button class="button" data-pane-open="exampleD">Below</button>
+      </div>
+
+      <div class="block sm-12">
+        {% include test-content.html num="7" %}
+      </div>
+
+    </div>
+  </div>
+</div>

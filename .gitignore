@@ -1,8 +1,12 @@
 node_modules
 bower_components
 
-_site
+build
 
 # Code Dump Files
 dump.js
 mock
+
+# Test Assets
+test/tests.js
+test/tests.js.map

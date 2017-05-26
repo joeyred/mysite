@@ -1,0 +1,62 @@
+---
+layout: testing
+title: Inject Pane
+permalink: tests/inject-pane/
+init: panes-init
+---
+
+<div class="site-wrapper panes" data-panes>
+
+  <!-- PANE -->
+  <div class="pane above" data-pane="example" data-inject-api="{{ '/tests/test-api.json' | absolute_url }}">
+    <div class="pane-header">
+      <div class="top-bar">
+        <div class="left">
+          <button class="icon-button" data-pane-close>
+            {% include icon.html id="close" %}
+          </button>
+        </div>
+      </div>
+    </div>
+    <div data-inject-bind="exampleA"></div>
+    <div data-inject-bind="exampleB"></div>
+    <div>
+      <div data-inject-bind="exampleC.childA"></div>
+      <div data-inject-bind="exampleC.childB"></div>
+      <div data-inject-bind="exampleC.childC"></div>
+    </div>
+  </div>
+
+  <!-- HOME PANE -->
+  <div class="site-inner main-pane" data-pane="home">
+    <div class="container">
+      <div class="block sm-12">
+        <h1>This is a page to test the inject module's use in the pane module</h1>
+
+        <p>
+          Quid securi etiam tamquam eu fugiat nulla pariatur. Quis aute iure reprehenderit in
+          voluptate velit esse. Vivamus sagittis lacus vel augue laoreet rutrum faucibus.
+          Ab illo tempore, ab est sed immemorabili. Quo usque tandem abutere, Catilina,
+          patientia nostra?
+        </p>
+
+        <button class="button" data-pane-open="example" data-inject="contentA">Dynamic Content A</button>
+        <button class="button" data-pane-open="example" data-inject="contentB">Dynamic Content B</button>
+      </div>
+
+      <div class="block sm-12">
+        {% include test-content.html num="3" %}
+      </div>
+
+      <div class="block sm-12">
+        <button class="button" data-pane-open="example" data-inject="contentA">Dynamic Content A</button>
+        <button class="button" data-pane-open="example" data-inject="contentB">Dynamic Content B</button>
+      </div>
+
+      <div class="block sm-12">
+        {% include test-content.html num="7" %}
+      </div>
+
+    </div>
+  </div>
+</div>

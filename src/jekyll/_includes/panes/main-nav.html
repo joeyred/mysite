@@ -1,0 +1,51 @@
+<aside class="pane left nav-overlay main-nav" data-pane="mainNav">
+
+  <header class="pane-header">
+    <div class="top-bar">
+      <div class="left">
+        <button class=" icon-button overlay-close" data-pane-close>
+          {% include icon.html id="close" %}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Main Nav -->
+    <div class="block sm-12">
+
+      <nav class="main-nav">
+
+        <a href="{{ site.baseurl }}/my-work/" class="my-work">My Work</a>
+
+        <a href="{{ site.baseurl }}/skills/" class="my-skills">My Skills</a>
+
+        <a href="{{ site.baseurl }}/about/" class="about-me">About Me</a>
+
+        <a href="{{ site.baseurl }}/blog/" class="blog">Blog</a>
+
+      </nav>
+
+    </div>
+
+    <!-- Social Bar -->
+    <div class="block sm-12">
+
+      <div class="icon-bar">
+
+        {% include icon.html id="twitter" %}
+        {% include icon.html id="github" %}
+        {% include icon.html id="codepen" %}
+        {% include icon.html id="stackoverflow" %}
+
+       </div>
+
+    </div>
+
+
+  </div><!-- Close Container -->
+
+  <!-- IDEA: Footer for contact info? -->
+
+</aside>

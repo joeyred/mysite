@@ -1,0 +1,34 @@
+---
+layout: default
+---
+
+<section id="demo" build-api="demo">
+    {% contentblock demo %}
+</section>
+
+<section id="details" build-api="details">
+    {% contentblock details %}
+</section>
+
+<section id="code">
+    <div class="code-block container" build-api="code.html">
+      <div class="block">
+        <h3>{{ page.web }}</h3>
+        {% contentblock html %}
+      </div>
+    </div>
+
+    <div class="code-block container" build-api="code.css">
+      <div class="block">
+        <h3>{{ page.styles }}</h3>
+        {% contentblock css %}
+      </div>
+    </div>
+
+    <div class="code-block container" build-api="code.js">
+      <div class="block">
+        <h3>{{ page.scripts }}</h3>  
+        {% contentblock js %}
+      </div>
+    </div>
+</section>

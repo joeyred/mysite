@@ -1,0 +1,17 @@
+<div class="pane{% if include.class %} {{ include.class }}{% endif %}" data-pane{% if include.id %}="{{ include.id }}"{% endif %}>
+
+  <div class="pane-header">
+    <div class="top-bar">
+      <div class="left">
+        <button class=" icon-button overlay-close" data-pane-close>
+          {% include icon.html id="close" %}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pane-content">
+    {% include {{ include.content | prepend: "panes/" | append: ".html" }} %}
+  </div>
+
+</div>

@@ -1,5 +1,5 @@
 # Site settings
-title: Joey Hayes
+title: Brian Hayes
 email: bjoeyhayes@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -18,6 +18,8 @@ images:
   projects: /assets/imgs/projects
 
 # Build settings
+source: ./src/jekyll
+destination: ./build
 markdown: kramdown
 highlighter: rouge
 permalink: /:title/

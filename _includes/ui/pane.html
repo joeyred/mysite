@@ -1,3 +1,0 @@
-<div class="pane{% if include.class %} {{ include.class }}{% endif %}" data-pane{% if include.id %}="{{ include.id }}"{% endif %}>
-  {% include {{ include.content | prepend: "panes/" | append: ".html" }} %}
-</div>
