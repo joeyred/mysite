@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: pen
 title: "Fixed Backgrounds on Mobile"
 date: 2017-3-10
 description: >
@@ -17,29 +17,42 @@ cover-image:
   lg:
 # Social Sharing
 open-graph: # Open Graph - Facebook
-  title: Branding Hayes Business Group Inc.
+  title: Fixed Backgrounds on Mobile
   description:
   image:
 # Social Links
 codepen-link:
 gist-link:
 live-demo-link:
+# Code Block Titles
+web: HTML
+styles: SCSS
+scripts: JS (ES2015)
 ---
 
-<section id="demo">
-  <div class="container">
 
-  </div>
-</section>
+{% contentfor demo %}
+<h1>Demo Section</h1>
+<p>
+  Some cool text too.
+</p>
+{% endcontentfor %}
 
-<section id="details">
-  <div class="container">
+{% contentfor details %}
+<h1>Details Section</h1>
+<p>
+  Some cool text too.
+</p>
+{% endcontentfor %}
 
-  </div>
-</section>
+{% contentfor html %}
+<code>html</code>
+{% endcontentfor %}
 
-<section id="code">
-  <div class="container">
+{% contentfor css %}
+<code>css</code>
+{% endcontentfor %}
 
-  </div>
-</section>
+{% contentfor js %}
+<code>js</code>
+{% endcontentfor %}
