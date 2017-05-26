@@ -28,7 +28,7 @@ gulp.task('browserSync', function() {
 
 /* Clean */
 gulp.task('clean', function() {
-  return del(['./_site/assets']);
+  return del(['./build']);
 });
 
 /* Images */
@@ -183,17 +183,9 @@ gulp.task('watch', function() {
   // Watch HTML
   gulp.watch(
     [
-      // '_includes/**/*',
-      // '_layouts/**/*',
-      // '_posts/*',
-      // '_projects/*',
-      // '_styleguide/**/*',
-      '*.html',
-      './*.md',
       './_config.yml',
-      '_*/**/*',
-      '!_src/**/*',
-      '!_site/**/*'
+      './_config_dev.yml',
+      'src/jekyll/**/*'
     ],
     ['jekyllReload']
   ).on('error', function(e) {
@@ -242,8 +234,8 @@ gulp.task('testClean', function() {
   return del([
     './test/test.js',
     './test/test.js.map',
-    './_site/assets/css',
-    './_site/assets/js'
+    './build/assets/css',
+    './build/assets/js'
   ]);
 });
 
@@ -300,17 +292,9 @@ gulp.task('watchBothServers', function() {
     // Watch HTML
     gulp.watch(
       [
-        // '_includes/**/*',
-        // '_layouts/**/*',
-        // '_posts/*',
-        // '_projects/*',
-        // '_styleguide/**/*',
-        '*.html',
-        './*.md',
         './_config.yml',
-        '_*/**/*',
-        '!_src/**/*',
-        '!_site/**/*'
+        './_config_dev.yml',
+        'src/jekyll/**/*'
       ],
       ['jekyllReload']
     ).on('error', function(e) {

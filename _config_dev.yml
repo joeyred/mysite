@@ -1,3 +1,4 @@
+url: http://localhost:8000
 # Overriding setting for dev
 exclude: [node_modules, gulpfile.js, gulpconfig.js, package.json, bower_components, bower.json]
 
