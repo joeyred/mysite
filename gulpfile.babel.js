@@ -236,7 +236,7 @@ export function watch() {
   if (FULLTEST || !TEST) {
     gulp.watch(
       ['./src/jekyll/**/*', '_config_dev.yml', 'config.yml'],
-      gulp.series(jekyll, reload)
+      gulp.series(jekyll, pensAPI, reload)
     );
   }
 }
@@ -250,10 +250,10 @@ const dev = gulp.series(
     images
   ),
   jekyll,
+  pensAPI,
   gulp.parallel(devServer,
   testServer),
-  watch,
-  scripts
+  watch
 );
 
 export {dev};
