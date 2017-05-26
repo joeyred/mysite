@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    title #{site.title}
+  body
+    .site-wrapper.panes(data-panes='')
+      .site-inner.main-pane(data-pane='home')
+        main.content
+          block content
