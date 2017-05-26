@@ -188,7 +188,7 @@ function parseObjectString(string, value) {
   return output;
 }
 
-export function pensAPI() {
+export function buildPensAPI() {
   // Use this to store the current file name
   let currentFile;
   return gulp.src('build/pens/**/*')
@@ -224,6 +224,22 @@ export function pensAPI() {
   }))
   .pipe(gulp.dest('build/api'));
 }
+
+export function removeAPIAttr() {
+  return gulp.src('build/pens/**/*')
+  .pipe($.dom(function() {
+    let elements = this.querySelectorAll('[build-api]');
+
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].removeAttribute('build-api');
+    }
+    return this;
+  }))
+  .pipe(gulp.dest('./build/pens'));
+}
+
+const pensAPI = gulp.series(buildPensAPI, removeAPIAttr);
+export {pensAPI};
 
 export function watch() {
   gulp.watch(`${config.scss.paths.src}/**/*.scss`, styles);
