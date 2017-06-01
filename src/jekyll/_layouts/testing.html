@@ -17,7 +17,9 @@
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
     <script src="{{ "/assets/js/app.js" | prepend: site.baseurl }}"></script>
+    {% if page.init %}
     {% include {{ page.init | prepend: "test-inits/" | append: ".html" }} %}
+    {% endif %}
   </body>
 
 </html>
