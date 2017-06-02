@@ -1,23 +1,3 @@
-ul.tags {
-  list-style: none;
-  padding-left: 0;
-  font-size: $font-size_small;
-  margin-bottom: 0;
-  color: $color-grey;
-
-  li {
-    display: inline;
-    margin-bottom: 0;
-    margin-right: to-rem(3);
-
-    &::before {
-      content: '#';
-      color: $color-grey_dark;
-      margin-right: to-rem(1);
-    }
-  }
-}
-
 ul.cards {
   list-style: none;
   padding-left: 0;
@@ -36,8 +16,8 @@ ul.cards {
 
 .card {
   box-shadow: 1px 2px 10px #111;
-  border-left: to-rem(6) solid $color-red;
-  margin-left: -#{to-rem(6)};
+  // border-left: to-rem(6) solid $color-red;
+  // margin-left: -#{to-rem(6)};
 
   .card-bottom {
     padding: 0.5rem 1rem;
@@ -49,6 +29,17 @@ ul.cards {
 .card.horizontal {
   display: flex;
   flex-flow: row wrap;
+  position: relative;
+  // transition: height 200ms ease-out;
+
+  .border-left {
+    width: to-rem(6);
+    margin-left: -#{to-rem(6)};
+    position: absolute;
+    background: $color-red;
+    height: 100%;
+    transition: height 200ms ease-out;
+  }
 
   .card-cover {
     flex: 0 0 100%;
@@ -77,9 +68,11 @@ ul.cards {
 
   .bottom-container {
     flex: 0 0 100%;
-    padding: $content-padding_base;
-    background: $color-black;
-    color: $color-white;
+    background: lighten($color-red, 30%);
+    color: $color-black;
+    // height: 0;
+    // visibility: hidden;
+    // transition: height 200ms ease-out;
 
     p:last-child {
       margin-bottom: 0;
@@ -92,6 +85,10 @@ ul.cards {
     flex-flow: row nowrap;
     align-items: center;
     background: $color-red;
+    // Styles to overwrite
+    // height: 0;
+    // visibility: hidden;
+    // transition: height 200ms ease-out;
 
     .icon {
       flex: 0 1 2rem;
@@ -108,105 +105,71 @@ ul.cards {
       background: $color-red;
     }
   }
-
-  &.after {
-    .bottom-container {
-      // height: 0;
-    }
-  }
 }
+//**
+// TRANSFORM METHOD
+//*
+// .card.horizontal {
+//   .card-options-bar {
+//     z-index: -1;
+//     transform-origin: right;
+//     transform: translateY(99%);
+//     transition: transform 200ms ease-in, z-index 0ms ease-in 200ms;
+//   }
+//   .border-left {}
+//   .bottom-container {
+//     z-index: -1;
+//     transform: translateY(-100%);
+//     transition: transform 200ms ease-in;
+//   }
+//
+//   &.expanded {
+//     .card-options-bar {
+//       z-index: 1;
+//       transform: translateY(0);
+//     }
+//
+//     .border-left {
+//       height: calc(100% - 10px);
+//     }
+//
+//     .bottom-container {
+//       transform: translateY(0);
+//     }
+//   }
+// }
 
-.card.horizontal.bright {
-  border: none;
-  margin-left: 0;
-  flex: 0 1 auto;
-  display: flex;
-  flex-flow: row wrap;
-  position: relative;
-
-  &::before {
-    content: '';
-    width: to-rem(6);
-    margin-left: -#{to-rem(6)};
-    position: absolute;
-    height: 101px;
-    background: $color-red;
-  }
-
-  .card-cover {
-    flex: 0 0 100%;
-    display: flex;
-    flex-flow: row;
-    background: $color-black;
-    // border-left: to-rem(4) solid $color-red;
-
-    .car-info {
-      flex: 0 1 auto;
-    }
-
-    .card-thumbnail {
-      flex: 0 0 35%;
-    }
-  }
-
-  .card-info {
-    padding: 0.5rem 1rem;
-    // border-left: to-rem(4) solid $color-red;
-
-    h3 {
-      font-size: to-rem(14);
-      letter-spacing: 1px;
-      margin-bottom: 0.4rem;
-    }
-
-    .icon > svg {
-      fill: $color-grey_dark;
-    }
-  }
-
-  .bottom-container {
-    flex: 0 0 100%;
-    padding: $content-padding_base;
-    background: lighten($color-red, 30%);
-    color: $color-black;
-    // border-left: to-rem(4) solid $color-red;
-
-    p:last-child {
-      margin-bottom: 0;
-    }
-  }
-
+//*
+// HEIGHT METHOD
+//**
+.card.horizontal {
   .card-options-bar {
-    flex: 0 0 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    // background: lighten($color-red, 30%);
-    background: $color-red;
-    // border-left: to-rem(4) solid $color-red;
-
-    .icon {
-      flex: auto;
-      padding-left: 0.5rem;
-
-      > svg {
-        fill: $color-black;
-      }
-    }
-
-    .button {
-      margin-left: auto;
-      background: $color-red;
-    }
+    height: 0;
+    visibility: hidden;
+    // transition: height 200ms ease-out;
+  }
+  .border-left {}
+  .bottom-container {
+    height: 0;
+    visibility: hidden;
+    // transition: height 200ms ease-out;
+    padding: 0, $content-padding_base;
   }
 
-  &.after {
-    &::before {
-      height: calc(101px + 48px + 134px);
+  &.expanded {
+    .card-options-bar {
+      height: 100%;
+      visibility: visible;
+    }
+
+    .border-left {
+      height: calc(100% - 10px);
     }
 
     .bottom-container {
-      // height: 0;
+      height: 100%;
+      visibility: visible;
+      padding: $content-padding_base;
     }
   }
 }
