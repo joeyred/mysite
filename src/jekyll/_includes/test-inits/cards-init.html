@@ -1,0 +1,10 @@
+<script>
+  function cardsInit() {
+    var elements = document.querySelectorAll('[data-card]');
+    for (var i = 0; i < elements.length; i++) {
+      var module = new Gingabulous.Card(elements[i], {});
+      module.init();
+    }
+  }
+  cardsInit();
+</script>
