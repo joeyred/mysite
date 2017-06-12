@@ -1,0 +1,19 @@
+ul.tags {
+  list-style: none;
+  padding-left: 0;
+  font-size: $font-size_small;
+  margin-bottom: 0;
+  color: $color-grey;
+
+  li {
+    display: inline;
+    margin-bottom: 0;
+    margin-right: to-rem(3);
+
+    &::before {
+      content: '#';
+      color: $color-grey_dark;
+      margin-right: to-rem(1);
+    }
+  }
+}

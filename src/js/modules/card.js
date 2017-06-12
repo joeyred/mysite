@@ -39,12 +39,12 @@ class Card {
     let borderElement = this.element.querySelectorAll('.border-left');
     console.log(borderElement[0]);
     console.log(this._elementHeight());
-    let elementHeight = this.elementHeight();
+    let elementHeight = this._elementHeight();
     if (reducedHeight) {
-      borderElement.style.height = `${elementHeight - 10}px`;
+      borderElement[0].style.height = `${elementHeight - 10}px`;
     }
     if (!reducedHeight) {
-      borderElement.style.height = `${elementHeight}px`;
+      borderElement[0].style.height = `${elementHeight}px`;
     }
   }
   _expand() {

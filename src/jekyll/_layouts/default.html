@@ -13,7 +13,7 @@
       {% if page.panes %}
       {% for pane in page.panes %}
 
-      {% include ui/pane.html id=pane.id class=pane.class content=pane.content %}
+      {% include ui/pane.html id=pane.id class=pane.class content=pane.content  api=pane.api %}
 
       {% endfor %}
       {% endif %}
