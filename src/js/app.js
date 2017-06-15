@@ -20,5 +20,11 @@ function init() {
   panes.init();
 }
 
+Gingabulous.Debug.config(true, {
+  Pane:         true,
+  DynamicPane:  true,
+  CarouselPane: true
+});
+
 init();
 }(jQuery);
