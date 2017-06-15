@@ -18,6 +18,7 @@ class Pane {
     this.position       = this.origin;
     this.classes        = inheritedOptions.classes;
     this.scrollPosition = 0;
+    this.debug = new Gingabulous.Debug('Pane');
     this._init();
   }
 
@@ -96,7 +97,8 @@ class Pane {
   }
   _storeScrollPosition() {
     this.scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    console.log('stored:', this.scrollPosition);
+    this.debug.message(`stored: ${this.scrollPosition}`);
+    // console.log('stored:', this.scrollPosition);
   }
   _restoreScrollPosition(element) {
     if (element === window) {
@@ -231,6 +233,7 @@ class DynamicPane extends Pane {
 class CarouselPane extends Pane {
   constructor(element, inheritedOptions) {
     super(element, inheritedOptions);
+    this.debug = new Gingabulous.Debug('CarouselPane');
     this.carousel = this.element.querySelector('[data-carousel-panes]');
     this.titleBar = this.element.querySelector('.pane-carousel-title-bar');
     this._events();
