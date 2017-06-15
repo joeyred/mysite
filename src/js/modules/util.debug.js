@@ -1,57 +1,58 @@
-/**
- * Controls whether debug functions have any output to console.
- * @type {Boolean}
- */
-const GLOBAL_DEBUG_ENABLED = true;
-
-/**
- * Debug constructor
- *
- * @constructor
- *
- * @param  {String}  objectName          - Name of the parent object of all logged data.
- * @param  {Boolean} [debugEnabled=true] - Local control of debug output.
- */
-function Debug(objectName, debugEnabled) {
-  this.objectName = objectName;
-  if (debugEnabled === true) {
-    this.debugEnabledForThis = true;
-  } else {
-    this.debugEnabledForThis = false;
+!function() {
+class Debug {
+  constructor(moduleName) {
+    this.moduleName = moduleName;
   }
-}
-
-Debug.prototype = {
-  constructor: Debug,
+  static moduleDebugValues(options) {
+    let defaults = () => {
+      let output = {};
+      for (let module in Gingabulous.modules) {
+        if (Object.hasOwnProperty.call(Gingabulous.modules, module)) {
+          output[Gingabulous.modules[module].name] = false;
+        }
+      }
+      return output;
+    };
+    return Gingabulous.extend({}, defaults(), options);
+  }
+  static config(globalEnable, modulesEnable) {
+    let output = {
+      globalDebug: globalEnable
+    };
+    Gingabulous.debugConfig = Gingabulous.extend(
+      {},
+      output,
+      Debug.moduleDebugValues(modulesEnable)
+    );
+  }
 
   /**
    * Checks both the global and local options for debug output to console.
    *
-   * @method isDebugEnabled
+   * @method _isDebugEnabled
    *
    * @return {Boolean}       - Whether enabled debug output is true or false.
    */
-  isDebugEnabled: function() {
-    var debug = false;
-    if (GLOBAL_DEBUG_ENABLED && this.debugEnabledForThis) {
-      debug = true;
+  _isDebugEnabled() {
+    if (Gingabulous.debugConfig[this.moduleName] && Gingabulous.debugConfig.globalDebug) {
+      return true;
     }
-    // console.log(debug);
-    return debug;
-  },
+    return false;
+  }
+
   /**
    * Adds suffix to number passed.
    *
-   * @method addSuffixToNumber
+   * @method _addSuffixToNumber
    *
    * @param  {number}          number - The number to have a suffix added to.
    *
    * @return {string}                 - Number with suffix added.
    */
-  addSuffixToNumber: function(number) {
-    // Get remainder of `i` divided by 10.
+  _addSuffixToNumber(number) {
+    // Get remainder of `number` divided by 10.
     var lastDigit = number % 10;
-    // Get remainder of `i` divided by 100.
+    // Get remainder of `number` divided by 100.
     var lastTwoDigits = number % 100;
     // If lastDigit is 1 but last two digits not 1, return with added "st".
     if (lastDigit === 1 && lastTwoDigits !== 11) {
@@ -67,37 +68,41 @@ Debug.prototype = {
     }
     // For all other numbers, return with added "th".
     return number + 'th';
-  },
+  }
+
   /**
    * Very simple function to handle outputting a values type in debug output.
    *
-   * @method valueType
+   * @method _valueType
    *
    * @param  {String|Number|Boolean|Array|Object}  value - The value you wish to know the
    *                                                       type of.
    *
    * @return {String}                                    - The value's type.
    */
-  valueType: function(value) {
+  _valueType(value) {
     return typeof value;
-  },
-  outputValues: function(values) {
+  }
+
+  _outputValues(values) {
     for (var key in values) {
-      if ({}.hasOwnProperty.call(values, key)) {
+      if (Object.hasOwnProperty.call(values, key)) {
         // Log key and it's value in a readable fashion.
         console.log(key + ' is: ', values[key], ' (' + this.valueType(values[key]) + ')');
       }
     }
-  },
+  }
+
   /**
    * Make the name of the parent object green in console output.
    *
    * @method outputObjectParent
    *
    */
-  outputObjectParent: function() {
+  _outputObjectParent() {
     console.log('%c ' + this.objectName, 'color: green');
-  },
+  }
+
   /**
    * Check if function has been called and what it returned.
    *
@@ -107,10 +112,10 @@ Debug.prototype = {
    *
    * @param  {Boolean|String} output       - The return of the function, or false.
    */
-  functionReturn: function(functionName, output) {
+  functionReturn(functionName, output) {
     // Check if debug mode is enabled.
-    if (this.isDebugEnabled()) {
-      this.outputObjectParent();
+    if (this._isDebugEnabled()) {
+      this._outputObjectParent();
       // If the function has no return, then just say the function was called,
       if (output === 'undefined') {
         console.log(functionName + ' has been called. Function has no return');
@@ -119,7 +124,7 @@ Debug.prototype = {
         console.log(functionName + ' has been called. Returned: ' + output);
       }
     }
-  },
+  }
   /**
    * Output values within a function to console.
    *
@@ -142,32 +147,34 @@ Debug.prototype = {
    * @param  {Object} values       - Object with keys matching variable names to be output
    *                                 to console.
    */
-  values: function(functionName, values) {
+  values(functionName, values) {
     // Check if debug mode is enabled.
-    if (this.isDebugEnabled()) {
-      this.outputObjectParent();
+    if (this._isDebugEnabled()) {
+      this._outputObjectParent();
       console.log('%c Within ' + functionName + ':', 'color: purple');
       // Loop through values within the function.
-      this.outputValues(values);
-      // for (var key in values) {
-      //   if ({}.hasOwnProperty.call(values, key)) {
-      //     // Log key and it's value in a readable fashion.
-      //     console.log(key + ' is: ', values[key], ' (' + this.valueType(values[key]) + ')');
-      //   }
-      // }
+      this._outputValues(values);
     }
-  },
-  loop: function(functionName, i, values) {
-    if (this.isDebugEnabled()) {
+  }
+  loop(functionName, i, values) {
+    if (this._isDebugEnabled()) {
       console.log('%c Within ' + functionName + ':', 'color: purple');
       if (typeof i === 'number') {
-        var currentIteration = this.addSuffixToNumber(i + 1);
+        var currentIteration = this._addSuffixToNumber(i + 1);
         console.log(currentIteration + ' iteration of for loop:');
-        this.outputValues(values);
+        this._outputValues(values);
       } else {
         console.log('current key in forin: ' + i);
-        this.outputValues(values);
+        this._outputValues(values);
       }
     }
   }
-};
+  message(message) {
+    if (this._isDebugEnabled()) {
+      console.log(`%c ${message}`, 'color: blue');
+    }
+  }
+}
+
+Gingabulous.Debug = Debug;
+}();
