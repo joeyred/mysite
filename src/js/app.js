@@ -28,6 +28,12 @@ function initCards() {
   }
 }
 
+Gingabulous.Debug.config(true, {
+  Pane:         true,
+  DynamicPane:  true,
+  CarouselPane: true
+});
+
 init();
 initCards();
 }(jQuery);
