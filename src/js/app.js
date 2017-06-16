@@ -19,6 +19,14 @@ function init() {
   var panes = new Gingabulous.Panes(panesNode);
   panes.init();
 }
+function initCards() {
+  let cards = document.querySelectorAll(Gingabulous.modules.Card.dataAttrTarget);
+  for (let i = 0; i < cards.length; i++) {
+    let module = new Gingabulous.Card(cards[i]);
+    module.init();
+    console.log(`init card: ${i}`);
+  }
+}
 
 Gingabulous.Debug.config(true, {
   Pane:         true,
@@ -27,4 +35,5 @@ Gingabulous.Debug.config(true, {
 });
 
 init();
+initCards();
 }(jQuery);

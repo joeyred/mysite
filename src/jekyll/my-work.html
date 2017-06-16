@@ -2,9 +2,10 @@
 layout: default
 permalink: /my-work/
 panes:
-  - id: filters
-    class: card-filters right
-    content: card-filter
+  - id: pen
+    class: "above pen-pane"
+    content: pen-dynamic-pane
+    api: pens-api
 ---
 
 <div class="wrapper">
@@ -14,38 +15,31 @@ panes:
       <h1>My Work</h1>
 
       <p>
-        Quam diu etiam furor iste tuus nos eludet? Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae. Morbi fringilla convallis sapien, id pulvinar odio volutpat. Quo usque tandem abutere, Catilina, patientia nostra?
+        Quam diu etiam furor iste tuus nos eludet? Nihilne te nocturnum praesidium Palati,
+        nihil urbis vigiliae. Morbi fringilla convallis sapien, id pulvinar odio volutpat.
+        Quo usque tandem abutere, Catilina, patientia nostra?
       </p>
     </div>
 
   </div>
 </div>
 
-<div class="container sm-no-gutters sm-row-reverse sm-space-around">
-  <div class="block pane-activator-tab">
-
-
-    <button class="button" data-pane-open="filters">
-      Filters
-    </button>
-
-
-  </div>
-</div>
-
-
-
 <ul class="cards portfolio">
 
   {% for pen in site.pens %}
+
   <li>
-    <div class="card horizontal after">
+    <div class="card horizontal" data-card>
 
       <div class="card-options-bar">
+        <button data-card-close>
+          {% include icon.html id="close" %}
+        </button>
 
-        {% include icon.html id="close" %}
-
-        <button class="button">
+        <button
+          class="button"
+          data-inject="{{ pen.path | replace: '_pens/', '' | replace: '.html', '' }}"
+          data-pane-open="pen">
           See More
         </button>
 

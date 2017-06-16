@@ -82,23 +82,20 @@ class Panes {
     let panesInDocument = this.element.querySelectorAll(this.target.pane);
     for (let i = 0; i < panesInDocument.length; i++) {
       let key = panesInDocument[i].getAttribute(this.attr.pane);
-      if (panesInDocument[i].hasAttribute('data-inject-api')) {
-        this.panes[key] = new Gingabulous.DynamicPane(panesInDocument[i], this.options);
-      } else {
-        // if the data attr has no value, then it's a nested pane, and will be skipped
-        if (key !== '' && key !== 'home') {
-          if (!!panesInDocument[i].querySelector('[data-carousel-panes]')) {
-            this.panes[key] = new Gingabulous.CarouselPane(
-              panesInDocument[i],
-              this.options
-            );
-          } else {
-            this.panes[key] = new Gingabulous.Pane(panesInDocument[i], this.options);
-          }
+
+      // if the data attr has no value, then it's a nested pane, and will be skipped
+      if (key !== '' && key !== 'home') {
+        if (!!panesInDocument[i].querySelector('[data-carousel-panes]')) {
+          this.panes[key] = new Gingabulous.CarouselPane(
+            panesInDocument[i],
+            this.options
+          );
+        } else {
+          this.panes[key] = new Gingabulous.Pane(panesInDocument[i], this.options);
         }
-        if (key === 'home') {
-          this.panes[key] = new Gingabulous.HomePane(panesInDocument[i], this.options);
-        }
+      }
+      if (key === 'home') {
+        this.panes[key] = new Gingabulous.HomePane(panesInDocument[i], this.options);
       }
     }
   }

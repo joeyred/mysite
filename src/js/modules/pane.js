@@ -17,6 +17,9 @@ class Pane {
     this.origin         = this._getOrigin();
     this.position       = this.origin;
     this.classes        = inheritedOptions.classes;
+    if (this._isDynamic()) {
+      this.inject = new Gingabulous.Inject(element);
+    }
     this.scrollPosition = 0;
     this.debug = new Gingabulous.Debug('Pane');
     this._init();
@@ -33,6 +36,12 @@ class Pane {
   _init() {
     this.element.classList.add(this.classes.frozen, this.classes.fixed);
     this.element.classList.add(this._getOrderClass(this.originClass));
+  }
+  _isDynamic() {
+    if (this.element.hasAttribute('data-inject-api')) {
+      return true;
+    }
+    return false;
   }
   /**
    * Returns the coordinates of the pane's origin based on it's class on document load.
@@ -259,12 +268,15 @@ class CarouselPane extends Pane {
         let attrValue = event.target.getAttribute(attr);
         if (attrValue === 'left') {
           this._goToPane('left');
+          this.debug.message('left movement triggered');
         }
         if (attrValue === 'center') {
           this._goToPane('center');
+          this.debug.message('center movement triggered');
         }
         if (attrValue === 'right') {
           this._goToPane('right');
+          this.debug.message('right movement triggered');
         }
       }
     });

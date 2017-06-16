@@ -1,5 +1,10 @@
-<div class="pane{% if include.class %} {{ include.class }}{% endif %}" data-pane{% if include.id %}="{{ include.id }}"{% endif %}>
-
+<div
+  class="pane{% if include.class %} {{ include.class }}{% endif %}"
+  data-pane{% if include.id %}="{{ include.id }}"{% endif %}
+  {% if include.api %}
+  data-inject-api="{{ include.api | prepend: "api/" | append: ".json" | absolute_url }}"
+  {% endif %}
+  >
   <div class="pane-header">
     <div class="top-bar">
       <div class="left">
