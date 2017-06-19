@@ -28,6 +28,11 @@ function initCards() {
   }
 }
 
+Gingabulous.registerGlobalEventListener('resize', window);
+// Gingabulous.events.resize.registerCallback(function() {
+//   console.log('Window Resized');
+// });
+
 Gingabulous.Debug.config(true, {
   Pane:         true,
   DynamicPane:  true,

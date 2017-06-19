@@ -1,5 +1,14 @@
 !function() {
 
+/**
+ * @module gingabulous.card
+ * @requires gingabulous.util.events
+ */
+
+/**
+ * @class Card
+ *
+ */
 class Card {
   constructor(element, options) {
     this.element = element;
@@ -53,15 +62,31 @@ class Card {
   _collapse() {
     this.element.classList.remove(this.classes.expand);
   }
+  _onResize() {
+    if (this.element.querySelector('.border-left').offsetHeight !== this.element.offsetHeight) {
+      if (this.element.classList.contains(this.classes.expand)) {
+        this._setBorderLeft(true);
+      } else {
+        this._setBorderLeft();
+      }
+    }
+  }
   _events() {
+    // Resize event.
+    if (!Gingabulous.events.resize) {
+      Gingabulous.registerGlobalEventListener('resize', window);
+    }
+    Gingabulous.events.resize.registerCallback(() => this._onResize());
+    // Opening and Closing of the card.
     this.element.addEventListener('click', (event) => {
       if (!this.element.classList.contains(this.classes.expand)) {
-        console.log(`I've been clicked to open`);
         this._expand();
+        this._setBorderLeft(true);
       }
       if (this.element.classList.contains(this.classes.expand)) {
         if (event.target.hasAttribute(this.attr.close)) {
           this._collapse();
+          this._setBorderLeft();
         }
       }
     });
