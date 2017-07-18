@@ -6,12 +6,12 @@ const $           = require('gulp-load-plugins')({
     'gulp-merge-media-queries': 'mmq'
   }
 });
-const	bsDev = require('browser-sync').create('dev');
-const bsTest  = require('browser-sync').create('test');
-const	del         = require('del');
-const yargs       = require('yargs');
-const config      = require('./gulpconfig.js');
-const extend   = require('object-assign-deep');
+const	bsDev  = require('browser-sync').create('dev');
+const bsTest = require('browser-sync').create('test');
+const	del    = require('del');
+const yargs  = require('yargs');
+const config = require('./gulpconfig.js');
+const extend = require('object-assign-deep');
 
 // Metalsmith Plugins
 // const ms = {
