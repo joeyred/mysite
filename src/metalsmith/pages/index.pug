@@ -1,6 +1,10 @@
-extends default.pug
+extends ../layouts/default.pug
+
+include ../mixins/icons.pug
 
 block content
-  h1.title Here is some content!
+  h1 Here is some content!
   p.
     More Content for everyone!!!
+  .hello
+    +icon('menu')

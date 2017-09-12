@@ -14,12 +14,19 @@ const config = require('./gulpconfig.js');
 const extend = require('object-assign-deep');
 
 // Metalsmith Plugins
-// const ms = {
-//   markdown:      require('metalsmith-markdown'),
-//   layouts:       require('metalsmith-layouts'),
-//   rename:        require('metalsmith-rename'),
-//   writeMetadata: require('metalsmith-writemetadata')
-// };
+const ms = {
+  markdown:      require('metalsmith-markdown'),
+  layouts:       require('metalsmith-layouts'),
+  rename:        require('metalsmith-rename'),
+  writeMetadata: require('metalsmith-writemetadata')
+};
+
+import Metalsmith from 'metalsmith';
+
+import msDebugUI from 'metalsmith-debug-ui';
+import msPug     from 'metalsmith-pug';
+import msPermalinks from 'metalsmith-permalinks';
+
 // const markdown = require('metalsmith-markdown');
 // const layouts = require('metalsmith-layouts');
 // const rename =
@@ -29,35 +36,33 @@ const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
 
-// export function site() {
-//   return gulp.src('src/metalsmith/pages/**/*')
-//   .pipe($.metalsmith({
-//     metadata: {
-//       site: {
-//         title: 'Hello World'
-//       }
-//     },
-//     frontmatter: true,
-//     root:        './src/metalsmith',
-//     use:         [
-//
-//       ms.markdown(),
-//       ms.layouts({
-//         engine:    'pug',
-//         partials:  'partials',
-//         directory: 'layouts',
-//         pretty:    true,
-//         rename:    true
-//       }),
-//       ms.writeMetadata({
-//         pattern:        ['./src/metalsmith/**/*'],
-//         ignorekeys:     ['next', 'previous'],
-//         bufferencoding: 'utf8'
-//       })
-//     ]
-//   }))
-//   .pipe(gulp.dest('build'));
-// }
+export function site(done) {
+  let ms = Metalsmith(__dirname);
+
+  msDebugUI.patch(ms);
+
+  ms
+    .metadata({
+      site: {
+        title: 'Hello World'
+      }
+    })
+    .source('./src/metalsmith/pages')
+    .destination('./build')
+    .clean(false)
+    .use(msPug({
+      useMetadata: true,
+      pretty:      true,
+      globals:     ['hello', 'world']
+    }))
+    .use(msPermalinks())
+    .build(function(err) {
+      if (err) {
+        throw err;
+      }
+    });
+  done();
+}
 
 export function jekyll(cb) {
   var spawn = require('child_process').spawn;
@@ -252,7 +257,7 @@ export function watch() {
   if (FULLTEST || !TEST) {
     gulp.watch(
       ['./src/jekyll/**/*', '_config_dev.yml', 'config.yml'],
-      gulp.series(jekyll, pensAPI, reload)
+      gulp.series(site, pensAPI, reload)
     );
   }
 }
@@ -265,7 +270,7 @@ const dev = gulp.series(
     testScripts,
     images
   ),
-  jekyll,
+  site,
   pensAPI,
   gulp.parallel(devServer,
   testServer),
