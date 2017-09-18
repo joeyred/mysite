@@ -1,10 +1,12 @@
 extends ../layouts/default.pug
 
-include ../mixins/icons.pug
-
 block content
-  h1 Here is some content!
-  p.
-    More Content for everyone!!!
-  .hello
-    +icon('menu')
+  - var menuIcon = collections.icons[0]
+  .wrapper
+    .container
+      .block.sm-12
+        h1 Here is some content!
+        p.
+          More Content for everyone!!!
+        .hello
+          .collections!= menuIcon

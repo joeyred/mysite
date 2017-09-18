@@ -13,78 +13,103 @@ const yargs  = require('yargs');
 const config = require('./gulpconfig.js');
 const extend = require('object-assign-deep');
 
-// Metalsmith Plugins
-const ms = {
-  markdown:      require('metalsmith-markdown'),
-  layouts:       require('metalsmith-layouts'),
-  rename:        require('metalsmith-rename'),
-  writeMetadata: require('metalsmith-writemetadata')
-};
-
-import Metalsmith from 'metalsmith';
-
-import msDebugUI from 'metalsmith-debug-ui';
-import msPug     from 'metalsmith-pug';
+// import metalsmith from 'metalsmith';
+import gulpsmith from 'gulpsmith';
+// Metalsmith Modules
+import msDebugUI    from 'metalsmith-debug-ui';
+import msPug        from 'metalsmith-pug';
 import msPermalinks from 'metalsmith-permalinks';
-
-// const markdown = require('metalsmith-markdown');
-// const layouts = require('metalsmith-layouts');
-// const rename =
-// const pug = require('pug');
+import msCollections from 'metalsmith-collections';
 
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
 
-export function site(done) {
-  let ms = Metalsmith(__dirname);
-
-  msDebugUI.patch(ms);
-
-  ms
-    .metadata({
-      site: {
-        title: 'Hello World'
-      }
-    })
-    .source('./src/metalsmith/pages')
-    .destination('./build')
-    .clean(false)
-    .use(msPug({
-      useMetadata: true,
-      pretty:      true,
-      globals:     ['hello', 'world']
-    }))
-    .use(msPermalinks())
-    .build(function(err) {
-      if (err) {
-        throw err;
-      }
-    });
-  done();
+export function runGulpsmith() {
+  const ms = gulpsmith('./src/metalsmith');
+  return gulp.src('./src/metalsmith/pages/*')
+    .pipe(
+      // gulpsmith('./src/metalsmith')
+      ms
+      .metadata({
+        build: {
+          production: DEPLOY
+        },
+        site: {
+          title: 'Hello World'
+        }
+      })
+      .use(msCollections({
+        icons: {
+          pattern: 'collections/icons/*.pug'
+        }
+      }))
+      .use(msDebugUI.report('Collections Created'))
+      .use(msPug({
+        useMetadata: true,
+        pretty:      true,
+        globals:     ['hello', 'world']
+      }))
+      .use(msDebugUI.report('Pug Compiled'))
+      .use(msPermalinks())
+      .use(msDebugUI.report('Permalinks Done'))
+    )
+    .pipe(gulp.dest('./build'));
 }
 
-export function jekyll(cb) {
-  var spawn = require('child_process').spawn;
-  // After build: cleanup HTML
-  var options = {stdio: 'inherit', config: '"_config.yml,_config_dev.yml"'};
-  // Run Jekyll build in production mode if --deploy flag is passed.
-  if (DEPLOY) {
-    var env = Object.create(process.env);
-    env.JEKYLL_ENV = 'production';
-    options.env = env;
-  }
-  var jekyll = spawn('jekyll', ['build', '--config', '_config.yml,_config_dev.yml'], options);
-  // console.log(jekyll);
-  jekyll.on('exit', function(code) {
-    cb(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
-  });
-  jekyll.on('error', function(e) {
-    cb(e);
-    // console.dir(e);
-    this.emit('end');
-  });
+export function concatPugMixins() {
+  return gulp.src('src/metalsmith/mixins/!(index).pug')
+    .pipe($.concat('index.pug'))
+    .pipe(gulp.dest('src/metalsmith/mixins'));
 }
+
+export function cleanErrorFilesInBuild() {
+  return del('./build/**/*.pug');
+}
+
+const buildSitePages = gulp.series(
+  concatPugMixins,
+  cleanErrorFilesInBuild,
+  runGulpsmith
+);
+
+export {buildSitePages};
+
+// export function runMetalsmith(done) {
+//   let ms = metalsmith(__dirname);
+//
+//   msDebugUI.patch(ms);
+//
+//   ms
+//     .metadata({
+//       build: {
+//         production: DEPLOY
+//       },
+//       site: {
+//         title: 'Hello World'
+//       }
+//     })
+//     .source('./src/metalsmith/pages')
+//     .destination('./build')
+//     .clean(false)
+//     .use(msCollections({
+//       icons: {
+//         pattern: './src/metalsmith/collections/icons/*.pug'
+//       }
+//     }))
+//     .use(msPug({
+//       useMetadata: true,
+//       pretty:      true,
+//       globals:     ['hello', 'world']
+//     }))
+//     .use(msPermalinks())
+//     .build(function(err) {
+//       if (err) {
+//         throw err;
+//       }
+//     });
+//   done();
+// }
 
 export function devServer(done) {
   bsDev.init(config.devServer);
@@ -175,6 +200,7 @@ function parseObjectString(string, value) {
     return output;
   }
   for (let i = 0; i < chain.length; i++) {
+    // TODO: Replace with `case` operator.
     // First key
     if (i === 0) {
       output[chain[i]] = {};
@@ -256,9 +282,14 @@ export function watch() {
   }
   if (FULLTEST || !TEST) {
     gulp.watch(
-      ['./src/jekyll/**/*', '_config_dev.yml', 'config.yml'],
-      gulp.series(site, pensAPI, reload)
+      // ['src/metalsmith/**/*', '!src/metalsmith/mixins/*.pug'],
+      'src/metalsmith/**/*',
+      gulp.series(buildSitePages, pensAPI, reload)
     );
+    // gulp.watch(
+    //   ['src/metalsmith/mixins/*.pug', '!src/metalsmith/mixins/index.pug'],
+    //   gulp.series(buildSitePages, pensAPI, reload)
+    // );
   }
 }
 
@@ -270,7 +301,7 @@ const dev = gulp.series(
     testScripts,
     images
   ),
-  site,
+  buildSitePages,
   pensAPI,
   gulp.parallel(devServer,
   testServer),
