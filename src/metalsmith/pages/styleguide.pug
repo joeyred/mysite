@@ -1,0 +1,41 @@
+---
+title: Styleguide
+permalink: /styleguide/
+bodyClass: 'styleguide'
+---
+
+extends ../layouts/default.pug
+
+block append stylesheets
+  if build.production
+    link(
+      rel='stylesheet'
+      href='/assets/css/stylesheet.min.css'
+    )
+  else
+    
+    link(
+      rel='stylesheet'
+      href='/assets/css/styleguide.css'
+    )
+block title
+  title= title
+
+block content
+  section.wrapper.header
+    .container
+      .block
+        h1.sg-page-heading
+          | The Super Awesome Great (and stuff) Styleguide
+  
+  each guide in collections.styleguide
+    - var sgClass =  'sg-' + guide.class;
+    
+    section(id=guide.class class=sgClass)
+      .section-heading.wrapper
+        .container
+          .block
+            h1= guide.title
+      .wrapper
+        .container
+          .block!= guide.contents

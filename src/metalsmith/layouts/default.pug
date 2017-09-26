@@ -1,6 +1,4 @@
-include ../mixins/index.pug
-
-//- include ../mixins/icons.pug
+include ../mixins/mixins.pug
 
 doctype html
 html
@@ -24,13 +22,16 @@ html
           rel='stylesheet'
           href='/assets/css/main.css'
         )
-  body
+  body(class=bodyClass)
     .site-wrapper.panes(data-panes='')
       //- Top Bar Header
-      include ../includes/header.pug
+      block header
+        include ../includes/header.pug
       //- Panes
+      block panes
       //- Main Nav Pane
-      include ../includes/main-nav.pug
+      block nav
+        include ../includes/main-nav.pug
       .site-inner.main-pane(data-pane='home')
         main.content
           //- Main Content

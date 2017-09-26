@@ -13,13 +13,21 @@ const yargs  = require('yargs');
 const config = require('./gulpconfig.js');
 const extend = require('object-assign-deep');
 
+const filters = {
+  markdown: require('jstransformer-markdown-it')
+};
+
 // import metalsmith from 'metalsmith';
 import gulpsmith from 'gulpsmith';
 // Metalsmith Modules
-import msDebugUI    from 'metalsmith-debug-ui';
-import msPug        from 'metalsmith-pug';
+import msDebugUI from 'metalsmith-debug-ui';
+import msPug from 'metalsmith-pug';
 import msPermalinks from 'metalsmith-permalinks';
 import msCollections from 'metalsmith-collections';
+import msBranch from 'metalsmith-branch';
+import msPrism from 'metalsmith-prism';
+// LoDash
+import _ from 'lodash';
 
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
@@ -27,39 +35,86 @@ const TEST = Boolean(yargs.argv.test);
 
 export function runGulpsmith() {
   const ms = gulpsmith('./src/metalsmith');
-  return gulp.src('./src/metalsmith/pages/*')
+  return gulp.src('./src/metalsmith/pages/**/*')
+    .pipe($.frontMatter()).on('data', function(file) {
+      _.assign(file, file.frontMatter);
+      delete file.frontMatter;
+    })
     .pipe(
-      // gulpsmith('./src/metalsmith')
+      // gulpsmith()
       ms
-      .metadata({
-        build: {
-          production: DEPLOY
-        },
-        site: {
-          title: 'Hello World'
-        }
-      })
-      .use(msCollections({
-        icons: {
-          pattern: 'collections/icons/*.pug'
-        }
-      }))
-      .use(msDebugUI.report('Collections Created'))
-      .use(msPug({
-        useMetadata: true,
-        pretty:      true,
-        globals:     ['hello', 'world']
-      }))
-      .use(msDebugUI.report('Pug Compiled'))
-      .use(msPermalinks())
-      .use(msDebugUI.report('Permalinks Done'))
+        .metadata({
+          build: {
+            production: DEPLOY
+          },
+          site: {
+            title: 'Hello World'
+          },
+          _: _
+        })
+        .use(msCollections({
+          icons: {
+            pattern: 'collections/icons/**/*.pug'
+          },
+          styleguide: {
+            pattern: 'collections/styleguide/**/*.pug'
+          }
+        }))
+        .use(msBranch()
+          .pattern('collections/styleguide/**/*.pug')
+          .use(msPug({
+            useMetadata: true,
+            pretty:      true,
+            // basedir:     `src/metalsmith`,
+            // debug:       true,
+            globals:     ['hello', 'world'],
+            filters:     {
+              markdown: function(block) {
+                return filters.markdown.render(block);
+              }
+            }
+          }))
+        )
+        .use(msDebugUI.report('Collections Created'))
+        .use(msPug({
+          useMetadata: true,
+          pretty:      true,
+          // basedir:     `src/metalsmith`,
+          // debug:       true,
+          globals:     ['hello', 'world'],
+          filters:     {
+            markdown: function(block) {
+              return filters.markdown.render(block);
+            }
+          }
+        }))
+        .use(msDebugUI.report('Pug Compiled'))
+        // Code Highlighting
+        .use(msPrism())
+        // Permalinks
+        .use(msPermalinks())
+        .use(msDebugUI.report('Permalinks Done'))
     )
     .pipe(gulp.dest('./build'));
 }
+export function copyDebugUIFilesToBuildDir() {
+  return gulp.src('./src/metalsmith/build/**/*')
+    .pipe(gulp.dest('./build'));
+}
+export function deleteDebugUIFiles() {
+  return del('./src/metalsmith/build');
+}
+
+const debugUIFuckery = gulp.series(
+  copyDebugUIFilesToBuildDir,
+  deleteDebugUIFiles
+);
+
+export {debugUIFuckery};
 
 export function concatPugMixins() {
-  return gulp.src('src/metalsmith/mixins/!(index).pug')
-    .pipe($.concat('index.pug'))
+  return gulp.src('src/metalsmith/mixins/!(mixins).pug')
+    .pipe($.concat('mixins.pug'))
     .pipe(gulp.dest('src/metalsmith/mixins'));
 }
 
@@ -70,46 +125,11 @@ export function cleanErrorFilesInBuild() {
 const buildSitePages = gulp.series(
   concatPugMixins,
   cleanErrorFilesInBuild,
-  runGulpsmith
+  runGulpsmith,
+  debugUIFuckery
 );
 
 export {buildSitePages};
-
-// export function runMetalsmith(done) {
-//   let ms = metalsmith(__dirname);
-//
-//   msDebugUI.patch(ms);
-//
-//   ms
-//     .metadata({
-//       build: {
-//         production: DEPLOY
-//       },
-//       site: {
-//         title: 'Hello World'
-//       }
-//     })
-//     .source('./src/metalsmith/pages')
-//     .destination('./build')
-//     .clean(false)
-//     .use(msCollections({
-//       icons: {
-//         pattern: './src/metalsmith/collections/icons/*.pug'
-//       }
-//     }))
-//     .use(msPug({
-//       useMetadata: true,
-//       pretty:      true,
-//       globals:     ['hello', 'world']
-//     }))
-//     .use(msPermalinks())
-//     .build(function(err) {
-//       if (err) {
-//         throw err;
-//       }
-//     });
-//   done();
-// }
 
 export function devServer(done) {
   bsDev.init(config.devServer);
@@ -283,7 +303,8 @@ export function watch() {
   if (FULLTEST || !TEST) {
     gulp.watch(
       // ['src/metalsmith/**/*', '!src/metalsmith/mixins/*.pug'],
-      'src/metalsmith/**/*',
+      ['src/metalsmith/**/*', '!src/metalsmith/build/**/*', '!src/metalsmith/mixins/mixins.pug'],
+      // 'src/metalsmith/**/*',
       gulp.series(buildSitePages, pensAPI, reload)
     );
     // gulp.watch(
