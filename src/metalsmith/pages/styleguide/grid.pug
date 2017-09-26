@@ -1,0 +1,130 @@
+---
+class: grid
+title: The Grid
+order: 1
+---
+
+.titled-callout
+  .titled-callout-title
+    h2 Overview
+  .titled-callout-inner
+    :markdown
+      This is a flexbox based grid using **containers** that contain
+      **blocks**. If there is to be a `max-width` applied, then it
+      should be applied to containers. This system also uses **wrappers** to
+      properly display backgrounds that are not restricted by a maximum width and so are
+      effectively full width.
+
+:markdown
+  ## Media Query Prefixes
+  
+  All of the modifier classes that can be applied with the `wrapper`, `container`, and
+  `block` have a media query prefix.
+
+  - `sm` for small screens and up.
+  - `md` for medium screens and up.
+  - `lg` for large screens and up.
+  - `xl` for extra-large screens and up.
+
+  ### Code Example
+
+  ```html
+  <div class="container sm-nowrap md-wrap">
+    <div class="block">
+
+      Content...
+
+    </div>
+  </div>
+  ```
+
+  ## Fixed Block Widths
+
+  This grid can give **blocks** a fixed width based on 12 units per row. The classes used
+  are based on the media query you want affected, and how many units you want the **block**
+  to occupy. For instance, the `sm-12` class will give the block a 100% width for small
+  screens and up.
+
+  ### Code Example
+
+  ```html
+  <div class="wrapper">
+    <div class="container">
+      <div class="block sm-12 md-6 lg-4">
+
+        Content...
+
+      </div>
+      <div class="block sm-12 md-6 lg-4">
+
+        Content...
+
+      </div>
+      <div class="block sm-12 lg-4">
+
+        Content...
+
+      </div>
+    </div>
+  </div>   
+  ```
+
+  ### 12 Columns Per Row Fixed Width Blocks
+
+.sg-grid-example.wrapper
+  .container.sm-no-gutters.sg-example
+    .block.sm-12 12
+  .container.sm-no-gutters.sg-example
+    .block.sm-6 6
+    .block.sm-6 6
+  .container.sm-no-gutters.sg-example
+    .block.sm-4 4
+    .block.sm-4 4
+    .block.sm-4 4
+  .container.sm-no-gutters.sg-example
+    .block.sm-3 3
+    .block.sm-3 3
+    .block.sm-3 3
+    .block.sm-3 3
+  .container.sm-no-gutters.sg-example
+    .block.sm-2 2
+    .block.sm-2 2
+    .block.sm-2 2
+    .block.sm-2 2
+    .block.sm-2 2
+    .block.sm-2 2
+  .container.sm-no-gutters.sg-example
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+    .block.sm-1 1
+
+h3 Mixed Examples
+
+.sg-grid-example.wrapper
+  .container.sm-no-gutters.sg-example
+    .block.sm-4 4
+    .block.sm-4 4
+    .block.sm-4 4
+  .container.sm-no-gutters.sg-example
+    .block.sm-3 3
+    .block.sm-6 6
+    .block.sm-3 3
+  .container.sm-no-gutters.sg-example
+    .block.sm-2 2
+    .block.sm-8 8
+    .block.sm-2 2
+  .container.sm-no-gutters.sg-example
+    .block.sm-1 1
+    .block.sm-4 4
+    .block.sm-2 2
+    .block.sm-4 4
+    .block.sm-1 1

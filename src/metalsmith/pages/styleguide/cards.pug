@@ -1,0 +1,79 @@
+---
+class: cards
+title: Cards
+order: 6
+---
+include ../../mixins/mixins.pug
+
+.container.keep-gutters
+  //- Card CLOSED/NON-EXPANDED
+  .card
+    .card-thumbnail
+      img(src='/assets/imgs/mock/mock_580x300.jpg', alt='')
+    .card-bottom
+      h3 This is a Nice Title for a Card
+      .icon-bar
+        span.icon
+        span.icon
+        span.icon
+        span.icon
+  //- Card CLOSED/NON-EXPANDED
+  .card.horizontal
+    //- The Cover of the Card
+    .card-cover
+      .card-thumbnail
+        img(src='/assets/imgs/mock/soullessMark.png', alt='')
+      .card-info
+        h3 This is a Nice Title for a Card
+        .tags-container
+          ul.tags
+            li javascript
+            li nodejs
+            li app-design
+            li vue
+  .card.horizontal.after
+    .card-options-bar
+      span.icon
+        +icon('close')
+      button.button
+        | See More
+    //- The Cover of the Card
+    .card-cover
+      .card-thumbnail
+        img(src='/assets/imgs/mock/soullessMark.png', alt='')
+      .card-info
+        h3 This is a Nice Title for a Card
+        .tags-container
+          ul.tags
+            li javascript
+            li nodejs
+            li app-design
+            li vue
+    .bottom-container
+      p.
+        Etiam habebis sem dicantur magna mollis euismod. Me non paenitet nullum
+        festiviorem excogitasse ad hoc. Contra legem facit qui id facit quod lex
+        prohibet.
+  .card.bright.horizontal.after
+    .card-options-bar
+      span.icon
+        +icon('close')
+      button.button
+        | See More
+    //- The Cover of the Card
+    .card-cover
+      .card-thumbnail
+        img(src='/assets/imgs/mock/soullessMark.png', alt='')
+      .card-info
+        h3 This is a Nice Title for a Card
+        .tags-container
+          ul.tags
+            li javascript
+            li nodejs
+            li app-design
+            li vue
+    .bottom-container
+      p.
+        Etiam habebis sem dicantur magna mollis euismod. Me non paenitet nullum
+        festiviorem excogitasse ad hoc. Contra legem facit qui id facit quod lex
+        prohibet.

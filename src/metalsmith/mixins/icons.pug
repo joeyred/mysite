@@ -1,0 +1,10 @@
+mixin icon(name)
+  svg(
+    preserveAspectRatio='xMidYMid meet'
+    viewBox='0 0 32 32'
+    xmlns='http://www.w3.org/2000/svg'
+  )
+    case name
+      when 'menu': include ../includes/icons/menu.pug
+      when 'close': include ../includes/icons/close.pug
+      default: .error error

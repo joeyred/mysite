@@ -1,9 +1,45 @@
+include ../mixins/mixins.pug
+
 doctype html
 html
   head
-    title #{site.title}
-  body
+    //- Font Scripts
+    include ../includes/head/font-scripts.pug
+    //- Title of the page. can overwrite this.
+    block title
+      title= site.title
+    //- Stylesheets
+    block stylesheets
+      //- If --prodution is passed, include minified file
+      if build.production
+        link(
+          rel='stylesheet'
+          href='/assets/css/main.min.css'
+        )
+      //- Else include non-minified file
+      else
+        link(
+          rel='stylesheet'
+          href='/assets/css/main.css'
+        )
+  body(class=bodyClass)
     .site-wrapper.panes(data-panes='')
+      //- Top Bar Header
+      block header
+        include ../includes/header.pug
+      //- Panes
+      block panes
+      //- Main Nav Pane
+      block nav
+        include ../includes/main-nav.pug
       .site-inner.main-pane(data-pane='home')
         main.content
+          //- Main Content
           block content
+        //- Footer
+        block footer
+          footer
+            include ../includes/footer.pug
+    //- Scripts
+    block footerScripts
+      include ../includes/scripts.pug

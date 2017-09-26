@@ -1,0 +1,19 @@
+mixin pane(id, position, api)
+  if api
+    .pane(
+      class=position
+      data-pane=id
+      data-inject=api
+      )
+  else
+    .pane(
+      class=position
+      data-pane=id
+      )
+        .pane-header
+          .top-bar
+            .left
+              button.icon-button(data-pane-close='')
+                +icon('menu')
+        .pane-content
+          block

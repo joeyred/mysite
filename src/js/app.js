@@ -38,7 +38,7 @@ Gingabulous.Debug.config(true, {
   DynamicPane:  true,
   CarouselPane: true
 });
-
+console.log('no reason');
 init();
 initCards();
 }(jQuery);
