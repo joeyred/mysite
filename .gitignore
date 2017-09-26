@@ -2,6 +2,7 @@ node_modules
 bower_components
 
 build
+src/metalsmith/mixins/mixins.pug
 
 # Code Dump Files
 dump.js

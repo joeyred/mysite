@@ -54,10 +54,10 @@ export function runGulpsmith() {
         })
         .use(msCollections({
           icons: {
-            pattern: 'collections/icons/**/*.pug'
+            pattern: 'icons/**/*.pug'
           },
           styleguide: {
-            pattern: 'collections/styleguide/**/*.pug'
+            pattern: 'styleguide/**/*.pug'
           }
         }))
         .use(msBranch()
@@ -104,6 +104,13 @@ export function copyDebugUIFilesToBuildDir() {
 export function deleteDebugUIFiles() {
   return del('./src/metalsmith/build');
 }
+export function manageCollectionsOutput() {
+  return del([
+    './build/styleguide/**/*',
+    '!./build/styleguide/index.html',
+    './build/icons'
+  ]);
+}
 
 const debugUIFuckery = gulp.series(
   copyDebugUIFilesToBuildDir,
@@ -126,7 +133,7 @@ const buildSitePages = gulp.series(
   concatPugMixins,
   cleanErrorFilesInBuild,
   runGulpsmith,
-  debugUIFuckery
+  gulp.parallel(debugUIFuckery, manageCollectionsOutput)
 );
 
 export {buildSitePages};
@@ -161,52 +168,52 @@ export function clean() {
 
 export function styles() {
   return gulp.src(config.scss.paths.src + '/*.scss')
-	.pipe($.sourcemaps.init())
-	.pipe($.sass(config.scss.options.sass).on('error', $.sass.logError))
-  .pipe($.pixrem())
-	.pipe($.autoprefixer({browsers: config.scss.compatability}))
-  .pipe($.mmq(config.scss.options.mmq))
-  .pipe($.if(DEPLOY, $.cssnano()))
-	.pipe($.sourcemaps.write('./'))
-	.pipe(gulp.dest(config.scss.paths.build))
-	.pipe(
-    bsDev.stream({ // Inject Styles
-      // Force source map exclusion.
-      // *This fixes reloading issue on each file change*
-      match: '**/*.css'
-    })
-  );
+    .pipe($.sourcemaps.init())
+    .pipe($.sass(config.scss.options.sass).on('error', $.sass.logError))
+    .pipe($.pixrem())
+    .pipe($.autoprefixer({browsers: config.scss.compatability}))
+    .pipe($.mmq(config.scss.options.mmq))
+    .pipe($.if(DEPLOY, $.cssnano()))
+    .pipe($.sourcemaps.write('./'))
+    .pipe(gulp.dest(config.scss.paths.build))
+    .pipe(
+      bsDev.stream({ // Inject Styles
+        // Force source map exclusion.
+        // *This fixes reloading issue on each file change*
+        match: '**/*.css'
+      })
+    );
 }
 
 export function scripts() {
   return gulp.src(config.js.paths.partials)
-	.pipe($.sourcemaps.init())
-  .pipe($.babel())
-  .on('error', function(e) {
-    console.error('\x1b[31m%s\x1b[0m', e.message);
-    console.log(e.codeFrame);
-    this.emit('end');
-  })
-	.pipe($.concat('app.js'))
-  .pipe($.if(DEPLOY, $.uglify()))
-	.pipe($.sourcemaps.write('./'))
-	.pipe(gulp.dest(config.js.paths.build));
+    .pipe($.sourcemaps.init())
+    .pipe($.babel())
+    .on('error', function(e) {
+      console.error('\x1b[31m%s\x1b[0m', e.message);
+      console.log(e.codeFrame);
+      this.emit('end');
+    })
+    .pipe($.concat('app.js'))
+    .pipe($.if(DEPLOY, $.uglify()))
+    .pipe($.sourcemaps.write('./'))
+    .pipe(gulp.dest(config.js.paths.build));
 }
 
 export function testScripts() {
   return gulp.src('test/scripts/*.js')
-	.pipe($.sourcemaps.init())
-	.pipe($.concat('tests.js'))
-	.pipe($.sourcemaps.write('./'))
-	.pipe(gulp.dest('./test'));
+    .pipe($.sourcemaps.init())
+    .pipe($.concat('tests.js'))
+    .pipe($.sourcemaps.write('./'))
+    .pipe(gulp.dest('./test'));
 }
 
 export function images() {
   return gulp.src(config.images.paths.src)
-  .pipe($.if(DEPLOY,
-    $.imagemin(config.images.options)
-  ))
-  .pipe(gulp.dest(config.images.paths.build));
+    .pipe($.if(DEPLOY,
+      $.imagemin(config.images.options)
+    ))
+    .pipe(gulp.dest(config.images.paths.build));
 }
 
 function parseObjectString(string, value) {
@@ -244,49 +251,49 @@ export function buildPensAPI() {
   let currentFile;
   return gulp.src('build/pens/**/*')
   // Rename the file and set `currentFile`
-  .pipe($.rename(function(path) {
-    path.basename = path.dirname;
-    currentFile = path.basename;
-  }))
-  // Do the DOM stuff
-  .pipe($.dom(function() {
-    let apiObject = {};
-    let output = {};
-    let objectChainString;
-    let blocks = this.querySelectorAll('[build-api]');
+    .pipe($.rename(function(path) {
+      path.basename = path.dirname;
+      currentFile = path.basename;
+    }))
+    // Do the DOM stuff
+    .pipe($.dom(function() {
+      let apiObject = {};
+      let output = {};
+      let objectChainString;
+      let blocks = this.querySelectorAll('[build-api]');
 
-    for (let i = 0; i < blocks.length; i++) {
-      objectChainString = blocks[i].getAttribute('build-api');
-      apiObject = extend(
-        apiObject,
-        parseObjectString(objectChainString, blocks[i].innerHTML)
-      );
-    }
-    output[currentFile] = apiObject;
-    return JSON.stringify(output, null, 2);
-  }, false))
-  // Change the extension to .json
-  .pipe($.rename(function(path) {
-    path.extname = '.json';
-  }))
-  // Merge stuff so there's just a single JSON file at the end
-  .pipe($.mergeJson({
-    fileName: 'pens-api.json'
-  }))
-  .pipe(gulp.dest('build/api'));
+      for (let i = 0; i < blocks.length; i++) {
+        objectChainString = blocks[i].getAttribute('build-api');
+        apiObject = extend(
+          apiObject,
+          parseObjectString(objectChainString, blocks[i].innerHTML)
+        );
+      }
+      output[currentFile] = apiObject;
+      return JSON.stringify(output, null, 2);
+    }, false))
+    // Change the extension to .json
+    .pipe($.rename(function(path) {
+      path.extname = '.json';
+    }))
+    // Merge stuff so there's just a single JSON file at the end
+    .pipe($.mergeJson({
+      fileName: 'pens-api.json'
+    }))
+    .pipe(gulp.dest('build/api'));
 }
 
 export function removeAPIAttr() {
   return gulp.src('build/pens/**/*')
-  .pipe($.dom(function() {
-    let elements = this.querySelectorAll('[build-api]');
+    .pipe($.dom(function() {
+      let elements = this.querySelectorAll('[build-api]');
 
-    for (let i = 0; i < elements.length; i++) {
-      elements[i].removeAttribute('build-api');
-    }
-    return this;
-  }))
-  .pipe(gulp.dest('./build/pens'));
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].removeAttribute('build-api');
+      }
+      return this;
+    }))
+    .pipe(gulp.dest('./build/pens'));
 }
 
 const pensAPI = gulp.series(buildPensAPI, removeAPIAttr);
@@ -324,8 +331,10 @@ const dev = gulp.series(
   ),
   buildSitePages,
   pensAPI,
-  gulp.parallel(devServer,
-  testServer),
+  gulp.parallel(
+    devServer,
+    testServer
+  ),
   watch
 );
 
