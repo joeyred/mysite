@@ -1,0 +1,45 @@
+.background {
+  position: fixed;
+  z-index: -1000;
+  height: 100vh;
+  width: 100vw;
+  overflow-y: hidden;
+  perspective: 10000px;
+  perspective-origin: top;
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .layer {
+    width: 100vw;
+    height: 120vh;
+  }
+  .layer-4 {
+    transform: translateZ() scale3d(1.6);
+    .cls-1 {
+      fill: #3a3a3a;
+    }
+
+  }
+  .layer-3 {
+    transform: translateZ() scale3d(3.2);
+    .cls-1 {
+      fill: #383838;
+    }
+  }
+  .layer-2 {
+    transform: translateZ() scale3d(6.4);
+    .cls-1 {
+      fill: #363636;
+    }
+  }
+  .layer-1 {
+    transform: translateZ() scale3d(9.6);
+    .cls-1 {
+      fill: #353535;
+    }
+  }
+}

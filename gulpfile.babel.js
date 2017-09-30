@@ -61,7 +61,7 @@ export function runGulpsmith() {
           }
         }))
         .use(msBranch()
-          .pattern('collections/styleguide/**/*.pug')
+          .pattern('styleguide/**/*.pug')
           .use(msPug({
             useMetadata: true,
             pretty:      true,
