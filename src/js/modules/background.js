@@ -12,6 +12,7 @@
 class Background {
   constructor(element, options) {
     this.element = element;
+    this.innerElement = element.firstChild;
     this.scrollDirection = new Gingabulous.ScrollDirection();
     this.content = document.querySelector('.site-wrapper');
     this.scrollTop = this.element.scrollTop;
@@ -38,8 +39,14 @@ class Background {
     this.element.scrollTop = this.scrollTop;
     console.log(`ScrollTop: ${this.element.scrollTop}`);
   }
+  _syncScrolling() {
+    let currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    this.element.scrollTop = currentScrollPosition;
+    // this.innerElement.scrollTop = currentScrollPosition;
+    console.log(this.innerElement.scrollTop, this.element.scrollTop);
+  }
   _events() {
-    Gingabulous.events.scroll.registerCallback(() => this._updateScrollPosition());
+    Gingabulous.events.scroll.registerCallback(() => this._syncScrolling());
   }
 }
 Gingabulous.registerModule(Background);

@@ -1,45 +1,122 @@
 .background {
   position: fixed;
-  z-index: -1000;
+  // overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
   height: 100vh;
   width: 100vw;
-  overflow-y: hidden;
-  perspective: 10000px;
-  perspective-origin: top;
-  svg {
+  z-index: -100;
+  perspective: 1000px;
+  perspective-origin: center;
+  .layer {
     position: absolute;
+    // height: 4000px;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
   }
-  .layer {
-    width: 100vw;
-    height: 120vh;
-  }
-  .layer-4 {
-    transform: translateZ() scale3d(1.6);
+  .layer-1 {
+    transform: translateZ(-1000px) scale(2);
     .cls-1 {
-      fill: #3a3a3a;
-    }
-
-  }
-  .layer-3 {
-    transform: translateZ() scale3d(3.2);
-    .cls-1 {
-      fill: #383838;
+      fill: $color-cyan;
     }
   }
   .layer-2 {
-    transform: translateZ() scale3d(6.4);
+    transform: translateZ(-800px) scale(1.8);
     .cls-1 {
-      fill: #363636;
+      fill: $color-blue;
     }
   }
-  .layer-1 {
-    transform: translateZ() scale3d(9.6);
+  .layer-3 {
+    transform: translateZ(-600px) scale(1.6);
     .cls-1 {
-      fill: #353535;
+      fill: $color-purple;
+    }
+  }
+  .layer-4 {
+    transform: translateZ(-500px) scale(1.5);
+    .cls-1 {
+      fill: $color-pink;
     }
   }
 }
+
+
+
+// .background-inner {
+//   width: 100%;
+//   height: 2000px;
+//   overflow-x: hidden;
+//   overflow-y: hidden;
+//   perspective: 1000px;
+//
+//   .layer {
+//     position: absolute;
+//     // height: 4000px;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//   }
+//   .layer-1 {
+//     transform: translateZ(-700px) scale(1);
+//     .cls-1 {
+//       fill: $color-cyan;
+//     }
+//   }
+//   .layer-2 {
+//     transform: translateZ(-300px) scale(1.5);
+//     .cls-1 {
+//       fill: $color-blue;
+//     }
+//   }
+//   .layer-3 {
+//     transform: translateZ(-100px) scale(1.5);
+//     .cls-1 {
+//       fill: $color-purple;
+//     }
+//   }
+//   .layer-4 {
+//     transform: translateZ(-50px) scale(1.5);
+//     .cls-1 {
+//       fill: $color-pink;
+//     }
+//   }
+// }
+// body {
+//   perspective: 1000px;
+//   height: 100vh;
+// }
+// .bg-layer {
+//   position: absolute;
+//   height: 100vh;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+// }
+// .bg-layer-1 {
+//   transform: translateZ(-500px) scale(1.5);
+//   .cls-1 {
+//     fill: $color-cyan;
+//   }
+// }
+// .bg-layer-2 {
+//   transform: translateZ(-300px) scale(1.5);
+//   .cls-1 {
+//     fill: $color-blue;
+//   }
+// }
+// .bg-layer-3 {
+//   transform: translateZ(-100px) scale(1.5);
+//   .cls-1 {
+//     fill: $color-purple;
+//   }
+// }
+// .bg-layer-4 {
+//   transform: translateZ(0) scale(1.5);
+//   .cls-1 {
+//     fill: $color-pink;
+//   }
+// }
