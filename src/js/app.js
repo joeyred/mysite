@@ -18,6 +18,10 @@ function init() {
   var panesNode = document.querySelector(Gingabulous.modules.Panes.dataAttrTarget);
   var panes = new Gingabulous.Panes(panesNode);
   panes.init();
+
+  let backgroundNode = document.querySelector(Gingabulous.modules.Background.dataAttrTarget);
+  let background = new Gingabulous.Background(backgroundNode);
+  background.init();
 }
 function initCards() {
   let cards = document.querySelectorAll(Gingabulous.modules.Card.dataAttrTarget);
@@ -38,7 +42,6 @@ Gingabulous.Debug.config(true, {
   DynamicPane:  true,
   CarouselPane: true
 });
-console.log('no reason');
 init();
 initCards();
 }(jQuery);

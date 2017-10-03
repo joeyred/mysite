@@ -1,0 +1,47 @@
+.background {
+  position: fixed;
+  // overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 100vh;
+  width: 100vw;
+  z-index: -100;
+  perspective: 1000px;
+  perspective-origin: center;
+  .layer {
+    position: absolute;
+    // height: 4000px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    svg {
+      height: 2500px;
+    }
+  }
+  .layer-1 {
+    transform: translateZ(-1000px) scale(2);
+    .cls-1 {
+      fill: #343434;
+    }
+  }
+  .layer-2 {
+    transform: translateZ(-700px) scale(2);
+    .cls-1 {
+      fill: #363636;
+    }
+  }
+  .layer-3 {
+    transform: translateZ(-400px) scale(2);
+    .cls-1 {
+      fill: #383838;
+    }
+  }
+  .layer-4 {
+    transform: translateZ(-200px) scale(2);
+    .cls-1 {
+      fill: #3a3a3a;
+    }
+  }
+}
