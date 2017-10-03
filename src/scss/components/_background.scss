@@ -15,108 +15,33 @@
     left: 0;
     right: 0;
     bottom: 0;
+
+    svg {
+      height: 2500px;
+    }
   }
   .layer-1 {
     transform: translateZ(-1000px) scale(2);
     .cls-1 {
-      fill: $color-cyan;
+      fill: #343434;
     }
   }
   .layer-2 {
-    transform: translateZ(-800px) scale(1.8);
+    transform: translateZ(-700px) scale(2);
     .cls-1 {
-      fill: $color-blue;
+      fill: #363636;
     }
   }
   .layer-3 {
-    transform: translateZ(-600px) scale(1.6);
+    transform: translateZ(-400px) scale(2);
     .cls-1 {
-      fill: $color-purple;
+      fill: #383838;
     }
   }
   .layer-4 {
-    transform: translateZ(-500px) scale(1.5);
+    transform: translateZ(-200px) scale(2);
     .cls-1 {
-      fill: $color-pink;
+      fill: #3a3a3a;
     }
   }
 }
-
-
-
-// .background-inner {
-//   width: 100%;
-//   height: 2000px;
-//   overflow-x: hidden;
-//   overflow-y: hidden;
-//   perspective: 1000px;
-//
-//   .layer {
-//     position: absolute;
-//     // height: 4000px;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     bottom: 0;
-//   }
-//   .layer-1 {
-//     transform: translateZ(-700px) scale(1);
-//     .cls-1 {
-//       fill: $color-cyan;
-//     }
-//   }
-//   .layer-2 {
-//     transform: translateZ(-300px) scale(1.5);
-//     .cls-1 {
-//       fill: $color-blue;
-//     }
-//   }
-//   .layer-3 {
-//     transform: translateZ(-100px) scale(1.5);
-//     .cls-1 {
-//       fill: $color-purple;
-//     }
-//   }
-//   .layer-4 {
-//     transform: translateZ(-50px) scale(1.5);
-//     .cls-1 {
-//       fill: $color-pink;
-//     }
-//   }
-// }
-// body {
-//   perspective: 1000px;
-//   height: 100vh;
-// }
-// .bg-layer {
-//   position: absolute;
-//   height: 100vh;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-// }
-// .bg-layer-1 {
-//   transform: translateZ(-500px) scale(1.5);
-//   .cls-1 {
-//     fill: $color-cyan;
-//   }
-// }
-// .bg-layer-2 {
-//   transform: translateZ(-300px) scale(1.5);
-//   .cls-1 {
-//     fill: $color-blue;
-//   }
-// }
-// .bg-layer-3 {
-//   transform: translateZ(-100px) scale(1.5);
-//   .cls-1 {
-//     fill: $color-purple;
-//   }
-// }
-// .bg-layer-4 {
-//   transform: translateZ(0) scale(1.5);
-//   .cls-1 {
-//     fill: $color-pink;
-//   }
-// }

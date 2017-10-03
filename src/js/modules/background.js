@@ -12,38 +12,43 @@
 class Background {
   constructor(element, options) {
     this.element = element;
-    this.innerElement = element.firstChild;
+    this.options = Gingabulous.deepExtend({}, this.defaults, options);
     this.scrollDirection = new Gingabulous.ScrollDirection();
-    this.content = document.querySelector('.site-wrapper');
-    this.scrollTop = this.element.scrollTop;
+    this.content = document.querySelector(this.options.contentTarget);
+  }
+  get defaults() {
+    return {
+      dataAttr:      Gingabulous.modules.Background.dataAttr,
+      contentTarget: '.site-wrapper',
+      scrollRatio:   5
+    };
+  }
+  get calculatedLayerHeight() {
+    if (this.options.scrollRatio === false) {
+      return this.content.offsetHeight;
+    }
+    return this.content.offsetHeight / 3;
   }
   init() {
+    this._setLayerHeight();
     this._events();
   }
-  _distancePerDocumentScroll() {
-    // console.log(this.element.offsetHeight, this.content.offsetHeight);
-    return Math.ceil(this.element.offsetHeight / this.content.offsetHeight);
-  }
-  _updateScrollPosition() {
-    if (this.scrollDirection.down()) {
-      this.scrollTop += this._distancePerDocumentScroll();
-      console.log(this.scrollTop);
-    } else {
-      this.scrollTop -= this._distancePerDocumentScroll();
-      console.log(this.scrollTop);
+  _setLayerHeight() {
+    let layers = this.element.querySelectorAll('.layer');
+
+    for (let i = 0; i < layers.length; i++) {
+      layers[i].style.height = this.calculatedLayerHeight;
     }
-    // if (this.scrollDirection.up()) {
-    //   this.scrollTop -= this._distancePerDocumentScroll();
-    //   console.log(this.scrollTop);
-    // }
-    this.element.scrollTop = this.scrollTop;
-    console.log(`ScrollTop: ${this.element.scrollTop}`);
   }
   _syncScrolling() {
     let currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-    this.element.scrollTop = currentScrollPosition;
-    // this.innerElement.scrollTop = currentScrollPosition;
-    console.log(this.innerElement.scrollTop, this.element.scrollTop);
+    if (this.options.scrollRatio === false) {
+      this.element.scrollTop = currentScrollPosition;
+    } else {
+      this.element.scrollTop = currentScrollPosition / this.options.scrollRatio;
+    }
+
+    console.log(window.pageYOffset, this.element.scrollTop);
   }
   _events() {
     Gingabulous.events.scroll.registerCallback(() => this._syncScrolling());
