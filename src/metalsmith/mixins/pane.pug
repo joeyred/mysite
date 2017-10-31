@@ -1,10 +1,25 @@
-mixin pane(id, position, api)
+mixin pane(id, position, classes, api)
   if api
+    //- Get proper domain
+    - var domain;
+    if build.production
+      - domain = site.url.production;
+    else
+      - domain = '';
+    
+    - var apiPath = `${domain}/api/${api}.json`;
     .pane(
-      class=position
+      class=[position, classes]
       data-pane=id
-      data-inject=api
+      data-inject-api=apiPath
       )
+        .pane-header
+          .top-bar
+            .left
+              button.icon-button(data-pane-close='')
+                +icon('menu')
+        .pane-content
+          block
   else
     .pane(
       class=position
