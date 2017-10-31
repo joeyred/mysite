@@ -24,6 +24,7 @@ import msDebugUI from 'metalsmith-debug-ui';
 import msPug from 'metalsmith-pug';
 import msPermalinks from 'metalsmith-permalinks';
 import msCollections from 'metalsmith-collections';
+import msCollectionMetadata from 'metalsmith-collection-metadata';
 import msBranch from 'metalsmith-branch';
 import msPrism from 'metalsmith-prism';
 // LoDash
@@ -32,6 +33,19 @@ import _ from 'lodash';
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
+
+const pugArgs = {
+  useMetadata: true,
+  pretty:      true,
+  // basedir:     `src/metalsmith`,
+  // debug:       true,
+  globals:     ['hello', 'world'],
+  filters:     {
+    markdown: function(block) {
+      return filters.markdown.render(block);
+    }
+  }
+};
 
 export function runGulpsmith() {
   const ms = gulpsmith('./src/metalsmith');
@@ -48,16 +62,29 @@ export function runGulpsmith() {
             production: DEPLOY
           },
           site: {
-            title: 'Hello World'
+            title: 'Hello World',
+            url:   {
+              dev:        `localhost:${config.devServer.port}`,
+              production: 'http://mydomain.com'
+            }
           },
-          _: _
+          _:       _,
+          filters: filters
         })
         .use(msCollections({
           icons: {
             pattern: 'icons/**/*.pug'
           },
+          pens: {
+            pattern: 'pens/**/*.pug'
+          },
           styleguide: {
             pattern: 'styleguide/**/*.pug'
+          }
+        }))
+        .use(msCollectionMetadata({
+          'collections.pens': {
+            type: 'pen'
           }
         }))
         .use(msBranch()
