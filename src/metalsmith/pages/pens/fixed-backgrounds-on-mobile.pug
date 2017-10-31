@@ -1,0 +1,202 @@
+---
+title: "Fixed Backgrounds on Mobile"
+date: 2017-3-10
+description: >
+  Ever try to set a background image position to `fixed`
+  on mobile? It doesn't end well. This is a work around with pure HTML
+  and CSS to get a `fixed` background that works
+  on mobile browsers.
+tags: 
+  - HTML 
+  - CSS 
+  - iOS 
+  - mobileDesign 
+  - tricks 
+  - webDevelopment
+thumbnail:
+  image:
+  title:
+  description: 
+links:
+  codepen: https://codepen.io/joeyred/pen/pEagLQ
+  gist: false
+  liveDemo: https://joeyred.github.io/fixed-mobile-background-demo/
+codeBlockTitles:
+  markup: HTML
+  styles: SCSS
+  scripts: false
+---
+
+extends ../../layouts/pen.pug
+
+block demo
+  h1= title
+block details
+  :markdown
+    Ever try to set a background image to `fixed` on mobile? It doesn't end well. This is 
+    a work around with pure HTML and CSS to get a fixed background that works on mobile 
+    browsers. 
+
+    This method hasn't been thoroughly tested yet, however it works on iOS Safari.
+
+    PLEASE NOTE: It seems that when being rendered on iOS Safari through CodePen, the 
+    actual height of the viewport isn't correctly calculated. The calculated height ends 
+    up being the height of the entire document, and not the viewport. So, yes this method 
+    does in fact work, but it doesn't render correctly on CodePen on mobile. I've set up 
+    a test page on my development server that mimics this pen, and it works perfectly.
+
+    I'll see if there's a way to make it render correctly through CodePen, but until then, 
+    I'm pretty bummed CodePen can't actually show this pen in action.
+block markup
+  :markdown
+    ```html
+    <article class="post">
+      <header class="post-header">
+        <div class="content post-header-inner">
+          <h1>Fixed backgrounds on a mobile browser without using JavaScript!</h1>
+
+          <time class="post-date">October 6th 2016</time>
+
+          <div class="post-meta">
+
+            <span class="author">by <span class="author-name">Brian Hayes</span></span>
+
+          </div>
+        </div>
+      </header>
+      
+      <div class="post-content">
+        <div class="content">
+          
+          <a href="https://joeyred.github.io/fixed-mobile-background-demo/" target="_blank"><h2>Click Here to See the Working Demo on GitHub</h2></a>
+          
+           <p class="note"><span>PLEASE NOTE:</span> It seems that when being rendered on iOS Safari through CodePen, the actual height of the viewport isn't correctly calculated. The calculated height ends up being the height of the entire document, and not the viewport. So, yes this method does work, but it doesn't render correctly on CodePen on mobile. I've set up <a href="https://joeyred.github.io/fixed-mobile-background-demo/" target="_blank">a demo page on GitHub</a> that shows that this does in fact work.</p>
+          
+          <p>Quid securi etiam tamquam eu fugiat nulla pariatur. Cum ceteris in veneratione tui montes, nascetur mus. Quisque placerat facilisis egestas cillum dolore. Ambitioni dedisse scripsisse iudicaretur. Quisque ut dolor gravida, placerat libero vel, euismod.</p>
+
+          <p>Fabio vel iudice vincam, sunt in culpa qui officia. Paullum deliquit, ponderibus modulisque suis ratio utitur. Quisque ut dolor gravida, placerat libero vel, euismod. Inmensae subtilitatis, obscuris et malesuada fames. Salutantibus vitae elit libero, a pharetra augue. Magna pars studiorum, prodita quaerimus. Excepteur sint obcaecat cupiditat non proident culpa. Curabitur est gravida et libero vitae dictum.</p>
+
+          <p>Integer legentibus erat a ante historiarum dapibus. Etiam habebis sem dicantur magna mollis euismod. Non equidem invideo, miror magis posuere velit aliquet. Fabio vel iudice vincam, sunt in culpa qui officia. Donec sed odio operae, eu vulputate felis rhoncus. Prima luce, cum quibus mons aliud consensu ab eo. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Non equidem invideo, miror magis posuere velit aliquet. Quis aute iure reprehenderit in voluptate velit esse. At nos hinc posthac, sitientis piros Afros.</p>
+
+          <p>Non equidem invideo, miror magis posuere velit aliquet. Phasellus laoreet lorem vel dolor tempus vehicula. Etiam habebis sem dicantur magna mollis euismod. A communi observantia non est recedendum. Quisque placerat facilisis egestas cillum dolore. Plura mihi bona sunt, inclinet, amari petere vellent. Nec dubitamus multa iter quae et nos invenerat. Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Quam temere in vitiis, legem sancimus haerentia.</p>
+        </div>
+      </div>
+    </article>
+
+    <footer>
+      <div class="content">
+        
+        <h2>There you have it!</h2>
+      
+        <p>
+        A totally fixed background without ever having to deal with javascript, or even fake elements. A complete HTML & CSS solution.
+      </p>
+        <h3>
+          <a href="https://joeyred.github.io/fixed-mobile-background-demo/" target="_blank">
+            Click Here to See the Working Demo on GitHub
+          </a>
+         </h3>
+        <p class="note"><span>PLEASE NOTE:</span> It seems that when being rendered on iOS Safari through CodePen, the actual height of the viewport isn't correctly calculated. The calculated height ends up being the height of the entire document, and not the viewport. So, yes this method does work, but it doesn't render correctly on CodePen on mobile. I've set up <a href="https://joeyred.github.io/fixed-mobile-background-demo/" target="_blank">a demo page on GitHub</a> that shows that this does in fact work.</p>
+        <hr />
+        <p>Background photo by <a href="https://unsplash.com/@scottwebb">Scott Webb</a> from <a href="https://unsplash.com/photos/Yohivf5JWvg">unsplash.com</a></p>
+        
+      </div>
+    </footer>
+    ```
+block styles
+  :markdown
+    ```scss
+    // This is what makes the background right here. 
+    html::before {
+      content: ' ';
+      display: block;
+      background-image: url('https://images.unsplash.com/photo-1427694012323-fb5e8b0c165b');
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      width: 100vw;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      position: fixed;
+      z-index: -10; // This is pretty important.
+    }
+
+    // This is just the stuff to make the pen look pretty.
+    html {
+      font-family: "source sans pro";
+      font-weight: 400;
+      color: #fdfdfd;
+    }
+    h1, h2, h3 {
+      font-family: lato;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    a {
+      text-decoration: none;
+      color: #FFC74E;
+      transition: color 200ms ease-in-out; 
+      &:hover, &:focus {
+        color: #C84EFF;
+      }
+    }
+    hr {
+      border: #555 1px solid;
+    }
+    .post {
+      font-size: 1.125rem;
+    }
+    .content {
+      max-width: 50rem;
+      margin: 0 auto;
+    }
+
+    .post-header-inner {
+      display: flex;
+      flex-flow: column nowrap;
+      min-height: 25rem;
+      padding: 0.5rem 1.5rem;
+      text-shadow: 0.5px 2px 2px rgba(1, 1, 1, 0.4);
+      h1 {
+        font-size: 2rem;
+        color: #A7DDFF;
+      }
+      .post-date {
+        color: #B28B36;
+      }
+      .post-meta {
+        width: 100%;
+        margin-top: auto;
+        color: #FFF;
+        text-shadow: 1px 1.5px 4px rgba(1, 1, 1, 0.8);
+      }
+      .author-name {
+        font-size: 1.3rem;
+        font-weight: 400;
+      }
+    }
+
+    .post-content {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(18px);
+      padding: 1rem 1.5rem;
+        
+    }
+    .note {
+      color: #D3D3D3;
+      border: 3px solid red;
+      padding: 0.625rem;
+      span {
+        font-weight: bold;
+        color: red;
+      }
+    }
+    footer {
+      padding: 1rem 1.5rem;
+      background-color: #222;
+      padding-bottom: 4rem;
+    }
+    ```
