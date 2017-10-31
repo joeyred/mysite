@@ -62,10 +62,18 @@ export function runGulpsmith() {
             production: DEPLOY
           },
           site: {
-            title: 'Hello World',
+            title: 'Brian Hayes',
             url:   {
               dev:        `localhost:${config.devServer.port}`,
               production: 'http://mydomain.com'
+            },
+            email:  'bjoeyhayes@gmail.com',
+            social: {
+              twitter:       'https://twitter.com/BJoeyHayes',
+              linkedin:      'https://www.linkedin.com/in/bjoeyhayes/',
+              github:        'https://github.com/joeyred',
+              codepen:       'https://codepen.io/joeyred/',
+              stackoverflow: 'https://stackoverflow.com/users/5331958/joeyred'
             }
           },
           _:       _,
