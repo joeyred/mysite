@@ -130,6 +130,11 @@ export function runGulpsmith() {
         .use(msPermalinks())
         .use(msDebugUI.report('Permalinks Done'))
     )
+    // .on('error', function(e) {
+    //   console.error('\x1b[31m%s\x1b[0m', e.message);
+    //   // console.log(e);
+    //   this.emit('end');
+    // })
     .pipe(gulp.dest('./build'));
 }
 export function copyDebugUIFilesToBuildDir() {
