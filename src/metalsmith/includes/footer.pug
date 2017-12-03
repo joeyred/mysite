@@ -1,4 +1,19 @@
+- var url = build.production ? site.url.production : site.url.dev;
+
 footer.wrapper
   .container
     .block.sm-12
-      .hello hello
+      | Brian Hayes &copy; 2017
+      
+    .block.sm-12
+      +socialIconBar(
+        'twitter',
+        'github',
+        'codepen',
+        'stackoverflow',
+        'linkedin'
+      )
+    .block.sm-12
+      .inline-nav
+        - var styleguideLink = url + '/styleguide/'
+        a(href=styleguideLink) Styleguide
