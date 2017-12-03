@@ -1,0 +1,5 @@
+mixin socialIconBar(...icons)
+  .icon-bar
+    each icon in icons
+      a.icon(href=site.social[icon] target='_blank')
+        +icon(icon)
