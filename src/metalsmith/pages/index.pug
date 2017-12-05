@@ -22,15 +22,85 @@ block content
             button.icon-button(data-expand-close='')
               +icon('close')
           .titled-callout-inner.tab-content
-            p.
-              Creatively driven and technical minded. I love coming up with the idea just 
-              as much as I love bringing it to life. I want what I put my time and effort 
-              into to be something I can be proud of. I have a wide variety of passions 
-              and interests, such as: design, music, writing, media production, 
-              art, cooking, mixology, video games, sports, and playing guitar.
+            .container
+              .block.sm-12 * Add Face Pic Here *
+              .block.sm-12
+                p.
+                  Creatively driven and technical minded. I love coming up with the idea
+                  just as much as I love bringing it to life. I want what I put my time
+                  and effort into to be something I can be proud of. I have a wide 
+                  variety of passions and interests, such as: design, music, writing, 
+                  media production, art, cooking, mixology, video games, sports, 
+                  and playing guitar.
       //- My Skills
       .block.sm-12
-        +titledCallout('My Skills', 'yellow')
+        .titled-callout.yellow.expanding-tab(
+          data-expand=''
+          data-responsive='sm md'
+          )
+          .titled-callout-title.tab
+            h2(data-expand-open='') My Skills
+            button.icon-button(data-expand-close='')
+              +icon('close')
+          .titled-callout-inner.tab-content
+            .container
       //- My Work
       .block.sm-12
-        +titledCallout('My Work', 'green')
+        .titled-callout.orange.expanding-tab(
+          data-expand=''
+          data-responsive='sm md'
+          )
+          .titled-callout-title.tab
+            h2(data-expand-open='') My Work
+            button.icon-button(data-expand-close='')
+              +icon('close')
+          .titled-callout-inner.tab-content
+            .container
+              ul.cards.portfolio
+                - var pens = collections.pens || [];
+                - var projects = collections.projects || [];
+                - var cards = _.concat(pens, projects);
+                - var filteredCards = _.filter(cards, {featured: true});
+                - var sortedCards = _.sortBy(filteredCards, 'date');
+                
+                
+                //- Loop through Cards
+                each card in sortedCards
+                  - var filename = _.replace(card.path, 'pens/', '');
+                  - var filenameNoExtention = _.replace(filename, '.pug', '');
+                  li
+                    .card.horizontal(data-card='')
+                      
+                      //- Top Options Bar
+                      .card-options-bar
+                        //- Close Card
+                        button.icon-button(data-card-close='')
+                          +icon('close')
+                        //- Open Pane
+                        button.button(
+                          data-inject=filenameNoExtention
+                          data-pane-open=card.type
+                        ) See More
+                      
+                      //- Card Cover
+                      .card-cover
+                        //- Thumbnail Image
+                        .card-thumbnail
+                          img(
+                            src=card.thumbnail.image 
+                            title=card.thumbnail.title
+                            alt=card.thumbnail.description
+                          )
+                        //- Cover details
+                        .card-info
+                          //- title
+                          h3= card.title
+                          //- Tags
+                          .tags-container
+                            ul.tags
+                              //- Tag Loop
+                              each tag in card.tags
+                                li= tag
+                        
+                      //- Card Description
+                      .bottom-container !{filters.markdown.render(card.description)}  
