@@ -4,5 +4,89 @@ title: "my Work"
 
 extends ../layouts/default.pug
 
+//- Panes
+block panes
+  //- Pens Pane w/ Data Injection
+  +pane('pen', 'above', 'pen-pane', 'pens-api')
+    .carousel-panes(data-carousel-panes='')
+      //- Center
+      .pane.carousel-center
+        .container(data-inject-bind='demo')
+      //- Left
+      .pane.carousel-left
+        .container(data-inject-bind='details')
+      //- Right
+      .pane.carousel-right
+        .container(data-inject-bind='code.markup')
+        .container(data-inject-bind='code.styles')
+        .container(data-inject-bind='code.scripts')
+    .fixed-bottom-bar
+      .nav-bar
+        button.icon-button(data-panes-nav='left')
+          +icon('info')
+        button.icon-button(data-panes-nav='center')
+          +icon('menu')
+        button.icon-button(data-panes-nav='right')
+          +icon('code')
+      .pane-carousel-title-bar.container.sm-row.sm-nowrap
+        .block.sm-12
+          h4 Details
+        .block.sm-12
+          h4 Demo
+        .block.sm-12
+          h4 Code
+
+//- Content
 block content
   h1 This is my Work
+  
+  ul.cards.portfolio
+    - var pens = collections.pens || [];
+    - var projects = collections.projects || [];
+    - var cards = _.concat(pens, projects);
+    - var sortedCards = _.sortBy(cards, 'date');
+    
+
+    //- Loop through Cards
+    each card in sortedCards
+      - var filename = _.replace(card.path, 'pens/', '');
+      - var filenameNoExtention = _.replace(filename, '.pug', '');
+      li
+        .card.horizontal(data-card='')
+          
+          //- Top Options Bar
+          .card-options-bar
+            //- Close Card
+            button.icon-button(data-card-close='')
+              +icon('close')
+            //- Open Pane
+            button.button(
+              data-inject=filenameNoExtention
+              data-pane-open=card.type
+            ) See More
+          
+          //- Card Cover
+          .card-cover
+            //- Thumbnail Image
+            .card-thumbnail
+              img(
+                src=card.thumbnail.image 
+                title=card.thumbnail.title
+                alt=card.thumbnail.description
+              )
+            //- Cover details
+            .card-info
+              //- title
+              h3= card.title
+              //- Tags
+              .tags-container
+                ul.tags
+                  //- Tag Loop
+                  each tag in card.tags
+                    li= tag
+            
+          //- Card Description
+          .bottom-container !{filters.markdown.render(card.description)}
+
+              
+              

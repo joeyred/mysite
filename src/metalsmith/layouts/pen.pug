@@ -1,0 +1,32 @@
+extends default.pug
+
+block content
+  
+  section#demo(build-api='demo')
+    block demo
+  
+  section#details(build-api='details')
+    block details
+  
+  section#code
+
+    //- Markup
+    if !!codeBlockTitles.markup
+      .code-block.container(build-api='code.markup')
+        .block
+          h3= codeBlockTitles.markup
+          block markup
+    
+    //- Styles
+    if !!codeBlockTitles.styles
+      .code-block.container(build-api='code.styles')
+        .block
+          h3= codeBlockTitles.styles
+          block styles
+          
+    //- Scripts  
+    if !!codeBlockTitles.scripts
+      .code-block.container(build-api='code.scripts')
+        .block
+          h3= codeBlockTitles.scripts
+          block scripts

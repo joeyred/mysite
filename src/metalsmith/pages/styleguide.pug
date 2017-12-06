@@ -27,8 +27,11 @@ block content
       .block
         h1.sg-page-heading
           | The Super Awesome Great (and stuff) Styleguide
-  
-  each guide in collections.styleguide
+
+  - var sortedSyleguides = _.sortBy(collections.styleguide, 'order');
+  //- - console.log(sortedSyleguides);
+
+  each guide in sortedSyleguides
     - var sgClass =  'sg-' + guide.class;
     
     section(id=guide.class class=sgClass)

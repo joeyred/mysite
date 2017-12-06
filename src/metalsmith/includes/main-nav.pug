@@ -1,4 +1,24 @@
+- var url = build.production ? site.url.production : site.url.dev;
+- var links = [['/my-work/', 'My Work'], ['/my-skills/', 'My Skills'], ['/about-me/', 'About Me']];
 +pane('mainNav', 'left')(class='main-nav')
   .conatiner
+
+    //- Main Nav
     .block.sm-12
-      h1 Main Nav!!!
+      nav.main-nav
+        each link in links
+          - var linkUrl = url + link[0]; 
+          a(href=linkUrl) #{link[1]}
+        //- a(href=#{url + '/my-work/'}) My Work
+        //- a(href=#{url + '/my-work/'}) My Skills
+        //- a(href=#{url + '/my-work/'}) About Me
+
+    //- Social Links
+    .block.sm-12
+      +socialIconBar(
+        'twitter',
+        'github',
+        'codepen',
+        'stackoverflow',
+        'linkedin'
+      )

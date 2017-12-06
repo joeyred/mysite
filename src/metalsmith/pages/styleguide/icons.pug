@@ -1,0 +1,42 @@
+---
+class: icons
+title: Icons
+order: 7
+---
+
+include ../../mixins/mixins.pug
+-
+  var icons = [
+  //- Custom Icons
+  'close', 'code', 'info', 'menu',
+  //- Social Icons
+  'codepen',
+  'facebook',
+  'github',
+  'instagram',
+  'linkedin',
+  'pinterest',
+  'stackoverflow',
+  'twitter',
+  'youtube'
+  ];
+  
+.container
+  
+  //- Loop?
+  each name in icons
+    .block.sm-12.md-6.lg-4
+      .container
+        .block.sm-12
+          .container
+            .block.sm-9
+              h4 #{_.capitalize(name)}
+            
+            .block.sm-3
+              span.icon
+                +icon(name)
+        //- Code Example
+        .block.sm-12
+          pre
+            code.
+              #{'+icon(\''+  name  +'\')'}

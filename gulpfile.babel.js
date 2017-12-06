@@ -24,6 +24,7 @@ import msDebugUI from 'metalsmith-debug-ui';
 import msPug from 'metalsmith-pug';
 import msPermalinks from 'metalsmith-permalinks';
 import msCollections from 'metalsmith-collections';
+import msCollectionMetadata from 'metalsmith-collection-metadata';
 import msBranch from 'metalsmith-branch';
 import msPrism from 'metalsmith-prism';
 // LoDash
@@ -32,6 +33,19 @@ import _ from 'lodash';
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
+
+const pugArgs = {
+  useMetadata: true,
+  pretty:      true,
+  // basedir:     `src/metalsmith`,
+  // debug:       true,
+  globals:     ['hello', 'world'],
+  filters:     {
+    markdown: function(block) {
+      return filters.markdown.render(block);
+    }
+  }
+};
 
 export function runGulpsmith() {
   const ms = gulpsmith('./src/metalsmith');
@@ -48,16 +62,37 @@ export function runGulpsmith() {
             production: DEPLOY
           },
           site: {
-            title: 'Hello World'
+            title: 'Brian Hayes',
+            url:   {
+              dev:        `localhost:${config.devServer.port}`,
+              production: 'http://mydomain.com'
+            },
+            email:  'bjoeyhayes@gmail.com',
+            social: {
+              twitter:       'https://twitter.com/BJoeyHayes',
+              linkedin:      'https://www.linkedin.com/in/bjoeyhayes/',
+              github:        'https://github.com/joeyred',
+              codepen:       'https://codepen.io/joeyred/',
+              stackoverflow: 'https://stackoverflow.com/users/5331958/joeyred'
+            }
           },
-          _: _
+          _:       _,
+          filters: filters
         })
         .use(msCollections({
           icons: {
             pattern: 'icons/**/*.pug'
           },
+          pens: {
+            pattern: 'pens/**/*.pug'
+          },
           styleguide: {
             pattern: 'styleguide/**/*.pug'
+          }
+        }))
+        .use(msCollectionMetadata({
+          'collections.pens': {
+            type: 'pen'
           }
         }))
         .use(msBranch()
@@ -95,6 +130,11 @@ export function runGulpsmith() {
         .use(msPermalinks())
         .use(msDebugUI.report('Permalinks Done'))
     )
+    // .on('error', function(e) {
+    //   console.error('\x1b[31m%s\x1b[0m', e.message);
+    //   // console.log(e);
+    //   this.emit('end');
+    // })
     .pipe(gulp.dest('./build'));
 }
 export function copyDebugUIFilesToBuildDir() {
