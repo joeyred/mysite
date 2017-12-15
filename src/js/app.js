@@ -9,9 +9,11 @@ function init() {
   let background = new Gingabulous.Background(backgroundNode);
   background.init();
 
-  let expandableNodes = document.querySelector(Gingabulous.modules.Expand.dataAttrTarget);
-  let expand = new Gingabulous.Expand(expandableNodes);
-  expand.init();
+  let expandableNodes = document.querySelectorAll(Gingabulous.modules.Expand.dataAttrTarget);
+  for (let i = 0; i < expandableNodes.length; i++) {
+    let expand = new Gingabulous.Expand(expandableNodes[i]);
+    expand.init();
+  }
 }
 function initCards() {
   let cards = document.querySelectorAll(Gingabulous.modules.Card.dataAttrTarget);

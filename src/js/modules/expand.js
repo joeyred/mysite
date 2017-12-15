@@ -7,9 +7,14 @@ class Expand {
   }
   get defaults() {
     return {
-      dataAttr: Gingabulous.modules.Expand.dataAttr,
-      class:    'expanded',
-      type:     'basic'
+      dataAttr:     Gingabulous.modules.Expand.dataAttr,
+      class:        'expandable',
+      type:         'basic',
+      defaultState: 'collapsed',
+      states:       {
+        expanded:  'expanded',
+        collapsed: 'collapsed'
+      }
     };
   }
   get classes() {
@@ -26,23 +31,23 @@ class Expand {
     };
   }
   init() {
+    // Set Default State
+    this.element.setAttribute(this.attr.expand, this.options.defaultState);
+    // Handle Events
     this._events();
   }
-  _expand() {
-    this.element.classList.add(this.classes.expand);
-  }
-  _collapse() {
-    this.element.classList.remove(this.classes.expand);
+  _setState(state) {
+    this.element.setAttribute(this.attr.expand, state);
   }
   _events() {
     this.element.addEventListener('click', (event) => {
       // Open Event
       if (event.target.hasAttribute(this.attr.open)) {
-        this._expand();
+        this._setState(this.options.states.expanded);
       }
       // Close Event
       if (event.target.hasAttribute(this.attr.close)) {
-        this._collapse();
+        this._setState(this.options.states.collapsed);
       }
     });
   }
