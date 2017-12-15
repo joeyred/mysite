@@ -13,8 +13,39 @@ const yargs  = require('yargs');
 const config = require('./gulpconfig.js');
 const extend = require('object-assign-deep');
 
+const DEPLOY = Boolean(yargs.argv.production);
+const FULLTEST = Boolean(yargs.argv.fulltest);
+const TEST = Boolean(yargs.argv.test);
+
+const siteConfig = {
+  title: 'Brian Hayes',
+  url:   {
+    dev:        `localhost:${config.devServer.port}`,
+    local:      `localhost:${config.devServer.port}`,
+    external:   `192.168.1.18:${config.devServer.port}`,
+    production: 'http://mydomain.com'
+  },
+  email:  'bjoeyhayes@gmail.com',
+  social: {
+    twitter:       'https://twitter.com/BJoeyHayes',
+    linkedin:      'https://www.linkedin.com/in/bjoeyhayes/',
+    github:        'https://github.com/joeyred',
+    codepen:       'https://codepen.io/joeyred/',
+    stackoverflow: 'https://stackoverflow.com/users/5331958/joeyred'
+  }
+};
+
 const filters = {
   markdown: require('jstransformer-markdown-it')
+};
+
+const helpers = {
+  url: (link) => {
+    if (DEPLOY) {
+      return siteConfig.url.production + link;
+    }
+    return link;
+  }
 };
 
 // import metalsmith from 'metalsmith';
@@ -29,10 +60,6 @@ import msBranch from 'metalsmith-branch';
 import msPrism from 'metalsmith-prism';
 // LoDash
 import _ from 'lodash';
-
-const DEPLOY = Boolean(yargs.argv.production);
-const FULLTEST = Boolean(yargs.argv.fulltest);
-const TEST = Boolean(yargs.argv.test);
 
 const pugArgs = {
   useMetadata: true,
@@ -61,23 +88,10 @@ export function runGulpsmith() {
           build: {
             production: DEPLOY
           },
-          site: {
-            title: 'Brian Hayes',
-            url:   {
-              dev:        `localhost:${config.devServer.port}`,
-              production: 'http://mydomain.com'
-            },
-            email:  'bjoeyhayes@gmail.com',
-            social: {
-              twitter:       'https://twitter.com/BJoeyHayes',
-              linkedin:      'https://www.linkedin.com/in/bjoeyhayes/',
-              github:        'https://github.com/joeyred',
-              codepen:       'https://codepen.io/joeyred/',
-              stackoverflow: 'https://stackoverflow.com/users/5331958/joeyred'
-            }
-          },
+          site:    siteConfig,
           _:       _,
-          filters: filters
+          filters: filters,
+          helpers: helpers
         })
         .use(msCollections({
           icons: {

@@ -1,5 +1,10 @@
-- var url = build.production ? site.url.production : site.url.dev;
-- var links = [['/my-work/', 'My Work'], ['/my-skills/', 'My Skills'], ['/about-me/', 'About Me']];
+- 
+  var links = [
+    ['/', 'Home'],
+    ['/my-work/', 'My Work'], 
+    ['/my-skills/', 'My Skills'], 
+    ['/about-me/', 'About Me']
+  ];
 +pane('mainNav', 'left')(class='main-nav')
   .conatiner
 
@@ -7,11 +12,7 @@
     .block.sm-12
       nav.main-nav
         each link in links
-          - var linkUrl = url + link[0]; 
-          a(href=linkUrl) #{link[1]}
-        //- a(href=#{url + '/my-work/'}) My Work
-        //- a(href=#{url + '/my-work/'}) My Skills
-        //- a(href=#{url + '/my-work/'}) About Me
+          a(href=helpers.url(link[0])) #{link[1]}
 
     //- Social Links
     .block.sm-12
