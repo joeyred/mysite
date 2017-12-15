@@ -1,0 +1,16 @@
+.site-footer {
+  background: $color-black;
+  padding: 2rem 0 4rem;
+  .copyright-info {
+    margin-bottom: $spacing-unit_vertical;
+    color: $color-grey_dark;
+  }
+
+  .social-icons {
+    svg {
+      fill: $color-grey_dark;
+    }
+  }
+
+  .extra-links {}
+}

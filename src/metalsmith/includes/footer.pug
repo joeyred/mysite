@@ -1,11 +1,11 @@
 - var url = build.production ? site.url.production : site.url.dev;
 
-footer.wrapper
+.wrapper.site-footer
   .container
-    .block.sm-12
+    .block.sm-12.copyright-info
       | Brian Hayes &copy; 2017
       
-    .block.sm-12
+    .block.sm-12.social-icons
       +socialIconBar(
         'twitter',
         'github',
@@ -13,7 +13,7 @@ footer.wrapper
         'stackoverflow',
         'linkedin'
       )
-    .block.sm-12
+    .block.sm-12.extra-links
       .inline-nav
         - var styleguideLink = url + '/styleguide/'
         a(href=styleguideLink) Styleguide
