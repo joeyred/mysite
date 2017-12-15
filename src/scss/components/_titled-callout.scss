@@ -8,13 +8,8 @@
     // @debug $color-value;
     // @debug $color;
     &.#{$_color} {
-      h4,
-      h5,
-      h6 {
-        color: $_color-value;
-      }
 
-      .titled-callout-title {
+      .titled-callout-heading {
         h1,
         h2,
         h3 {
@@ -23,57 +18,31 @@
         }
       }
 
-      .titled-callout-inner {
+      .titled-callout-content-wrapper {
         // NOTE maybe replace lighten() with a function so both this and whats in settings
         //      ends up with the same percentage value, editable from one location.
         background: lighten($_color-value, 33%);
-        border-left-color: $_color-value;
       }
+      .titled-callout-content {
+        border-left-color: $_color-value;
 
-      &::after {
-        background: lighten($_color-value, 33%);
+        h4,
+        h5,
+        h6 {
+          color: $_color-value;
+        }
       }
     }
   }
 }
 
 .titled-callout {
-  // margin-left: -#{$titled-callout_left-offset};
-  margin-bottom: $spacing-unit_vertical;
-  color: $color-black;
-
-  &::after {
-    height: $titled-callout_content_bottom-extension;
-    content: '';
-    width: calc(100% - #{$titled-callout_border-left-size});
-    background: $titled-callout_content_background-color;
-    display: block;
-    border-left: none;
-    margin-left: $titled-callout_border-left-size;
-  }
-
-  &.no-content {
-    &::after {
-      display: none;
-    }
-  }
-
-  h3 {
+    margin-bottom: $spacing-unit_vertical;
     color: $color-black;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-  }
-
-  h4 {
-    margin-bottom: 0.3rem;
-    letter-spacing: 2px;
-  }
-
-  .titled-callout-title {
+  .titled-callout-heading {
     background: $titled-callout_title_background-color;
     padding-left: $titled-callout_title_left-extension;
     margin-left: -#{$titled-callout_title_left-extension};
-    // Extension of content past title block
     margin-right: $titled-callout_content_right-extension;
     margin-bottom: 0;
     letter-spacing: 5px;
@@ -88,16 +57,32 @@
       padding: $titled-callout_title-padding;
     }
   }
-  // margin-left: $titled-callout_title_left-extension;
 
-  .titled-callout-inner {
+  .titled-callout-content-wrapper {
     background: $titled-callout_content_background-color;
-    padding: $titled-callout_content-padding;
-    // padding-bottom: 20px;
+    margin-left: $titled-callout_border-left-size;
+    padding: 0 0 $titled-callout_content_bottom-extension;
+  }
+
+  .titled-callout-content {
+
     border-left: $titled-callout_border-left-size solid $titled-callout_border-left-color;
+    padding: 1.5rem 1rem 0;
+    margin-left: -#{$titled-callout_border-left-size};
+
+    h3 {
+      margin-bottom: $spacing-unit_vertical;
+      color: $color-black;
+    }
 
     p:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  &.no-content {
+    .titled-callout-content-wrapper {
+      padding-bottom: 0;
     }
   }
 

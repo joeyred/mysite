@@ -1,13 +1,16 @@
-mixin titledCallout(title, color, expandingTab)
+mixin titledCallout(title, color)
+
   if block
     
     .titled-callout(class=color)
-      .titled-callout-title
+      .titled-callout-heading
         h2= title
-      .titled-callout-inner
-        block
+      .titled-callout-content-wrapper
+        .titled-callout-content
+          block
+
   else
     
     .titled-callout.no-content(class=color)
-      .titled-callout-title
+      .titled-callout-heading
         h2= title

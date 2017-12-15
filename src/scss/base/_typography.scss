@@ -234,6 +234,7 @@ pre {
   }
 
   code {
+    display: inline;
     font-size: $code-block_font-size;
 
     @include mq('md') {
@@ -254,6 +255,7 @@ pre {
 
 // Inline Code
 code {
+  display: inline-block;
   border-radius: 0.3rem;
   padding: $inline-code_padding;
   margin: {
