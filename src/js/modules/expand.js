@@ -1,65 +1,57 @@
 'use strict';
-!function($) {
+!function() {
 class Expand {
-
-  get elementPosition() {
-    return this.$element.position();
+  constructor(element, options) {
+    this.element = element;
+    this.options = Gingabulous.deepExtend({}, this.defaults, options);
   }
-  get $openElement() {
-    return this.$element.children('.tab').children('[data-expand-open]');
-  }
-  get $closeElement() {
-    return this.$element.children('.tab').children('[data-expand-close]');
-  }
-  get elementHeight() {
-    return this.$openElement.height();
-  }
-  get topbarHeight() {
-    return $('header.site-header').height();
-  }
-  get distanceToMove() {
-    return this.elementPosition.top - this.topbarHeight;
-  }
-  get elementMarginOnMove() {
-    let margin =  Number(this.elementMargin);
-    return this.distanceToMove - margin;
-  }
-  get contentHeight() {
-    return $(window).height() - (this.topbarHeight + this.elementHeight) - 36;
-  }
-  get transform() {
+  get defaults() {
     return {
-      transform: `translate(0, -${this.distanceToMove}px)`,
-      margin:    `0 0 -${this.elementMarginOnMove}px`
+      dataAttr:     Gingabulous.modules.Expand.dataAttr,
+      class:        'expandable',
+      type:         'basic',
+      defaultState: 'collapsed',
+      states:       {
+        expanded:  'expanded',
+        collapsed: 'collapsed'
+      }
     };
   }
-  get isActive() {
-    return this.resp.active();
+  get classes() {
+    return {
+      expand: this.options.class
+    };
   }
-  constructor(element, options) {
-    this.$element = element;
-    this.elementMargin = element.css('marginBottom').replace(/[^-\d.]/g, '');
-    this.options = options || {};
-    this.resp = new Gingabulous.Responsive(element);
+  get attr() {
+    return {
+      expand:  this.options.dataAttr,
+      open:    `${this.options.dataAttr}-open`,
+      close:   `${this.options.dataAttr}-close`,
+      content: `${this.options.dataAttr}-content`
+    };
   }
-  openEvent() {
-    if (this.isActive) {
-      this.$element.css(this.transform).addClass('active');
-      this.$element.children('.tab-content').css({height: `${this.contentHeight}px`});
-    }
+  init() {
+    // Set Default State
+    this.element.setAttribute(this.attr.expand, this.options.defaultState);
+    // Handle Events
+    this._events();
   }
-  closeEvent() {
-    if (this.isActive) {
-      this.$element.removeAttr('style').removeClass('active');
-      this.$element.children('.tab-content').css({height: `0px`});
-    }
+  _setState(state) {
+    this.element.setAttribute(this.attr.expand, state);
   }
-  bindEvents() {
-    this.$openElement.click(() => this.openEvent());
-    this.$closeElement.click(() => this.closeEvent());
+  _events() {
+    this.element.addEventListener('click', (event) => {
+      // Open Event
+      if (event.target.hasAttribute(this.attr.open)) {
+        this._setState(this.options.states.expanded);
+      }
+      // Close Event
+      if (event.target.hasAttribute(this.attr.close)) {
+        this._setState(this.options.states.collapsed);
+      }
+    });
   }
 }
 
 Gingabulous.registerModule(Expand);
-
-}(jQuery);
+}();

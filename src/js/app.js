@@ -1,20 +1,6 @@
 !function($) {
 console.log(Gingabulous);
 function init() {
-  var $siteInner = $('.site-inner');
-  $(Gingabulous.modules.Overlay.dataAttrTarget).each(function() {
-    var $overlay = $(this);
-    var id = $overlay.attr('data-overlay');
-    var overlay = new Gingabulous.Overlay($overlay, $siteInner, id);
-
-    overlay.bindOpenEvent();
-    overlay.bindCloseEvent();
-  });
-
-  $(Gingabulous.modules.Expand.dataAttrTarget).each(function() {
-    var expand = new Gingabulous.Expand($(this));
-    expand.bindEvents();
-  });
   var panesNode = document.querySelector(Gingabulous.modules.Panes.dataAttrTarget);
   var panes = new Gingabulous.Panes(panesNode);
   panes.init();
@@ -22,6 +8,12 @@ function init() {
   let backgroundNode = document.querySelector(Gingabulous.modules.Background.dataAttrTarget);
   let background = new Gingabulous.Background(backgroundNode);
   background.init();
+
+  let expandableNodes = document.querySelectorAll(Gingabulous.modules.Expand.dataAttrTarget);
+  for (let i = 0; i < expandableNodes.length; i++) {
+    let expand = new Gingabulous.Expand(expandableNodes[i]);
+    expand.init();
+  }
 }
 function initCards() {
   let cards = document.querySelectorAll(Gingabulous.modules.Card.dataAttrTarget);

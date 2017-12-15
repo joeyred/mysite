@@ -1,16 +1,33 @@
-mixin titledCallout(title, color)
+include icons.pug
 
-  if block
-    
-    .titled-callout(class=color)
+mixin titledCallout(title, color, expandable)
+  - var isExpandable = expandable || false;
+  - 
+    var expand = {
+      dataAttr: {'data-expand': ''},
+      open: {'data-expand-open': ''},
+      close: {'data-expand-close': ''},
+      content: {'data-expand-content': ''}
+    };
+  //- Handle Classes
+  - var titledCalloutClasses = isExpandable ? [color, 'expandable'] : block ? color : [color, 'no-content'];
+  - var contentClasses = isExpandable ? 'expandable-content' : '';
+  //- Handle Atts
+  - var titledCalloutAtts = isExpandable ? expand.dataAttr : {};
+  - var openElementAtts = isExpandable ? expand.open : {};
+  //- var closeElementAtts = isExpandable ? expand.close : {};
+  - var contentElementAtts = isExpandable ? expand.close : {};
+  
+    .titled-callout(class=titledCalloutClasses)&attributes(titledCalloutAtts)
+      //- Heading
+      
       .titled-callout-heading
-        h2= title
-      .titled-callout-content-wrapper
-        .titled-callout-content
-          block
-
-  else
-    
-    .titled-callout.no-content(class=color)
-      .titled-callout-heading
-        h2= title
+        h2&attributes(openElementAtts) #{title}
+        if isExpandable
+          button.icon-button(data-expand-close='')
+            +icon('close')
+      if block || isExpandable
+        //- Content
+        .titled-callout-content-wrapper(class=contentClasses)&attributes(contentElementAtts)
+          .titled-callout-content
+            block

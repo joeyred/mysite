@@ -87,4 +87,63 @@
   }
 
   @include generate_titled-callout-color-classes;
+
+  // &.expandable {
+  //   .titled-callout-heading {
+  //     display: flex;
+  //     flex-flow: row nowrap;
+  //     align-items: center;
+  //
+  //     .icon-button {
+  //       flex: 0 1 0;
+  //       opacity: 0;
+  //       padding: 0;
+  //       width: 0;
+  //     }
+  //
+  //     h2 {
+  //       flex: 1 0 auto;
+  //     }
+  //   }
+  // }
+  // &.expanded {
+  //   .titled-callout-heading {
+  //     .icon-button {
+  //       flex: 0 1;
+  //       opacity: 1;
+  //       // Padding had to be reset via overriding styling
+  //       padding: 0.625rem;
+  //       // Width had to be reset via overriding styling
+  //       width: 100%;
+  //     }
+  //   }
+  // }
+  &[data-expand] {
+    margin-bottom: $spacing-unit_base;
+    .titled-callout-heading {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+
+      h2 {
+        flex: 1 0 auto;
+      }
+    }
+  }
+  &[data-expand="collapsed"] {
+    .titled-callout-heading {
+      .icon-button {
+        flex: 0 1 0;
+        opacity: 0;
+        padding: 0;
+        width: 0;
+      }
+    }
+
+  }
+  &[data-expand="expanded"] {
+    .icon-button {
+      flex: 0 1;
+    }
+  }
 }
