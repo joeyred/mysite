@@ -24,7 +24,7 @@ mixin titledCallout(title, color, expandable)
       .titled-callout-heading
         h2&attributes(openElementAtts) #{title}
         if isExpandable
-          .icon-button(data-expand-close='')
+          button.icon-button(data-expand-close='')
             +icon('close')
       if block || isExpandable
         //- Content
