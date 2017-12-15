@@ -49,44 +49,5 @@ block content
 
     //- Loop through Cards
     each card in sortedCards
-      - var filename = _.replace(card.path, 'pens/', '');
-      - var filenameNoExtention = _.replace(filename, '.pug', '');
       li
-        .card.horizontal(data-card='')
-          
-          //- Top Options Bar
-          .card-options-bar
-            //- Close Card
-            button.icon-button(data-card-close='')
-              +icon('close')
-            //- Open Pane
-            button.button(
-              data-inject=filenameNoExtention
-              data-pane-open=card.type
-            ) See More
-          
-          //- Card Cover
-          .card-cover
-            //- Thumbnail Image
-            .card-thumbnail
-              img(
-                src=card.thumbnail.image 
-                title=card.thumbnail.title
-                alt=card.thumbnail.description
-              )
-            //- Cover details
-            .card-info
-              //- title
-              h3= card.title
-              //- Tags
-              .tags-container
-                ul.tags
-                  //- Tag Loop
-                  each tag in card.tags
-                    li= tag
-            
-          //- Card Description
-          .bottom-container !{filters.markdown.render(card.description)}
-
-              
-              
+        +card(card)
