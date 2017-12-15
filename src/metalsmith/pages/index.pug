@@ -16,7 +16,7 @@ block content
           
       //- About Me
       .block.sm-12.md-6.order-md-3
-        +titledCallout('About Me', 'purple')
+        +titledCallout('About Me', 'purple', true)
           .container
             .block.sm-12 * Add Face Pic Here *
             .block.sm-12
@@ -30,14 +30,14 @@ block content
       
       //- My Skills
       .block.sm-12.md-6.order-md-4
-        +titledCallout('My Skills', 'yellow')
+        +titledCallout('My Skills', 'yellow', true)
           .container
             .block.sm-12
               p Some Stuff
       
       //- My Work
       .block.sm-12.order-md-5
-        +titledCallout('My Work')
+        +titledCallout('My Work', 'orange', true)
           .container
             .block.sm-12
               ul.cards.portfolio
