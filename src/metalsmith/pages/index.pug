@@ -4,58 +4,42 @@ block content
   .wrapper
     
     .container
-      .block.home-page-short-bio
+      //- Short Bio
+      .block.sm-12.md-9.order-md-2.home-page-short-bio
         h1 Brian Hayes
         p Web Developer, Graphic Designer, Writer, Audio Engineer, and a pretty good cook.
+        
       //- Mark Logo
-      .block.sm-12.home-page-logo.sm-align-middle
+      .block.sm-12.md-3.order-md-1.home-page-logo.sm-align-middle
         .svg-wrapper
           include ../includes/mark-logo-svg.pug
+          
       //- About Me
-      .block.sm-12
-        .titled-callout.purple.expanding-tab(
-          data-expand=''
-          data-responsive='sm md'
-          )
-          .titled-callout-title.tab
-            h2(data-expand-open='') About Me
-            button.icon-button(data-expand-close='')
-              +icon('close')
-          .titled-callout-inner.tab-content
-            .container
-              .block.sm-12 * Add Face Pic Here *
-              .block.sm-12
-                p.
-                  Creatively driven and technical minded. I love coming up with the idea
-                  just as much as I love bringing it to life. I want what I put my time
-                  and effort into to be something I can be proud of. I have a wide 
-                  variety of passions and interests, such as: design, music, writing, 
-                  media production, art, cooking, mixology, video games, sports, 
-                  and playing guitar.
+      .block.sm-12.md-6.order-md-3
+        +titledCallout('About Me', 'purple')
+          .container
+            .block.sm-12 * Add Face Pic Here *
+            .block.sm-12
+              p.
+                Creatively driven and technical minded. I love coming up with the idea
+                just as much as I love bringing it to life. I want what I put my time
+                and effort into to be something I can be proud of. I have a wide 
+                variety of passions and interests, such as: design, music, writing, 
+                media production, art, cooking, mixology, video games, sports, 
+                and playing guitar.
+      
       //- My Skills
-      .block.sm-12
-        .titled-callout.yellow.expanding-tab(
-          data-expand=''
-          data-responsive='sm md'
-          )
-          .titled-callout-title.tab
-            h2(data-expand-open='') My Skills
-            button.icon-button(data-expand-close='')
-              +icon('close')
-          .titled-callout-inner.tab-content
-            .container
+      .block.sm-12.md-6.order-md-4
+        +titledCallout('My Skills', 'yellow')
+          .container
+            .block.sm-12
+              p Some Stuff
+      
       //- My Work
-      .block.sm-12
-        .titled-callout.orange.expanding-tab(
-          data-expand=''
-          data-responsive='sm md'
-          )
-          .titled-callout-title.tab
-            h2(data-expand-open='') My Work
-            button.icon-button(data-expand-close='')
-              +icon('close')
-          .titled-callout-inner.tab-content
-            .container
+      .block.sm-12.order-md-5
+        +titledCallout('My Work')
+          .container
+            .block.sm-12
               ul.cards.portfolio
                 - var pens = collections.pens || [];
                 - var projects = collections.projects || [];

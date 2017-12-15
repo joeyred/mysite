@@ -5,12 +5,12 @@
   transition-delay: 0, 1s;
   // z-index: z("expanding-tab-active");
 
-  &::after {
-    height: 0;
-    transition-property: height, opacity;
-    transition-duration: 100ms;
-    transition-delay: 1.3s, 0;
-  }
+  // &::after {
+  //   height: 0;
+  //   transition-property: height, opacity;
+  //   transition-duration: 100ms;
+  //   transition-delay: 1.3s, 0;
+  // }
 
   .tab {
     display: flex;
@@ -45,6 +45,11 @@
     transition-property: height, opacity, padding;
     transition-duration: 600ms;
     transition-delay: 1s, 1s, 1.3s;
+
+    @include mq('md') {
+      opacity: 1;
+      height: auto;
+    }
   }
 
   // Active State
