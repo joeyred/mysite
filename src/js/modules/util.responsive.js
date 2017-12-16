@@ -1,21 +1,38 @@
 !function() {
 
 class Responsive {
+  /**
+   * @constructor
+   * @param  {Object}    element - JS API DOM Node
+   */
+  constructor(element) {
+    this.valueString = element.getAttribute('data-responsive');
+    this.breakpoints = Gingabulous.breakpoints;
+    this.breakpointArray = Gingabulous.breakpointArray;
+  }
+  /**
+   * Takes a string of breakpoints from the data attribute of the
+   * element passed to the constructor and converts it into an array.
+   * @method valuesArray
+   * @return {Array}    - An array of breakpoints.
+   */
   get valuesArray() {
     if (this.valueString === undefined || this.valueString === null) {
       return [];
     }
     return this.valueString.split(' ');
   }
+
   get enabledQueries() {
     let output = [];
-    if (this.valuesArray <= 0) {
+    // If there are no breakpoints passed, then return the entire array of breeakpoints.
+    if (this.valuesArray.length <= 0) {
       return this.breakpointArray;
     }
-    for (var index in this.valuesArray) {
+    for (let index in this.valuesArray) {
       if ({}.hasOwnProperty.call(this.valuesArray, index)) {
-        let parsedValue = this.parseParam(this.valuesArray[index]);
-        output = this.parseArray(output, parsedValue);
+        let parsedValue = this._parseParam(this.valuesArray[index]);
+        output = this._parseArray(output, parsedValue);
       }
     }
     return output;
@@ -34,13 +51,8 @@ class Responsive {
     }
     return output;
   }
-  constructor(element) {
-    this.$element = element;
-    this.valueString = element.attr('data-responsive');
-    this.breakpoints = Gingabulous.breakpoints;
-    this.breakpointArray = Gingabulous.MediaQuery.breakpointArray;
-  }
-  isAKey(param) {
+
+  _isAKey(param) {
     for (var key in this.breakpoints) {
       if (param === key) {
         return true;
@@ -48,9 +60,9 @@ class Responsive {
     }
     return false;
   }
-  parseParam(param) {
+  _parseParam(param) {
     var output = [];
-    if (!this.isAKey(param)) {
+    if (!this._isAKey(param)) {
       let splitParam = param.split('-');
       let query = splitParam[0];
       let keyword = splitParam[1];
@@ -60,10 +72,10 @@ class Responsive {
         return output;
       }
       for (var index in this.breakpointArray) {
-        if (splitParam[1] === 'up' && this.indexOfQuery(splitParam[0]) <= index) {
+        if (splitParam[1] === 'up' && this._indexOfQuery(splitParam[0]) <= index) {
           output.push(this.breakpointArray[index]);
         }
-        if (splitParam[1] === 'down' && this.indexOfQuery(splitParam[0]) >= index) {
+        if (splitParam[1] === 'down' && this._indexOfQuery(splitParam[0]) >= index) {
           output.push(this.breakpointArray[index]);
         }
       }
@@ -72,7 +84,7 @@ class Responsive {
     output.push(param);
     return output;
   }
-  parseArray(oldArray, newArray) {
+  _parseArray(oldArray, newArray) {
     let output = oldArray;
     let isInOldArray = false;
     for (var nIndex in newArray) {
@@ -90,14 +102,14 @@ class Responsive {
     }
     return output;
   }
-  indexOfQuery(query) {
+  _indexOfQuery(query) {
     for (var index in this.breakpointArray) {
       if (this.breakpointArray[index] === query) {
         return index;
       }
     }
   }
-  active() {
+  isActive() {
     let enabledQueries = this.queryValues;
     let currentQuery = Gingabulous.MediaQuery.currentMediaQuery();
     return enabledQueries[currentQuery];

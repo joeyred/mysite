@@ -33,6 +33,15 @@ function pixelsToEms(pixels) {
   return pixels / parseFloat(getComputedStyle(html)['font-size']);
 }
 
+function breakpointArray() {
+  let breakpointArray = [];
+  for (let key in this.breakpoints) {
+    if ({}.hasOwnProperty.call(this.breakpoints, key)) {
+      breakpointArray.push(key);
+    }
+  }
+  return breakpointArray;
+}
 /**
  * Returns the currently active breakpoint as a string. The value is the same as
  * the keys used in the breakpoints object.
@@ -56,4 +65,5 @@ function activeBreakpoint() {
 }
 
 Gingabulous.activeBreakpoint = activeBreakpoint;
+Gingabulous.breakpointArray = breakpointArray;
 }();
