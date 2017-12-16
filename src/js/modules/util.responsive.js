@@ -1,12 +1,21 @@
 !function() {
 
 class Responsive {
+  /**
+   * @constructor
+   * @param  {Object}    element - JS API DOM Node
+   */
   constructor(element) {
     this.valueString = element.getAttribute('data-responsive');
     this.breakpoints = Gingabulous.breakpoints;
-    this.breakpointArray = Gingabulous.MediaQuery.breakpointArray;
+    this.breakpointArray = Gingabulous.breakpointArray;
   }
-
+  /**
+   * Takes a string of breakpoints from the data attribute of the
+   * element passed to the constructor and converts it into an array.
+   * @method valuesArray
+   * @return {Array}    - An array of breakpoints.
+   */
   get valuesArray() {
     if (this.valueString === undefined || this.valueString === null) {
       return [];
@@ -16,7 +25,8 @@ class Responsive {
 
   get enabledQueries() {
     let output = [];
-    if (this.valuesArray <= 0) {
+    // If there are no breakpoints passed, then return the entire array of breeakpoints.
+    if (this.valuesArray.length <= 0) {
       return this.breakpointArray;
     }
     for (let index in this.valuesArray) {
