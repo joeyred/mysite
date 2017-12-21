@@ -130,7 +130,8 @@
       }
     }
   }
-  &[data-expand="collapsed"] {
+  &[data-expand="collapsed"],
+  &[data-expand="inactive"] {
     .titled-callout-heading {
       .icon-button {
         flex: 0 1 0;

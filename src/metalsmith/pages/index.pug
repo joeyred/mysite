@@ -1,6 +1,7 @@
 extends ../layouts/default.pug
 
 block content
+  - var activeBreakpoints = 'sm';
   .wrapper
     
     .container
@@ -13,10 +14,10 @@ block content
       .block.sm-12.md-3.order-md-1.home-page-logo.sm-align-middle
         .svg-wrapper
           include ../includes/mark-logo-svg.pug
-          
+        
       //- About Me
       .block.sm-12.md-6.order-md-3
-        +titledCallout('About Me', 'purple', true)
+        +titledCallout('About Me', 'purple', true, activeBreakpoints)
           .container
             .block.sm-12 * Add Face Pic Here *
             .block.sm-12
@@ -30,14 +31,14 @@ block content
       
       //- My Skills
       .block.sm-12.md-6.order-md-4
-        +titledCallout('My Skills', 'yellow', true)
+        +titledCallout('My Skills', 'yellow', true, activeBreakpoints)
           .container
             .block.sm-12
               p Some Stuff
       
       //- My Work
       .block.sm-12.order-md-5
-        +titledCallout('My Work', 'orange', true)
+        +titledCallout('My Work', 'orange', true, activeBreakpoints)
           .container
             .block.sm-12
               ul.cards.portfolio

@@ -33,10 +33,10 @@ function pixelsToEms(pixels) {
   return pixels / parseFloat(getComputedStyle(html)['font-size']);
 }
 
-function breakpointArray() {
+function breakpointArray(breakpoints) {
   let breakpointArray = [];
-  for (let key in this.breakpoints) {
-    if ({}.hasOwnProperty.call(this.breakpoints, key)) {
+  for (let key in breakpoints) {
+    if ({}.hasOwnProperty.call(breakpoints, key)) {
       breakpointArray.push(key);
     }
   }
@@ -52,18 +52,26 @@ function activeBreakpoint() {
   let windowWidth = window.innerWidth ||
   document.documentElement.clientWidth ||
   document.body.clientWidth;
+  let windowWidthInEms = pixelsToEms(windowWidth);
+  // console.log(windowWidth, windowWidthInEms);
+
+  let previousKey;
 
   for (let key in Gingabulous.breakpoints) {
     if ({}.hasOwnProperty.call(Gingabulous.breakpoints, key)) {
-      if (pixelsToEms(windowWidth) > Gingabulous.breakpoints) {
+      if (windowWidthInEms > Gingabulous.breakpoints[key]) {
+        // console.log('loop continued');
+        previousKey = key;
         continue;
       } else {
-        return key;
+        // console.log(previousKey);
+        // Reset index of loop.
+        return previousKey;
       }
     }
   }
 }
 
 Gingabulous.activeBreakpoint = activeBreakpoint;
-Gingabulous.breakpointArray = breakpointArray;
+Gingabulous.breakpointArray = breakpointArray(Gingabulous.breakpoints);
 }();
