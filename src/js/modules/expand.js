@@ -36,7 +36,9 @@ class Expand {
     // console.log('active on init:', this.responsive.isActive());
     // Set Default State
     if (this.responsive.isActive()) {
-      this.element.setAttribute(this.attr.expand, this.options.defaultState);
+      this._setState(this.options.defaultState);
+    } else {
+      this._setState(this.options.inactiveState);
     }
     // Handle Events
     this._events();
