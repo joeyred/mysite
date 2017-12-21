@@ -39,10 +39,10 @@ class Responsive {
   }
   get queryValues() {
     let output = {};
-    for (var key in this.breakpoints) {
+    for (let key in this.breakpoints) {
       if ({}.hasOwnProperty.call(this.breakpoints, key)) {
         output[key] = false;
-        for (var query in this.enabledQueries) {
+        for (let query in this.enabledQueries) {
           if (key === this.enabledQueries[query]) {
             output[key] = true;
           }
@@ -53,7 +53,7 @@ class Responsive {
   }
 
   _isAKey(param) {
-    for (var key in this.breakpoints) {
+    for (let key in this.breakpoints) {
       if (param === key) {
         return true;
       }
@@ -71,7 +71,7 @@ class Responsive {
         output.push(query);
         return output;
       }
-      for (var index in this.breakpointArray) {
+      for (let index in this.breakpointArray) {
         if (splitParam[1] === 'up' && this._indexOfQuery(splitParam[0]) <= index) {
           output.push(this.breakpointArray[index]);
         }
@@ -87,10 +87,10 @@ class Responsive {
   _parseArray(oldArray, newArray) {
     let output = oldArray;
     let isInOldArray = false;
-    for (var nIndex in newArray) {
+    for (let nIndex in newArray) {
       if ({}.hasOwnProperty.call(newArray, nIndex)) {
         isInOldArray = false;
-        for (var oIndex in oldArray) {
+        for (let oIndex in oldArray) {
           if (newArray[nIndex] === oldArray[oIndex]) {
             isInOldArray = true;
           }
@@ -103,7 +103,7 @@ class Responsive {
     return output;
   }
   _indexOfQuery(query) {
-    for (var index in this.breakpointArray) {
+    for (let index in this.breakpointArray) {
       if (this.breakpointArray[index] === query) {
         return index;
       }
@@ -111,7 +111,9 @@ class Responsive {
   }
   isActive() {
     let enabledQueries = this.queryValues;
-    let currentQuery = Gingabulous.MediaQuery.currentMediaQuery();
+    // console.log(enabledQueries);
+    let currentQuery = Gingabulous.activeBreakpoint();
+    // console.log(enabledQueries[currentQuery]);
     return enabledQueries[currentQuery];
   }
 }
