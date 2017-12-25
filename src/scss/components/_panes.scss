@@ -16,7 +16,7 @@
   padding: 0 0 $spacing-unit_vertical;
 
   > .pane-content {
-    padding: $spacing-unit_vertical 0;
+    // padding: $spacing-unit_vertical 0;
   }
 }
 
@@ -192,11 +192,11 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
-  align-content: space-around;
+  align-content: center;
 
   button,
   a {
-    flex: 0 0 auto;
+    flex: 0 1;
   }
 
   a {
