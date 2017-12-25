@@ -47,15 +47,17 @@ class Expand {
     this.element.setAttribute(this.attr.expand, state);
   }
   _onResize() {
-    if (this.responsive.isActive()) {
-      // If current state doesnt match default state, then set state to default state.
-      if (this.element.getAttribute(this.attr.expand) !== this.options.defaultState) {
-        this._setState(this.options.defaultState);
+    if (this.responsive.windowWidthWasResized()) {
+      if (this.responsive.isActive()) {
+        // If current state doesnt match default state, then set state to default state.
+        if (this.element.getAttribute(this.attr.expand) !== this.options.defaultState) {
+          this._setState(this.options.defaultState);
+        }
       }
-    }
-    if (!this.responsive.isActive()) {
-      if (this.element.getAttribute(this.attr.expand) !== this.options.inactiveState) {
-        this._setState(this.options.inactiveState);
+      if (!this.responsive.isActive()) {
+        if (this.element.getAttribute(this.attr.expand) !== this.options.inactiveState) {
+          this._setState(this.options.inactiveState);
+        }
       }
     }
   }

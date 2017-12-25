@@ -9,6 +9,9 @@ class Responsive {
     this.valueString = element.getAttribute('data-responsive');
     this.breakpoints = Gingabulous.breakpoints;
     this.breakpointArray = Gingabulous.breakpointArray;
+    this.windowWidth = window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
   }
   /**
    * Takes a string of breakpoints from the data attribute of the
@@ -115,6 +118,20 @@ class Responsive {
     let currentQuery = Gingabulous.activeBreakpoint();
     // console.log(enabledQueries[currentQuery]);
     return enabledQueries[currentQuery];
+  }
+  // Utility to wrap onResize actions in to avoid issues with window height resizing from
+  // mobile browsers show/hiding UI elements.
+  windowWidthWasResized() {
+    let currentWindowWidth = window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
+    let output = false;
+
+    if (currentWindowWidth !== this.windowWidth) {
+      output = true;
+    }
+    this.windowWidth = currentWindowWidth;
+    return output;
   }
 }
 Gingabulous.Responsive = Responsive;
