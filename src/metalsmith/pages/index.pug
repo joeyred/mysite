@@ -1,12 +1,49 @@
 extends ../layouts/default.pug
 
+block panes
+  +pane('pen', 'above', 'pen-pane', 'pens-api')
+    .carousel-panes(data-carousel-panes='')
+      //- Center
+      .pane.carousel-center
+        .container
+          .block.sm-12(data-inject-bind='demo')
+      //- Left
+      .pane.carousel-left
+        .container
+          .block.sm-12(data-inject-bind='details')
+      //- Right
+      .pane.carousel-right
+        .container
+          .block.sm-12(data-inject-bind='code.markup')
+        .container
+          .block.sm-12(data-inject-bind='code.styles')
+        .container
+          .block.sm-12(data-inject-bind='code.scripts')
+    .fixed-bottom-bar
+      .nav-bar
+        button.icon-button(data-panes-nav='left')
+          +icon('info')
+        button.icon-button(data-panes-nav='center')
+          +icon('menu')
+        button.icon-button(data-panes-nav='right')
+          +icon('code')
+      .pane-carousel-title-bar.container.sm-row.sm-nowrap
+        .block.sm-12
+          h4 Details
+        .block.sm-12
+          h4 Demo
+        .block.sm-12
+          h4 Code
+
 block content
   - var activeBreakpoints = 'sm';
   .wrapper
     
     .container
       //- Short Bio
-      .block.sm-12.md-9.order-md-2.home-page-short-bio
+      .home-page-short-bio(
+        class='block sm-12 md-9 order-md-2'
+      )
         h1 Brian Hayes
         p Web Developer, Graphic Designer, Writer, Audio Engineer, and a pretty good cook.
         
