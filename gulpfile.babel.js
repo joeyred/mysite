@@ -13,9 +13,17 @@ const yargs  = require('yargs');
 const config = require('./gulpconfig.js');
 const extend = require('object-assign-deep');
 
+import yaml from 'js-yaml';
+import fs from 'fs';
+
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
+
+function loadYmlData(filepath) {
+  let file = fs.readFileSync(filepath, 'utf8');
+  return yaml.load(file);
+}
 
 const siteConfig = {
   title: 'Brian Hayes',
@@ -34,7 +42,9 @@ const siteConfig = {
     stackoverflow: 'https://stackoverflow.com/users/5331958/joeyred'
   }
 };
-
+const siteData = {
+  skills: loadYmlData('src/content/skills.yml')
+};
 const filters = {
   markdown: require('jstransformer-markdown-it')
 };
@@ -89,6 +99,7 @@ export function runGulpsmith() {
             production: DEPLOY
           },
           site:    siteConfig,
+          data:    siteData,
           _:       _,
           filters: filters,
           helpers: helpers
