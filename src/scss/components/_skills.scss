@@ -24,13 +24,14 @@
     padding: $titled-callout_title-padding;
     margin-bottom: 0;
     background: $color-black;
+    color: $color-red;
     letter-spacing: 3px;
     text-transform: uppercase;
   }
   .rating {
     flex: 0 1 60%;
     .meter {
-      background: $color-yellow;
+      background: $color-red;
       height: 100%;
     }
   }
