@@ -1,0 +1,105 @@
+# Skills Data Object. Import into Gulp pipleline as metadata for metalsmith.
+
+# Development Skills
+development:
+  -
+    category: html
+    title: HTML
+    overall: 85
+    skills:
+      -
+        name: html5
+        rating: 90
+      -
+        name: responsive
+        rating: 95
+      -
+        name: Accessibility
+        rating: 60
+      -
+        name: Web Components
+        rating: 70
+  -
+    category: css
+    title: CSS
+    overall: 90
+    skills:
+      -
+        name: CSS3
+        rating: 95
+      -
+        name: LESS
+        rating: 80
+      -
+        name: SCSS
+        rating: 90
+      -
+        name: PostCSS
+        rating: 80
+      -
+        name: Modular CSS
+        rating: 70
+      -
+        name: Animations
+        rating: 70
+      -
+        name: Flexbox
+        rating: 100
+      -
+        name: Grid
+        rating: 75
+  -
+    category: javascript
+    title: JavaScript
+    overall: 85
+    skills:
+      -
+        name: ES2015/ES6
+        rating: 70
+      -
+        name: Vanilla JS
+        rating: 80
+      -
+        name: jQuery
+        rating: 70
+      -
+        name: Gulp
+        rating: 85
+      -
+        name: React
+        rating: 40
+  -
+    category: wordpress
+    title: WordPress
+    overall: 75
+    skills:
+      -
+        name: Custom Themes
+        rating: 80
+      -
+        name: Genesis Child Themes
+        rating: 80
+      -
+        name: Custom Plugins
+        rating: 70
+      -
+        name: Custom Post Types
+        rating: 90
+
+# Design Skills
+design:
+  -
+    category: software
+    skills:
+      -
+        name: Illustrator
+        rating: 85
+      -
+        name: Photoshop
+        rating: 50
+      -
+        name: Experience Design
+        rating: 65
+      -
+        name: Sketch
+        rating: 50
