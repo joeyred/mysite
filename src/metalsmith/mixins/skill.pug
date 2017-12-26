@@ -1,0 +1,7 @@
+mixin skill(title, rating, color)
+  - var colorClass = color || '';
+  .skill(class=colorClass)
+    span.title= title
+    .rating
+      .meter(style=`width: ${rating}%`)
+      
