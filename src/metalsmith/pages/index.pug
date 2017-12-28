@@ -71,7 +71,16 @@ block content
         +titledCallout('My Skills', 'yellow', true, activeBreakpoints)
           .container
             .block.sm-12
-              p Some Stuff
+              h3 A Quick Overview
+                
+            each item in data.skills.development
+              .block.sm-12
+                +skill(item.title, item.overall, 'yellow')
+            
+            each item in data.skills.design
+              .block.sm-12
+                +skill(item.title, item.overall, 'yellow')
+                
       
       //- My Work
       .block.sm-12.order-md-5
