@@ -60,18 +60,27 @@ development:
         name: Vanilla JS
         rating: 80
       -
+        name: Node.js
+        rating: 65
+      -
         name: jQuery
         rating: 70
       -
         name: Gulp
         rating: 85
       -
+        name: Express
+        rating: 60
+      -
+        name: Redux
+        rating: 40
+      -
         name: React
         rating: 40
   -
     category: wordpress
     title: WordPress
-    overall: 75
+    overall: 70
     skills:
       -
         name: Custom Themes
@@ -89,7 +98,9 @@ development:
 # Design Skills
 design:
   -
-    category: software
+    category: graphic-design
+    title: Graphic Design
+    overall: 75
     skills:
       -
         name: Illustrator
@@ -97,9 +108,17 @@ design:
       -
         name: Photoshop
         rating: 50
+  -
+    category: ui-ux
+    title: UI/UX Design
+    overall: 80
+    skills:
       -
         name: Experience Design
         rating: 65
       -
         name: Sketch
         rating: 50
+      -
+        name: Minde Node
+        rating: 75
