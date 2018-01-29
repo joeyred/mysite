@@ -81,7 +81,9 @@ block content
               .block.sm-12
                 +skill(item.title, item.overall, 'yellow')
                 
-      
+            .block.sm-12
+              a.button(href=helpers.url('/my-skills/')) See All of my Skills
+              
       //- My Work
       .block.sm-12.order-md-5
         +titledCallout('My Work', 'orange', true, activeBreakpoints)
