@@ -1,7 +1,7 @@
 extends ../layouts/default.pug
 
 block panes
-  +pane('pen', 'above', 'pen-pane', 'pens-api')
+  +pane('pen', 'above', 'pen-pane', 'api')
     .carousel-panes(data-carousel-panes='')
       //- Center
       .pane.carousel-center
@@ -34,7 +34,10 @@ block panes
           h4 Demo
         .block.sm-12
           h4 Code
-
+  
+  +pane('project', 'above', 'project-pane', 'api')
+    .wrapper(data-inject-bind='content')
+  
 block content
   - var activeBreakpoints = 'sm';
   .wrapper

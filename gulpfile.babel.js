@@ -16,6 +16,19 @@ const extend = require('object-assign-deep');
 import yaml from 'js-yaml';
 import fs from 'fs';
 
+// import metalsmith from 'metalsmith';
+import gulpsmith from 'gulpsmith';
+// Metalsmith Modules
+import msDebugUI from 'metalsmith-debug-ui';
+import msPug from 'metalsmith-pug';
+import msPermalinks from 'metalsmith-permalinks';
+import msCollections from 'metalsmith-collections';
+import msCollectionMetadata from 'metalsmith-collection-metadata';
+import msBranch from 'metalsmith-branch';
+import msPrism from 'metalsmith-prism';
+// LoDash
+import _ from 'lodash';
+
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
@@ -58,19 +71,6 @@ const helpers = {
   }
 };
 
-// import metalsmith from 'metalsmith';
-import gulpsmith from 'gulpsmith';
-// Metalsmith Modules
-import msDebugUI from 'metalsmith-debug-ui';
-import msPug from 'metalsmith-pug';
-import msPermalinks from 'metalsmith-permalinks';
-import msCollections from 'metalsmith-collections';
-import msCollectionMetadata from 'metalsmith-collection-metadata';
-import msBranch from 'metalsmith-branch';
-import msPrism from 'metalsmith-prism';
-// LoDash
-import _ from 'lodash';
-
 const pugArgs = {
   useMetadata: true,
   pretty:      true,
@@ -111,6 +111,9 @@ export function runGulpsmith() {
           pens: {
             pattern: 'pens/**/*.pug'
           },
+          projects: {
+            pattern: 'projects/**/*.pug'
+          },
           styleguide: {
             pattern: 'styleguide/**/*.pug'
           }
@@ -118,6 +121,9 @@ export function runGulpsmith() {
         .use(msCollectionMetadata({
           'collections.pens': {
             type: 'pen'
+          },
+          'collections.projects': {
+            type: 'project'
           }
         }))
         .use(msBranch()
@@ -311,13 +317,34 @@ function parseObjectString(string, value) {
   return output;
 }
 
+export function buildAPI() {
+  // Use this to store the current file name
+  let currentFile;
+  return gulp.src('build/**/*.html')
+  // Rename the file and set `currentFile`
+    .pipe($.rename(function(path) {
+      console.log(path);
+
+      path.basename = path.dirname;
+      currentFile = path.basename;
+    }))
+}
+
 export function buildPensAPI() {
   // Use this to store the current file name
   let currentFile;
-  return gulp.src('build/pens/**/*')
+  return gulp.src('build/**/*.html')
   // Rename the file and set `currentFile`
     .pipe($.rename(function(path) {
-      path.basename = path.dirname;
+      console.log(path);
+      // If string contains '/': parse and pull the last value
+      if (path.dirname.indexOf('/') > -1) {
+        let arrayFromDirname = path.dirname.split('/');
+        let lastIndex = arrayFromDirname.length - 1;
+        path.basename = arrayFromDirname[lastIndex];
+      } else {
+          path.basename = path.dirname;
+      }
       currentFile = path.basename;
     }))
     // Do the DOM stuff
@@ -343,13 +370,13 @@ export function buildPensAPI() {
     }))
     // Merge stuff so there's just a single JSON file at the end
     .pipe($.mergeJson({
-      fileName: 'pens-api.json'
+      fileName: 'api.json'
     }))
     .pipe(gulp.dest('build/api'));
 }
 
 export function removeAPIAttr() {
-  return gulp.src('build/pens/**/*')
+  return gulp.src('build/**/*.html')
     .pipe($.dom(function() {
       let elements = this.querySelectorAll('[build-api]');
 
@@ -358,7 +385,7 @@ export function removeAPIAttr() {
       }
       return this;
     }))
-    .pipe(gulp.dest('./build/pens'));
+    .pipe(gulp.dest('./build'));
 }
 
 const pensAPI = gulp.series(buildPensAPI, removeAPIAttr);
