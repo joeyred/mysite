@@ -9,7 +9,9 @@ include icons.pug
 //-*
 mixin card(data, classes, horizontal)
   //- extract the filename from `data.path`.
-  - var filename = _.replace(data.path, 'pens/', '');
+  - var arrayFromFilename = data.path.split('/');
+  - var lastIndex = arrayFromFilename.length - 1;
+  - var filename = arrayFromFilename[lastIndex];
   - var filenameNoExtention = _.replace(filename, '.pug', ''); 
   //- `horizontal` set with default
   - var isHorizontal = horizontal || true;
