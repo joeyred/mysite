@@ -1,0 +1,15 @@
+<svg id="product" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1C8584;
+      }
+    </style>
+  </defs>
+  <title>HGBI Icons</title>
+  <g>
+    <polygon class="cls-1" points="42.39 48.13 64 18.2 64 30.42 42.39 60.36 42.39 48.13"/>
+    <polygon class="cls-1" points="0 42.11 37.39 49.13 37.39 61.36 0 54.33 0 42.11"/>
+    <polygon class="cls-1" points="0 36.73 39.39 44.13 64 10.04 24.61 2.64 0 36.73"/>
+  </g>
+</svg>

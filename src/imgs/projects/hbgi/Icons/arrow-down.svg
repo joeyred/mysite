@@ -1,0 +1,11 @@
+<svg id="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1C8584;
+      }
+    </style>
+  </defs>
+  <title>HGBI Icons</title>
+  <polygon class="cls-1" points="57.74 14.13 32 42.03 6.26 14.13 0.04 19.86 26.25 48.27 27.73 49.87 36.27 49.87 37.75 48.27 63.95 19.86 57.74 14.13"/>
+</svg>
