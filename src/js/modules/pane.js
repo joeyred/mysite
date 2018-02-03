@@ -21,6 +21,7 @@ class Pane {
       this.inject = new Gingabulous.Inject(element);
     }
     this.scrollPosition = 0;
+    this.responsive = new Gingabulous.Responsive(element);
     this.debug = new Gingabulous.Debug('Pane');
     this._init();
   }
