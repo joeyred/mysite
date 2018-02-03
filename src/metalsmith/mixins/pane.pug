@@ -1,5 +1,7 @@
-mixin pane(id, position, classes, api)
-  if api
+mixin pane(id, position, classes, dataAtts)
+  - var data = {};
+  //- Deal with API
+  if dataAtts.api
     //- Get proper domain
     - var domain;
     if build.production
@@ -7,28 +9,19 @@ mixin pane(id, position, classes, api)
     else
       - domain = '';
     
-    - var apiPath = `${domain}/api/${api}.json`;
-    .pane(
-      class=[position, classes]
-      data-pane=id
-      data-inject-api=apiPath
-      )
-        .pane-header
-          .top-bar
-            .left
-              button.icon-button(data-pane-close='')
-                +icon('close')
-        .pane-content
-          block
-  else
-    .pane(
-      class=position
-      data-pane=id
-      )
-        .pane-header
-          .top-bar
-            .left
-              button.icon-button(data-pane-close='')
-                +icon('close')
-        .pane-content
-          block
+    - data.api = `${domain}/api/${dataAtts.api}.json`;
+    //- deal with responsive data attr
+  if dataAtts.responsive
+    - data.responsive = dataAtts.responsive;
+  .pane(
+    class=[position, classes]
+    data-pane=id
+    )&attributes(data)
+      .pane-header
+        .top-bar
+          .left
+            button.icon-button(data-pane-close='')
+              +icon('close')
+      .pane-content
+        block
+  

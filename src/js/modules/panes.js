@@ -104,13 +104,18 @@ class Panes {
       // Open Events Triggered
       if (event.target.hasAttribute(this.attr.open)) {
         let id = event.target.getAttribute(this.attr.open);
-        this._updateState(id);
+        // If active in current breakpoint
+        if (this.panes[id].responsive.isActive()) {
+          this._updateState(id);
+        }
         if (event.target.hasAttribute('data-inject')) {
           // Inject logic here
           let key = event.target.getAttribute('data-inject');
           this.panes[id].inject.updateContent(key);
         }
       }
+
+      // Close Event
       if (event.target.hasAttribute(this.attr.close)) {
         // console.log('fired closing event');
         this._updateState('home');
