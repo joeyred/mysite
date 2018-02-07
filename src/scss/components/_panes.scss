@@ -5,7 +5,7 @@
   width: 100vw;
 }
 
-.pane {
+.pane[data-responsive-state="active"] {
   flex: 0 0 100%;
   z-index: z('pane');
   // order: 1;
@@ -27,7 +27,7 @@
   z-index: 0;
 }
 
-.pane,
+.pane[data-responsive-state="active"],
 .main-pane {
   // @extend .sm-4;
   transition: transform 300ms ease-out;
@@ -242,17 +242,17 @@
   }
 }
 
-.pane-to-back {
+.pane-to-back[data-responsive-state="active"] {
   order: -1;
 }
 
-.fixed-pane {
+.fixed-pane[data-responsive-state="active"] {
   position: fixed;
   top: 0;
   left: 0;
 }
 
-.frozen-pane {
+.frozen-pane[data-responsive-state="active"] {
   // order: -1;
   // position: absolute;
   height: 100vh;

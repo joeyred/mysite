@@ -2,3 +2,9 @@ main.content {
   padding-top: $topbar_height;
   min-height: 100vh;
 }
+
+.site-inner {
+  @include mq('xl') {
+    width: 80%;
+  }
+}

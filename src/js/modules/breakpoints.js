@@ -53,18 +53,25 @@ function activeBreakpoint() {
   document.documentElement.clientWidth ||
   document.body.clientWidth;
   let windowWidthInEms = pixelsToEms(windowWidth);
-  // console.log(windowWidth, windowWidthInEms);
+  console.log(windowWidth, windowWidthInEms);
 
   let previousKey;
-
+  let i = 0;
   for (let key in Gingabulous.breakpoints) {
     if ({}.hasOwnProperty.call(Gingabulous.breakpoints, key)) {
+      // This fixes the bug where the final breakpoint isnt honored.
+      i++;
+      console.log(i);
+      if (Gingabulous.breakpointArray.length === i) {
+        console.log(key);
+        return key;
+      }
       if (windowWidthInEms > Gingabulous.breakpoints[key]) {
         // console.log('loop continued');
         previousKey = key;
         continue;
       } else {
-        // console.log(previousKey);
+        console.log(previousKey);
         // Reset index of loop.
         return previousKey;
       }

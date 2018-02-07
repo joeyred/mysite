@@ -133,6 +133,7 @@ a {
   color: $link-color;
   text-decoration: $link-decoration;
   line-height: inherit;
+  transition: color 100ms ease-in;
 
   &:hover,
   &:focus {
