@@ -46,8 +46,8 @@ class Inject {
   _loadAPI() {
     if (this.xhr.readyState === 4) {
       this.api = JSON.parse(this.xhr.responseText);
-      console.log('response text', this.xhr.responseText);
-      console.log(this.api);
+      // console.log('response text', this.xhr.responseText);
+      // console.log(this.api);
     }
   }
   _forEachBindAttr(callback) {
