@@ -9,10 +9,10 @@ mixin pane(id, position, classes, dataAtts)
     else
       - domain = '';
     
-    - data.api = `${domain}/api/${dataAtts.api}.json`;
+    - data['data-inject-api'] = `${domain}/api/${dataAtts.api}.json`;
     //- deal with responsive data attr
   if dataAtts.responsive
-    - data.responsive = dataAtts.responsive;
+    - data['data-responsive'] = dataAtts.responsive;
   .pane(
     class=[position, classes]
     data-pane=id
