@@ -32,7 +32,7 @@ class Card {
     };
   }
   init() {
-    console.log('fired init');
+    // console.log('fired init');
     this._events();
     this._injectBorderLeft();
     this._setBorderLeft();
@@ -46,8 +46,8 @@ class Card {
   }
   _setBorderLeft(reducedHeight = false) {
     let borderElement = this.element.querySelectorAll('.border-left');
-    console.log(borderElement[0]);
-    console.log(this._elementHeight());
+    // console.log(borderElement[0]);
+    // console.log(this._elementHeight());
     let elementHeight = this._elementHeight();
     if (reducedHeight) {
       borderElement[0].style.height = `${elementHeight - 10}px`;
