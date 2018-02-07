@@ -5,7 +5,7 @@
     ['/my-skills/', 'My Skills'], 
     ['/about-me/', 'About Me']
   ];
-+pane('mainNav', 'left', 'main-nav', {responsive: 'sm md'})
++pane('mainNav', 'left', 'main-nav-pane', {responsive: 'xl-down'})
   .conatiner
 
     //- Main Nav
@@ -13,7 +13,11 @@
       nav.main-nav
         each link in links
           a(href=helpers.url(link[0])) #{link[1]}
-
+          
+    //- Contact Me
+    .block.sm-12.contact
+      h2 Get In Touch
+      
     //- Social Links
     .block.sm-12
       +socialIconBar(
@@ -23,3 +27,8 @@
         'stackoverflow',
         'linkedin'
       )
+
+    .block.sm-12.contact-email
+      h3 My Email
+      a(href="mailto:bjoeyhayes@gmail.com") BJoeyHayes@gmail.com
+      

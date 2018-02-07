@@ -16,4 +16,14 @@
       height: 2rem;
     }
   }
+  a.icon {
+    > svg {
+      transition: fill 100ms ease-in;
+    }
+    &:hover {
+      > svg {
+        fill: $color-cyan;
+      }
+    }
+  }
 }
