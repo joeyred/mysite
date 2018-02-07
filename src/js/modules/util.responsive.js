@@ -6,12 +6,16 @@ class Responsive {
    * @param  {Object}    element - JS API DOM Node
    */
   constructor(element) {
+    this.element = element;
     this.valueString = element.getAttribute('data-responsive');
     this.breakpoints = Gingabulous.breakpoints;
     this.breakpointArray = Gingabulous.breakpointArray;
     this.windowWidth = window.innerWidth ||
     document.documentElement.clientWidth ||
     document.body.clientWidth;
+    // expose the responsive state of the element
+    this._setState();
+    this._onResize();
   }
   /**
    * Takes a string of breakpoints from the data attribute of the
@@ -112,12 +116,27 @@ class Responsive {
       }
     }
   }
+  _setState() {
+    let state;
+    if (this.queryValues[Gingabulous.activeBreakpoint()]) {
+      state = 'active';
+    } else {
+      state = 'inactive';
+    }
+    this.element.setAttribute('data-responsive-state', state);
+  }
+  _onResize() {
+    if (!Gingabulous.events.resize) {
+      Gingabulous.registerGlobalEventListener('resize', window);
+    }
+    Gingabulous.events.resize.registerCallback(() => this._setState());
+  }
   isActive() {
-    let enabledQueries = this.queryValues;
+    // let enabledQueries = this.queryValues;
     // console.log(enabledQueries);
-    let currentQuery = Gingabulous.activeBreakpoint();
+    // let currentQuery = Gingabulous.activeBreakpoint();
     // console.log(enabledQueries[currentQuery]);
-    return enabledQueries[currentQuery];
+    return this.queryValues[Gingabulous.activeBreakpoint()];
   }
   // Utility to wrap onResize actions in to avoid issues with window height resizing from
   // mobile browsers show/hiding UI elements.
