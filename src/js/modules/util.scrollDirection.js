@@ -14,7 +14,7 @@ class ScrollDirection {
 
     // Actions when scrolling down
     if (currentScrollPosition > this.lastScrollPosition) {
-      console.log('down');
+      // console.log('down');
       if (this.lastScrollDirection !== 0) {
         this.i += 1;
         if (this.i >= 10) {
@@ -24,7 +24,7 @@ class ScrollDirection {
       }
     // Actions when scrolling up
     } else {
-      console.log('up');
+      // console.log('up');
       if (this.lastScrollDirection !== 1) {
         if (this.i >= 10) {
           this.i = 0;
