@@ -25,7 +25,7 @@
   .pane-content {
     padding-top: $topbar_height;
   }
-  background: $color-black;
+  background: $color-grey_darker;
   &[data-responsive-state="inactive"] {
     position: relative;
     width: 20%;
@@ -36,7 +36,7 @@
       position: fixed;
       top: 0;
       width: 20%;
-      background: $color-black;
+      background: $color-grey_darker;
       height: 100vh;
       padding-top: $spacing-unit_vertical;
     }

@@ -44,6 +44,7 @@
   margin-bottom: 1rem;
   .title {
     display: block;
+    min-width: 9.5rem;
     width: 30%;
     padding: $titled-callout_title-padding;
     margin-left: -#{$titled-callout_title_left-extension};

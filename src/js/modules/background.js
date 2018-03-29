@@ -48,7 +48,7 @@ class Background {
       this.element.scrollTop = currentScrollPosition / this.options.scrollRatio;
     }
 
-    console.log(window.pageYOffset, this.element.scrollTop);
+    // console.log(window.pageYOffset, this.element.scrollTop);
   }
   _events() {
     Gingabulous.events.scroll.registerCallback(() => this._syncScrolling());

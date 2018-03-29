@@ -56,7 +56,7 @@ block content
           include ../includes/mark-logo-svg.pug
         
       //- About Me
-      .block.sm-12.md-6.order-md-3
+      .block.sm-12.md-6.order-md-3.about-me
         +titledCallout('About Me', 'purple', true, activeBreakpoints)
           .container
             .block.sm-12
@@ -71,7 +71,7 @@ block content
                 and playing guitar.
       
       //- My Skills
-      .block.sm-12.md-6.order-md-4
+      .block.sm-12.md-6.order-md-4.my-skills
         +titledCallout('My Skills', 'yellow', true, activeBreakpoints)
           .container
             .block.sm-12
@@ -89,7 +89,7 @@ block content
               a.button(href=helpers.url('/my-skills/')) See All of my Skills
               
       //- My Work
-      .block.sm-12.order-md-5
+      .block.sm-12.order-md-5.my-work
         +titledCallout('My Work', 'orange', true, activeBreakpoints)
           .container
             .block.sm-12
