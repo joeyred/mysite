@@ -5,6 +5,14 @@ class Expand {
     this.element = element;
     this.options = Gingabulous.deepExtend({}, Expand.defaults(), options);
     this.responsive = new Gingabulous.Responsive(element);
+    this.animationFunc = element.hasAttribute('data-animation') ?
+      element.getAttribute('data-animation') :
+      false;
+    console.log(this.animationFunc);
+    //   console.log(element.hasAttribute('data-animation'));
+    //   console.log(element.getAttribute('data-animation'));
+    //   console.log(Gingabulous.animations[element.getAttribute('data-animation')]);
+    // console.log(animationFunc);
   }
   static defaults() {
     return {
@@ -16,7 +24,8 @@ class Expand {
       states:        {
         expanded:  'expanded',
         collapsed: 'collapsed'
-      }
+      },
+      animationFunc: null
     };
   }
   get classes() {
@@ -71,13 +80,25 @@ class Expand {
     // Click Events
     this.element.addEventListener('click', (event) => {
       if (this.responsive.isActive()) {
+
         // Open Event
         if (event.target.hasAttribute(this.attr.open)) {
           this._setState(this.options.states.expanded);
+
+          // Handle custom animation functions
+          if (!!this.animationFunc) {
+            Gingabulous.animations[this.animationFunc](this.element);
+          }
         }
+
         // Close Event
         if (event.target.hasAttribute(this.attr.close)) {
           this._setState(this.options.states.collapsed);
+
+          // Handle custom animation functions
+          if (!!this.animationFunc) {
+            Gingabulous.animations[this.animationFunc](this.element);
+          }
         }
       }
     });
