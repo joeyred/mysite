@@ -40,6 +40,7 @@ block panes
   
 block content
   - var activeBreakpoints = 'sm';
+  - var tabAnimation = 'expandingTabs';
   .wrapper
     
     .container
@@ -57,7 +58,7 @@ block content
         
       //- About Me
       .block.sm-12.md-6.order-md-3.about-me
-        +titledCallout('About Me', 'purple', true, activeBreakpoints)
+        +titledCallout('About Me', 'purple', true, activeBreakpoints, tabAnimation)
           .container
             .block.sm-12
               img.avatar(src="assets/imgs/main/avi3.jpg")
@@ -72,7 +73,7 @@ block content
       
       //- My Skills
       .block.sm-12.md-6.order-md-4.my-skills
-        +titledCallout('My Skills', 'yellow', true, activeBreakpoints)
+        +titledCallout('My Skills', 'yellow', true, activeBreakpoints, tabAnimation)
           .container
             .block.sm-12
               h3 A Quick Overview
@@ -90,7 +91,7 @@ block content
               
       //- My Work
       .block.sm-12.order-md-5.my-work
-        +titledCallout('My Work', 'orange', true, activeBreakpoints)
+        +titledCallout('My Work', 'orange', true, activeBreakpoints, tabAnimation)
           .container
             .block.sm-12
               ul.cards.portfolio

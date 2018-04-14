@@ -1,7 +1,8 @@
 include icons.pug
 
-mixin titledCallout(title, color, expandable, breakpoints)
+mixin titledCallout(title, color, expandable, breakpoints, animation)
   - var isExpandable = expandable || false;
+  - var animation = animation || false;
   - breakpoints = breakpoints || ''; 
   - 
     var expand = {
@@ -14,7 +15,14 @@ mixin titledCallout(title, color, expandable, breakpoints)
   - var titledCalloutClasses = isExpandable ? [color, 'expandable'] : block ? color : [color, 'no-content'];
   - var contentClasses = isExpandable ? 'expandable-content' : '';
   //- Handle Atts
-  - var titledCalloutAtts = isExpandable ? {'data-expand': '', 'data-responsive': breakpoints} : {};
+  - 
+    var titledCalloutAtts = isExpandable && animation !== false ?
+      {'data-expand': '', 'data-responsive': breakpoints, 'data-animation': animation} :
+      isExpandable && animation === false ? 
+      {'data-expand': '', 'data-responsive': breakpoints} : 
+      {};
+  //- if animation 
+  //-   - titledCallout['data-animation'] = animation;
   - var openElementAtts = isExpandable ? expand.open : {};
   //- var closeElementAtts = isExpandable ? expand.close : {};
   - var contentElementAtts = isExpandable ? expand.close : {};
