@@ -42,7 +42,7 @@ Gingabulous.Debug.config(true, {
   CarouselPane: true
 });
 
-Gingabulous.animations.registerAnimation('expandingTabs', (element) => {
+Gingabulous.registerAnimation('expandingTabs', (element) => {
   if (!element.querySelector('.animation_border-left')) {
     // add dummy element for animating the border
     const border = document.createElement('div');
@@ -63,10 +63,10 @@ Gingabulous.animations.registerAnimation('expandingTabs', (element) => {
   //   document.documentElement.clientHeight ||
   //   document.body.clientHeight;
   // console.log(positionTop);
+
   wrapperElement.classList.add('animation_expanding-tabs_in-progress');
-  setTimeout(() => {
-    wrapperElement.classList.remove('animation_expanding-tabs_in-progress');
-  }, 900);
+
+  // EXPAND
   if (state === 'expanded') {
     wrapperElement.classList.add('animation_expanding-tabs_tab-active');
     element.classList.remove(
@@ -79,9 +79,14 @@ Gingabulous.animations.registerAnimation('expandingTabs', (element) => {
       `${collapseBase}_shift-down_animate`
     );
 
-    Gingabulous.animations.animationSeries(
+    Gingabulous.animationSeries(
       element,
       'expanding-tabs_expand',
+      {
+        after: () => {
+          wrapperElement.classList.remove('animation_expanding-tabs_in-progress');
+        }
+      },
       [
         'shift-up',
         600,
@@ -93,6 +98,7 @@ Gingabulous.animations.registerAnimation('expandingTabs', (element) => {
     );
   }
 
+  // COLLAPSE
   if (state === 'collapsed') {
     element.classList.remove(
       `${expandBase}_shift-up_transition`,
@@ -104,9 +110,15 @@ Gingabulous.animations.registerAnimation('expandingTabs', (element) => {
       `${expandBase}_expand-border_animate`
     );
 
-    Gingabulous.animations.animationSeries(
+    Gingabulous.animationSeries(
       element,
       'expanding-tabs_collapse',
+      {
+        after: () => {
+          wrapperElement.classList.remove('animation_expanding-tabs_tab-active');
+          wrapperElement.classList.remove('animation_expanding-tabs_in-progress');
+        }
+      },
       [
         'collapse-border',
         300
@@ -119,11 +131,32 @@ Gingabulous.animations.registerAnimation('expandingTabs', (element) => {
         }
       ]
     );
-    setTimeout(() => {
-      wrapperElement.classList.remove('animation_expanding-tabs_tab-active');
-    }, 900);
   }
 });
+
+// let time = 0;
+// setInterval(() => {
+//   time += 100;
+// }, 100);
+
+Gingabulous.animationSeries(
+  document.querySelector('.loading-screen'),
+  'loading-screen',
+  false,
+  [
+    'step-1',
+    600
+  ],
+  [
+    'step-2',
+    200
+  ],
+  [
+    'final',
+    200
+  ]
+);
+// Gingabulous.Debug.timer(6000);
 init();
 // initCards();
 }(jQuery);
