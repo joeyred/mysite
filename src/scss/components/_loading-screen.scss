@@ -1,0 +1,42 @@
+
+
+.loading-screen {
+  position: fixed;
+  z-index: z('loading-screen');
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 1rem;
+  background: $color-black;
+
+  .middle {
+    .svg-wrapper {
+      margin: 0 auto;
+      width: 50%;
+      height: auto;
+    }
+    svg {
+      .mark-logo-hair {
+        fill: $color-red;
+      }
+
+      .mark-logo-bottom {
+        fill: $color-white;
+      }
+    }
+  }
+
+  &.animation_loading-screen {
+    &_step-1 {}
+    &_step-2 {}
+    &_final_animate {
+      opacity: 0;
+      display: none;
+      * {
+        display: none;
+      }
+    }
+  }
+}
