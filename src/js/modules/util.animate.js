@@ -60,13 +60,16 @@ const animationSeries = (element, baseCSSClass, hooks, ...steps) => {
       let callback = steps[stepIndex][2] || false;
       classes.current = steps[stepIndex][0];
       // Remove classes if previous ones exist
-      if (!!classes.previous) {
+      if (classes.previous) {
         element.classList.remove(`animation_${classes.base}_${classes.previous}_transition`);
         element.classList.remove(`animation_${classes.base}_${classes.previous}_animate`);
+        console.log('previous', `animation_${classes.base}_${classes.previous}_transition`);
       }
+
       // Add classes for this animation step
       element.classList.add(`animation_${classes.base}_${classes.current}_transition`);
       element.classList.add(`animation_${classes.base}_${classes.current}_animate`);
+      console.log('current', `animation_${classes.base}_${classes.current}_transition`);
       if (callback) {
         callback(element);
       }

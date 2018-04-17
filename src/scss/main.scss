@@ -30,6 +30,7 @@
   'titled-callout',
   'skills',
   'expand',
+  'loading-screen',
   // 'fullscreen-panes',
   'panes',
   'pane-activator-tab',
@@ -37,3 +38,15 @@
   // Pages
   'home'
 ;
+
+#debug-timer {
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  padding: 1rem;
+  background: red;
+  color: white;
+  font-size: 0.75rem;
+}

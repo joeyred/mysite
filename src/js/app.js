@@ -94,7 +94,7 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
           element.style.transform = `translateY(-${positionTop - topbarHeight}px)`;
         }
       ],
-      ['expand-border', 300]
+      ['expand-border', 400]
     );
   }
 
@@ -121,7 +121,7 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
       },
       [
         'collapse-border',
-        300
+        400
       ],
       [
         'shift-down',
