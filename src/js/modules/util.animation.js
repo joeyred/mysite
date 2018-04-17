@@ -1,19 +1,20 @@
 'use strict';
 
 !function() {
-
-// class Animate {
-//   constructor(element, classPrefix) {
-//     this.element = element;
-//     this.classPrefix = classPrefix;
-//   }
-// }
-
+/**
+ * A single step in a multi-step animation
+ * @method animationStep
+ * @param  {Node}      element   - DOM node
+ * @param  {Object}    classes   - classes to be used for base, current, and/or previous steps
+ * @param  {Number}    durration - How long the animation step should last
+ * @param  {Function}  callback  - Any functionality that should be included with the step
+ */
 const animationStep = (element, classes, durration, callback) => {
   const {base, current} = classes;
   const previous = classes.previous || false;
 
-  if (!classes.previous) {
+  if (!previous) {
+    // console.log('look at me bitch');
     element.classList.add(`${base}_${current}_transition`);
     element.classList.add(`${base}_${current}_animate`);
 
@@ -21,10 +22,11 @@ const animationStep = (element, classes, durration, callback) => {
       callback(element);
     }
   }
-  if (classes.previous) {
-    if (durration !== 0) {
+  if (previous) {
+    if (durration > 0) {
       setTimeout(
         function() {
+          console.log('classes removed');
           element.classList.remove(`${base}_${previous}_transition`);
           element.classList.remove(`${base}_${previous}_animate`);
 
@@ -38,6 +40,7 @@ const animationStep = (element, classes, durration, callback) => {
         durration
       );
     } else {
+      console.log('classes removed');
       element.classList.remove(`${base}_${previous}_transition`);
       element.classList.remove(`${base}_${previous}_animate`);
 
@@ -48,7 +51,7 @@ const animationStep = (element, classes, durration, callback) => {
         callback(element);
       }
     }
-    console.log('animation fired!');
+    // console.log('animation fired!');
   }
 };
 
@@ -56,18 +59,27 @@ const animationStep = (element, classes, durration, callback) => {
 // ['stage-name', 300, callback]
 const animationSeries = (element, baseAnimationClass, ...steps) => {
   let durration = 0;
+  let previousDurration = 0;
   let totalDurration = 0;
   let callback;
   let i = 0;
+
   const baseClass = `animation_${baseAnimationClass}`;
   element.classList.add('animation_in-progress');
   // steps.push([''])
   for (i; i < steps.length; i++) {
-    console.log(durration);
+    durration = steps[i][1];
+    totalDurration += durration;
+    // console.log(durration);
     callback = steps[i][2] || false;
     if (i === 0) {
-      animationStep(element, {base: baseClass, current: steps[i][0]}, durration, callback);
+      // console.log(`index is ${i}`);
+      animationStep(element, {base: baseClass, current: steps[i][0]}, 0, callback);
+      // console.log(`${time}ms`);
     } else {
+      // console.log(`index is ${i}`);
+      // console.log(`previous is ${steps[i - 1][0]}`);
+      previousDurration = steps[i - 1][1];
       animationStep(
         element,
         {
@@ -75,12 +87,12 @@ const animationSeries = (element, baseAnimationClass, ...steps) => {
           current:  steps[i][0],
           previous: steps[i - 1][0]
         },
-        durration,
+        previousDurration,
         callback
       );
+      // console.log(`${time}ms`);
     }
-    durration = steps[i][1];
-    totalDurration += durration;
+
     // if (i > 0) {
     //   animationStep(
     //     element,
@@ -97,9 +109,9 @@ const animationSeries = (element, baseAnimationClass, ...steps) => {
   }
   setTimeout(
     () => {
-      element.classList.remove('animation_in-progress')
-    }, totalDurration);
-
+      element.classList.remove('animation_in-progress');
+    }, totalDurration
+  );
 };
 
 // function animate(element, classPrefix, durration, delay = false) {
@@ -117,13 +129,13 @@ const animationSeries = (element, baseAnimationClass, ...steps) => {
 
 
 
-const registerAnimation = (name, callback) => {
-  Gingabulous.animations[name] = callback;
-};
-
-Gingabulous.animations = {};
-Gingabulous.animations.registerAnimation = registerAnimation;
-Gingabulous.animations.animationSeries = animationSeries;
+// const registerAnimation = (name, callback) => {
+//   Gingabulous.animations[name] = callback;
+// };
+//
+// Gingabulous.animations = {};
+// Gingabulous.animations.registerAnimation = registerAnimation;
+// Gingabulous.animations.animationSeries = animationSeries;
 
 
 }();
