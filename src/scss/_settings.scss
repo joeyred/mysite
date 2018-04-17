@@ -9,6 +9,7 @@ $content-padding_base:            gld($spacing-unit_base, 9);
 // Z-Indexes
 // ---------
 $z-indexes: (
+"loading-screen",
   "expanding-tab-active",
   "overlay-header",
   "overlay",
@@ -21,6 +22,7 @@ $z-indexes: (
   "pane",
   "fixed-icons",
   "sticky-footer"
+
 );
 
 // Breakpoints
