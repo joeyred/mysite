@@ -110,15 +110,15 @@ design:
         rating: 50
   -
     category: ui-ux
-    title: UI/UX Design
+    title: UI/UX
     overall: 80
     skills:
       -
         name: Experience Design
-        rating: 65
+        rating: 75
       -
         name: Sketch
         rating: 50
       -
-        name: Minde Node
+        name: Mind Node (mind mapping)
         rating: 75
