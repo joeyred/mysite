@@ -1,0 +1,57 @@
+extends default.pug
+
+block append stylesheets
+  if build.production
+    link(
+      rel='stylesheet'
+      href='/assets/css/docs.min.css'
+    )
+  else
+    link(
+      rel='stylesheet'
+      href='/assets/css/docs.css'
+    )
+
+block nav
+  - var allTypes = [];
+  - var filteredDocs;
+  - var link;
+  each doc in collections.docs
+    - allTypes.push(doc.type)
+  - var uniqueTypes = _.uniq(allTypes);
+  +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'lg-down'})
+    .container
+      .block.sm-12
+        h1 Site Documentation
+    .container
+      each type in uniqueTypes
+        - filteredDocs = _.filter(collections.docs, {type: type});
+        .block.sm-12
+          h2 #{_.capitalize(type)}
+        .block.sm-12
+          ul.nav-vertical
+            each doc in filteredDocs
+              - link = doc.path.split('.');
+              - link = link[0];
+              li 
+                a(href=helpers.url(`/${link}/`)) #{doc.title}
+
+block header
+  header.site-header
+    .top-bar
+      .left
+        button.icon-button.open-menu(data-pane-open='docNav')
+          +icon('menu')
+
+block content
+
+  article.wrapper
+    header.conatiner
+      .block.sm-12(build-api='title')
+        h1= title
+      .block.sm-12(build-api='description')
+        block description
+    section.container
+      .block.sm-12(build-api='main')
+        block main
+      

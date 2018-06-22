@@ -1,0 +1,37 @@
+---
+title: Documentation
+permalink: /docs/
+bodyClass: 'documentation'
+---
+
+extends ../layouts/default.pug
+
+block append stylesheets
+  if build.production
+    link(
+      rel='stylesheet'
+      href='/assets/css/docs.min.css'
+    )
+  else
+    link(
+      rel='stylesheet'
+      href='/assets/css/docs.css'
+    )
+
+block nav
+  - var allTypes = [];
+  - var docLinks;
+  each doc in collections.docs
+    - allTypes.push(doc.type)
+  - var uniqueTypes = _.uniq(allTypes);
+  +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'l-down'})
+    .container
+      .block.sm-12
+        h1 Site Documentation
+    .container
+      each type in uniqueTypes
+        - docLinks = _.filter(collections.docs, {type: type});
+        h2 #{_.capitalize(type)}
+        ul
+          each link in docLinks
+            li #{link.title}

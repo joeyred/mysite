@@ -1,0 +1,35 @@
+@import
+  "functions",
+  "settings",
+  // "utility",
+  "mixins"
+;
+
+.doc-nav-pane {
+  .pane-content {
+    padding-top: $topbar_height;
+  }
+  background: $color-grey_darker;
+  &[data-responsive-state="inactive"] {
+    position: relative;
+    width: 20%;
+    .pane-header {
+      display: none;
+    }
+    .pane-content {
+      position: fixed;
+      top: 0;
+      width: 20%;
+      background: $color-grey_darker;
+      height: 100vh;
+      padding-top: $spacing-unit_vertical;
+    }
+  }
+  h1 {
+    font-size: 1rem;
+  }
+}
+
+p {
+  max-width: 40rem;
+}

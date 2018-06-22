@@ -63,7 +63,7 @@ function activeBreakpoint() {
       i++;
       // console.log(i);
       if (Gingabulous.breakpointArray.length === i) {
-        console.log(key);
+        // console.log(key);
         return key;
       }
       if (windowWidthInEms > Gingabulous.breakpoints[key]) {
@@ -71,7 +71,7 @@ function activeBreakpoint() {
         previousKey = key;
         continue;
       } else {
-        console.log(previousKey);
+        // console.log(previousKey);
         // Reset index of loop.
         return previousKey;
       }

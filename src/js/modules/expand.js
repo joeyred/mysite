@@ -8,7 +8,7 @@ class Expand {
     this.animationFunc = element.hasAttribute('data-animation') ?
       element.getAttribute('data-animation') :
       false;
-    console.log(this.animationFunc);
+    // console.log(this.animationFunc);
     //   console.log(element.hasAttribute('data-animation'));
     //   console.log(element.getAttribute('data-animation'));
     //   console.log(Gingabulous.animations[element.getAttribute('data-animation')]);
