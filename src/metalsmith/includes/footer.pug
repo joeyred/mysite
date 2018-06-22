@@ -14,6 +14,10 @@
         'linkedin'
       )
     .block.sm-12.extra-links
-      .inline-nav
+      ul.nav-horizontal
         - var styleguideLink = url + '/styleguide/'
-        a(href=helpers.url('/styleguide/')) Styleguide
+        li
+          a(href=helpers.url('/styleguide/')) Styleguide
+        li
+          a(href=helpers.url('/docs/')) Documentation
+        
