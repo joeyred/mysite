@@ -116,6 +116,9 @@ export function runGulpsmith() {
           },
           styleguide: {
             pattern: 'styleguide/**/*.pug'
+          },
+          docs: {
+            pattern: 'docs/**/*.pug'
           }
         }))
         .use(msCollectionMetadata({
@@ -341,6 +344,7 @@ export function buildPensAPI() {
       if (path.dirname.indexOf('/') > -1) {
         let arrayFromDirname = path.dirname.split('/');
         let lastIndex = arrayFromDirname.length - 1;
+        // TODO Look for possible namespace and apply it
         path.basename = arrayFromDirname[lastIndex];
       } else {
           path.basename = path.dirname;
