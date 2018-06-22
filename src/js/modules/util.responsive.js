@@ -11,8 +11,8 @@ class Responsive {
     this.breakpoints = Gingabulous.breakpoints;
     this.breakpointArray = Gingabulous.breakpointArray;
     this.windowWidth = window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
     // expose the responsive state of the element
     this._setState();
     this._onResize();
@@ -29,7 +29,6 @@ class Responsive {
     }
     return this.valueString.split(' ');
   }
-
   get enabledQueries() {
     let output = [];
     // If there are no breakpoints passed, then return the entire array of breeakpoints.
@@ -58,15 +57,27 @@ class Responsive {
     }
     return output;
   }
-
-  _isAKey(param) {
+  /**
+   * Checks if the passed key matches any of the breakpoint keys.
+   * @method _isAKey
+   * @param  {String}  keyToCheck - The key to check against the breakpoints.
+   * @return {Boolean}            - If there is a match then true is returned, else false.
+   */
+  _isAKey(keyToCheck) {
     for (let key in this.breakpoints) {
-      if (param === key) {
+      if (keyToCheck === key) {
         return true;
       }
     }
     return false;
   }
+  /**
+   * Parses a value containing a breakpoint and keyword.
+   * @method _parseParam
+   * @param  {String}    param - The individual param parsed from the string.
+   * @return {Array}           - An array of breakpoints that represent when a module can
+   *                             be active.
+   */
   _parseParam(param) {
     var output = [];
     if (!this._isAKey(param)) {
@@ -78,12 +89,19 @@ class Responsive {
         output.push(query);
         return output;
       }
+      /** Go through each active breakpoint */
       for (let index in this.breakpointArray) {
-        if (splitParam[1] === 'up' && this._indexOfQuery(splitParam[0]) <= index) {
-          output.push(this.breakpointArray[index]);
-        }
-        if (splitParam[1] === 'down' && this._indexOfQuery(splitParam[0]) >= index) {
-          output.push(this.breakpointArray[index]);
+        if ({}.hasOwnProperty.call(this.breakpointArray, index)) {
+          /** if the keyword is `up` then only push if the index of the query is less
+              than or equal to the index of the loop */
+          if (splitParam[1] === 'up' && this._indexOfQuery(splitParam[0]) <= index) {
+            output.push(this.breakpointArray[index]);
+          }
+          /** if the keyword is `down` then only push if the index of the query is greater
+              than or equal to the index of the loop */
+          if (splitParam[1] === 'down' && this._indexOfQuery(splitParam[0]) >= index) {
+            output.push(this.breakpointArray[index]);
+          }
         }
       }
       return output;
@@ -109,6 +127,12 @@ class Responsive {
     }
     return output;
   }
+  /**
+   * Gets the index of the current breakpoint being querried
+   * @method _indexOfQuery
+   * @param  {String}      query - The name of the breakpoint key
+   * @return {Number}            - The index of that key in the breakpoint array.
+   */
   _indexOfQuery(query) {
     for (let index in this.breakpointArray) {
       if (this.breakpointArray[index] === query) {
