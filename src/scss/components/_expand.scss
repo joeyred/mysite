@@ -110,7 +110,7 @@ main.content.animation_expanding-tabs_tab-active {
   width: $titled-callout_border-left-size;
   height: 0px;
 }
-.expandable {
+.expandable:not([data-expand="inactive"]) {
   .titled-callout-content {
     border-left: none;
     border-left-color: none;
