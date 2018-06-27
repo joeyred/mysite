@@ -1,0 +1,199 @@
+$hbgi-color-white: #FFFFFF;
+$hbgi-color-grey: #454545;
+$hbgi-color-turquois: #1C8584;
+
+$rotation-ratio: .375;
+$rotation-min: 8;
+$rotation-max: 18;
+
+$width-min: 320;
+$width-max: 1440;
+
+$rotation-steps: ($rotation-max - $rotation-min) / ($width-max - $width-min);
+
+$rotation-white: 8;
+$rotation-grey: 16;
+$rotation-turquois: 24;
+
+.hbgi {
+  background: $hbgi-color-white;
+  .typography {
+    img {}
+  }
+  .colors {
+  //   .angled-bg_wrapper {
+  //     position: relative;
+  //     .angled-bg {
+  //       padding: 1rem;
+  //       position: absolute;
+  //       top: 0;
+  //       left: 0;
+  //       margin: 0 -10rem;
+  //       transform-origin: bottom right;
+  //       &.turquois {
+  //         background: $hbgi-color-turquois;
+  //         transform: rotate(12deg);
+  //       }
+  //       &.grey {
+  //         background: $hbgi-color-grey;
+  //         transform: rotate(10deg);
+  //       }
+  //       &.white {
+  //         background: $hbgi-color-white;
+  //         transform: rotate(8deg);
+  //       }
+  //     }
+  //   }
+    .angled-bg_wrapper {
+      position: relative;
+      height: 100%;
+      padding: 10rem 0;
+      margin: 10rem 0 -10rem;
+    }
+    .color-segment {
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      right: 0;
+      // padding: 1rem;
+
+      .color-segment_content {
+
+        padding: 10rem 0;
+        span {
+          position: absolute;
+          top: -3rem;
+        }
+      }
+      &.color-grey {
+
+        .color-segment_bg-wrapper {
+          background: $hbgi-color-grey;
+          transform-origin: top right;
+          transform: rotate(#{$rotation-grey}deg);
+          margin-left: -10rem;
+        }
+        .color-segment_content {
+          transform-origin: top right;
+          transform: rotate(-#{$rotation-grey}deg);
+          margin-left: 10rem;
+        }
+      }
+      &.color-turquois {
+        .color-segment_bg-wrapper {
+          background: $hbgi-color-turquois;
+          transform-origin: top right;
+          transform: rotate(#{$rotation-turquois}deg);
+          margin-left: -10rem;
+        }
+        .color-segment_content {
+          transform-origin: top right;
+          transform: rotate(-#{$rotation-turquois}deg);
+          margin-left: 10rem;
+        }
+      }
+      &.color-white {
+        .color-segment_bg-wrapper {
+          background: $hbgi-color-white;
+          transform-origin: top right;
+          transform: rotate(#{$rotation-white}deg);
+          margin-left: -10rem;
+        }
+        .color-segment_content {
+          color: $hbgi-color-grey;
+          transform-origin: top right;
+          transform: rotate(-#{$rotation-white}deg);
+          margin-left: 10rem;
+        }
+      }
+    }
+  }
+
+  .stationary {
+    img {
+      box-shadow: 2px 2px 6px #111;
+    }
+    .business-cards {
+      img {
+        margin: 0 auto $spacing-unit_vertical;
+        padding: 0;
+        width: 80%;
+        height: auto;
+      }
+    }
+    .letters {
+      width: auto;
+      display: flex;
+      margin: 0 auto;
+      padding: 5rem $content-padding_base;
+      // position: relative;
+      // display: inline-block;
+      .letter {
+        flex: 0 0 auto;
+        // position: absolute;
+        // display: inline-block;
+        width: 80%;
+        img {
+          height: auto;
+          width: 100%;
+        }
+        // max-width: 30rem;
+      }
+      .letterhead {
+        order: 3;
+        margin: 80% 0 0 -100%;
+      }
+      .notepaper {
+        order: 2;
+        margin: 40% 0 0 -55%;
+      }
+      .fax {
+        order: 1;
+        // z-index
+      }
+
+      @include mq('md') {
+        .letter {
+          // position: absolute;
+          // display: inline-block;
+
+          height: auto;
+          width: 80%;
+          max-width: 30rem;
+        }
+        .letterhead {
+          order: 3;
+          margin: 10% 0 0 -20%;
+        }
+        .notepaper {
+          order: 2;
+          margin: 5% 0 0 -20%;
+        }
+        .fax {
+          order: 1;
+          // z-index
+        }
+      }
+
+    }
+
+
+
+    .business-cards {
+      margin-bottom: $spacing-unit_vertical;
+    }
+
+  }
+
+  .icons {
+    background: $hbgi-color-grey;
+    .brand-icon {
+      padding: 4rem;
+      max-width: 20rem;
+      height: auto;
+    }
+  }
+
+
+}
