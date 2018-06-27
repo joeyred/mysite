@@ -2,6 +2,7 @@ extends default.pug
 
 block content
   - var newWrapperClass = wrapperClass || '';
-  .wrapper(build-api='content' class=newWrapperClass)
-    block main
+  .project-wrapper(build-api='content')
+    article(class=newWrapperClass)
+      block main
   
