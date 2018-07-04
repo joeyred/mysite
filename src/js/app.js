@@ -142,17 +142,21 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
 Gingabulous.animationSeries(
   document.querySelector('.loading-screen'),
   'loading-screen',
-  false,
+  {
+    after: (element) => {
+      element.classList.add('loading-complete');
+    }
+  },
   [
-    'step-1',
-    600
-  ],
-  [
-    'step-2',
+    'in',
     200
   ],
   [
-    'final',
+    'loading',
+    600
+  ],
+  [
+    'out',
     200
   ]
 );
