@@ -2,7 +2,10 @@
 title: "Brian Hayes - My Skills"
 ---
 extends ../layouts/default.pug
-
+block panes
+  +pane('treehouse', 'right', 'treehouse-pane')
+    include ../includes/treehouse-profile.pug
+    
 block content
   - 
     var colors = {
@@ -14,6 +17,21 @@ block content
       'graphic-design': 'yellow',
       'ui-ux': 'purple'
     };
+    var treehouseColors = {
+      HTML: '#ff924e',
+      CSS: '#4e86ff',
+      Design: '#ffc74e',
+      JavaScript: '#ff4ee2',
+      PHP: '#c84eff',
+      WordPress: '#4ee7ff',
+      'Development Tools': '#b4ccff',
+      Business: '#ffb181',
+      Python: '#ff9bef',
+      'Game Development': '#c1ff9b',
+      Databases: '#ff664e',
+      Go: '#92ff4e'
+    };
+    var borderString = helpers.borderGradiantString(data.treehouse.points, treehouseColors);
   .wrapper
     .container
       .block.sm-12
@@ -24,6 +42,20 @@ block content
           and my own experience gained through personal projects and a decent amount of
           freelance work, I've gained a rather useful amount of skills in web development,
           and furthered my long held skills in graphic design.
+  
+  .wrapper.treehouse
+    .container
+      .block.sm-12
+        h2 Treehouse
+      .block.sm-12
+        :markdown
+          I'm a proud student at [Treehouse](https://teamtreehouse.com/). I've learned so
+          much and owe a great deal of my progress as a developer and designer to them.
+      .block.sm-12
+        button.button(data-pane-open='treehouse') My Profile at Treehouse
+              
+          
+      
   .wrapper
     //- DEV
     .container
