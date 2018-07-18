@@ -12,7 +12,7 @@ const	del    = require('del');
 const yargs  = require('yargs');
 const config = require('./gulpconfig.js');
 const extend = require('object-assign-deep');
-
+const request = require('request');
 import yaml from 'js-yaml';
 import fs from 'fs';
 
@@ -33,9 +33,24 @@ const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
 
+function loadExternalJSON(url) {
+  let jsonObject = {};
+  request(url, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      jsonObject = JSON.parse(body);
+      // console.log(jsonObject);
+    }
+  });
+  return jsonObject;
+}
+// const treehouseProfileJSON = loadExternalJSON('https://teamtreehouse.com/brianhayes.json');
+
 function loadYmlData(filepath) {
   let file = fs.readFileSync(filepath, 'utf8');
   return yaml.load(file);
+}
+function loadJSONData(filepath) {
+  return JSON.parse(fs.readFileSync(filepath, 'utf8'));
 }
 
 const siteConfig = {
@@ -55,9 +70,11 @@ const siteConfig = {
     stackoverflow: 'https://stackoverflow.com/users/5331958/joeyred'
   }
 };
-const siteData = {
-  skills: loadYmlData('src/content/skills.yml')
-};
+let siteData;
+// const siteData = {
+//   skills:    loadYmlData('src/content/skills.yml'),
+//   treehouse: treehouseProfileJSON
+// };
 const filters = {
   markdown: require('jstransformer-markdown-it')
 };
@@ -68,6 +85,45 @@ const helpers = {
       return siteConfig.url.production + link;
     }
     return link;
+  },
+  borderGradiantString: (points, colors) => {
+    let slices = [];
+    let slice;
+    let string = '';
+    let currentPercent = 0;
+    let previousPercent;
+
+    for (let category in points) {
+      if (category !== 'total' && points[category] !== 0) {
+        previousPercent = _.round((points[category] / points.total) * 100, 2);
+        currentPercent += previousPercent;
+        slice = {percent: currentPercent};
+        if (colors[category]) {
+          slice.color = colors[category];
+        }
+        // console.log(slice);
+        slices.push(slice);
+      }
+    }
+    // console.log(slices);
+    for (let i = 0; i < slices.length; i++) {
+      if (i === 0) {
+        string +=
+          `${slices[i].color}, `;
+      }
+      if (i !== 0 && i < slices.length - 1) {
+        string +=
+          `${slices[i - 1].color} ${slices[i].percent}%,
+          ${slices[i].color} ${slices[i].percent}%, `;
+      }
+      if (i === slices.length - 1) {
+        string +=
+          `${slices[i - 1].color} ${slices[i].percent}%,
+          ${slices[i].color} ${slices[i].percent}%`;
+      }
+    }
+    // console.log(`conic-gradient(${string})`);
+    return string;
   }
 };
 
@@ -83,6 +139,19 @@ const pugArgs = {
     }
   }
 };
+
+export function getTreehouseJSON() {
+  return $.remoteSrc('brianhayes.json', {base: 'https://teamtreehouse.com/'})
+    .pipe(gulp.dest('./src/content/'));
+}
+
+export function getSiteData(done) {
+  siteData = {
+    skills:    loadYmlData('src/content/skills.yml'),
+    treehouse: loadJSONData('src/content/brianhayes.json')
+  };
+  done();
+}
 
 export function runGulpsmith() {
   const ms = gulpsmith('./src/metalsmith');
@@ -419,6 +488,8 @@ export function watch() {
 
 const dev = gulp.series(
   clean,
+  getTreehouseJSON,
+  getSiteData,
   gulp.parallel(
     styles,
     scripts,

@@ -1,0 +1,240 @@
+@mixin track-color-classes($name, $color) {
+  &.#{$name} {
+    .track-heading {
+      color: $color;
+      h1, h2, h3, h4, h5, h6 {
+        color: $color;
+      }
+    }
+    .track-progress {
+      background: $color;
+    }
+    .track-description {
+      background: lighten($color, 30%);
+      span {
+        color: $color;
+        svg {
+          fill: $color;
+        }
+      }
+    }
+  }
+}
+
+.treehouse-pane {
+  background: $color-white;
+}
+
+.treehouse-profile {
+  padding-top: $spacing-unit_vertical;
+
+
+  h1 {
+    color: $color-grey_darker;
+    margin-bottom: $spacing-unit_vertical-heading;
+  }
+  .treehouse-points-grid {
+    list-style: none;
+    padding-left: 0;
+    li {
+      margin-bottom: 0;
+
+    }
+  }
+
+  .avatar-wrapper {
+    overflow: hidden;
+    position: relative;
+    &:after {
+      content: '';
+      display: block;
+      padding-bottom: 100%;
+    }
+    .points-border {
+      // background: $color-black;
+      border-radius: 50%;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+
+    }
+    .avatar {
+      position: absolute;
+      padding: 0.5rem;
+      top: 0;
+      left: 0;
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+  .treehouse-total-points {
+    margin-bottom: $spacing-unit_vertical;
+    h1, h2, h3, h4, h5, h6 {
+      color: $color-grey_darker;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+    p {
+      color: $color-black;
+      margin-bottom: 0;
+      letter-spacing: 2px;
+      font-size: 2rem;
+    }
+  }
+  .treehouse-points-figure {
+    padding: 0.75rem 1rem 0.75rem;
+
+    &.html {background: $color-orange}
+    &.css {background: $color-blue;}
+    &.design {background: $color-yellow;}
+    &.javascript {background: $color-pink;}
+    &.php {background: $color-purple;}
+    &.wordpress {background: $color-cyan;}
+    &.developmenttools {background: lighten($color-blue, 20%);}
+    &.business {background: lighten($color-orange, 10%);}
+    &.python {background: lighten($color-pink, 15%);}
+    &.gamedevelopment {background: lighten($color-green, 15%);}
+    &.databases {background: $color-red;}
+    &.go {background: $color-green;}
+
+    h1, h2, h3, h4, h5, h6 {
+      color: $color-grey_darker;
+      letter-spacing: 2px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      margin-bottom: 0;
+    }
+    p {
+      color: $color-black;
+      margin-bottom: 0;
+      font-size: 1.5rem;
+    }
+  }
+
+  .recent-badges {
+    .treehouse-badge {
+      margin-bottom: $spacing-unit_vertical;
+
+      h4 {
+        font-size: to-rem(12);
+        font-weight: 400;
+        color: $color-grey_dark;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+      img {
+        padding: 0 1rem;
+      }
+    }
+  }
+
+  .treehouse-tracks {
+
+
+    ul.tracks-list {
+      list-style: none;
+      padding-left: 0;
+      li {
+        margin-bottom: $spacing-unit_vertical;
+      }
+    }
+    .track {
+      @include track-color-classes('web-design', $color-blue);
+      @include track-color-classes('development-for-wordpress', $color-cyan);
+      @include track-color-classes('full-stack-javascript', $color-pink);
+      @include track-color-classes('learn-react', $color-red);
+
+
+      .track-heading {
+        background: $color-black;
+        h1, h2, h3, h4, h5, h6 {
+          padding: $titled-callout_title-padding;
+          margin-bottom: 0;
+        }
+      }
+
+      .track-progress {
+        padding: $titled-callout_title-padding;
+        color: $color-white;
+
+        span {
+          &.icon {
+            width: auto;
+            padding-right: 1rem;
+            svg {
+              fill: $color-white;
+            }
+          }
+        }
+        .progress-container {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-evenly;
+          padding: 0.5rem 0;
+          .progress-circle {
+            padding: to-rem(3);
+            // margin-right: to-rem(4);
+            border: 2px solid $color-white;
+            border-radius: 50%;
+
+            &.completed {
+              background: $color-white;
+            }
+          }
+        }
+      }
+
+      .track-description {
+        color: $color-black;
+        padding: 1rem;
+
+        .track-see-more {
+          padding: 1rem;
+          letter-spacing: 2px;
+          .content-wrapper {
+            display: block;
+            text-align: center;
+            margin: 0 auto;
+          }
+          span {
+            &.icon {
+              width: auto;
+              padding-left: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  //   .track {
+  //     text-align: center;
+  //     padding: $spacing-unit_vertical to-rem(16);
+  //     display: block;
+  //     color: $color-white;
+  //     h1, h2, h3, h4, h5, h6 {
+  //       color: $color-grey_darker;
+  //       background: $color-white;
+  //       border-radius: 20px;
+  //       padding: to-rem(10) to-rem(5);
+  //     }
+  //     span {
+  //       display: block;
+  //     }
+  //
+  //     &.web-design {
+  //       background: $color-blue;
+  //     }
+  //     &.development-for-wordpress {background: $color-cyan;}
+  //     &.full-stack-javascript {background: $color-pink;}
+  //     &.learn-react {background: $color-red;}
+  //   }
+  // }
+
+
+}

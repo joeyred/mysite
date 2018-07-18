@@ -1,5 +1,6 @@
 mixin pane(id, position, classes, dataAtts)
   - var data = {};
+  - dataAtts = dataAtts || {};
   //- Deal with API
   if dataAtts.api
     //- Get proper domain
