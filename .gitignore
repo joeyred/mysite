@@ -3,6 +3,7 @@ bower_components
 
 build
 src/metalsmith/mixins/mixins.pug
+src/content/brianhayes.json
 
 # Code Dump Files
 dump.js
