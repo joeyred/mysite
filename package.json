@@ -40,6 +40,7 @@
     "gulp-metalsmith": "^1.1.0",
     "gulp-pixrem": "^1.0.0",
     "gulp-plumber": "^1.1.0",
+    "gulp-remote-src": "^0.4.3",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
