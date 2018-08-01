@@ -1,7 +1,22 @@
-import gulp from 'gulp';
-import loadPlugins from 'gulp-load-plugins';
-import browserSync from 'browser-sync';
-import del from 'del';
+'use babel';
+
+const gulp        = require('gulp');
+const $           = require('gulp-load-plugins')({
+  rename: {
+    'gulp-merge-media-queries': 'mmq'
+  }
+});
+const	bsDev  = require('browser-sync').create('dev');
+const bsTest = require('browser-sync').create('test');
+const	del    = require('del');
+const yargs  = require('yargs');
+const config = require('./gulpconfig.js');
+const extend = require('object-assign-deep');
+const request = require('request');
+import yaml from 'js-yaml';
+import fs from 'fs';
+
+// import metalsmith from 'metalsmith';
 import gulpsmith from 'gulpsmith';
 // Metalsmith Modules
 import msDebugUI from 'metalsmith-debug-ui';
@@ -11,34 +26,24 @@ import msCollections from 'metalsmith-collections';
 import msCollectionMetadata from 'metalsmith-collection-metadata';
 import msBranch from 'metalsmith-branch';
 import msPrism from 'metalsmith-prism';
-// Utilities
-import extend from 'object-assign-deep';
-import yaml from 'js-yaml';
-import yargs from 'yargs';
-import fs from 'fs';
+// LoDash
 import _ from 'lodash';
-// Config
-import settings from './generate-settings';
 
-const $ = loadPlugins({
-  rename: {
-    'gulp-merge-media-queries': 'mmq'
-  }
-});
-console.log(settings);
-// Set up base directories
-// const dir = {};
-// dir.src = config.source || './src';
-// dir.build = config.destination || './build';
-// dir.dist = config.deploy || './dist';
-// dir.test = config.test || './test';
-// dir.node = config.nodeModules || './node_modules';
-// dir.bower = config.bowerComponents || './bower_components';
-
-// CLI Flags
 const DEPLOY = Boolean(yargs.argv.production);
 const FULLTEST = Boolean(yargs.argv.fulltest);
 const TEST = Boolean(yargs.argv.test);
+
+function loadExternalJSON(url) {
+  let jsonObject = {};
+  request(url, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      jsonObject = JSON.parse(body);
+      // console.log(jsonObject);
+    }
+  });
+  return jsonObject;
+}
+// const treehouseProfileJSON = loadExternalJSON('https://teamtreehouse.com/brianhayes.json');
 
 function loadYmlData(filepath) {
   let file = fs.readFileSync(filepath, 'utf8');
@@ -47,85 +52,40 @@ function loadYmlData(filepath) {
 function loadJSONData(filepath) {
   return JSON.parse(fs.readFileSync(filepath, 'utf8'));
 }
-// function loadData(filepath) {
-//   let file = fs.readFileSync(filepath, 'utf8');
-//
-//   if (file.extension === 'json') {
-//     return JSON.parse(file);
-//   }
-//   if (file.extension === 'yml' || file.extension === 'yaml') {
-//     return yaml.load(file);
-//   }
-//   return null;
-// }
-// let siteData;
-// export function getSiteData(done) {
-//   siteData = {
-//     skills:    loadYmlData('src/content/skills.yml'),
-//     treehouse: loadJSONData('src/content/brianhayes.json')
-//   };
-//   done();
-// }
 
-//
-// SERVERS
-// ================= //
-
-const servers = {
-  dev:  browserSync.create('dev'),
-  test: browserSync.create('test')
+const siteConfig = {
+  title: 'Brian Hayes',
+  url:   {
+    dev:        `localhost:${config.devServer.port}`,
+    local:      `localhost:${config.devServer.port}`,
+    external:   `192.168.1.18:${config.devServer.port}`,
+    production: 'http://mydomain.com'
+  },
+  email:  'bjoeyhayes@gmail.com',
+  social: {
+    twitter:       'https://twitter.com/BJoeyHayes',
+    linkedin:      'https://www.linkedin.com/in/bjoeyhayes/',
+    github:        'https://github.com/joeyred',
+    codepen:       'https://codepen.io/joeyred/',
+    stackoverflow: 'https://stackoverflow.com/users/5331958/joeyred'
+  }
 };
-
-// Development Server
-export function serverDev(done) {
-  if (!TEST) {
-    servers.dev.init(settings.servers.dev);
-  }
-  done();
-}
-
-// Test Server
-export function serverTest(done) {
-  if (TEST || FULLTEST) {
-    servers.test.init(settings.servers.test);
-  }
-  done();
-}
-export function startServers(done) {
-  if (!TEST) {
-    servers.dev.init(settings.servers.dev);
-  }
-  if (TEST || FULLTEST) {
-    servers.test.init(settings.servers.test);
-  }
-  done();
-}
-export function reload(done) {
-  if (FULLTEST) {
-    servers.dev.reload();
-    servers.test.reload();
-  } else if (TEST) {
-    servers.test.reload();
-  } else {
-    servers.dev.reload();
-  }
-  done();
-}
-
-//
-// Pages
-// ================= //
-
 let siteData;
+// const siteData = {
+//   skills:    loadYmlData('src/content/skills.yml'),
+//   treehouse: treehouseProfileJSON
+// };
+const filters = {
+  markdown: require('jstransformer-markdown-it')
+};
 
 const helpers = {
   url: (link) => {
     if (DEPLOY) {
-      return settings.pages.metadata.site.url + link;
+      return siteConfig.url.production + link;
     }
     return link;
   },
-  // included simply for backward compatability
   borderGradiantString: (points, colors) => {
     let slices = [];
     let slice;
@@ -167,19 +127,19 @@ const helpers = {
   }
 };
 
-const filters = {
-  markdown: require('jstransformer-markdown-it')
-};
-
 const pugArgs = {
   useMetadata: true,
   pretty:      true,
+  // basedir:     `src/metalsmith`,
+  // debug:       true,
+  globals:     ['hello', 'world'],
   filters:     {
     markdown: function(block) {
       return filters.markdown.render(block);
     }
   }
 };
+
 export function getTreehouseJSON() {
   return $.remoteSrc('brianhayes.json', {base: 'https://teamtreehouse.com/'})
     .pipe(gulp.dest('./src/content/'));
@@ -194,31 +154,78 @@ export function getSiteData(done) {
 }
 
 export function runGulpsmith() {
-  const ms = gulpsmith(settings.pages.src);
-  return gulp.src(settings.pages.src + '/pages/**/*')
+  const ms = gulpsmith('./src/metalsmith');
+  return gulp.src('./src/metalsmith/pages/**/*')
     .pipe($.frontMatter()).on('data', function(file) {
       _.assign(file, file.frontMatter);
       delete file.frontMatter;
     })
     .pipe(
+      // gulpsmith()
       ms
         .metadata({
-          build:   {production: DEPLOY},
-          site:    settings.pages.metadata.site,
+          build: {
+            production: DEPLOY
+          },
+          site:    siteConfig,
           data:    siteData,
           _:       _,
           filters: filters,
           helpers: helpers
         })
-        .use(msDebugUI.report('Metadata Loaded'))
-        .use(msCollections(settings.pages.collections.defined))
-        .use(msCollectionMetadata(settings.pages.collections.defaults))
+        .use(msCollections({
+          icons: {
+            pattern: 'icons/**/*.pug'
+          },
+          pens: {
+            pattern: 'pens/**/*.pug'
+          },
+          projects: {
+            pattern: 'projects/**/*.pug'
+          },
+          styleguide: {
+            pattern: 'styleguide/**/*.pug'
+          },
+          docs: {
+            pattern: 'docs/**/*.pug'
+          }
+        }))
+        .use(msCollectionMetadata({
+          'collections.pens': {
+            type: 'pen'
+          },
+          'collections.projects': {
+            type: 'project'
+          }
+        }))
         .use(msBranch()
-          .pattern(settings.pages.collections.precompile)
-          .use(msPug(pugArgs))
+          .pattern('styleguide/**/*.pug')
+          .use(msPug({
+            useMetadata: true,
+            pretty:      true,
+            // basedir:     `src/metalsmith`,
+            // debug:       true,
+            globals:     ['hello', 'world'],
+            filters:     {
+              markdown: function(block) {
+                return filters.markdown.render(block);
+              }
+            }
+          }))
         )
         .use(msDebugUI.report('Collections Created'))
-        .use(msPug(pugArgs))
+        .use(msPug({
+          useMetadata: true,
+          pretty:      true,
+          // basedir:     `src/metalsmith`,
+          // debug:       true,
+          globals:     ['hello', 'world'],
+          filters:     {
+            markdown: function(block) {
+              return filters.markdown.render(block);
+            }
+          }
+        }))
         .use(msDebugUI.report('Pug Compiled'))
         // Code Highlighting
         .use(msPrism())
@@ -226,9 +233,13 @@ export function runGulpsmith() {
         .use(msPermalinks())
         .use(msDebugUI.report('Permalinks Done'))
     )
-    .pipe($.if(DEPLOY, gulp.dest(settings.dest.dist), gulp.dest(settings.dest.build)));
+    // .on('error', function(e) {
+    //   console.error('\x1b[31m%s\x1b[0m', e.message);
+    //   // console.log(e);
+    //   this.emit('end');
+    // })
+    .pipe(gulp.dest('./build'));
 }
-// Deal with Debug UI weirdness
 export function copyDebugUIFilesToBuildDir() {
   return gulp.src('./src/metalsmith/build/**/*')
     .pipe(gulp.dest('./build'));
@@ -236,15 +247,20 @@ export function copyDebugUIFilesToBuildDir() {
 export function deleteDebugUIFiles() {
   return del('./src/metalsmith/build');
 }
+export function manageCollectionsOutput() {
+  return del([
+    './build/styleguide/**/*',
+    '!./build/styleguide/index.html',
+    './build/icons'
+  ]);
+}
+
 const debugUIFuckery = gulp.series(
   copyDebugUIFilesToBuildDir,
   deleteDebugUIFiles
 );
-export {debugUIFuckery};
 
-export function manageCollectionsOutput() {
-  return del(settings.pages.collections.delete);
-}
+export {debugUIFuckery};
 
 export function concatPugMixins() {
   return gulp.src('src/metalsmith/mixins/!(mixins).pug')
@@ -256,44 +272,64 @@ export function cleanErrorFilesInBuild() {
   return del('./build/**/*.pug');
 }
 
-// Final Site Pages Task
 const buildSitePages = gulp.series(
   concatPugMixins,
   cleanErrorFilesInBuild,
   runGulpsmith,
   gulp.parallel(debugUIFuckery, manageCollectionsOutput)
 );
+
 export {buildSitePages};
 
-//
-// Styles
-// ================= //
-// TODO Add uncss
+export function devServer(done) {
+  bsDev.init(config.devServer);
+  done();
+}
+
+export function testServer(done) {
+  if (TEST || FULLTEST) {
+    bsTest.init(config.testServer);
+  }
+  done();
+}
+
+export function reload(done) {
+  if (FULLTEST) {
+    bsDev.reload();
+    bsTest.reload();
+  } else if (TEST) {
+    bsTest.reload();
+  } else {
+    bsDev.reload();
+  }
+  done();
+}
+
+export function clean() {
+  return del('./build');
+}
+
 export function styles() {
-  return gulp.src(`${settings.styles.src}/*.scss`)
+  return gulp.src(config.scss.paths.src + '/*.scss')
     .pipe($.sourcemaps.init())
-    .pipe($.sass(settings.styles.options).on('error', $.sass.logError))
+    .pipe($.sass(config.scss.options.sass).on('error', $.sass.logError))
     .pipe($.pixrem())
-    .pipe($.autoprefixer({browsers: settings.styles.compatability}))
-    .pipe($.mmq(settings.styles.mmq))
+    .pipe($.autoprefixer({browsers: config.scss.compatability}))
+    .pipe($.mmq(config.scss.options.mmq))
     .pipe($.if(DEPLOY, $.cssnano()))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest($.if(DEPLOY, settings.styles.dest.dist, settings.styles.dest.build)))
+    .pipe(gulp.dest(config.scss.paths.build))
     .pipe(
-      servers.dev.stream({ // Inject Styles
+      bsDev.stream({ // Inject Styles
         // Force source map exclusion.
         // *This fixes reloading issue on each file change*
         match: '**/*.css'
       })
-    )
-  ;
+    );
 }
 
-//
-// Scripts
-// ================= //
 export function scripts() {
-  return gulp.src(settings.scripts.partials.main)
+  return gulp.src(config.js.paths.partials)
     .pipe($.sourcemaps.init())
     .pipe($.babel())
     .on('error', function(e) {
@@ -304,9 +340,9 @@ export function scripts() {
     .pipe($.concat('app.js'))
     .pipe($.if(DEPLOY, $.uglify()))
     .pipe($.sourcemaps.write('./'))
-    .pipe(gulp.dest($.if(DEPLOY, settings.scripts.dest.dist, settings.scripts.dest.build)));
+    .pipe(gulp.dest(config.js.paths.build));
 }
-// NOTE nonconfigurable for now
+
 export function testScripts() {
   return gulp.src('test/scripts/*.js')
     .pipe($.sourcemaps.init())
@@ -315,31 +351,26 @@ export function testScripts() {
     .pipe(gulp.dest('./test'));
 }
 
-//
-// Images
-// ================= //
 export function images() {
-  return gulp.src(`${settings.images.src}/**/*`)
+  return gulp.src(config.images.paths.src)
     .pipe($.if(DEPLOY,
-      $.imagemin(settings.images.options)
+      $.imagemin(config.images.options)
     ))
-    .pipe($.if(DEPLOY, gulp.dest(settings.images.dest.dist), gulp.dest(settings.images.dest.build)));
+    .pipe(gulp.dest(config.images.paths.build));
 }
 
-//
-// API
-// ================= //
 function parseObjectString(string, value) {
   let output = {};
   let previous;
   let chain = string.split('.');
   // If there's just one key, then keep it simple and return the output.
-  /** This stops the doubling effect of `key: {key: {}}` */
+  // NOTE: This stops the doubling effect of `key: {key: {}}`
   if (chain.length === 1) {
     output[chain[0]] = value;
     return output;
   }
   for (let i = 0; i < chain.length; i++) {
+    // TODO: Replace with `case` operator.
     // First key
     if (i === 0) {
       output[chain[i]] = {};
@@ -359,31 +390,37 @@ function parseObjectString(string, value) {
 }
 
 export function buildAPI() {
+  // Use this to store the current file name
   let currentFile;
-  let namespace;
-  const src = DEPLOY ? settings.dest.dist : settings.dest.build;
-  return gulp.src(`${src}/**/*.html`)
+  return gulp.src('build/**/*.html')
+  // Rename the file and set `currentFile`
+    .pipe($.rename(function(path) {
+      console.log(path);
+
+      path.basename = path.dirname;
+      currentFile = path.basename;
+    }))
+}
+
+export function buildPensAPI() {
+  // Use this to store the current file name
+  let currentFile;
+  return gulp.src('build/**/*.html')
+  // Rename the file and set `currentFile`
     .pipe($.rename(function(path) {
       console.log(path);
       // If string contains '/': parse and pull the last value
       if (path.dirname.indexOf('/') > -1) {
         let arrayFromDirname = path.dirname.split('/');
-        console.log(arrayFromDirname);
-        // get indexes for object keys
-        let namespaceIndex = arrayFromDirname.length - 2;
         let lastIndex = arrayFromDirname.length - 1;
-        // set file and key
+        // TODO Look for possible namespace and apply it
         path.basename = arrayFromDirname[lastIndex];
-        // set namesapce key
-        namespace = arrayFromDirname[namespaceIndex];
       } else {
-        // make namespace false if there isnt one available
-        namespace = -1;
-        // Try to remember why I did this...
-        path.basename = path.dirname;
+          path.basename = path.dirname;
       }
       currentFile = path.basename;
     }))
+    // Do the DOM stuff
     .pipe($.dom(function() {
       let apiObject = {};
       let output = {};
@@ -397,37 +434,22 @@ export function buildAPI() {
           parseObjectString(objectChainString, blocks[i].innerHTML)
         );
       }
-      // handle namespacing
-      if (namespace === -1) {
-        output[currentFile] = apiObject;
-      }
-      if (namespace !== -1) {
-        if (!output[namespace]) {
-          output[namespace] = {};
-        }
-        output[namespace][currentFile] = apiObject;
-      }
+      output[currentFile] = apiObject;
       return JSON.stringify(output, null, 2);
     }, false))
+    // Change the extension to .json
     .pipe($.rename(function(path) {
       path.extname = '.json';
     }))
+    // Merge stuff so there's just a single JSON file at the end
     .pipe($.mergeJson({
-      filename: 'api.json'
+      fileName: 'api.json'
     }))
-    .pipe(
-      $.if(
-        DEPLOY,
-        gulp.dest(`${settings.dest.dist}/api`),
-        gulp.dest(`${settings.dest.build}/api`)
-      )
-    )
-  ;
+    .pipe(gulp.dest('build/api'));
 }
 
 export function removeAPIAttr() {
-  const src = DEPLOY ? settings.dest.dist : settings.dest.build;
-  return gulp.src(`${src}/**/*.html`)
+  return gulp.src('build/**/*.html')
     .pipe($.dom(function() {
       let elements = this.querySelectorAll('[build-api]');
 
@@ -436,83 +458,53 @@ export function removeAPIAttr() {
       }
       return this;
     }))
-    .pipe($.if(DEPLOY, gulp.dest(settings.dest.dist), gulp.dest(settings.dest.build)));
+    .pipe(gulp.dest('./build'));
 }
 
-const generateAPIFile = gulp.series(buildAPI, removeAPIAttr);
-export {generateAPIFile};
+const pensAPI = gulp.series(buildPensAPI, removeAPIAttr);
+export {pensAPI};
 
-export function clean() {
-  if (DEPLOY) {
-    return del(settings.dest.dist);
-  }
-  return del(settings.dest.build);
-}
-
-//
-// Watch
-// ================= //
 export function watch() {
-  // Styles
-  gulp.watch(`${settings.styles.src}/**/*.scss`, styles);
-  // Scripts
-  gulp.watch(`${settings.scripts.src}/**/*.js`, gulp.series(scripts, reload));
-  // Images
-  gulp.watch(`${settings.images.src}/**/*`, gulp.series(images, reload));
+  gulp.watch(`${config.scss.paths.src}/**/*.scss`, styles);
+  gulp.watch(config.js.paths.src, gulp.series(scripts, reload));
+  gulp.watch(config.images.paths.src, gulp.series(images, reload));
   if (FULLTEST || TEST) {
-    gulp.watch('test/index.html', servers.test.reload());
+    gulp.watch('test/index.html', bsTest.reload());
     gulp.watch('./test/scripts/*.js', gulp.series(testScripts, reload));
   }
   if (FULLTEST || !TEST) {
     gulp.watch(
-      [
-        'src/metalsmith/**/*',
-        '!src/metalsmith/build/**/*',
-        '!src/metalsmith/mixins/mixins.pug'
-      ],
-      gulp.series(buildSitePages, generateAPIFile, reload)
+      // ['src/metalsmith/**/*', '!src/metalsmith/mixins/*.pug'],
+      ['src/metalsmith/**/*', '!src/metalsmith/build/**/*', '!src/metalsmith/mixins/mixins.pug'],
+      // 'src/metalsmith/**/*',
+      gulp.series(buildSitePages, pensAPI, reload)
     );
+    // gulp.watch(
+    //   ['src/metalsmith/mixins/*.pug', '!src/metalsmith/mixins/index.pug'],
+    //   gulp.series(buildSitePages, pensAPI, reload)
+    // );
   }
 }
 
-// const start = function() {
-//
-// }
-
-const start = gulp.series(
+const dev = gulp.series(
   clean,
   getTreehouseJSON,
   getSiteData,
-  TEST ?
-    FULLTEST ?
-      gulp.parallel(
-        styles,
-        scripts,
-        testScripts,
-        images
-      ) :
-      gulp.parallel(
-        styles,
-        scripts,
-        testScripts
-      ) :
-    gulp.parallel(
-      styles,
-      scripts,
-      images
-    ),
-  TEST ?
-    gulp.series(
-      startServers,
-      watch
-    ) :
-    gulp.series(
-      buildSitePages,
-      generateAPIFile,
-      startServers,
-      watch
-    )
+  gulp.parallel(
+    styles,
+    scripts,
+    testScripts,
+    images
+  ),
+  buildSitePages,
+  pensAPI,
+  gulp.parallel(
+    devServer,
+    testServer
+  ),
+  watch
 );
 
-export {start};
-export default start;
+export {dev};
+
+export default dev;
