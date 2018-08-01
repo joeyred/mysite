@@ -3,6 +3,8 @@ var fs = require('fs');
 
 var config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 
+console.log(config);
+
 var dir = {};
 // Assign base directories
 dir.src = config.source ? './' + config.source : './src';
@@ -13,13 +15,13 @@ dir.node = config.node ? './' + config.node : './node_modules';
 dir.bower = config.bower ? './' + config.bower : './bower_components';
 
 // Assign sub directories in source directory
-dir.styles = config.styles ? './' + dir.src + '/' + config.styles : './' + dir.src + '/css';
-dir.scripts = config.scripts ? './' + dir.src + '/' + config.scripts : './' + dir.src + '/js';
-dir.images = config.images ? './' + dir.src + '/' + config.images : './' + dir.src + '/imgs';
-dir.pages = config.templates ? './' + dir.src + '/' + config.templates : './' + dir.src + '/metalsmith';
+dir.styles = config.styles ? dir.src + '/' + config.styles : dir.src + '/css';
+dir.scripts = config.scripts ? dir.src + '/' + config.scripts : dir.src + '/js';
+dir.images = config.images ? dir.src + '/' + config.images : dir.src + '/imgs';
+dir.pages = config.templates ? dir.src + '/' + config.templates : dir.src + '/metalsmith';
 
 function generateAssetFilepath(base, sub) {
-  if (config.assets.subDir) {
+  if (config.assets.sub_dir) {
     return base + '/assets/' + sub;
   }
   return base + '/' + sub;
@@ -38,6 +40,7 @@ function handleIncludedPaths(base, directories) {
   for (var _i = 0; _i < directories.length; _i++) {
     _output.push(getPath(base, directories[_i]));
   }
+  console.log(_output);
   return _output;
 }
 function handleCollections() {
@@ -52,34 +55,44 @@ function handleCollections() {
   for (var collection in config.collections) {
     if ({}.hasOwnProperty.call(config.collections, collection)) {
       // get the proper key
-      name = config.collections[collection].key || collection;
+      // also handle passing keys with null values
+      if (config.collections[collection] === null) {
+        name = collection;
+      } else {
+        name = config.collections[collection].key || collection;
+      }
       // set the pattern
       collections.defined[name] = {
         pattern: name + '/**/*.pug'
       };
-      // handle setting metadata defaults for the collection
-      if (config.collections[collection].defaults) {
-        defaults = config.collections[collection].defaults;
-        for (var setting in defaults) {
-          if ({}.hasOwnProperty.call(defaults, setting)) { // eslint-disable-line
-            collections.defaults['collections.' + name][setting] = defaults[setting];
+      if (config.collections[collection] !== null) {
+        // handle setting metadata defaults for the collection
+        if (config.collections[collection].defaults) {
+          defaults = config.collections[collection].defaults;
+          name = 'collections.' + name;
+          collections.defaults[name] = {};
+          for (var setting in defaults) { // eslint-disable-line
+            if ({}.hasOwnProperty.call(defaults, setting)) { // eslint-disable-line
+              collections.defaults[name][setting] = defaults[setting];
+            }
           }
         }
-      }
-      // handle deleting output files if needed
-      // but no deleting index files
-      if (!config.collections[collection].output) {
-        collections.delete.push(
-          dir.pages + '/' + collection + '/**/*',
-          '!' + dir.pages + '/' + collection + '/index.html'
-        );
-      }
-      // Handle preprocessing/precompiling
-      if (config.collections[collection].precompile) {
-        collections.percompile.push(collection + '/**/*.pug');
+        // handle deleting output files if needed
+        // but no deleting index files
+        if (!config.collections[collection].output) {
+          collections.delete.push(
+            dir.pages + '/' + collection + '/**/*',
+            '!' + dir.pages + '/' + collection + '/index.html'
+          );
+        }
+        // Handle preprocessing/precompiling
+        if (config.collections[collection].precompile) {
+          collections.precompile.push(collection + '/**/*.pug');
+        }
       }
     }
   }
+  console.log(collections);
   return collections;
 }
 
@@ -145,7 +158,7 @@ module.exports = {
     },
     compatability: config.assets.styles.compatability || [],
     options:       {
-      includePaths: handleIncludedPaths(dir.styles, config.assets.styles.includeDirectories) || [],
+      includePaths: handleIncludedPaths(dir.styles, config.assets.styles.include_directories) || [],
       percision:    config.assets.styles.percision || 10
     },
     mmq: {
