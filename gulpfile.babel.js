@@ -479,9 +479,10 @@ export function watch() {
   }
 }
 
-// const start = function() {
-//
-// }
+export function deploy() {
+  return gulp.src(`${settings.dest.dist}/**/*`)
+    .pipe($.ghPages());
+}
 
 const start = gulp.series(
   clean,
