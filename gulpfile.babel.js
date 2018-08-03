@@ -180,7 +180,11 @@ const pugArgs = {
     }
   }
 };
-export function getTreehouseJSON() {
+export function getTreehouseJSON(done) {
+  let file = fs.readFileSync('./src/content/brianhayes.json', 'utf8');
+  if (file && !DEPLOY) {
+    return done();
+  }
   return $.remoteSrc('brianhayes.json', {base: 'https://teamtreehouse.com/'})
     .pipe(gulp.dest('./src/content/'));
 }
