@@ -24,17 +24,24 @@ collections:
     output: true
     defaults:
       type: 'pen'
+      api:
+        namespace: 'pens'
   # Projects
   projects:
     output: true
     defaults:
       type: 'project'
+      api:
+        namespace: 'projects'
   # Styleguide
   styleguide:
     precompile: true
   # Documentation
   docs:
-
+    defaults:
+      type: 'doc'
+      api:
+        namespace: 'docs'
 assets:
   # whether to use an /assets/ sub directory
   sub_dir: true

@@ -417,7 +417,7 @@ export function buildAPI() {
       path.extname = '.json';
     }))
     .pipe($.mergeJson({
-      filename: 'api.json'
+      fileName: 'api.json'
     }))
     .pipe(
       $.if(

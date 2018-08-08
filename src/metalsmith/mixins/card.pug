@@ -12,7 +12,8 @@ mixin card(data, classes, horizontal)
   - var arrayFromFilename = data.path.split('/');
   - var lastIndex = arrayFromFilename.length - 1;
   - var filename = arrayFromFilename[lastIndex];
-  - var filenameNoExtention = _.replace(filename, '.pug', ''); 
+  - var filenameNoExtention = _.replace(filename, '.pug', '');
+  - var chain = data.api.namespace + '.' + filenameNoExtention;
   //- `horizontal` set with default
   - var isHorizontal = horizontal || true;
   //- Handle extra classes
@@ -32,7 +33,7 @@ mixin card(data, classes, horizontal)
         +icon('close')
       //- Open Pane
       button.button(
-        data-inject=filenameNoExtention
+        data-inject=chain
         data-pane-open=data.type
       ) See More
     
