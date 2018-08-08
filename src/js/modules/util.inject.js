@@ -1,24 +1,24 @@
-'use strict';
-// - each instance can make as many requests as needed
-// - need a way to possibly define where to inject, as well as what to inject from
-//   the request.
-// - maybe be able to pass an id through the target attr and use that to target the piece
-//   of content in the request that should be injected there.
-// - Content should only unloaded if new content is suppose to load. That way if the same
-//   dynamic content is opened, it doesnt have to load again.
 !function() {
+
 class Inject {
   constructor(element, options) {
     this.element = element;
-    this.options = Gingabulous.deepExtend(this.defaults, options);
+    this.options = Gingabulous.deepExtend(Inject.defaults(), options);
     this.xhr = new XMLHttpRequest();
     this.api;
     this.activeContent;
+
     this._init();
+    console.log(this);
   }
-  get defaults() {
+  static defaults() {
     return {
-      dataAttr: 'data-inject'
+      dataAttr: 'data-inject',
+      /**
+       * When to make the xhr request.
+       * @type {Boolean}
+       */
+      onLoad:   true
     };
   }
   get attr() {
@@ -29,59 +29,71 @@ class Inject {
       bind:      `${this.options.dataAttr}-bind`
     };
   }
-  get path() {
-    return this.element.getAttribute(this.attr.api);
-  }
   get boundElements() {
     return this.element.querySelectorAll(`[${this.attr.bind}]`);
   }
   _init() {
     this._ajax();
   }
-  _ajax() {
-    this.xhr.onreadystatechange = () => this._loadAPI();
-    this.xhr.open('GET',this.element.getAttribute(this.attr.api));
-    this.xhr.send();
+  /**
+   * Takes a string representaion of an object chain and traverses the real object to the
+   * last key in the chain.
+   *
+   * @method _traverseObject
+   * @private
+   * @param  {String}       chain  - String represenation of an object chain.
+   * @param  {Object}       object - The object to traverse.
+   * @return {*}                   - The new position in the object.
+   */
+  _traverseObject(chain, object) {
+    const keys = chain.split('.');
+    let output = object;
+    for (let i = 0; i < keys.length; i++) {
+      output = output[keys[i]];
+    }
+    return output;
   }
+  /**
+   * parses the response text and loads it into the api property
+   *
+   * @method _loadAPI
+   * @private
+   */
   _loadAPI() {
     if (this.xhr.readyState === 4) {
       this.api = JSON.parse(this.xhr.responseText);
-      // console.log('response text', this.xhr.responseText);
-      // console.log(this.api);
     }
   }
-  _forEachBindAttr(callback) {
-    let binds = this.element.querySelectorAll(`[${this.attr.bind}]`);
-    for (let bind in binds) {
-      if (Object.prototype.hasOwnProperty.call(binds, bind)) {
-        callback(binds[bind]);
-      }
-    }
-  }
-  _updateAttr(key) {
-    this.element.setAttribute(this.attr.content, key);
-  }
-  _getContent(objectChain) {
-    let data = objectChain.split('.');
-    let output = this.activeContent;
-    for (let i = 0; i < data.length; i++) {
-      output = output[data[i]];
-    }
-    return output;
+  /**
+   * handles the get request on the xhr object
+   *
+   * @method _ajax
+   * @private
+   */
+  _ajax() {
+    this.xhr.onreadystatechange = () => this._loadAPI();
+    this.xhr.open('GET', this.element.getAttribute(this.attr.api));
+    // this.xhr.open('GET', this.path);
+    this.xhr.send();
   }
   _injectContent() {
     for (let i = 0; i < this.boundElements.length; i++) {
       // Get the object chain to parse.
-      let objectChain = this.boundElements[i]
-        .getAttribute(this.attr.bind);
+      let chain = this.boundElements[i].getAttribute(this.attr.bind);
       // Inject the content, replacing whatever is already there.
-      this.boundElements[i].innerHTML = this._getContent(objectChain);
+      this.boundElements[i].innerHTML = this._traverseObject(chain, this.activeContent);
     }
   }
-  updateContent(key) {
-    // let key = eventElement.getAttribute(this.options.dataAttr);
-    // this._updateAttr(key);
-    this.activeContent = this.api[key];
+  /**
+   * Updates the content of the bound elements inner HTML based on a key or object chain
+   * passed as a string.
+   *
+   * @method updateContent
+   * @fires Inject#_injectContent
+   * @param  {String}      chain - the object chain that leads to the base object to use.
+   */
+  updateContent(chain) {
+    this.activeContent = this._traverseObject(chain, this.api);
     this._injectContent();
   }
 }

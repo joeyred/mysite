@@ -114,7 +114,7 @@ describe('Inject Utility Module', function() {
   //   });
   // });
 
-  describe('_getContent', function() {
+  describe('_traverseObject', function() {
     var exampleObject = {
       foo: {
         bar: {
@@ -125,10 +125,13 @@ describe('Inject Utility Module', function() {
       }
     };
     it('Correctly parses object chain and outputs content', function() {
-      module.activeContent = exampleObject;
-      expect(module._getContent('foo.bar.zip.zap'))
-      .to
-      .equal(exampleObject.foo.bar.zip.zap);
+      expect(module._traverseObject('foo.bar', exampleObject))
+        .to
+        .deep
+        .equal(exampleObject.foo.bar);
+      expect(module._traverseObject('foo.bar.zip.zap', exampleObject))
+        .to
+        .equal(exampleObject.foo.bar.zip.zap);
     });
   });
 
@@ -137,38 +140,38 @@ describe('Inject Utility Module', function() {
       module.activeContent = exampleAPIObject.contentA;
       module._injectContent();
       expect(html.querySelector('[data-inject-bind="exampleA"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentA.exampleA);
+        .to
+        .equal(exampleAPIObject.contentA.exampleA);
       expect(html.querySelector('[data-inject-bind="exampleB"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentA.exampleB);
+        .to
+        .equal(exampleAPIObject.contentA.exampleB);
       expect(html.querySelector('[data-inject-bind="exampleC.childA"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentA.exampleC.childA);
+        .to
+        .equal(exampleAPIObject.contentA.exampleC.childA);
       expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentA.exampleC.childB);
+        .to
+        .equal(exampleAPIObject.contentA.exampleC.childB);
       expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentA.exampleC.childB);
+        .to
+        .equal(exampleAPIObject.contentA.exampleC.childB);
       // Data Change
       module.activeContent = exampleAPIObject.contentB;
       module._injectContent();
       expect(html.querySelector('[data-inject-bind="exampleA"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentB.exampleA);
+        .to
+        .equal(exampleAPIObject.contentB.exampleA);
       expect(html.querySelector('[data-inject-bind="exampleB"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentB.exampleB);
+        .to
+        .equal(exampleAPIObject.contentB.exampleB);
       expect(html.querySelector('[data-inject-bind="exampleC.childA"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentB.exampleC.childA);
+        .to
+        .equal(exampleAPIObject.contentB.exampleC.childA);
       expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentB.exampleC.childB);
+        .to
+        .equal(exampleAPIObject.contentB.exampleC.childB);
       expect(html.querySelector('[data-inject-bind="exampleC.childB"]').innerHTML)
-      .to
-      .equal(exampleAPIObject.contentB.exampleC.childB);
+        .to
+        .equal(exampleAPIObject.contentB.exampleC.childB);
     });
   });
 });
