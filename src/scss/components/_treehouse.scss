@@ -79,12 +79,21 @@
       font-size: 1rem;
       font-weight: 400;
       margin-bottom: 0;
+
+      @include mq('md') {
+        font-size: 1.5rem;
+      }
     }
+
     p {
       color: $color-black;
       margin-bottom: 0;
       letter-spacing: 2px;
       font-size: 2rem;
+
+      @include mq('md') {
+        font-size: 3rem;
+      }
     }
   }
   .treehouse-points-figure {
@@ -127,6 +136,9 @@
         color: $color-grey_dark;
         letter-spacing: 1px;
         text-align: center;
+        @include mq('lg') {
+          font-size: to-rem(18);
+        }
       }
       img {
         padding: 0 1rem;
