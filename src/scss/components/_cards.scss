@@ -10,6 +10,7 @@ ul.cards {
 
   > li {
     flex: 1 0 to-rem(340);
+    max-width: to-rem(340);
     padding: 0 $grid_gutter;
   }
 }
@@ -61,7 +62,7 @@ ul.cards {
 
     h3 {
       color: $color-red;
-      font-size: to-rem(14);
+      font-size: to-rem(12);
       letter-spacing: 1px;
       margin-bottom: 0.4rem;
     }
@@ -91,12 +92,18 @@ ul.cards {
     // visibility: hidden;
     // transition: height 200ms ease-out;
     .icon-button {
-      &::before {
-        padding: 1rem;
-        height: 1rem;
-        width: 1rem;
+      flex: 0 0 0;
+      > svg {
+        fill: $color-black;
       }
     }
+    // .icon-button {
+    //   &::before {
+    //     padding: 1rem;
+    //     height: 1rem;
+    //     width: 1rem;
+    //   }
+    // }
 
     .icon {
       flex: 0 1 2rem;
