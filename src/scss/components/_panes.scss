@@ -162,6 +162,11 @@
   position: fixed;
   width: 100%;
   z-index: z('pane-top-bar');
+
+  .icon-button {
+    background: $color-grey_darker;
+    // border-radius: 50%;
+  }
 }
 
 .fixed-bottom-bar {
