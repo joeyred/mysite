@@ -15,6 +15,6 @@
       if data.treehouse.points
         each points, category in data.treehouse.points
           if points > 0 && category != 'total'
-            li.treehouse-points-figure.block.sm-6(class=_.replace(_.lowerCase(category), ' ', ''))
+            li.treehouse-points-figure.block.sm-6.md-4(class=_.replace(_.lowerCase(category), ' ', ''))
               h4=category
               p=points
