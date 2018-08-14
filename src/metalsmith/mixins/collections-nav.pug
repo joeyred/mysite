@@ -1,0 +1,53 @@
+mixin collectionNav(collection)
+  //- - var allCategories = [];
+  //- - var navTree = {};
+  //- - var currentCategory;
+  //- - var currentSubCategory;
+  //- Get all the categories
+  //- each item in collection
+  //-   if item.category
+  //-     //- Check if the category exists, if not, add it.
+  //-     if !navTree[item.category]
+  //-       - navTree[item.category] = {};
+  //-     //- Check if subcategory exists, if not, add it.
+  //-     if !navTree[item.category][item.sub_category]
+  //-       - navTree[item.category][item.sub_category] = {}
+  //-     //- Add Item
+  //-   - navTree[item.category][item.sub_category][]
+  //- //- parse array of all categories and leave just the unique ones
+  //- - var uniqueCategories = _.unique(allCategories);
+  
+  - var dataObject = helpers.generateNavObject(collection);
+  - var navObject = dataObject.output;
+  - var navDepth = dataObject.depth;
+  
+  .container
+    case navDepth
+      when 1
+        .block.sm-12
+          ul.nav-vertical
+            each item in navObject
+              li
+                a(href=helpers.url(item.path)) #{item.title}
+      when 2
+        each category, key in navObject
+          .block.sm-12
+            h2 #{_.capitalize(key)}
+          .block.sm-12
+            ul.nav-vertical
+              each item in category 
+                li
+                  a(href=helpers.url(item.path)) #{item.title}
+      when 3
+        each category, key in navObject
+          .block.sm-12
+            h2 #{_.capitalize(key)}
+          
+          each subCategory, subKey in category
+            .block.sm-12
+              h3 #{_.capitalize(subKey)}
+            .block.sm-12
+              ul.nav-vertical
+                each item in subCategory
+                  li
+                    a(href=helpers.url(item.path)) #{item.title}
