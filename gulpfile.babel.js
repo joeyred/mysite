@@ -11,6 +11,7 @@ import msCollections from 'metalsmith-collections';
 import msCollectionMetadata from 'metalsmith-collection-metadata';
 import msBranch from 'metalsmith-branch';
 import msPrism from 'metalsmith-prism';
+import msEach from 'metalsmith-each';
 // Utilities
 import extend from 'object-assign-deep';
 import yaml from 'js-yaml';
@@ -25,7 +26,7 @@ const $ = loadPlugins({
     'gulp-merge-media-queries': 'mmq'
   }
 });
-console.log(settings);
+// console.log(settings);
 // Set up base directories
 // const dir = {};
 // dir.src = config.source || './src';
@@ -125,6 +126,54 @@ const helpers = {
     }
     return link;
   },
+  generateNavObject: (data) => {
+    const output = {};
+    let item;
+    let depth;
+    let itemOutput;
+    let itemName;
+    let itemPath;
+    for (let i = 0; i < data.length; i++) {
+      item = data[i];
+      // handle the item object output
+      // handle getting the filename
+      itemName = item.path.split('/');
+      itemName = itemName[itemName.length - 1].split('.');
+      itemName = itemName[0];
+      // handle getting the proper path
+      itemPath = item.path.split('.');
+      itemPath = `${itemPath[0]}/`;
+      // final output of the item
+      itemOutput = {
+        title: item.title || _.capitalize(itemName),
+        path:  itemPath
+      };
+      // check if there's a category key
+      if (item.category) {
+        // Check if the category exists, if not, add it.
+        if (!output[item.category]) {
+          output[item.category] = {};
+        }
+        // Check if subcategory exists, if not, add it.
+        if (item.sub_category) {
+          // eslint-disable-next-line
+          if (!output[item.category][item.sub_category]) {
+            output[item.category][item.sub_category] = {};
+          }
+          depth = 3;
+          output[item.category][item.sub_category][itemName] = itemOutput;
+        } else {
+          depth = 2;
+          output[item.category][itemName] = itemOutput;
+        }
+      } else {
+        depth = 1;
+        output[itemName] = itemOutput;
+      }
+    }
+    // console.log(output);
+    return {depth, output};
+  },
   // included simply for backward compatability
   borderGradiantString: (points, colors) => {
     let slices = [];
@@ -215,6 +264,28 @@ export function runGulpsmith() {
           helpers: helpers
         })
         .use(msDebugUI.report('Metadata Loaded'))
+        .use(msBranch()
+          .pattern('**/*.md')
+          .use(msEach(
+            function(file, filename) {
+              const nameArray = filename.split('.');
+              const newFilename = `${nameArray[0]}.pug`;
+              const block = file.block_name || 'main';
+
+              file.parsedContents = _.toString(file.contents);
+              file.contents = `
+extends ${file.extends}
+
+block ${block}
+  .container
+    .block!= filters.markdown.render(parsedContents)
+`;
+              // console.log(file.contents);
+              return newFilename;
+            }
+          ))
+        )
+        .use(msDebugUI.report('Markdown files converted to pug'))
         .use(msCollections(settings.pages.collections.defined))
         .use(msCollectionMetadata(settings.pages.collections.defaults))
         .use(msBranch()
@@ -368,11 +439,11 @@ export function buildAPI() {
   const src = DEPLOY ? settings.dest.dist : settings.dest.build;
   return gulp.src(`${src}/**/*.html`)
     .pipe($.rename(function(path) {
-      console.log(path);
+      // console.log(path);
       // If string contains '/': parse and pull the last value
       if (path.dirname.indexOf('/') > -1) {
         let arrayFromDirname = path.dirname.split('/');
-        console.log(arrayFromDirname);
+        // console.log(arrayFromDirname);
         // get indexes for object keys
         let namespaceIndex = arrayFromDirname.length - 2;
         let lastIndex = arrayFromDirname.length - 1;

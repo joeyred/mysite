@@ -69,6 +69,17 @@
 ul.nav-vertical {
   list-style: none;
   padding-left: 0;
+  li {
+    padding: to-rem(5);
+    a {
+      display: block;
+      color: $color-white;
+      letter-spacing: 1px;
+      &:hover {
+        color: $color-purple;
+      }
+    }
+  }
 }
 
 ul.nav-horizontal {

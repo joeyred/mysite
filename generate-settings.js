@@ -3,7 +3,7 @@ var fs = require('fs');
 
 var config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 
-console.log(config);
+// console.log(config);
 
 var dir = {};
 // Assign base directories
