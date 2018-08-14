@@ -171,7 +171,7 @@ const helpers = {
         output[itemName] = itemOutput;
       }
     }
-    console.log(output);
+    // console.log(output);
     return {depth, output};
   },
   // included simply for backward compatability
@@ -280,7 +280,7 @@ block ${block}
   .container
     .block!= filters.markdown.render(parsedContents)
 `;
-              console.log(file.contents);
+              // console.log(file.contents);
               return newFilename;
             }
           ))
