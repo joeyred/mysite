@@ -7,7 +7,7 @@
 
 .doc-nav-pane {
   .pane-content {
-    padding-top: $topbar_height;
+
   }
   background: $color-grey_darker;
   &[data-responsive-state="inactive"] {
@@ -22,11 +22,27 @@
       width: 20%;
       background: $color-grey_darker;
       height: 100vh;
-      padding-top: $spacing-unit_vertical;
+      // padding-top: $spacing-unit_vertical;
     }
   }
   h1 {
-    font-size: 1rem;
+    padding-top: $topbar_height;
+    font-size: 1.5rem;
+    background: $color-red;
+    color: $color-black;
+    padding: $grid_gutter;
+    margin-left: -#{$grid_gutter};
+    margin-right: -#{$grid_gutter};
+    margin-bottom: 0;
+  }
+  h2 {
+    padding: $grid_gutter;
+    margin-left: -#{$grid_gutter};
+    margin-right: -#{$grid_gutter};
+    background: $color-black;
+  }
+  ul {
+    padding-left: 1rem;
   }
 }
 
