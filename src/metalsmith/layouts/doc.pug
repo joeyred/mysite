@@ -1,5 +1,8 @@
 extends default.pug
 
+block title
+  title= title
+
 block append stylesheets
   if build.production
     link(
@@ -13,29 +16,39 @@ block append stylesheets
     )
 
 block nav
-  - var allTypes = [];
-  - var filteredDocs;
-  - var link;
-  each doc in collections.docs
-    - allTypes.push(doc.type)
-  - var uniqueTypes = _.uniq(allTypes);
+  //- - var allTypes = [];
+  //- - var filteredDocs;
+  //- - var link;
+  //- //- seperate all categories
+  //- each doc in collections.docs
+  //-   - allTypes.push(doc.type)
+  //- - var uniqueTypes = _.uniq(allTypes);
+  //- +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'lg-down'})
+  //-   .container
+  //-     .block.sm-12
+  //-       h1 Site Documentation
+  //-   .container
+  //-     each type in uniqueTypes
+  //-       - filteredDocs = _.filter(collections.docs, {type: type});
+  //-       .block.sm-12
+  //-         h2 #{_.capitalize(type)}
+  //-       .block.sm-12
+  //-         ul.nav-vertical
+  //-           each doc in filteredDocs
+  //-             - link = doc.path.split('.');
+  //-             - link = link[0];
+  //-             li 
+  //-               a(href=helpers.url(`/${link}/`)) #{doc.title}
+  //- +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'lg-down'})
+  //-   .container
+  //-     .block.sm-12
+  //-       h1 Site Documentation
+  
   +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'lg-down'})
     .container
       .block.sm-12
         h1 Site Documentation
-    .container
-      each type in uniqueTypes
-        - filteredDocs = _.filter(collections.docs, {type: type});
-        .block.sm-12
-          h2 #{_.capitalize(type)}
-        .block.sm-12
-          ul.nav-vertical
-            each doc in filteredDocs
-              - link = doc.path.split('.');
-              - link = link[0];
-              li 
-                a(href=helpers.url(`/${link}/`)) #{doc.title}
-
+    +collectionNav(collections.docs)
 block header
   header.site-header
     .top-bar
@@ -44,13 +57,13 @@ block header
           +icon('menu')
 
 block content
-
   article.wrapper
     header.conatiner
       .block.sm-12(build-api='title')
         h1= title
       .block.sm-12(build-api='description')
-        block description
+        p= description
+        
     section.container
       .block.sm-12(build-api='main')
         block main
