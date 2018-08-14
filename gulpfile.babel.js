@@ -25,7 +25,7 @@ const $ = loadPlugins({
     'gulp-merge-media-queries': 'mmq'
   }
 });
-console.log(settings);
+// console.log(settings);
 // Set up base directories
 // const dir = {};
 // dir.src = config.source || './src';
