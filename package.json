@@ -60,6 +60,7 @@
     "metalsmith-collections": "^0.9.0",
     "metalsmith-debug": "^1.1.0",
     "metalsmith-debug-ui": "^0.1.1",
+    "metalsmith-each": "^0.1.1",
     "metalsmith-layouts": "^1.8.1",
     "metalsmith-linkcheck": "^0.3.0",
     "metalsmith-markdown": "^0.2.1",
