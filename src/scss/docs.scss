@@ -10,6 +10,14 @@
 
   }
   background: $color-grey_darker;
+  &[data-responsive-state="active"] {
+    .pane-content {
+      text-align: center;
+    }
+    h1 {
+      padding-top: $topbar_height;
+    }
+  }
   &[data-responsive-state="inactive"] {
     position: relative;
     width: 20%;
@@ -36,10 +44,15 @@
     margin-bottom: 0;
   }
   h2 {
+    font-size: 1.3rem;
     padding: $grid_gutter;
     margin-left: -#{$grid_gutter};
     margin-right: -#{$grid_gutter};
     background: $color-black;
+  }
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
   }
   ul {
     padding-left: 1rem;
