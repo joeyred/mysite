@@ -17,7 +17,7 @@ block append stylesheets
 
 block nav
   +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'lg-down'})
-    .container
+    .container.nav-header
       .block.sm-12
         h1 Site Documentation
     +collectionNav(collections.docs)
