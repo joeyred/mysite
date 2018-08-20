@@ -19,19 +19,38 @@ block append stylesheets
     )
 
 block nav
-  - var allTypes = [];
-  - var docLinks;
-  each doc in collections.docs
-    - allTypes.push(doc.type)
-  - var uniqueTypes = _.uniq(allTypes);
-  +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'l-down'})
-    .container
+  +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'lg-down'})
+    .container.nav-header
       .block.sm-12
         h1 Site Documentation
-    .container
-      each type in uniqueTypes
-        - docLinks = _.filter(collections.docs, {type: type});
-        h2 #{_.capitalize(type)}
-        ul
-          each link in docLinks
-            li #{link.title}
+    +collectionNav(collections.docs)
+block header
+  header.site-header
+    .top-bar
+      .left
+        button.icon-button.open-menu(data-pane-open='docNav')
+          +icon('menu')
+
+block content
+  article.wrapper
+    header.container
+      .block.sm-12
+        .titled-callout
+          .titled-callout-heading
+            h1 What You'll Find in these Docs
+          .titled-callout-content-wrapper
+            .titled-callout-content
+              p.
+                This documentation contains some basic, and even in-depth at times, looks
+                into the Javascript modules, and pug mixins that make this site work.
+          
+    section.container
+      .block.sm-12
+        :markdown
+          ## The Basics
+          
+          This documentation was and is written primarily for my own use. (I may have 
+          been a bit sick of forgetting how exactly to use modules I wrote weeks, or 
+          months ago). In that regard, while I try to keep them good enough for anyone 
+          to use, these docs are far from complete. 
+    

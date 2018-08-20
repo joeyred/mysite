@@ -17,9 +17,10 @@ block append stylesheets
 
 block nav
   +pane('docNav', 'left', 'doc-nav-pane', {responsive: 'lg-down'})
-    .container
+    .container.nav-header
       .block.sm-12
-        h1 Site Documentation
+        h1 
+          a(href=helpers.url('/docs/')) Site Documentation
     +collectionNav(collections.docs)
 block header
   header.site-header
@@ -30,12 +31,15 @@ block header
 
 block content
   article.wrapper
-    header.conatiner
-      .block.sm-12(build-api='title')
-        h1= title
-      .block.sm-12(build-api='description')
-        p= description
-        
+    header.container
+      .block.sm-12
+        .titled-callout
+          .titled-callout-heading(build-api='title')
+            h1= title
+          .titled-callout-content-wrapper
+            .titled-callout-content(build-api='description')
+              p= description
+
     section.container
       .block.sm-12(build-api='main')
         block main
