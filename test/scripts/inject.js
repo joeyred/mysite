@@ -124,7 +124,7 @@ describe('Inject Utility Module', function() {
         }
       }
     };
-    it('Correctly parses object chain and outputs content', function() {
+    it('Correctly parses object chain string and traverses the object', function() {
       expect(module._traverseObject('foo.bar', exampleObject))
         .to
         .deep

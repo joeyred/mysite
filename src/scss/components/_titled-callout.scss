@@ -29,7 +29,7 @@
         h4,
         h5,
         h6 {
-          color: $_color-value;
+          color: darken($_color-value, 20%);
         }
       }
     }
