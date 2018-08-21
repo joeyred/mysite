@@ -1,5 +1,4 @@
 !function($) {
-console.log(Gingabulous);
 function init() {
   var panesNode = document.querySelector(Gingabulous.modules.Panes.dataAttrTarget);
   var panes = new Gingabulous.Panes(panesNode);
@@ -161,6 +160,7 @@ Gingabulous.animationSeries(
   ]
 );
 // Gingabulous.Debug.timer(6000);
+console.log(Gingabulous);
 init();
 // initCards();
 }(jQuery);

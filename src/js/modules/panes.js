@@ -124,6 +124,6 @@ class Panes {
   }
 }
 
-Gingabulous.registerModule(Panes);
+Gingabulous.registerModule(Panes, 'Panes');
 
 }();

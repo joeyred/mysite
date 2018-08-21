@@ -105,5 +105,5 @@ class Expand {
   }
 }
 
-Gingabulous.registerModule(Expand);
+Gingabulous.registerModule(Expand, 'Expand');
 }();

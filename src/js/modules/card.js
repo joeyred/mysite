@@ -92,5 +92,5 @@ class Card {
     });
   }
 }
-Gingabulous.registerModule(Card);
+Gingabulous.registerModule(Card, 'Card');
 }();

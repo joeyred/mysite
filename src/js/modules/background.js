@@ -54,6 +54,6 @@ class Background {
     Gingabulous.events.scroll.registerCallback(() => this._syncScrolling());
   }
 }
-Gingabulous.registerModule(Background);
+Gingabulous.registerModule(Background, 'Background');
 Gingabulous.registerGlobalEventListener('scroll', document);
 }();

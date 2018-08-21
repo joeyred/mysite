@@ -33,8 +33,8 @@ var Gingabulous = {
   // _getDataAttr: function(dataAttrName) {
   //   return `data-${dataAttrName}`;
   // },
-  registerModule: function(module, jquery = false, dataAttrName) {
-    var name = module.prototype.constructor.name;
+  registerModule: function(module, name, dataAttrName, jquery = false) {
+    name = name || module.prototype.constructor.name;
     // If no value for `dataAttrName` is passed, then assign `name` to the value.
     dataAttrName = dataAttrName || this._hyphenate(name);
     // Add the module to the `modules` object.

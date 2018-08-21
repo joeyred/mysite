@@ -99,6 +99,6 @@ Overlay.prototype = {
   }
 };
 
-Gingabulous.registerModule(Overlay);
+// Gingabulous.registerModule(Overlay);
 
 }(jQuery);

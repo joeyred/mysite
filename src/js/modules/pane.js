@@ -284,8 +284,8 @@ class CarouselPane extends Pane {
   }
 }
 
-Gingabulous.registerModule(Pane);
-Gingabulous.registerModule(HomePane);
-Gingabulous.registerModule(DynamicPane);
-Gingabulous.registerModule(CarouselPane);
+Gingabulous.registerModule(Pane, 'Pane');
+Gingabulous.registerModule(HomePane, 'HomePane');
+Gingabulous.registerModule(DynamicPane, 'DynamicPane');
+Gingabulous.registerModule(CarouselPane, 'CarouselPane');
 }();
