@@ -26,7 +26,7 @@ class ScrollPosition {
   }
 }
 
-Gingabulous.ScrollPosition = ScrollPosition;
+// Gingabulous.ScrollPosition = ScrollPosition;
 
 class ScrollEmulation {
   constructor(element) {

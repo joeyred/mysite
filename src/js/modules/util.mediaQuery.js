@@ -37,6 +37,6 @@ class MediaQuery {
   }
 }
 
-Gingabulous.MediaQuery = new MediaQuery(Gingabulous.breakpoints);
+// Gingabulous.MediaQuery = new MediaQuery(Gingabulous.breakpoints);
 
 }(jQuery);
