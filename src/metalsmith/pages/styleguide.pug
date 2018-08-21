@@ -10,13 +10,13 @@ block append stylesheets
   if build.production
     link(
       rel='stylesheet'
-      href='/assets/css/styleguide.min.css'
+      href=helpers.url('/assets/css/styleguide.min.css')
     )
   else
     
     link(
       rel='stylesheet'
-      href='/assets/css/styleguide.css'
+      href=helpers.url('/assets/css/styleguide.css')
     )
 block title
   title= title

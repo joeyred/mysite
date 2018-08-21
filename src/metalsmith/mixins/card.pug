@@ -42,7 +42,7 @@ mixin card(data, classes, horizontal)
       //- Thumbnail Image
       .card-thumbnail
         img(
-          src=data.thumbnail.image 
+          src=helpers.url(data.thumbnail.image) 
           title=data.thumbnail.title
           alt=data.thumbnail.description
         )

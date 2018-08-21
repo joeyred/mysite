@@ -6,7 +6,8 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    base(href="/")
+
+    base(href=helpers.url('/'))
     //- Font Scripts
     include ../includes/head/font-scripts.pug
     //- Title of the page. can overwrite this.
@@ -18,13 +19,13 @@ html
       if build.production
         link(
           rel='stylesheet'
-          href='/assets/css/main.min.css'
+          href=helpers.url('/assets/css/main.min.css')
         )
       //- Else include non-minified file
       else
         link(
           rel='stylesheet'
-          href='/assets/css/main.css'
+          href=helpers.url('/assets/css/main.css')
         )
   body(class=bodyClass)
     include ../includes/loading-screen.pug

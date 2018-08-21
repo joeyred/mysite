@@ -7,12 +7,12 @@ block append stylesheets
   if build.production
     link(
       rel='stylesheet'
-      href='/assets/css/docs.min.css'
+      href=helpers.url('/assets/css/docs.min.css')
     )
   else
     link(
       rel='stylesheet'
-      href='/assets/css/docs.css'
+      href=helpers.url('/assets/css/docs.css')
     )
 
 block nav

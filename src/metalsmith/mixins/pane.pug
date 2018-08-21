@@ -3,14 +3,7 @@ mixin pane(id, position, classes, dataAtts)
   - dataAtts = dataAtts || {};
   //- Deal with API
   if dataAtts.api
-    //- Get proper domain
-    - var domain;
-    if build.production
-      - domain = site.url.production;
-    else
-      - domain = '';
-    
-    - data['data-inject-api'] = `${domain}/api/${dataAtts.api}.json`;
+    - data['data-inject-api'] = helpers.url(`/api/${dataAtts.api}.json`);
     //- deal with responsive data attr
   if dataAtts.responsive
     - data['data-responsive'] = dataAtts.responsive;
