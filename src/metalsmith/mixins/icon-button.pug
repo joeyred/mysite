@@ -1,9 +1,0 @@
-mixin iconButton(icon, action, id)
-  case action
-    when 'open pane'
-      button.icon-button(data-pane-open=id)
-        +icon(icon)
-
-    when 'close pane' 
-      button.icon-button(data-pane-close='')   
-        +icon(icon)
