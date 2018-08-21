@@ -121,6 +121,9 @@ let siteData;
 
 const helpers = {
   url: (link) => {
+    if (!_.startsWith(link, '/')) {
+      link = `/${link}`;
+    }
     if (DEPLOY) {
       return settings.pages.metadata.site.url + link;
     }
