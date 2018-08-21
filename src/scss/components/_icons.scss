@@ -7,13 +7,13 @@
 
   > svg {
     display: block;
-    // position: absolute;
     width: $icon-size;
     height: $icon-size;
     fill: $color-purple;
-    // Fix weird bug with js event bubbling and <use> inside svgs
-    // NOTE This also solves a weird issue with SVG event bubbling in general.
-    // See: http://stackoverflow.com/questions/24078524/svg-click-events-not-firing-bubbling-when-using-use-element
+    ////
+    /// Fix weird bug with js event bubbling and <use> inside svgs
+    /// NOTE This also solves a weird issue with SVG event bubbling in general.
+    /// @link http://stackoverflow.com/questions/24078524/svg-click-events-not-firing-bubbling-when-using-use-element
     pointer-events: none;
   }
 }
