@@ -4,16 +4,16 @@
 	"my-skills": {},
 	"my-work": {},
 	"styleguide": {
-		"colors": {},
 		"cards": {},
+		"colors": {},
 		"grid": {},
 		"icons": {},
-		"titled-callout": {},
-		"typography": {}
+		"typography": {},
+		"titled-callout": {}
 	},
 	"icons": {
-		"close": {},
-		"menu": {}
+		"menu": {},
+		"close": {}
 	},
 	"pens": {
 		"fixed-backgrounds-on-mobile": {
