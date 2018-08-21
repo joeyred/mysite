@@ -21,6 +21,13 @@ block append stylesheets
 block title
   title= title
 
+block nav
+  +pane('styleguideNav', 'left', 'styleguide-nav-pane', {responsive: 'lg-down'})
+    .container.nav-header
+      .block.sm-12
+        h1 Styleguide
+    +collectionNav(_.sortBy(collections.styleguide, 'order'))
+
 block content
   section.wrapper.header
     .container

@@ -10,6 +10,45 @@
   "mixins"
 ;
 
+.styleguide-nav-pane {
+  background: $color-grey_darker;
+  &[data-responsive-state="active"] {
+    .pane-content {
+      text-align: center;
+    }
+    .nav-header {
+      h1 {
+        padding-top: $topbar_height;
+      }
+    }
+
+  }
+  &[data-responsive-state="inactive"] {
+    position: relative;
+    width: 20%;
+    .pane-header {
+      display: none;
+    }
+    .pane-content {
+      position: fixed;
+      top: 0;
+      width: 20%;
+      background: $color-grey_darker;
+      height: 100vh;
+      overflow-y: scroll;
+      // padding-top: $spacing-unit_vertical;
+    }
+    .nav-header {
+      h1 {
+        position: fixed;
+        width: 20%;
+      }
+    }
+    .collection-nav {
+      padding-top: 6.5rem;
+    }
+  }
+}
 .styleguide {
   background: $color-grey_darker;
 
