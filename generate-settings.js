@@ -99,7 +99,7 @@ function handleCollections() {
 module.exports = {
   dest: {
     build: dir.build,
-    dist:  dir.deploy,
+    dist:  dir.dist,
     test:  dir.test
   },
   //
