@@ -8,12 +8,12 @@
 		"colors": {},
 		"grid": {},
 		"icons": {},
-		"typography": {},
-		"titled-callout": {}
+		"titled-callout": {},
+		"typography": {}
 	},
 	"icons": {
-		"menu": {},
-		"close": {}
+		"close": {},
+		"menu": {}
 	},
 	"pens": {
 		"fixed-backgrounds-on-mobile": {
