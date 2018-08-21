@@ -1,6 +1,7 @@
 node_modules
 bower_components
 
+dist
 build
 src/metalsmith/mixins/mixins.pug
 src/content/brianhayes.json
