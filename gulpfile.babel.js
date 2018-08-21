@@ -352,6 +352,9 @@ export function styles() {
     .pipe($.autoprefixer({browsers: settings.styles.compatability}))
     .pipe($.mmq(settings.styles.mmq))
     .pipe($.if(DEPLOY, $.cssnano()))
+    .pipe($.if(DEPLOY, $.rename(function(path) {
+      path.basename = `${path.basename}.min`;
+    })))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest($.if(DEPLOY, settings.styles.dest.dist, settings.styles.dest.build)))
     .pipe(
@@ -376,7 +379,7 @@ export function scripts() {
       console.log(e.codeFrame);
       this.emit('end');
     })
-    .pipe($.concat('app.js'))
+    .pipe($.if(DEPLOY, $.concat('app.min.js'), $.concat('app.js')))
     .pipe($.if(DEPLOY, $.uglify()))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest($.if(DEPLOY, settings.scripts.dest.dist, settings.scripts.dest.build)));
@@ -577,17 +580,22 @@ const start = gulp.series(
       scripts,
       images
     ),
-  TEST ?
-    gulp.series(
-      startServers,
-      watch
-    ) :
+  DEPLOY ?
     gulp.series(
       buildSitePages,
-      generateAPIFile,
-      startServers,
-      watch
-    )
+      generateAPIFile
+    ) :
+    TEST ?
+      gulp.series(
+        startServers,
+        watch
+      ) :
+      gulp.series(
+        buildSitePages,
+        generateAPIFile,
+        startServers,
+        watch
+      )
 );
 
 export {start};
