@@ -86,8 +86,12 @@ ul.nav-horizontal {
   list-style: none;
   padding-left: 0;
   li {
-    display: inline;
-    padding-right: 0.25rem;
+    display: inline-block;
+    padding-right: to-rem(16);
+    margin-bottom: $spacing-unit_vertical-paragraph;
+    a {
+      letter-spacing: 2px;
+    }
   }
 }
 
