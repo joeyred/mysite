@@ -45,8 +45,10 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
   if (!element.querySelector('.animation_border-left')) {
     // add dummy element for animating the border
     const border = document.createElement('div');
+    const firstChild = element.querySelector('.titled-callout-heading');
     border.classList.add('animation_border-left');
-    element.appendChild(border);
+
+    element.insertBefore(border, firstChild);
   }
   const wrapperElement = document.querySelector('.site-inner main.content');
 
@@ -90,7 +92,7 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
         'shift-up',
         600,
         (element) => {
-          element.style.transform = `translateY(-${positionTop - topbarHeight}px)`;
+          element.style.transform = `translate3d(0, -${positionTop - topbarHeight}px, 0)`;
         }
       ],
       ['expand-border', 400]

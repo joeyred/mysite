@@ -55,31 +55,27 @@ const animationSeries = (element, baseCSSClass, hooks, ...steps) => {
       if (hooks && hooks.beforeEachStep) {
         hooks.beforeEachStep(element);
       }
-      console.log('step happened');
-      console.log(duration.current, progress);
+
       let callback = steps[stepIndex][2] || false;
       classes.current = steps[stepIndex][0];
       // Remove classes if previous ones exist
       if (classes.previous) {
-        element.classList.remove(`animation_${classes.base}_${classes.previous}_transition`);
-        element.classList.remove(`animation_${classes.base}_${classes.previous}_animate`);
-        console.log('previous', `animation_${classes.base}_${classes.previous}_transition`);
+        element.classList.remove(`animation_${classes.base}_${classes.previous}`);
       }
 
       // Add classes for this animation step
-      element.classList.add(`animation_${classes.base}_${classes.current}_transition`);
-      element.classList.add(`animation_${classes.base}_${classes.current}_animate`);
-      console.log('current', `animation_${classes.base}_${classes.current}_transition`);
+      element.classList.add(`animation_${classes.base}_${classes.current}`);
+
       if (callback) {
         callback(element);
       }
       // Set previous properties for the next step to use
       classes.previous = steps[stepIndex][0];
+      // The step has been fired
       stepsFired[stepIndex] = true;
       // only add to the durration as long as it isnt the last step.
       if (stepIndex !== steps.length) {
         duration.current += steps[stepIndex][1];
-        // console.log(duration.current);
       }
       if (hooks && hooks.afterEachStep) {
         hooks.afterEachStep(element);
@@ -102,6 +98,7 @@ const animationSeries = (element, baseCSSClass, hooks, ...steps) => {
         hooks.after(element);
       }
       element.classList.remove('animation_in-progress');
+      element.classList.remove(`animation_${classes.base}_${classes.current}`);
     }
   }
   // HOOK: Before

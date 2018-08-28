@@ -17,8 +17,6 @@ ul.cards {
 
 .card {
   box-shadow: 1px 2px 10px #111;
-  // border-left: to-rem(6) solid $color-red;
-  // margin-left: -#{to-rem(6)};
 
   .card-bottom {
     padding: 0.5rem 1rem;
@@ -124,38 +122,6 @@ ul.cards {
     }
   }
 }
-//**
-// TRANSFORM METHOD
-//*
-// .card.horizontal {
-//   .card-options-bar {
-//     z-index: -1;
-//     transform-origin: right;
-//     transform: translateY(99%);
-//     transition: transform 200ms ease-in, z-index 0ms ease-in 200ms;
-//   }
-//   .border-left {}
-//   .bottom-container {
-//     z-index: -1;
-//     transform: translateY(-100%);
-//     transition: transform 200ms ease-in;
-//   }
-//
-//   &.expanded {
-//     .card-options-bar {
-//       z-index: 1;
-//       transform: translateY(0);
-//     }
-//
-//     .border-left {
-//       height: calc(100% - 10px);
-//     }
-//
-//     .bottom-container {
-//       transform: translateY(0);
-//     }
-//   }
-// }
 
 //*
 // HEIGHT METHOD
@@ -166,7 +132,6 @@ ul.cards {
     visibility: hidden;
     // transition: height 200ms ease-out;
   }
-  .border-left {}
   .bottom-container {
     height: 0;
     visibility: hidden;
