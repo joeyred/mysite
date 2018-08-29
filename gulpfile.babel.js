@@ -26,15 +26,6 @@ const $ = loadPlugins({
     'gulp-merge-media-queries': 'mmq'
   }
 });
-// console.log(settings);
-// Set up base directories
-// const dir = {};
-// dir.src = config.source || './src';
-// dir.build = config.destination || './build';
-// dir.dist = config.deploy || './dist';
-// dir.test = config.test || './test';
-// dir.node = config.nodeModules || './node_modules';
-// dir.bower = config.bowerComponents || './bower_components';
 
 // CLI Flags
 const DEPLOY = Boolean(yargs.argv.production);
@@ -48,33 +39,15 @@ function loadYmlData(filepath) {
 function loadJSONData(filepath) {
   return JSON.parse(fs.readFileSync(filepath, 'utf8'));
 }
-// function loadData(filepath) {
-//   let file = fs.readFileSync(filepath, 'utf8');
-//
-//   if (file.extension === 'json') {
-//     return JSON.parse(file);
-//   }
-//   if (file.extension === 'yml' || file.extension === 'yaml') {
-//     return yaml.load(file);
-//   }
-//   return null;
-// }
-// let siteData;
-// export function getSiteData(done) {
-//   siteData = {
-//     skills:    loadYmlData('src/content/skills.yml'),
-//     treehouse: loadJSONData('src/content/brianhayes.json')
-//   };
-//   done();
-// }
 
 //
 // SERVERS
 // ================= //
 
 const servers = {
-  dev:  browserSync.create('dev'),
-  test: browserSync.create('test')
+  dev:     browserSync.create('dev'),
+  test:    browserSync.create('test'),
+  staging: browserSync.create('staging')
 };
 
 // Development Server
@@ -90,6 +63,17 @@ export function serverTest(done) {
   if (TEST || FULLTEST) {
     servers.test.init(settings.servers.test);
   }
+  done();
+}
+
+export function serverStaging(done) {
+  servers.staging.init({
+    server: './dist',
+    port:   8000,
+    ui:     {port: 8001},
+    notify: false,
+    open:   true
+  });
   done();
 }
 export function startServers(done) {
@@ -346,7 +330,6 @@ export {buildSitePages};
 //
 // Styles
 // ================= //
-// TODO Add uncss
 export function styles() {
   return gulp.src(`${settings.styles.src}/*.scss`)
     .pipe($.sourcemaps.init())
