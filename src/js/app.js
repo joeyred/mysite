@@ -1,4 +1,4 @@
-!function($) {
+!function() {
 function init() {
   var panesNode = document.querySelector(Gingabulous.modules.Panes.dataAttrTarget);
   var panes = new Gingabulous.Panes(panesNode);
@@ -21,19 +21,8 @@ function init() {
     expand.init();
   }
 }
-// function initCards() {
-//   let cards = document.querySelectorAll(Gingabulous.modules.Card.dataAttrTarget);
-//   for (let i = 0; i < cards.length; i++) {
-//     let module = new Gingabulous.Card(cards[i]);
-//     module.init();
-//     console.log(`init card: ${i}`);
-//   }
-// }
 
 Gingabulous.registerGlobalEventListener('resize', window);
-// Gingabulous.events.resize.registerCallback(function() {
-//   console.log('Window Resized');
-// });
 
 Gingabulous.Debug.config(true, {
   Pane:         true,
@@ -59,11 +48,6 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
 
   const topbarHeight = 40;
   const positionTop = element.getBoundingClientRect().top;
-  // const tabHeight = element.querySelector('.titled-callout-heading').offsetHeight;
-  // const windowHeight = window.innerHeight ||
-  //   document.documentElement.clientHeight ||
-  //   document.body.clientHeight;
-  // console.log(positionTop);
 
   wrapperElement.classList.add('animation_expanding-tabs_in-progress');
 
@@ -135,11 +119,6 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
   }
 });
 
-// let time = 0;
-// setInterval(() => {
-//   time += 100;
-// }, 100);
-
 Gingabulous.animationSeries(
   document.querySelector('.loading-screen'),
   'loading-screen',
@@ -161,8 +140,6 @@ Gingabulous.animationSeries(
     200
   ]
 );
-// Gingabulous.Debug.timer(6000);
-console.log(Gingabulous);
+// console.log(Gingabulous);
 init();
-// initCards();
-}(jQuery);
+}();
