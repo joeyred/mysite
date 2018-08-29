@@ -29,7 +29,8 @@ mixin titledCallout(title, color, expandable, breakpoints, animation)
   
     .titled-callout(class=titledCalloutClasses)&attributes(titledCalloutAtts)
       //- Heading
-      
+      if animation
+        .animation_border-left
       .titled-callout-heading
         h2&attributes(openElementAtts) #{title}
         if isExpandable

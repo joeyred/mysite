@@ -15,6 +15,8 @@
   'media',
   'layout',
   'grid',
+  // UI Modules
+  'ui-panes',
   // Components
   'background',
   'navigation',
@@ -25,17 +27,14 @@
   'cards',
   'topbar',
   'footer',
-  'filter-bar',
+  // 'filter-bar',
   'cards',
-  'overlay',
   'titled-callout',
   'skills',
   'expand',
   'loading-screen',
   'treehouse',
-  // 'fullscreen-panes',
   'panes',
-  'pane-activator-tab',
   'syntax-highlighting',
   // Projects
   'hbgi',
@@ -43,15 +42,3 @@
   'home',
   'my-skills'
 ;
-
-#debug-timer {
-  position: fixed;
-  z-index: 9999;
-  bottom: 0;
-  width: auto;
-  height: auto;
-  padding: 1rem;
-  background: red;
-  color: white;
-  font-size: 0.75rem;
-}

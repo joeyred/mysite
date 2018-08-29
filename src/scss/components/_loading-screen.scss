@@ -29,10 +29,10 @@
   }
 
   &.animation_loading-screen {
-    &_in_animate {
+    &_in {
 
     }
-    &_loading_animate {
+    &_loading {
       .middle {
         .svg-wrapper {
           animation: 600ms ease infinite spin_pulse;
@@ -40,7 +40,7 @@
       }
 
     }
-    &_out_animate {
+    &_out {
       animation: 200ms ease 1 fade_out;
       .middle {
         .svg-wrapper {
