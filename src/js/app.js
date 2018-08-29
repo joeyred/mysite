@@ -123,6 +123,9 @@ Gingabulous.animationSeries(
   document.querySelector('.loading-screen'),
   'loading-screen',
   {
+    before: (element) => {
+      element.classList.remove('.loading');
+    },
     after: (element) => {
       element.classList.add('loading-complete');
     }

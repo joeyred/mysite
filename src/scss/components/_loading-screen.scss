@@ -27,7 +27,13 @@
       }
     }
   }
-
+  &.loading {
+    .middle {
+      .svg-wrapper {
+        animation: 600ms ease infinite spin_pulse;
+      }
+    }
+  }
   &.animation_loading-screen {
     &_in {
 
