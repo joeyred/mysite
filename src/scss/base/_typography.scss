@@ -54,6 +54,7 @@ body {
   color: $font-body_color;
   font-feature-settings: "kern" 1;
   font-kerning: normal;
+  line-height: $line-height_base;
 }
 
 // Headings
@@ -67,12 +68,47 @@ h6 {
   font-weight: $font-heading_weight;
   color: $font-heading_color;
   margin-top: 0;
-  margin-bottom: $spacing-unit_vertical-heading;
+  // margin-bottom: $spacing-unit_vertical-heading;
 }
+
+h1 {
+  margin-bottom: $font-heading_vr_large;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: $font-heading_vr_base;
+}
+
+p + h1,
+p + h2,
+p + h3,
+p + h4,
+p + h5,
+p + h6,
+ul + h1,
+ul + h2,
+ul + h3,
+ul + h4,
+ul + h5,
+ul + h6,
+ul + h6,
+ol + h1,
+ol + h2,
+ol + h3,
+ol + h4,
+ol + h5,
+ol + h6 {
+  margin-top: $vertical-rhythm * 3;
+}
+
+
 
 h1,
 h2 {
-  margin-bottom: $spacing-unit_vertical-heading;
   letter-spacing: 5px;
   text-transform: uppercase;
 }
@@ -81,12 +117,11 @@ h3,
 h4,
 h5,
 h6 {
-  margin-bottom: $spacing-unit_vertical-heading;
   letter-spacing: 3px;
 }
 
 h2 {
-  color: $font-heading_color-secondary;
+  color: $font-heading_color;
 }
 
 @include generate_heading-sizes;
@@ -172,7 +207,7 @@ li {
   > ul,
   > ol {
     // margin-left: $nested-list_margin-left;
-    margin-bottom: 0; // Nested Lists
+    margin-top: $list-item_margin-bottom; // Nested Lists
   }
 }
 
@@ -182,6 +217,15 @@ blockquote {
   border-left: $blockquote_border-left;
   padding-left: $blockquote_padding-left;
 
+  cite {
+    display: block;
+    text-align: right;
+    width: auto;
+    background: $blockquote-border_color;
+    padding: $blockquote-padding_left;
+    margin-top: 1rem;
+    margin-left: -#{$blockquote-padding_left};
+  }
   p {
     margin-bottom: 1rem;
   }

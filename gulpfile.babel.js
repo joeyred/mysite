@@ -228,7 +228,7 @@ const pugArgs = {
   pretty:      true,
   filters:     {
     markdown: function(block) {
-      return filters.markdown.render(block);
+      return filters.markdown.render(block, {html: true});
     }
   }
 };
@@ -299,7 +299,9 @@ block ${block}
         .use(msPug(pugArgs))
         .use(msDebugUI.report('Pug Compiled'))
         // Code Highlighting
-        .use(msPrism())
+        .use(msPrism({
+          lineNumbers: true
+        }))
         // Permalinks
         .use(msPermalinks())
         .use(msDebugUI.report('Permalinks Done'))
