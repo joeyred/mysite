@@ -97,3 +97,13 @@ ul.nav-horizontal {
     letter-spacing: 2px;
   }
 }
+
+.open-menu {
+  svg {
+    // fill: $color-black;
+    rect {
+      // fill: $color-black;
+      mix-blend-mode: difference;
+    }
+  }
+}

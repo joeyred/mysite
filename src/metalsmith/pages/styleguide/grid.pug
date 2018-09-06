@@ -3,17 +3,17 @@ class: grid
 title: The Grid
 order: 1
 ---
+  
+include ../../mixins/mixins.pug
 
-.titled-callout
-  .titled-callout-title
-    h2 Overview
-  .titled-callout-inner
-    :markdown
-      This is a flexbox based grid using **containers** that contain
-      **blocks**. If there is to be a `max-width` applied, then it
-      should be applied to containers. This system also uses **wrappers** to
-      properly display backgrounds that are not restricted by a maximum width and so are
-      effectively full width.
++titledCallout('Overview', 'orange')
+  :markdown
+    This is a flexbox based grid using **containers** that contain
+    **blocks**. If there is to be a `max-width` applied, then it
+    should be applied to containers. This system also uses **wrappers** to
+    properly display backgrounds that are not restricted by a maximum width and so are
+    effectively full width.
+    
 
 :markdown
   ## Media Query Prefixes
