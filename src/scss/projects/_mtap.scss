@@ -1,0 +1,46 @@
+.mtap {
+
+  padding-top: $topbar_height;
+  background: $color-white;
+  color: $color-black;
+  h1 {
+    font-size: 2rem;
+    abbr {
+      margin: 0 0.5rem;
+      font-size: 3rem;
+      text-decoration: none;
+    }
+  }
+  h1, h2 {
+    color: #7B2C26;
+  }
+  h3, h4, h5, h6 {
+    color: $color-grey_darker;
+  }
+  .button {
+    background: #7B2C26;
+    margin-bottom: $vertical-rhythm;
+    &:hover {
+      background: lighten(#7B2C26, 20%);
+    }
+  }
+  img {
+    max-width: 30rem;
+    margin-bottom: $vertical-rhythm;
+  }
+  .logo-comparison {
+    img {
+      margin-bottom: $vertical-rhythm * 2;
+    }
+  }
+
+  .basic-callout {
+    background: lighten(#7B2C26, 50%);
+    padding: 1rem;
+    margin-bottom: $vertical-rhythm * 2;
+    p {
+      padding: 0;
+      margin-bottom: 0;
+    }
+  }
+}
