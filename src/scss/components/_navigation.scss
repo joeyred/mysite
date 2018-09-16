@@ -32,7 +32,22 @@
     }
   }
 }
+.nav-header {
+  h1 {
+    padding-top: $topbar_height;
+    font-size: 1.5rem;
+    background: $color-red;
+    color: $color-black;
+    padding: $grid_gutter;
+    margin-left: -#{$grid_gutter};
+    margin-right: -#{$grid_gutter};
+    margin-bottom: 0;
 
+    a {
+      color: $color-black;
+    }
+  }
+}
 .main-nav {
   display: flex;
   flex-flow: column;
@@ -43,8 +58,8 @@
   margin-bottom: $spacing-unit_vertical;
 
   a {
-    padding: 0.5rem;
-    font-size: 1.4rem;
+    padding: 0.25rem;
+    font-size: 1rem;
     color: $navigation-color_link;
     margin: auto;
     transition: color ease-in 100ms;
@@ -54,7 +69,24 @@
     }
   }
 
+  h2 {
+    font-size: 1.3rem;
+    padding: $grid_gutter;
+    margin-left: -#{$grid_gutter};
+    margin-right: -#{$grid_gutter};
+    background: $color-black;
+  }
+  h3 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+  ul {
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+  }
 }
+
 
 ul.nav-vertical {
   list-style: none;
