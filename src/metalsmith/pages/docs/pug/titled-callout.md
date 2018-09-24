@@ -11,7 +11,7 @@ description: >
 
 This mixin generates a Titled Callout component.
 
-```jade
+```pug
 +titledCallout(title, color, expandable, breakpoints, animation)
 ```
 
@@ -36,7 +36,7 @@ The bare minimum to make a pane output properly is the `title`, and `color`, par
 
 #### pug
 
-```jade
+```pug
 +titledCallout('This is an Example', 'red')
   p The content goes right here, since this mixin can handle a content block
 ```
@@ -62,7 +62,7 @@ The bare minimum to make a pane output properly is the `title`, and `color`, par
 
 #### Pug
 
-```jade
+```pug
 +titledCallout('This is an Example', 'red', true, 'lg-down', 'animationName')
   p The content goes right here, since this mixin can handle a content block
 ```

@@ -13,7 +13,7 @@ The card mixin is meant to take a data object and turn it into a full card compo
 The mixin was written to take a file object from a collection, thus making it ideal for
 iteration.
 
-```jade
+```pug
 +card(data, classes, horizontal)
 ```
 ## Params
@@ -51,7 +51,7 @@ mixin takes.
 
 ### Pug
 
-```jade
+```pug
 -
   var data = {
     path: '/projects/example.html',

@@ -14,7 +14,7 @@ hyperlinks as well. The links are automatically populated from the `config.yml` 
 As long as the key in the `social` object in that file matches an icon name passed to
 the mixin, the value of the config key will populate the `href` attribute.
 
-```jade
+```pug
 +socialIconBar(...icons)
 ```
 
@@ -24,7 +24,7 @@ the mixin, the value of the config key will populate the `href` attribute.
 
 ## How to Use
 
-```jade
+```pug
 +socialIconBar('facebook', 'twitter', 'github', 'stackoverflow')
 ```
 

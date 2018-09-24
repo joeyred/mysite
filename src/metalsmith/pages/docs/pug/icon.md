@@ -11,7 +11,7 @@ description: >
 
 This mixin is meant to generate an svg icon element.
 
-```jade
+```pug
 +icon(name)
 ```
 

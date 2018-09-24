@@ -11,7 +11,7 @@ description: >
 
 Generates a pane component to be used with the `Panes` and `Pane` UI modules.
 
-```jade
+```pug
 +pane(id, position, classes, dataAtts)
 ```
 
@@ -36,7 +36,7 @@ component. For the content of the pane, simply pass markup to the block of the m
 
 #### Pug
 
-```jade
+```pug
 +pane('example', 'right')
   article.example-stuff
     h3 Hello
