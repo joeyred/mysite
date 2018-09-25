@@ -233,7 +233,7 @@ const pugArgs = {
   }
 };
 export function getTreehouseJSON(done) {
-  let file = fs.readFileSync('./src/content/brianhayes.json', 'utf8');
+  let file = fs.exists('./src/content/brianhayes.json');
   if (file && !DEPLOY) {
     return done();
   }
@@ -300,7 +300,7 @@ block ${block}
         .use(msDebugUI.report('Pug Compiled'))
         // Code Highlighting
         .use(msPrism({
-          lineNumbers: true
+          preLoad: ['markup-templating', 'clike', 'markup']
         }))
         // Permalinks
         .use(msPermalinks())

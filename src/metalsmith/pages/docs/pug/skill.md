@@ -11,7 +11,7 @@ description: >
 
 Generate a titled progress bar, meant for displaying skill proficiencies.
 
-```jade
+```pug
 +skill(title, rating, color)
 ```
 
@@ -30,7 +30,7 @@ optional param is `color`.
 
 #### Pug
 
-```jade
+```pug
 +skill('Example', 80, blue)
 ```
 
