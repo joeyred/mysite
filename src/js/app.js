@@ -8,12 +8,12 @@ function init() {
   let background = new Gingabulous.Background(backgroundNode);
   background.init();
 
-  let cards = document.querySelectorAll(Gingabulous.modules.Card.dataAttrTarget);
-  for (let i = 0; i < cards.length; i++) {
-    let module = new Gingabulous.Card(cards[i]);
-    module.init();
-    // console.log(`init card: ${i}`);
-  }
+  // let cards = document.querySelectorAll(Gingabulous.modules.Card.dataAttrTarget);
+  // for (let i = 0; i < cards.length; i++) {
+  //   let module = new Gingabulous.Card(cards[i]);
+  //   module.init();
+  //   // console.log(`init card: ${i}`);
+  // }
 
   let expandableNodes = document.querySelectorAll(Gingabulous.modules.Expand.dataAttrTarget);
   for (let i = 0; i < expandableNodes.length; i++) {
@@ -117,6 +117,79 @@ Gingabulous.registerAnimation('expandingTabs', (element) => {
       ]
     );
   }
+});
+
+// Card Animation
+Gingabulous.registerAnimation('expandingCards', (element) => {
+  const state = element.getAttribute('data-expand');
+  const childNodes = {
+    borderLeft:      element.querySelector('.border-left'),
+    optionsBar:      element.querySelector('.card-options-bar'),
+    cover:           element.querySelector('.card-cover'),
+    bottomContainer: element.querySelector('.bottom-container')
+  };
+
+  // Activation Animation
+  if (state === 'expanded') {
+    Gingabulous.animationSeries(
+      element,
+      'expanding-cards_expand',
+      false,
+      [
+        'expanding',
+        400,
+        (element) => {
+          element.style.marginTop = 0;
+          element.style.marginBottom = 0;
+          childNodes.borderLeft.style.height = `${element.offsetHeight - 10}px`;
+          childNodes.borderLeft.style.marginTop = null;
+        }
+      ]
+    );
+  }
+
+  // Deactivation Animation
+  if (state === 'collapsed') {
+    Gingabulous.animationSeries(
+      element,
+      'expanding-cards_collapse',
+      false,
+      [
+        'collapsing_pre-height',
+        400,
+        (element) => {
+          element.style.marginTop = `-${childNodes.optionsBar.offsetHeight}px`;
+          element.style.marginBottom = `-${childNodes.bottomContainer.offsetHeight}px`;
+          childNodes.borderLeft.style.height = `${childNodes.cover.offsetHeight}px`;
+          childNodes.borderLeft.style.marginTop = `${childNodes.optionsBar.offsetHeight}px`;
+
+          // element.style.height = null;
+        }
+      ]
+      // [
+      //   'collapsing_post-height',
+      //   200,
+      //   (element) => {
+      //     const height = element.querySelector('.card-cover').offsetHeight;
+      //     element.querySelector('.border-left').style.height = `${height}px`;
+      //     element.style.height = `${height}px`;
+      //     // element.style.height = null;
+      //   }
+      // ]
+    );
+  }
+}, (element) => {
+  const childNodes = {
+    borderLeft:      element.querySelector('.border-left'),
+    optionsBar:      element.querySelector('.card-options-bar'),
+    cover:           element.querySelector('.card-cover'),
+    bottomContainer: element.querySelector('.bottom-container')
+  };
+  element.style.marginTop = `-${childNodes.optionsBar.offsetHeight}px`;
+  element.style.marginBottom = `-${childNodes.bottomContainer.offsetHeight}px`;
+
+  childNodes.borderLeft.style.height = `${childNodes.cover.offsetHeight}px`;
+  childNodes.borderLeft.style.marginTop = `${childNodes.optionsBar.offsetHeight}px`;
 });
 
 Gingabulous.animationSeries(

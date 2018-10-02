@@ -7,7 +7,8 @@ include icons.pug
 //- @param {Bool}   horizontal - If `true`, add `.horizontal` class to `.card`.
 //-
 //-*
-mixin card(data, classes, animation, horizontal)
+mixin card(data, options)
+  - options = options || {}; 
   //- extract the filename from `data.path`.
   - var arrayFromFilename = data.path.split('/');
   - var lastIndex = arrayFromFilename.length - 1;
@@ -15,13 +16,15 @@ mixin card(data, classes, animation, horizontal)
   - var filenameNoExtention = _.replace(filename, '.pug', '');
   - var chain = data.api.namespace + '.' + filenameNoExtention;
   //- `horizontal` set with default
-  - var isHorizontal = horizontal || true;
-  - var animate = !!animation || false;
+  - var isHorizontal = options.horizontal || true;
+  - var animate = options.animation || false;
   - var atts = {};
-  if animate 
-    - atts['data-animation'] = animation;
+  if options.animation 
+    - atts['data-animation'] = options.animation;
+  if options.responsive
+    - atts['data-responsive'] = options.responsive;
   //- Handle extra classes
-  - var classes = classes || '';
+  - var classes = options.classes || '';
   //- Card
   .card(
     class={horizontal: isHorizontal === true}
@@ -29,6 +32,7 @@ mixin card(data, classes, animation, horizontal)
     data-expand=''
     
   )&attributes(atts)
+    .border-left
     //- Top Options Bar
     .card-options-bar
       //- Close Card
