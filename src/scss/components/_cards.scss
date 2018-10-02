@@ -58,6 +58,7 @@ ul.cards {
   }
 
   .bottom-container {
+    padding: $content-padding_base;
     background: lighten($color-red, 30%);
     color: $color-black;
 
@@ -171,7 +172,7 @@ ul.cards {
       opacity: 1;
       // height: auto;
       // transform: translate3d(0, 0, 0);
-      padding: $content-padding_base;
+
     }
   }
 }
@@ -179,7 +180,7 @@ ul.cards {
 //*
 // ANIMATION
 //**
-$collapsed_animation-timing: 150ms 200ms ease-out;
+$collapsed_animation-timing: 150ms 150ms ease-out;
 .card.horizontal {
   &[data-expand="collapsed"] {
     transition: margin $collapsed_animation-timing;
