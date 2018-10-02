@@ -12,43 +12,34 @@ ul.cards {
     flex: 1 0 to-rem(340);
     max-width: to-rem(340);
     padding: 0 $grid_gutter;
+    margin-bottom: $spacing-unit_vertical;
   }
 }
 
 .card {
-  box-shadow: 1px 2px 10px #111;
+  // box-shadow: 1px 2px 10px #111;
 
   .card-bottom {
     padding: 0.5rem 1rem;
   }
 
-  margin-bottom: $spacing-unit_vertical;
+
 }
 
 .card.horizontal {
-  display: flex;
-  flex-flow: row wrap;
-  position: relative;
-  // transition: height 200ms ease-out;
 
   .border-left {
     width: to-rem(6);
     margin-left: -#{to-rem(6)};
     position: absolute;
     background: $color-red;
-    height: 100%;
-    transition: height 200ms ease-out;
+    // height: 100%;
   }
 
   .card-cover {
-    flex: 0 0 100%;
-    display: flex;
-    flex-flow: row;
     background: $color-black;
 
-    .car-info {
-      flex: 0 1 auto;
-    }
+    .car-info {}
 
     .card-thumbnail {
       flex: 0 0 35%;
@@ -67,12 +58,9 @@ ul.cards {
   }
 
   .bottom-container {
-    flex: 0 0 100%;
+    padding: $content-padding_base;
     background: lighten($color-red, 30%);
     color: $color-black;
-    // height: 0;
-    // visibility: hidden;
-    // transition: height 200ms ease-out;
 
     p:last-child {
       margin-bottom: 0;
@@ -85,23 +73,13 @@ ul.cards {
     flex-flow: row nowrap;
     align-items: center;
     background: $color-red;
-    // Styles to overwrite
-    // height: 0;
-    // visibility: hidden;
-    // transition: height 200ms ease-out;
+
     .icon-button {
       flex: 0 0 0;
       > svg {
         fill: $color-black;
       }
     }
-    // .icon-button {
-    //   &::before {
-    //     padding: 1rem;
-    //     height: 1rem;
-    //     width: 1rem;
-    //   }
-    // }
 
     .icon {
       flex: 0 1 2rem;
@@ -126,33 +104,134 @@ ul.cards {
 //*
 // HEIGHT METHOD
 //**
+// .card.horizontal {
+//   .card-options-bar {
+//     height: 0;
+//     opacity: 0;
+//     transform: translate3d(110%, 0, 0);
+//     // visibility: hidden;
+//     // transition: height 200ms ease-out;
+//   }
+//   .bottom-container {
+//     height: 0;
+//     opacity: 0;
+//     transform: translate3d(100%, 0, 0);
+//     // visibility: hidden;
+//     // transition: height 200ms ease-out;
+//     padding: 0, $content-padding_base;
+//   }
+//
+//   &.expanded {
+//     .card-options-bar {
+//       height: 100%;
+//       opacity: 1;
+//       transform: translate3d(0, 0, 0);
+//     }
+//
+//     .border-left {
+//       height: calc(100% - 10px);
+//     }
+//
+//     .bottom-container {
+//       height: 100%;
+//       opacity: 1;
+//       transform: translate3d(0, 0, 0);
+//       padding: $content-padding_base;
+//     }
+//   }
+// }
+
 .card.horizontal {
-  .card-options-bar {
-    height: 0;
-    visibility: hidden;
-    // transition: height 200ms ease-out;
-  }
-  .bottom-container {
-    height: 0;
-    visibility: hidden;
-    // transition: height 200ms ease-out;
-    padding: 0, $content-padding_base;
+  &[data-expand="collapsed"] {
+    .card-options-bar {
+      visibility: hidden;
+      opacity: 0;
+      // height: 0;
+      transform: translate3d(120%, 0, 0);
+    }
+    .bottom-container {
+      visibility: hidden;
+      opacity: 0;
+      // height: 0;
+      transform: translate3d(120%, 0, 0);
+      // visibility: hidden;
+      // transition: height 200ms ease-out;
+      // padding: 0, $content-padding_base;
+    }
   }
 
-  &.expanded {
+  &[data-expand="expanded"] {
     .card-options-bar {
-      height: 100%;
       visibility: visible;
+      opacity: 1;
+      // height: auto;
+      // transform: translate3d(0, 0, 0);
+    }
+    .bottom-container {
+      visibility: visible;
+      opacity: 1;
+      // height: auto;
+      // transform: translate3d(0, 0, 0);
+
+    }
+  }
+}
+
+//*
+// ANIMATION
+//**
+$collapsed_animation-timing: 150ms 150ms ease-out;
+.card.horizontal {
+  &[data-expand="collapsed"] {
+    transition: margin $collapsed_animation-timing;
+    .card-options-bar {
+      transition:
+        // height 0ms 200ms,
+        visibility $collapsed_animation-timing,
+        opacity $collapsed_animation-timing,
+        transform 200ms ease-out
+      ;
+    }
+    .bottom-container {
+      transition:
+        // height 0ms 200ms,
+        visibility $collapsed_animation-timing,
+        opacity $collapsed_animation-timing,
+        transform 200ms ease-out
+      ;
     }
 
     .border-left {
-      height: calc(100% - 10px);
+      transition:
+        height $collapsed_animation-timing,
+        margin $collapsed_animation-timing
+      ;
     }
+  }
 
+  &[data-expand="expanded"] {
+    transition: margin 200ms ease-out;
+    .card-options-bar {
+      transition:
+        // height 200ms ease-out,
+        visibility 200ms ease-out,
+        opacity 200ms ease-out,
+        transform 200ms 150ms ease-out
+      ;
+    }
     .bottom-container {
-      height: 100%;
-      visibility: visible;
-      padding: $content-padding_base;
+      transition:
+        // height 200ms ease-out,
+        visibility 200ms ease-out,
+        opacity 200ms ease-out,
+        transform 200ms 150ms ease-out
+      ;
+    }
+    .border-left {
+      transition:
+        height 200ms ease-out,
+        margin 200ms ease-out
+      ;
     }
   }
 }

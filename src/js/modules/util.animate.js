@@ -108,13 +108,25 @@ const animationSeries = (element, baseCSSClass, hooks, ...steps) => {
   window.requestAnimationFrame(animationStep);
 };
 
-const registerAnimation = (name, callback) => {
+const registerAnimation = (name, animationFunc, setupFunc = null) => {
   if (Gingabulous.animations[name]) {
     throw new Error(
       'YA DUN FUCKED UP BITCH, THEMS NAMES IS RESEVRED. READ THE SIGN DUMMY.'
     );
   } else {
-    Gingabulous.animations[name] = callback;
+    Gingabulous.animations[name] = {
+      /**
+       * To be fired in a module init method for any setup that may need to be done in JS
+       * to make the animation work properly.
+       * @type {Function|null}
+       */
+      setup:   setupFunc,
+      /**
+       * The function that handles state change animations.
+       * @type {Function}
+       */
+      animate: animationFunc
+    };
   }
 };
 

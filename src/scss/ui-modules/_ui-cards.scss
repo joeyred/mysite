@@ -1,0 +1,63 @@
+ul.cards {
+  list-style: none;
+  padding-left: 0;
+}
+
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  > li {
+    flex: 1 0 to-rem(340);
+    max-width: to-rem(340);
+    padding: 0 $grid_gutter;
+  }
+}
+
+.card.horizontal {
+  display: flex;
+  flex-flow: row wrap;
+  position: relative;
+
+  .card-cover {
+    flex: 0 0 100%;
+    display: flex;
+    flex-flow: row;
+
+    .car-info {
+      flex: 0 1 auto;
+    }
+
+    .card-thumbnail {
+      flex: 0 0 35%;
+    }
+  }
+
+  .bottom-container {
+    flex: 0 0 100%;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .card-options-bar {
+    flex: 0 0 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    .icon-button {
+      flex: 0 0 0;
+    }
+
+    .icon {
+      flex: 0 1 2rem;
+      height: 2rem;
+    }
+
+    .button {
+      margin-left: auto;
+    }
+  }
+}
