@@ -1,0 +1,74 @@
+---
+title: "About This Site"
+date: 2018-10-2
+description: >
+  This site was built from the ground up. From design to development. It's the biggest 
+  showcase of who I am as a designer and developer. This site was a journey that has made
+  me a much better developer. At this point, I'm even proud of the bugs.  
+featured: false
+wrapperClass: about-this-site
+tags: 
+  - javascript
+  - scss
+  - webDevelopment
+thumbnail:
+  image: /assets/imgs/main/mark_logo.svg
+  title: Logo for Brian Hayes
+  description:
+---
+extends ../../layouts/project.pug
+
+block main
+  header.header.container
+    .block.sm-12
+      h1 About This Site
+    
+    .block.sm-12
+      +titledCallout('The Intent')
+        p.
+          From the beginning I set out to build a website and brand that was truly 
+          reflective of me as a person, a developer, and a designer. Some major changes 
+          happened along the way, and through all kinds of crazy ideas and firsts, a lot
+          of knowledge and experience was gained. I really tried to accomplish things in
+          ways I just couldn't do for a typical client.
+  .ariticle-body
+    .block.sm-12
+      :markdown
+        My goal became to write a site with no 3rd party dependencies for the deployed site. That way, I could not only show my ability to write something from scratch, but become a better developer, having dealt with many of the weird things third party libraries solve. So, while there may be a few more bugs here and there for me to flesh out and fix that I wouldn’t be dealing with had I used third party assets to support my live code, dealing with it all myself gives me a better understanding of web technologies, and gives me a better mindset to approach third party libraries with on other projects. 
+
+        This site was originally a Jekyll powered static site slaved to a gulp task runner file, and dependent on jQuery. Since then I switched to a fully gulpjs powered development and build environment, with some help from metalsmith, and got rid of jQuery completely.
+
+        ## Major Components of this Site:
+        
+        ### On The Build/Dev Side
+        
+        - A gulp powered build, deploy, development, and testing environment.
+        - A rather strict, but readable, linting set up for JavaScript.
+        - A less strict, but common-mistake-avoiding linting set up for SCSS.
+        - Configuration type approach similar to Jekyll for managing the site build.
+        - JavaScript unit testing environment using Mocha, Chai, and Sinon.
+        - Babel to transpile ES6 to ES5 on both Javascript meant for the website, and the gulpfile.
+        - More tomfoolery than I ever thought I would have to put up with from myself.
+        
+        ### The Site Itself
+        
+        - No third party dependencies! (don't know if this is the proper place for this or not?)
+        - A Modular JavaScript library written to be lightweight and extrememly flexible with powerful utilities.
+        - SCSS written from scratch with lots of helpful classes. Set up to be lightweight, but full featured for layouts.
+        - Truly built mobile-first, with some UI modules and utilites made specifically for making mobile browsing more barable and full featured.
+        
+        ## A More In Depth Look
+        
+        ### My own JavaScript library
+
+        ### My own SCSS 
+
+        While it’s true that, “Everyone can make a grid.” The big reason I decided to make my own flex box grid was to simply have a better understanding of what goes into doing it.
+
+        ### The gulp pipeline
+
+        There’s actually a lot going on here, and I’ve gone through a good few refactoring phases to get to the current set up I have now. 
+
+        My current iteration was 100% inspired by the use of a yaml configuration file like in Jekyll, with optional settings that could be passed to generate the kind of website and development environment desired, but with defaults that keep things working.
+
+        This gulpfile takes the config file, running it through module that spits out a usable config object, processes and compiles all assets, compiles html from markdown and pug templates, creates a local JSON API file,  and starts up the appropriate development servers depending on the flags passed via the CLI. For example, `gulp —test` will only start up the unit testing server and only watch the files associated with javascript unit testing.
