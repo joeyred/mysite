@@ -336,12 +336,17 @@ export function cleanErrorFilesInBuild() {
   return del('./build/**/*.pug');
 }
 
+export function rootAssets() {
+  return gulp.src('src/root/**/*')
+    .pipe(gulp.dest($.if(DEPLOY, settings.dest.dist, settings.dest.build)));
+}
+
 // Final Site Pages Task
 const buildSitePages = gulp.series(
   concatPugMixins,
   cleanErrorFilesInBuild,
   runGulpsmith,
-  gulp.parallel(debugUIFuckery, manageCollectionsOutput)
+  gulp.parallel(debugUIFuckery, manageCollectionsOutput, rootAssets)
 );
 export {buildSitePages};
 
@@ -542,6 +547,8 @@ export function watch() {
   gulp.watch(`${settings.scripts.src}/**/*.js`, gulp.series(scripts, reload));
   // Images
   gulp.watch(`${settings.images.src}/**/*`, gulp.series(images, reload));
+  // Root
+  gulp.watch(`./src/root/**/*`, gulp.series(rootAssets, reload));
   if (FULLTEST || TEST) {
     gulp.watch('test/index.html', servers.test.reload());
     gulp.watch('./test/scripts/*.js', gulp.series(testScripts, reload));
