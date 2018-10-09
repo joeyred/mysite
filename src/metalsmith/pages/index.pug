@@ -19,21 +19,22 @@ block panes
           .block.sm-12(data-inject-bind='code.styles')
         .container
           .block.sm-12(data-inject-bind='code.scripts')
-    .fixed-bottom-bar
-      .nav-bar
-        button.icon-button(data-panes-nav='left')
-          +icon('info')
-        button.icon-button(data-panes-nav='center')
-          +icon('menu')
-        button.icon-button(data-panes-nav='right')
-          +icon('code')
-      .pane-carousel-title-bar.container.sm-row.sm-nowrap
-        .block.sm-12
-          h4 Details
-        .block.sm-12
-          h4 Demo
-        .block.sm-12
-          h4 Code
+    .fixed-bottom-bar-container
+      .bottom-bar
+        .nav-bar
+          button.icon-button(data-panes-nav='left')
+            +icon('info')
+          button.icon-button(data-panes-nav='center')
+            +icon('menu')
+          button.icon-button(data-panes-nav='right')
+            +icon('code')
+        .pane-carousel-title-bar.container.sm-row.sm-nowrap
+          .block.sm-12
+            h4 Details
+          .block.sm-12
+            h4 Demo
+          .block.sm-12
+            h4 Code
   
   +pane('project', 'above', 'project-pane', {api: 'api'})
     .inject-wrapper(data-inject-bind='content')

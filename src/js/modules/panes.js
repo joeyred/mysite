@@ -86,7 +86,7 @@ class Panes {
       // if the data attr has no value, then it's a nested pane, and will be skipped
       if (key !== '' && key !== 'home') {
         if (!!panesInDocument[i].querySelector('[data-carousel-panes]')) {
-          this.panes[key] = new Gingabulous.CarouselPane(
+          this.panes[key] = new Gingabulous.CarouselPanes(
             panesInDocument[i],
             this.options
           );
