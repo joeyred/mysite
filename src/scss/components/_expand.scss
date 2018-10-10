@@ -37,6 +37,11 @@
   .expandable-content {
     overflow: hidden;
   }
+  &[data-expand="inactive"] {
+    .expandable-content {
+      overflow: inherit;
+    }
+  }
 }
 
 
