@@ -6,19 +6,32 @@
     ['/about-me/', 'About Me']
   ];
 +pane('mainNav', 'left', 'main-nav-pane', {responsive: 'xl-down'})
-  .conatiner
-
-    //- Main Nav
+  .conatiner.nav-header
     .block.sm-12
-      nav.main-nav
+      h1 Site Navigation
+  //- Main Nav
+  .container.main-nav
+    
+    .block.sm-12
+      h2 Site Links
+    nav.block.sm-12
+      //- Main Site Links
+      h3 Main
+      ul.nav-vertical
         each link in links
-          a(href=helpers.url(link[0])) #{link[1]}
-          
-    //- Contact Me
-    .block.sm-12.contact
-      h2 Get In Touch
-      
-    //- Social Links
+          li
+            a(href=helpers.url(link[0])) #{link[1]}
+      //- Extra Links
+      h3 Extra
+      ul.nav-vertical
+        li
+          a(href=helpers.url('/styleguide/')) Styleguide
+        li
+          a(href=helpers.url('/docs/')) Documentation
+    .block.sm-12
+      h2 Get in Touch 
+    .block.sm-12
+      h3 Social Media
     .block.sm-12
       +socialIconBar(
         'twitter',
@@ -27,8 +40,8 @@
         'stackoverflow',
         'linkedin'
       )
-
     .block.sm-12.contact-email
       h3 My Email
+    .block.sm-12
       a(href="mailto:bjoeyhayes@gmail.com") BJoeyHayes@gmail.com
       
