@@ -33,10 +33,10 @@ obscuris et malesuada fames.</p>
 <p>People think focus means saying yes to the thing you’ve got to focus on. But that’s not
 what it means at all. It means saying no to the hundred other good ideas that there are.
 You have to pick carefully. I’m actually as proud of the things we haven’t done as the
-things I have done. Innovation is saying no to 1,000 things.</p>
+things I have done. Innovation is saying no to 1,000 things.
+<cite>Steve Jobs – Apple Worldwide Developers’ Conference, 1997</cite></p>
 </blockquote>
-
-<cite>Steve Jobs – Apple Worldwide Developers’ Conference, 1997</cite><h2>Tables</h2>
+<h2>Tables</h2>
 <table>
 <thead>
 <tr>
@@ -77,12 +77,6 @@ things I have done. Innovation is saying no to 1,000 things.</p>
 <ol>
 <li>Item 1</li>
 <li>Item 2</li>
-</ol>
-<ul>
-<li>Item 2a</li>
-<li>Item 2b</li>
-</ul>
-<ol start="3">
 <li>Item 3</li>
 </ol>
 <h1>Code</h1>
@@ -163,15 +157,15 @@ h6</span> <span class="token punctuation">{</span>
   <span class="token punctuation">}</span>
   <span class="token selector">.category </span><span class="token punctuation">{</span>
     <span class="token property">flex</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// margin: auto;</span>
+    <span class="token comment">// margin: auto;</span>
 
   <span class="token punctuation">}</span>
   <span class="token selector">.publish-date </span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// flex: 0 1 auto;</span>
+    <span class="token comment">// flex: 0 1 auto;</span>
     <span class="token property">text-align</span><span class="token punctuation">:</span> right<span class="token punctuation">;</span>
     <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token variable">$info-bar-date_background-color</span><span class="token punctuation">;</span>
     <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$info-bar-date_text-color</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// margin: auto;</span>
+    <span class="token comment">// margin: auto;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
@@ -232,9 +226,9 @@ Inject<span class="token punctuation">.</span>prototype <span class="token opera
   injectContent<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>debug<span class="token punctuation">.</span><span class="token function">values</span><span class="token punctuation">(</span><span class="token string">'injectContent'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>readyState<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>xhr<span class="token punctuation">.</span>readyState<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">contentIsReady</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token comment" spellcheck="true">// Inject Content</span>
+      <span class="token comment">// Inject Content</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>$contentContainer<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment" spellcheck="true">// Update Status</span>
+      <span class="token comment">// Update Status</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">updateStatus</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>contentLoadedValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -249,7 +243,7 @@ Inject<span class="token punctuation">.</span>prototype <span class="token opera
 </code></pre>
 <h2>php</h2>
 <pre class="language-php"><code class="language-php"><span class="token delimiter important">&lt;?php</span>
-<span class="token comment" spellcheck="true">/**
+<span class="token comment">/**
  * Takes in values that correspond to config settings array and returns a sting with
  * the correct html class.
  *
@@ -261,14 +255,14 @@ Inject<span class="token punctuation">.</span>prototype <span class="token opera
  */</span>
 <span class="token keyword">function</span> <span class="token function">genfound_markup_config</span><span class="token punctuation">(</span> <span class="token variable">$section</span><span class="token punctuation">,</span> <span class="token variable">$element</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-	<span class="token comment" spellcheck="true">// Include correct file path for currently supported grid</span>
-	<span class="token keyword">include_once</span><span class="token punctuation">(</span> <span class="token function">get_stylesheet_directory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">'/inc/foundation/config/'</span> <span class="token punctuation">.</span> <span class="token function">genfound_get_grid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// Include correct file path for currently supported grid</span>
+	<span class="token keyword">include_once</span><span class="token punctuation">(</span> <span class="token function">get_stylesheet_directory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token single-quoted-string string">'/inc/foundation/config/'</span> <span class="token punctuation">.</span> <span class="token function">genfound_get_grid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 	<span class="token variable">$classes</span> <span class="token operator">=</span> <span class="token function">genfound_grid_config_settings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 	<span class="token variable">$output</span> <span class="token operator">=</span> <span class="token variable">$classes</span><span class="token punctuation">[</span><span class="token variable">$section</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$element</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-	<span class="token keyword">return</span> <span class="token string">' '</span> <span class="token punctuation">.</span> <span class="token variable">$output</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token single-quoted-string string">' '</span> <span class="token punctuation">.</span> <span class="token variable">$output</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </body></html>

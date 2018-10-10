@@ -2,6 +2,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="humans.txt">
+    <meta name="designer" content="Brian Hayes">
+    <meta name="owner" content="Brian Hayes">
+    <link rel="author" href="humans.txt">
     <base href="https://joeyred.github.io/mysite/">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,700" rel="stylesheet">
     <script src="https://use.typekit.net/cmu4aon.js"></script>
@@ -11,7 +16,7 @@
     <link rel="stylesheet" href="https://joeyred.github.io/mysite/assets/css/styleguide.min.css">
   </head>
   <body class="styleguide">
-    <div class="loading-screen">
+    <div class="loading-screen loading">
       <div class="middle logo">
         <div class="svg-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.93 27.93" preserveAspectRatio="xMidYMid meet">
@@ -148,13 +153,34 @@
           </div>
         </div>
         <div class="pane-content">
-          <div class="conatiner">
+          <div class="conatiner nav-header">
             <div class="block sm-12">
-              <nav class="main-nav"><a href="https://joeyred.github.io/mysite/">Home</a><a href="https://joeyred.github.io/mysite/my-work/">My Work</a><a href="https://joeyred.github.io/mysite/my-skills/">My Skills</a><a href="https://joeyred.github.io/mysite/about-me/">About Me</a>
-              </nav>
+              <h1>Site Navigation</h1>
             </div>
-            <div class="block sm-12 contact">
-              <h2>Get In Touch</h2>
+          </div>
+          <div class="container main-nav">
+            <div class="block sm-12">
+              <h2>Site Links</h2>
+            </div>
+            <nav class="block sm-12">
+              <h3>Main</h3>
+              <ul class="nav-vertical">
+                <li><a href="https://joeyred.github.io/mysite/">Home</a></li>
+                <li><a href="https://joeyred.github.io/mysite/my-work/">My Work</a></li>
+                <li><a href="https://joeyred.github.io/mysite/my-skills/">My Skills</a></li>
+                <li><a href="https://joeyred.github.io/mysite/about-me/">About Me</a></li>
+              </ul>
+              <h3>Extra</h3>
+              <ul class="nav-vertical">
+                <li><a href="https://joeyred.github.io/mysite/styleguide/">Styleguide</a></li>
+                <li><a href="https://joeyred.github.io/mysite/docs/">Documentation</a></li>
+              </ul>
+            </nav>
+            <div class="block sm-12">
+              <h2>Get in Touch </h2>
+            </div>
+            <div class="block sm-12">
+              <h3>Social Media</h3>
             </div>
             <div class="block sm-12">
               <div class="icon-bar"><a class="icon" href="https://twitter.com/BJoeyHayes" target="_blank">
@@ -183,8 +209,9 @@
               </div>
             </div>
             <div class="block sm-12 contact-email">
-              <h3>My Email</h3><a href="mailto:bjoeyhayes@gmail.com">BJoeyHayes@gmail.com</a>
+              <h3>My Email</h3>
             </div>
+            <div class="block sm-12"><a href="mailto:bjoeyhayes@gmail.com">BJoeyHayes@gmail.com</a></div>
           </div>
         </div>
       </div>
@@ -222,17 +249,19 @@
             </div>
             <div class="wrapper">
               <div class="container">
-                <div class="block">
-<div class="titled-callout">
-  <div class="titled-callout-title">
+                <div class="block"> 
+<div class="titled-callout orange">
+  <div class="titled-callout-heading">
     <h2>Overview</h2>
   </div>
-  <div class="titled-callout-inner"><p>This is a flexbox based grid using <strong>containers</strong> that contain
+  <div class="titled-callout-content-wrapper">
+    <div class="titled-callout-content"><p>This is a flexbox based grid using <strong>containers</strong> that contain
 <strong>blocks</strong>. If there is to be a <code>max-width</code> applied, then it
 should be applied to containers. This system also uses <strong>wrappers</strong> to
 properly display backgrounds that are not restricted by a maximum width and so are
 effectively full width.</p>
 
+    </div>
   </div>
 </div><h2>Media Query Prefixes</h2>
 <p>All of the modifier classes that can be applied with the <code>wrapper</code>, <code>container</code>, and
@@ -470,7 +499,8 @@ section 1.2.</p>
             </div>
             <div class="wrapper">
               <div class="container">
-                <div class="block"><h2>Headings</h2>
+                <div class="block">
+<h2>Headings</h2>
 <h1>H1 Heading</h1>
 <p>Quae vero auctorem tractata ab fiducia dicuntur. Mercedem aut nummos unde unde
 extricat, amaras. Ab illo tempore, ab est sed immemorabili. Inmensae subtilitatis,
@@ -505,10 +535,10 @@ obscuris et malesuada fames.</p>
 <p>People think focus means saying yes to the thing you’ve got to focus on. But that’s not
 what it means at all. It means saying no to the hundred other good ideas that there are.
 You have to pick carefully. I’m actually as proud of the things we haven’t done as the
-things I have done. Innovation is saying no to 1,000 things.</p>
+things I have done. Innovation is saying no to 1,000 things.
+<cite>Steve Jobs – Apple Worldwide Developers’ Conference, 1997</cite></p>
 </blockquote>
-
-<cite>Steve Jobs – Apple Worldwide Developers’ Conference, 1997</cite><h2>Tables</h2>
+<h2>Tables</h2>
 <table>
 <thead>
 <tr>
@@ -549,12 +579,6 @@ things I have done. Innovation is saying no to 1,000 things.</p>
 <ol>
 <li>Item 1</li>
 <li>Item 2</li>
-</ol>
-<ul>
-<li>Item 2a</li>
-<li>Item 2b</li>
-</ul>
-<ol start="3">
 <li>Item 3</li>
 </ol>
 <h1>Code</h1>
@@ -635,15 +659,15 @@ h6</span> <span class="token punctuation">{</span>
   <span class="token punctuation">}</span>
   <span class="token selector">.category </span><span class="token punctuation">{</span>
     <span class="token property">flex</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// margin: auto;</span>
+    <span class="token comment">// margin: auto;</span>
 
   <span class="token punctuation">}</span>
   <span class="token selector">.publish-date </span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// flex: 0 1 auto;</span>
+    <span class="token comment">// flex: 0 1 auto;</span>
     <span class="token property">text-align</span><span class="token punctuation">:</span> right<span class="token punctuation">;</span>
     <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token variable">$info-bar-date_background-color</span><span class="token punctuation">;</span>
     <span class="token property">color</span><span class="token punctuation">:</span> <span class="token variable">$info-bar-date_text-color</span><span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// margin: auto;</span>
+    <span class="token comment">// margin: auto;</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 
@@ -704,9 +728,9 @@ Inject<span class="token punctuation">.</span>prototype <span class="token opera
   injectContent<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>debug<span class="token punctuation">.</span><span class="token function">values</span><span class="token punctuation">(</span><span class="token string">'injectContent'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>readyState<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>xhr<span class="token punctuation">.</span>readyState<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">contentIsReady</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token comment" spellcheck="true">// Inject Content</span>
+      <span class="token comment">// Inject Content</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span>$contentContainer<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment" spellcheck="true">// Update Status</span>
+      <span class="token comment">// Update Status</span>
       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">updateStatus</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>options<span class="token punctuation">.</span>contentLoadedValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -721,7 +745,7 @@ Inject<span class="token punctuation">.</span>prototype <span class="token opera
 </code></pre>
 <h2>php</h2>
 <pre class="language-php"><code class="language-php"><span class="token delimiter important">&lt;?php</span>
-<span class="token comment" spellcheck="true">/**
+<span class="token comment">/**
  * Takes in values that correspond to config settings array and returns a sting with
  * the correct html class.
  *
@@ -733,14 +757,14 @@ Inject<span class="token punctuation">.</span>prototype <span class="token opera
  */</span>
 <span class="token keyword">function</span> <span class="token function">genfound_markup_config</span><span class="token punctuation">(</span> <span class="token variable">$section</span><span class="token punctuation">,</span> <span class="token variable">$element</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-	<span class="token comment" spellcheck="true">// Include correct file path for currently supported grid</span>
-	<span class="token keyword">include_once</span><span class="token punctuation">(</span> <span class="token function">get_stylesheet_directory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token string">'/inc/foundation/config/'</span> <span class="token punctuation">.</span> <span class="token function">genfound_get_grid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">// Include correct file path for currently supported grid</span>
+	<span class="token keyword">include_once</span><span class="token punctuation">(</span> <span class="token function">get_stylesheet_directory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">.</span> <span class="token single-quoted-string string">'/inc/foundation/config/'</span> <span class="token punctuation">.</span> <span class="token function">genfound_get_grid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 	<span class="token variable">$classes</span> <span class="token operator">=</span> <span class="token function">genfound_grid_config_settings</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 	<span class="token variable">$output</span> <span class="token operator">=</span> <span class="token variable">$classes</span><span class="token punctuation">[</span><span class="token variable">$section</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token variable">$element</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-	<span class="token keyword">return</span> <span class="token string">' '</span> <span class="token punctuation">.</span> <span class="token variable">$output</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token single-quoted-string string">' '</span> <span class="token punctuation">.</span> <span class="token variable">$output</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </div>

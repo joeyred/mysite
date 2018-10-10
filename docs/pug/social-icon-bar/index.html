@@ -2,6 +2,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="humans.txt">
+    <meta name="designer" content="Brian Hayes">
+    <meta name="owner" content="Brian Hayes">
+    <link rel="author" href="humans.txt">
     <base href="https://joeyred.github.io/mysite/">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,700" rel="stylesheet">
     <script src="https://use.typekit.net/cmu4aon.js"></script>
@@ -11,7 +16,7 @@
     <link rel="stylesheet" href="https://joeyred.github.io/mysite/assets/css/docs.min.css">
   </head>
   <body class="styleguide">
-    <div class="loading-screen">
+    <div class="loading-screen loading">
       <div class="middle logo">
         <div class="svg-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.93 27.93" preserveAspectRatio="xMidYMid meet">
@@ -248,27 +253,27 @@
 hyperlinks as well. The links are automatically populated from the <code>config.yml</code> file.
 As long as the key in the <code>social</code> object in that file matches an icon name passed to
 the mixin, the value of the config key will populate the <code>href</code> attribute.</p>
-<pre class="language-jade"><code class="language-jade"><span class="token mixin"><span class="token name function">+socialIconBar</span><span class="token punctuation">(</span><span class="token operator">...</span>icons<span class="token punctuation">)</span></span>
+<pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+socialIconBar</span><span class="token punctuation">(</span><span class="token operator">...</span>icons<span class="token punctuation">)</span></span>
 </code></pre>
 <h2>Params</h2>
 <ul>
 <li><code>...icons</code> - <em>Rest</em> - pass as many icon name string params as you want. This is what will be used to populate the icon bar.</li>
 </ul>
 <h2>How to Use</h2>
-<pre class="language-jade"><code class="language-jade"><span class="token mixin"><span class="token name function">+socialIconBar</span><span class="token punctuation">(</span><span class="token string">'facebook'</span><span class="token punctuation">,</span> <span class="token string">'twitter'</span><span class="token punctuation">,</span> <span class="token string">'github'</span><span class="token punctuation">,</span> <span class="token string">'stackoverflow'</span><span class="token punctuation">)</span></span>
+<pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+socialIconBar</span><span class="token punctuation">(</span><span class="token string">'facebook'</span><span class="token punctuation">,</span> <span class="token string">'twitter'</span><span class="token punctuation">,</span> <span class="token string">'github'</span><span class="token punctuation">,</span> <span class="token string">'stackoverflow'</span><span class="token punctuation">)</span></span>
 </code></pre>
 <pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon-bar<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>link/to/facebook/profile<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- Facebook Icon --&gt;</span>
+    <span class="token comment">&lt;!-- Facebook Icon --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>link/to/twitter/profile<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- Twitter Icon --&gt;</span>
+    <span class="token comment">&lt;!-- Twitter Icon --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>link/to/github/profile<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- Github Icon --&gt;</span>
+    <span class="token comment">&lt;!-- Github Icon --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>link/to/stackoverflow/profile<span class="token punctuation">"</span></span> <span class="token attr-name">target</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>_blank<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- Stack Overflow Icon --&gt;</span>
+    <span class="token comment">&lt;!-- Stack Overflow Icon --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 </code></pre>

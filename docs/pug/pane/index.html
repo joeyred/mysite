@@ -2,6 +2,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="humans.txt">
+    <meta name="designer" content="Brian Hayes">
+    <meta name="owner" content="Brian Hayes">
+    <link rel="author" href="humans.txt">
     <base href="https://joeyred.github.io/mysite/">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,700" rel="stylesheet">
     <script src="https://use.typekit.net/cmu4aon.js"></script>
@@ -11,7 +16,7 @@
     <link rel="stylesheet" href="https://joeyred.github.io/mysite/assets/css/docs.min.css">
   </head>
   <body class="styleguide">
-    <div class="loading-screen">
+    <div class="loading-screen loading">
       <div class="middle logo">
         <div class="svg-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.93 27.93" preserveAspectRatio="xMidYMid meet">
@@ -245,7 +250,7 @@
                 <div class="container">
                   <div class="block"><h2>Overview</h2>
 <p>Generates a pane component to be used with the <code>Panes</code> and <code>Pane</code> UI modules.</p>
-<pre class="language-jade"><code class="language-jade"><span class="token mixin"><span class="token name function">+pane</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> position<span class="token punctuation">,</span> classes<span class="token punctuation">,</span> dataAtts<span class="token punctuation">)</span></span>
+<pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+pane</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> position<span class="token punctuation">,</span> classes<span class="token punctuation">,</span> dataAtts<span class="token punctuation">)</span></span>
 </code></pre>
 <h2>Params</h2>
 <ul>
@@ -264,25 +269,25 @@ the <code>data-responsive</code> attribute.</li>
 component. For the content of the pane, simply pass markup to the block of the mixin.</p>
 <h3>Basic Usage</h3>
 <h4>Pug</h4>
-<pre class="language-jade"><code class="language-jade"><span class="token mixin"><span class="token name function">+pane</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> <span class="token string">'right'</span><span class="token punctuation">)</span></span>
+<pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+pane</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> <span class="token string">'right'</span><span class="token punctuation">)</span></span>
   <span class="token tag">article.example-stuff</span>
     <span class="token tag">h3</span> <span class="token plain-text">Hello</span>
     <span class="token tag">p</span> <span class="token plain-text">This is content.</span>
 </code></pre>
 <h4>Output</h4>
 <pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pane right<span class="token punctuation">"</span></span> <span class="token attr-name">data-pane</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>example<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-  <span class="token comment" spellcheck="true">&lt;!-- Pane Header --&gt;</span>
+  <span class="token comment">&lt;!-- Pane Header --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pane-header<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-bar<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>left<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon-button<span class="token punctuation">"</span></span> <span class="token attr-name">data-pane-close</span><span class="token punctuation">&gt;</span></span>
-          <span class="token comment" spellcheck="true">&lt;!-- Close Icon --&gt;</span>
+          <span class="token comment">&lt;!-- Close Icon --&gt;</span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- Pane Content --&gt;</span>
+    <span class="token comment">&lt;!-- Pane Content --&gt;</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pane-content<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token comment" spellcheck="true">&lt;!-- Block Contents --&gt;</span>
+      <span class="token comment">&lt;!-- Block Contents --&gt;</span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>example-stuff<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">&gt;</span></span>Hello<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>

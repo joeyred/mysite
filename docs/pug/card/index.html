@@ -2,6 +2,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="humans.txt">
+    <meta name="designer" content="Brian Hayes">
+    <meta name="owner" content="Brian Hayes">
+    <link rel="author" href="humans.txt">
     <base href="https://joeyred.github.io/mysite/">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,700" rel="stylesheet">
     <script src="https://use.typekit.net/cmu4aon.js"></script>
@@ -11,7 +16,7 @@
     <link rel="stylesheet" href="https://joeyred.github.io/mysite/assets/css/docs.min.css">
   </head>
   <body class="styleguide">
-    <div class="loading-screen">
+    <div class="loading-screen loading">
       <div class="middle logo">
         <div class="svg-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.93 27.93" preserveAspectRatio="xMidYMid meet">
@@ -247,7 +252,7 @@
 <p>The card mixin is meant to take a data object and turn it into a full card component.
 The mixin was written to take a file object from a collection, thus making it ideal for
 iteration.</p>
-<pre class="language-jade"><code class="language-jade"><span class="token mixin"><span class="token name function">+card</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> classes<span class="token punctuation">,</span> horizontal<span class="token punctuation">)</span></span>
+<pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+card</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> classes<span class="token punctuation">,</span> horizontal<span class="token punctuation">)</span></span>
 </code></pre>
 <h2>Params</h2>
 <h3>The Data Object</h3>
@@ -279,7 +284,7 @@ a vertical layout should this be set to <code>false</code>.</li>
 collection data and iterate over it. Blow is an example of the kind of data this
 mixin takes.</p>
 <h3>Pug</h3>
-<pre class="language-jade"><code class="language-jade"><span class="token punctuation">-</span>
+<pre class="language-pug"><code class="language-pug"><span class="token punctuation">-</span>
   <span class="token tag">var</span> <span class="token plain-text">data = {</span>
     <span class="token tag">path<span class="token punctuation">:</span></span> '/projects/example<span class="token punctuation">.</span>html',
     <span class="token tag">type<span class="token punctuation">:</span></span> 'project',
@@ -300,26 +305,26 @@ mixin takes.</p>
 </code></pre>
 <h3>Output</h3>
 <pre class="language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card horizontal a-special-class<span class="token punctuation">"</span></span> <span class="token attr-name">data-card</span><span class="token punctuation">&gt;</span></span>
-  <span class="token comment" spellcheck="true">&lt;!-- Options Bar --&gt;</span>
+  <span class="token comment">&lt;!-- Options Bar --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card-options-bar<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>icon-button<span class="token punctuation">"</span></span> <span class="token attr-name">data-card-close</span><span class="token punctuation">&gt;</span></span>
-      <span class="token comment" spellcheck="true">&lt;!-- Icon Content... --&gt;</span>
+      <span class="token comment">&lt;!-- Icon Content... --&gt;</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span> <span class="token attr-name">data-inject</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>projects.example<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
       See More
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-  <span class="token comment" spellcheck="true">&lt;!-- Card Cover --&gt;</span>
+  <span class="token comment">&lt;!-- Card Cover --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card-cover<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- Thumbnail --&gt;</span>
+    <span class="token comment">&lt;!-- Thumbnail --&gt;</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card-thumbnail<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>path/to/image.png<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Example Preview<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>A preview of the Example Post<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-    <span class="token comment" spellcheck="true">&lt;!-- Info --&gt;</span>
+    <span class="token comment">&lt;!-- Info --&gt;</span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card-info<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-      <span class="token comment" spellcheck="true">&lt;!-- Title --&gt;</span>
+      <span class="token comment">&lt;!-- Title --&gt;</span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h3</span><span class="token punctuation">&gt;</span></span>Example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h3</span><span class="token punctuation">&gt;</span></span>
-      <span class="token comment" spellcheck="true">&lt;!-- Tags --&gt;</span>
+      <span class="token comment">&lt;!-- Tags --&gt;</span>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tags-container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>tags<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span><span class="token punctuation">&gt;</span></span>foo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
@@ -328,7 +333,7 @@ mixin takes.</p>
       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-  <span class="token comment" spellcheck="true">&lt;!-- Description Content Container --&gt;</span>
+  <span class="token comment">&lt;!-- Description Content Container --&gt;</span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>bottom-container<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>
       A fun description of stuff.

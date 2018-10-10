@@ -2,6 +2,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="humans.txt">
+    <meta name="designer" content="Brian Hayes">
+    <meta name="owner" content="Brian Hayes">
+    <link rel="author" href="humans.txt">
     <base href="https://joeyred.github.io/mysite/">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,700" rel="stylesheet">
     <script src="https://use.typekit.net/cmu4aon.js"></script>
@@ -10,7 +15,7 @@
     <link rel="stylesheet" href="https://joeyred.github.io/mysite/assets/css/main.min.css">
   </head>
   <body class="styleguide">
-    <div class="loading-screen">
+    <div class="loading-screen loading">
       <div class="middle logo">
         <div class="svg-wrapper">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.93 27.93" preserveAspectRatio="xMidYMid meet">
@@ -147,13 +152,34 @@
           </div>
         </div>
         <div class="pane-content">
-          <div class="conatiner">
+          <div class="conatiner nav-header">
             <div class="block sm-12">
-              <nav class="main-nav"><a href="https://joeyred.github.io/mysite/">Home</a><a href="https://joeyred.github.io/mysite/my-work/">My Work</a><a href="https://joeyred.github.io/mysite/my-skills/">My Skills</a><a href="https://joeyred.github.io/mysite/about-me/">About Me</a>
-              </nav>
+              <h1>Site Navigation</h1>
             </div>
-            <div class="block sm-12 contact">
-              <h2>Get In Touch</h2>
+          </div>
+          <div class="container main-nav">
+            <div class="block sm-12">
+              <h2>Site Links</h2>
+            </div>
+            <nav class="block sm-12">
+              <h3>Main</h3>
+              <ul class="nav-vertical">
+                <li><a href="https://joeyred.github.io/mysite/">Home</a></li>
+                <li><a href="https://joeyred.github.io/mysite/my-work/">My Work</a></li>
+                <li><a href="https://joeyred.github.io/mysite/my-skills/">My Skills</a></li>
+                <li><a href="https://joeyred.github.io/mysite/about-me/">About Me</a></li>
+              </ul>
+              <h3>Extra</h3>
+              <ul class="nav-vertical">
+                <li><a href="https://joeyred.github.io/mysite/styleguide/">Styleguide</a></li>
+                <li><a href="https://joeyred.github.io/mysite/docs/">Documentation</a></li>
+              </ul>
+            </nav>
+            <div class="block sm-12">
+              <h2>Get in Touch </h2>
+            </div>
+            <div class="block sm-12">
+              <h3>Social Media</h3>
             </div>
             <div class="block sm-12">
               <div class="icon-bar"><a class="icon" href="https://twitter.com/BJoeyHayes" target="_blank">
@@ -182,8 +208,9 @@
               </div>
             </div>
             <div class="block sm-12 contact-email">
-              <h3>My Email</h3><a href="mailto:bjoeyhayes@gmail.com">BJoeyHayes@gmail.com</a>
+              <h3>My Email</h3>
             </div>
+            <div class="block sm-12"><a href="mailto:bjoeyhayes@gmail.com">BJoeyHayes@gmail.com</a></div>
           </div>
         </div>
       </div>
@@ -281,7 +308,7 @@ I'm pretty bummed CodePen can't actually show this pen in action.</p>
             </div>
             <div class="code-block container">
               <div class="block">
-                <h3>SCSS</h3><pre class="language-scss"><code class="language-scss"><span class="token comment" spellcheck="true">// This is what makes the background right here. </span>
+                <h3>SCSS</h3><pre class="language-scss"><code class="language-scss"><span class="token comment">// This is what makes the background right here. </span>
 <span class="token selector">html::before </span><span class="token punctuation">{</span>
   <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">' '</span><span class="token punctuation">;</span>
   <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
@@ -295,10 +322,10 @@ I'm pretty bummed CodePen can't actually show this pen in action.</p>
   <span class="token property">left</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
   <span class="token property">right</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
   <span class="token property">position</span><span class="token punctuation">:</span> fixed<span class="token punctuation">;</span>
-  <span class="token property">z-index</span><span class="token punctuation">:</span> -10<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// This is pretty important.</span>
+  <span class="token property">z-index</span><span class="token punctuation">:</span> -10<span class="token punctuation">;</span> <span class="token comment">// This is pretty important.</span>
 <span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// This is just the stuff to make the pen look pretty.</span>
+<span class="token comment">// This is just the stuff to make the pen look pretty.</span>
 <span class="token selector">html </span><span class="token punctuation">{</span>
   <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">"source sans pro"</span><span class="token punctuation">;</span>
   <span class="token property">font-weight</span><span class="token punctuation">:</span> 400<span class="token punctuation">;</span>
