@@ -156,8 +156,8 @@ $blockquote-border_color: $color-purple;
 $blockquote-border_left:  $color-purple solid to-rem(9);
 $blockquote-padding_left: gld($spacing-unit_base, 8);
 // Tables
-$table_background:        $color-grey_dark;
 $table-header_background: $color-purple;
+$table_background:        lighten($table-header_background, 33%);
 $table-header_color:      $color-white;
 $table-header_padding:    gld($spacing-unit_base, 9);
 $table-cell_padding:      gld($spacing-unit_base, 8);

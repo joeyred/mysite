@@ -215,19 +215,25 @@ li {
 blockquote {
   margin-left: $blockquote_margin-left;
   border-left: $blockquote_border-left;
-  padding-left: $blockquote_padding-left;
+  padding: 1rem 1rem 1rem $blockquote_padding-left;
+  background: lighten($blockquote-border_color, 33%);
+  color: $color-black;
+  margin-bottom: $vertical-rhythm;
 
   cite {
     display: block;
     text-align: right;
     width: auto;
     background: $blockquote-border_color;
+    color: $color-white;
     padding: $blockquote-padding_left;
-    margin-top: 1rem;
-    margin-left: -#{$blockquote-padding_left};
+    margin: 1rem -1rem -1rem -#{$blockquote-padding_left};
+    // margin-top: 1rem;
+    // margin-left: -#{$blockquote-padding_left};
+    // margin-right: -1rem;
   }
   p {
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
 }
 // Citations
@@ -240,6 +246,7 @@ table {
   width: 100%;
   border: none;
   background: $table_background;
+  color: $color-black;
   margin-bottom: $spacing-unit_vertical;
 
   thead {
@@ -255,7 +262,7 @@ table {
 
   tr {
     &:nth-child(2n) {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(200, 78, 255, 0.2);
     }
   }
 
@@ -263,7 +270,7 @@ table {
     padding: $table-cell_padding;
 
     &:nth-child(2n) {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(200, 78, 255, 0.2);
     }
   }
 }
