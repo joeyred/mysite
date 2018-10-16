@@ -5,75 +5,40 @@ order: 6
 ---
 include ../../mixins/mixins.pug
 
-.container.keep-gutters
-  //- Card CLOSED/NON-EXPANDED
-  .card
-    .card-thumbnail
-      img(src='/assets/imgs/mock/mock_580x300.jpg', alt='')
-    .card-bottom
-      h3 This is a Nice Title for a Card
-      .icon-bar
-        span.icon
-        span.icon
-        span.icon
-        span.icon
-  //- Card CLOSED/NON-EXPANDED
-  .card.horizontal
-    //- The Cover of the Card
-    .card-cover
-      .card-thumbnail
-        img(src='/assets/imgs/mock/soullessMark.png', alt='')
-      .card-info
-        h3 This is a Nice Title for a Card
-        .tags-container
-          ul.tags
-            li javascript
-            li nodejs
-            li app-design
-            li vue
-  .card.horizontal.after
-    .card-options-bar
-      span.icon
-        +icon('close')
-      button.button
-        | See More
-    //- The Cover of the Card
-    .card-cover
-      .card-thumbnail
-        img(src='/assets/imgs/mock/soullessMark.png', alt='')
-      .card-info
-        h3 This is a Nice Title for a Card
-        .tags-container
-          ul.tags
-            li javascript
-            li nodejs
-            li app-design
-            li vue
-    .bottom-container
-      p.
-        Etiam habebis sem dicantur magna mollis euismod. Me non paenitet nullum
-        festiviorem excogitasse ad hoc. Contra legem facit qui id facit quod lex
-        prohibet.
-  .card.bright.horizontal.after
-    .card-options-bar
-      span.icon
-        +icon('close')
-      button.button
-        | See More
-    //- The Cover of the Card
-    .card-cover
-      .card-thumbnail
-        img(src='/assets/imgs/mock/soullessMark.png', alt='')
-      .card-info
-        h3 This is a Nice Title for a Card
-        .tags-container
-          ul.tags
-            li javascript
-            li nodejs
-            li app-design
-            li vue
-    .bottom-container
-      p.
-        Etiam habebis sem dicantur magna mollis euismod. Me non paenitet nullum
-        festiviorem excogitasse ad hoc. Contra legem facit qui id facit quod lex
-        prohibet.
+//- .container.keep-gutters
+//-   //- Card CLOSED/NON-EXPANDED
+//-   .block.sm-12
+//-     .card.horizontal.a-special-class(data-card='')
+//-       //- Options Bar
+//-       .card-options-bar
+//-         button.icon-button(data-card-close='')
+//-           +icon('close')
+//-       //- Card Cover
+//-       .card-cover
+//-         //- Thumbnail
+//-         .card-thumbnail
+//-           img(src='path/to/image.png', title='Example Preview', alt='A preview of the Example Post')
+//-         //- Info
+//-         .card-info
+//-           //- Title
+//-           h3 Example
+//-           //- Tags
+//-           .tags-container
+//-             ul.tags
+//-               li foo
+//-               li bar
+//-       //- Description Content Container
+//-       .bottom-container
+//-         p
+//-           | A fun description of stuff.
+
+:markdown
+
+  ## More Coming Soon.
+
+  Cards have drastically changed, and currently are only usable with JavaScript. See 
+  [the documentation on the pug mixin for more](http://brianhayes.me/docs/pug/cards/).
+  
+  **PLEASE NOTE:** *The documentation may currently be out of date with both the mixin,
+  and the pug mixin as cards now use the Expand Javascript module and not the old Card
+  module.*
