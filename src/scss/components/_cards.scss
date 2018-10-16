@@ -9,6 +9,7 @@ ul.cards {
   justify-content: space-around;
 
   > li {
+    overflow: hidden; // Quick fix for hiding card content.
     flex: 1 0 to-rem(340);
     max-width: to-rem(340);
     padding: 0 $grid_gutter;
