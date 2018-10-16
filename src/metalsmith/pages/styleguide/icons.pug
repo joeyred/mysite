@@ -8,7 +8,7 @@ include ../../mixins/mixins.pug
 -
   var icons = [
   //- Custom Icons
-  'close', 'code', 'info', 'menu',
+  'close', 'code', 'info', 'menu', 'arrow-left', 'arrow-right',
   //- Social Icons
   'codepen',
   'facebook',
@@ -20,7 +20,16 @@ include ../../mixins/mixins.pug
   'twitter',
   'youtube'
   ];
-  
+
+.container
+  .block.sm-12
+    +titledCallout('Overview')
+      :markdown
+        Icons on this site are all inline SVGs. The use of SVG linking caused too many 
+        issues for how little of a spped difference there was. Because of this it is 
+        best to use the pug mixin for icons.
+    
+
 .container
   
   //- Loop?
@@ -38,5 +47,5 @@ include ../../mixins/mixins.pug
         //- Code Example
         .block.sm-12
           pre
-            code.
+            code.language-pug.
               #{'+icon(\''+  name  +'\')'}

@@ -105,7 +105,8 @@
     }
 
     .block {
-      height: 30px;
+      min-height: to-rem(30);
+      // padding: 1rem 0;
       text-align: center;
 
       &:nth-child(odd) {
