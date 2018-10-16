@@ -77,6 +77,8 @@ order: 3
   ## Ordered List (Nested)
 
   1. Item 1
+      1. Item 1.1
+      2. Item 1.2
   2. Item 2
   3. Item 3
 
@@ -119,7 +121,46 @@ order: 3
     </div>
   </article>
   ```
+  ## Pug
+  
+  ```pug
+  extends ../layouts/default.pug
 
+  block panes
+    +pane('pen', 'above', 'pen-pane', {api: 'api'})
+      .carousel-panes(data-carousel-panes='')
+        //- Center
+        .pane.carousel-center
+          .container
+            .block.sm-12(data-inject-bind='demo')
+        //- Left
+        .pane.carousel-left
+          .container
+            .block.sm-12(data-inject-bind='details')
+        //- Right
+        .pane.carousel-right
+          .container
+            .block.sm-12(data-inject-bind='code.markup')
+          .container
+            .block.sm-12(data-inject-bind='code.styles')
+          .container
+            .block.sm-12(data-inject-bind='code.scripts')
+      .fixed-bottom-bar
+        .nav-bar
+          button.icon-button(data-panes-nav='left')
+            +icon('info')
+          button.icon-button(data-panes-nav='center')
+            +icon('menu')
+          button.icon-button(data-panes-nav='right')
+            +icon('code')
+        .pane-carousel-title-bar.container.sm-row.sm-nowrap
+          .block.sm-12
+            h4 Details
+          .block.sm-12
+            h4 Demo
+          .block.sm-12
+            h4 Code
+  ```
   ## CSS
 
   ```css
@@ -154,107 +195,134 @@ order: 3
   ## SCSS
 
   ```scss
-  .info-bar {
-    @include category-color-classes;
+  mixin generate-close-icon-colors {
+    $_palette: map-keys($color-palette);
 
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    width: 100%;
-    div > span {
-      display: block;
-      padding: $info-bar-padding_vertical $info-bar-padding_horizontal;
-      line-height: $line-height_base;
-      font-size: $info-bar-font_size;
-    }
-    .category {
-      flex: auto;
-      // margin: auto;
-
-    }
-    .publish-date {
-      // flex: 0 1 auto;
-      text-align: right;
-      background-color: $info-bar-date_background-color;
-      color: $info-bar-date_text-color;
-      // margin: auto;
+    @each $_color in $_palette {
+      $_color-value: map-get($color-palette, $_color);
+      &.#{$_color} {
+        .icon-button {
+          svg {
+            fill: $_color-value;
+          }
+        }
+      }
     }
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: $font-heading_family;
-    font-weight: $font-heading_weight;
-    color: $font-heading_color;
+  @mixin generate-animation-border-color-classes {
+    $_palette: map-keys($color-palette);
+
+    @each $_color in $_palette {
+      $_color-value: map-get($color-palette, $_color);
+      &.#{$_color} {
+        .animation_border-left {
+          background: $_color-value;
+        }
+      }
+    }
+  }
+
+  ////
+  /// Base Styles
+  ///
+
+  .titled-callout {
+    @include generate-animation-border-color-classes;
+    @include generate-close-icon-colors;
+
+    .expandable-content {
+      overflow: hidden;
+    }
+    &[data-expand="inactive"] {
+      .expandable-content {
+        overflow: inherit;
+      }
+    }
+  }
+
+
+
+  .titled-callout[data-responsive-state="active"] {
+    will-change: transform;
+    transform: none;
+    ////
+    /// Base Styles
+    ///
+    &[data-expand] {
+      // Content
+      // ======================= //
+      .expandable-content {
+        will-change: transform;
+      }
+      // Border
+      // ======================= //
+      .animation_border-left {
+        position: absolute;
+        width: $titled-callout_border-left-size;
+        will-change: height;
+      }
+      // Icon
+      // ======================= //
+      .icon-button {
+        svg {
+          rect:nth-child(3) {
+            will-change: transform;
+          }
+          rect:nth-child(2) {
+            will-change: transform;
+          }
+        }
+      }
+    }
   }
   ```
 
   ## JavaScript
 
   ```javascript
-  'use strict';
-
-  function Inject(documentPath, contentTarget, options) {
-    this.options = this.getOptions(options || {});
-    this.xhr = new XMLHttpRequest();
-    this.debug = new Debug('Inject', true);
-    this.$contentContainer = $('[' + this.options.injectContentAttr + ']');
-    this.documentPath = documentPath;
-    this.contentTarget = contentTarget;
-    this.status = 'no content';
-    this.updateStatusAttr();
-  }
-
-  Inject.prototype = {
-    constructor: Inject,
-
-    defaults: {
-      injectContentAttr:  'data-inject',
-      contentLoadedValue: 'loaded'
-    },
-    getOptions: function(options) {
-      return $.extend(true, this.defaults, options);
-    },
-    getStatusAttr: function() {
-      return this.options.injectContentAttr + '-status';
-    },
-    contentHasLoaded: function() {
-      if (this.$contentContainer.attr(this.getStatusAttr()) === this.options.contentLoadedValue) {
-        return true;
-      }
-      return false;
-    },
-    updateStatus: function(status) {
-      this.status = status;
-      this.updateStatusAttr();
-    },
-    updateStatusAttr: function() {
-      this.$contentContainer.attr(this.getStatusAttr(), this.status);
-    },
-    contentIsReady: function() {
-      return this.xhr.readyState === 4;
-    },
-    getContent: function() {
-      var $response = $(this.xhr.responseText);
-      this.debug.functionReturn('getContent', $response);
-      return $response.find(this.contentTarget);
-    },
-    injectContent: function() {
-      this.debug.values('injectContent', {readyState: this.xhr.readyState});
-      if (this.contentIsReady()) {
-        // Inject Content
-        this.$contentContainer.append(this.getContent());
-        // Update Status
-        this.updateStatus(this.options.contentLoadedValue);
-      }
-    },
-    event: function() {
-      if (!this.contentHasLoaded()) {
-        this.xhr.onreadystatechange = this.injectContent.bind(this);
-        this.xhr.open('GET', this.documentPath);
-        this.xhr.send();
+  !function() {
+  class EventListener {
+    constructor(element, listener) {
+      this.element = element;
+      this.listener = listener;
+      this.callbacks = [];
+      this.registered = false;
+    }
+    _handler() {
+      if (this.callbacks.length > 0) {
+        for (let i = 0; i < this.callbacks.length; i++) {
+          this.callbacks[i]();
+        }
       }
     }
+    _registerEventListener() {
+      this.element.addEventListener(this.listener, () => this._handler());
+    }
+    registerCallback(callback) {
+      if (typeof callback === 'function') {
+        this.callbacks.push(callback);
+      } else {
+        throw new TypeError(`callback must be a function, not a ${typeof callback}`);
+      }
+      if (this.callbacks.length > 0 && !this.registered) {
+        this._registerEventListener();
+        this.registered = true;
+      }
+    }
+  }
+
+  const registerGlobalEventListener = function(name, element, listener) {
+    listener = name || listener;
+    if (Gingabulous.events[name] === undefined) {
+      Gingabulous.events[name] = new Gingabulous.EventListener(element, listener);
+    }
   };
+
+  Gingabulous.events = {};
+  Gingabulous.registerGlobalEventListener = registerGlobalEventListener;
+  Gingabulous.EventListener = EventListener;
+  }();
   ```
 
   ## php

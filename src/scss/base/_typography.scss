@@ -203,11 +203,12 @@ ol {
 
 li {
   margin-bottom: $list-item_margin-bottom;
-
+  // Nested Lists
   > ul,
   > ol {
     // margin-left: $nested-list_margin-left;
-    margin-top: $list-item_margin-bottom; // Nested Lists
+    margin-top: $list-item_margin-bottom;
+    margin-bottom: 0; 
   }
 }
 
