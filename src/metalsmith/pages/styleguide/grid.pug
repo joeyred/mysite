@@ -120,11 +120,119 @@ h3 Mixed Examples
     .block.sm-3 3
   .container.sm-no-gutters.sg-example
     .block.sm-2 2
-    .block.sm-8 8
-    .block.sm-2 2
+    .block.sm-7 7
+    .block.sm-3 3
   .container.sm-no-gutters.sg-example
     .block.sm-1 1
     .block.sm-4 4
-    .block.sm-2 2
-    .block.sm-4 4
+    .block.sm-3 3
     .block.sm-1 1
+    .block.sm-3 3
+
+h3 Nested Examples
+
+.sg-grid-example.wrapper
+  .container.sg-example
+    .block.sm-8 8
+      .container
+        .block.sm-6 6
+        .block.sm-6 6
+    .block.sm-4 4
+  .container.sg-example
+    .block.sm-6 6
+      .container
+        .block.sm-4 4
+        .block.sm-4 4
+        .block.sm-4 4
+    .block.sm-4 4
+      .container
+        .block.sm-8 8
+        .block.sm-4 4
+    .block.sm-2 2
+  .container.sg-example
+    .block.sm-9 9
+      .container
+        .block.sm-8 8
+          .container
+            .block.sm-5 5
+            .block.sm-7 7
+        .block.sm-4 4
+    .block.sm-3 3
+:markdown
+  ## Modifier Classes
+  
+  There are many modifier classes for both containers and blocks. These maostly have to 
+  do with flexbox's arrangement and positioning, but also has to do with grid specific 
+  properties like the use of gutters.
+  
+  **NOTE:** *All classes are prefixed with the breakpoint they apply to.*
+  
+  ### Container classes
+  
+  #### Layout
+  - `row-reverse` - Reverses the order of the blocks in the container
+  - `wrap` - Allows for content to wrap to the next row.
+  - `nowrap` - Prevents wrapping of content to the next row.
+  - `wrap-reverse` - Reverses the wrapping direction of blocks.
+  
+  #### Alignment
+  
+  All alignment is based on the `flex-direction` of the container. If a modifier is used
+  to reverse any direction of the flow of blocks, then these alignment classes will work
+  to the opposite direction. *Excluding the middle and center classes.*
+  
+  - `align-top` - Align blocks to the top of the container.
+  - `align-middle` - Align blocks to the vertical middle of the container.
+  - `align-bottom` - Align blocks to the bottom of the container.
+  - `align-left` - Align blocks to the left of the container.
+  - `align-center` - Align blocks to the horizonal center of the container.
+  - `align-right` - Align blocks to the right of the container.
+  
+  #### Spacing
+  
+  - `space-between` - puts space between blocks.
+  - `space-around` - puts space around blocks, even if no block is ajacent.
+  - `stretch` - stretches blocks to fill the width of the container.
+  
+  #### Gutters
+  
+  - `no-gutters` - removes gutters from blocks.
+  
+  ### Block Classes
+  
+  This list excludes fixed width classes.
+  
+  #### Order
+  
+  Order classes can be added by simply a breakpoint prefix, `order-`, and a number.
+  This grid only supports `order-1` up to `order-12`.
+  
+  ##### Example
+  
+  Setting the order of a block for medium screens and up
+  
+  ```html
+  <div class="container">
+    <div class="block sm-12 md-6 md-order-2">
+      I am now to the right of the next block on medium screens and up.
+    </div>
+    <div class="block sm-12 md-6">
+      I am below the first block on small screens, but to the left on medium screens and up.
+    </div>
+  </div>
+  ```
+.sg-grid-example.wrapper
+  .container.sg-example
+    .block.sm-12.md-6.md-order-2
+      p I am now to the right of the next block on medium screens and up.
+    .block.sm-12.md-6.md-order-1
+      p I am below the second block on small screens, but to the left on medium screens and up.
+  
+:markdown
+  #### Alignment
+  
+  blocks can independently align themselves based on `flex-flow`.
+  
+  - `align-top`
+  - `align-middle`
+  - `align-bottom`

@@ -24,7 +24,7 @@
 // TODO Document grid block order mixin.
 @mixin generate_grid-block-order($_prefix) {
   @for $_i from 1 through 12 {
-    &.order-#{$_prefix}-#{$_i} {
+    &.#{$_prefix}-order-#{$_i} {
       order: #{$_i};
     }
   }
