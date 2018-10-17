@@ -1,0 +1,35 @@
+---
+title: About Me
+---
+
+extends ../layouts/default.pug
+
+block content
+  .container
+    .block.sm-12
+      h1 About Me
+  .container.sm-align-middle.about-me-heading
+    .block.sm-4
+      img.avatar(src=helpers.url('/assets/imgs/main/avi3.jpg'))
+    .block.sm-8
+      .container
+        .block.sm-12
+          h2 Brian Hayes
+        .block.sm-12
+          +socialIconBar(
+            'twitter',
+            'github',
+            'codepen',
+            'stackoverflow',
+            'linkedin'
+          )
+  .container
+    .block.sm-12
+      h3 Javascript Developer
+      p.
+        Creatively driven and technical minded. I love coming up with the idea
+        just as much as I love bringing it to life. I want what I put my time
+        and effort into to be something I can be proud of. I have a wide 
+        variety of passions and interests, such as: design, music, writing, 
+        media production, art, cooking, mixology, video games, sports, 
+        and playing guitar.
