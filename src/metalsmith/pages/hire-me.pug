@@ -1,0 +1,31 @@
+---
+title: Hire Me!
+---
+
+extends ../layouts/default.pug
+
+block content
+  .container
+    .block.sm-12
+      h1 Hire Me!
+  
+  .container
+    .block.sm-12
+      :markdown
+        Want to get in contact with me, or hire me? Check out all my stuff 
+        for that below. 
+          
+  .container
+    .block.sm-12
+      h2 Social Media
+    .block.sm-12
+      +socialIconBar(
+        'twitter',
+        'github',
+        'codepen',
+        'stackoverflow',
+        'linkedin'
+      )
+    .block.sm-12
+      h2 My Email
+      a(href="mailto:bjoeyhayes@gmail.com") BJoeyHayes@gmail.com
