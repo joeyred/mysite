@@ -38,16 +38,21 @@ block panes
 
 //- Content
 block content
-  h1 This is my Work
-  
-  ul.cards.portfolio
-    - var pens = collections.pens || [];
-    - var projects = collections.projects || [];
-    - var cards = _.concat(pens, projects);
-    - var sortedCards = _.sortBy(cards, 'date');
-    
+  .container
+    .block.sm-12
+      h1 My Work
+      
+  .container
+    .block.sm-12
+      ul.cards.portfolio
+        - var pens = collections.pens || [];
+        - var projects = collections.projects || [];
+        - var cards = _.concat(pens, projects);
+        - var filteredCards = _.filter(cards, function(o) {return !o.draft});
+        - var sortedCards = _.sortBy(filteredCards, 'date');
+        
 
-    //- Loop through Cards
-    each card in sortedCards
-      li
-        +card(card)
+        //- Loop through Cards
+        each card in sortedCards
+          li
+            +card(card)
