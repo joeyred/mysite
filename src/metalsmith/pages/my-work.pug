@@ -55,4 +55,19 @@ block content
         //- Loop through Cards
         each card in sortedCards
           li
-            +card(card)
+            +card(card, {animation: 'expandingCards'})
+            
+  .container
+    .block.sm-12
+      :markdown
+        ## On the Roadmap
+        
+        ### Battleship - React
+        
+        A Battleship game built with React.
+        
+        This game will feature custom graphics and a computer player.
+        
+        ### Recipe Book - React & Redux
+        
+        A prototype app for a recipe book using React and Redux.
