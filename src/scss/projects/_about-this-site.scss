@@ -1,0 +1,63 @@
+@mixin colored-sections($_base-bg-color, $_text-color) {
+  background: $_base-bg-color;
+  color: $_text-color;
+
+  h1, h2 {
+    color: $_text-color;
+    background: darken($_base-bg-color, 20%);
+  }
+  h3, h4, h5, h6 {
+    color: darken($_base-bg-color, 30%);
+  }
+  .icon > svg {
+    fill: darken($_base-bg-color, 30%);
+  }
+  .button {
+    background: darken($_base-bg-color, 30%);
+    color: $_text-color;
+
+    &:hover {
+      background: darken($_base-bg-color, 50%);
+    }
+  }
+}
+
+.pane-content {
+  .about-this-site {
+    padding-top: $topbar_height;
+
+    @include mq('xl') {
+      // Probably best since the nav on XL screans makes stuff wierd.
+      background: $color-grey_darker;
+    }
+  }
+}
+
+.about-this-site {
+  padding-top: $topbar_height;
+
+  @include mq('xl') {
+    // Probably best since the nav on XL screans makes stuff wierd.
+    background: $color-grey_darker;
+  }
+  section {
+    padding-bottom: $vertical-rhythm;
+    h2 {
+      padding: $vertical-rhythm $grid_gutter;
+      margin-left: -#{$grid_gutter};
+      margin-right: -#{$grid_gutter};
+    }
+    &.major-components {
+      @include colored-sections($color-purple, $color-white);
+    }
+    &.javascript-library {
+      @include colored-sections($color-yellow, $color-black);
+    }
+    &.my-scss {
+      @include colored-sections($color-blue, $color-white);
+    }
+    &.gulp-pipeline {
+      @include colored-sections($color-red, $color-white);
+    }
+  }
+}

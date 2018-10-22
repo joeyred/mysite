@@ -103,8 +103,12 @@ block content
                 - var pens = collections.pens || [];
                 - var projects = collections.projects || [];
                 - var cards = _.concat(pens, projects);
+                - var aboutThisSite = _.filter(projects, {title: 'About This Site'});
                 - var filteredCards = _.filter(cards, {featured: true});
                 - var sortedCards = _.sortBy(filteredCards, 'date');
+                - console.log(aboutThisSite);
+                li
+                  +card(aboutThisSite[0], {animation: 'expandingCards', classes: 'card_about-this-site'})
                 
                 each card in sortedCards
                   li
