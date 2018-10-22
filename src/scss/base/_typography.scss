@@ -101,7 +101,19 @@ ol + h2,
 ol + h3,
 ol + h4,
 ol + h5,
-ol + h6 {
+ol + h6,
+a + h1,
+a + h2,
+a + h3,
+a + h4,
+a + h5,
+a + h6,
+button + h1,
+button + h2,
+button + h3,
+button + h4,
+button + h5,
+button + h6 {
   margin-top: $vertical-rhythm * 3;
 }
 
@@ -109,7 +121,7 @@ ol + h6 {
 
 h1,
 h2 {
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   text-transform: uppercase;
 }
 
@@ -198,6 +210,7 @@ hr {
 ul,
 ol {
   padding-left: $list_margin-left;
+  margin-left: $list_margin-left;
   margin-bottom: $list_margin-bottom;
 }
 
@@ -208,7 +221,7 @@ li {
   > ol {
     // margin-left: $nested-list_margin-left;
     margin-top: $list-item_margin-bottom;
-    margin-bottom: 0; 
+    margin-bottom: 0;
   }
 }
 

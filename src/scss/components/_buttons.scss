@@ -14,14 +14,14 @@ a.button {
   background: $button_background;
   color: $button_text-color;
   font-size: 1rem;
-  line-height: 1;
+  line-height: $line-height_base;
   letter-spacing: 3px;
   text-transform: uppercase;
   transition: background 100ms ease-out;
   cursor: pointer;
 
   &:hover {
-    background: lighten($button_background, 10%);
+    background: darken($button_background, 20%);
   }
 
   span {
