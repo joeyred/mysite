@@ -109,6 +109,7 @@
 
 ul.nav-vertical {
   list-style: none;
+  margin-left: 0;
   padding-left: 0;
   li {
     padding: to-rem(5);
@@ -125,6 +126,7 @@ ul.nav-vertical {
 
 ul.nav-horizontal {
   list-style: none;
+  margin-left: 0;
   padding-left: 0;
   li {
     display: inline-block;
