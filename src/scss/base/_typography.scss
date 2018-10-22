@@ -198,6 +198,7 @@ hr {
 ul,
 ol {
   padding-left: $list_margin-left;
+  margin-left: $list_margin-left;
   margin-bottom: $list_margin-bottom;
 }
 
@@ -208,7 +209,7 @@ li {
   > ol {
     // margin-left: $nested-list_margin-left;
     margin-top: $list-item_margin-bottom;
-    margin-bottom: 0; 
+    margin-bottom: 0;
   }
 }
 
