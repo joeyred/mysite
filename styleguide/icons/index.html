@@ -1,4 +1,20 @@
 <html><head></head><body><div class="container">
+  <div class="block sm-12">
+    <div class="titled-callout">
+      <div class="titled-callout-heading">
+        <h2>Overview</h2>
+      </div>
+      <div class="titled-callout-content-wrapper">
+        <div class="titled-callout-content"><p>Icons on this site are all inline SVGs. The use of SVG linking caused too many
+issues for how little of a spped difference there was. Because of this it is
+best to use the pug mixin for icons.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
   <div class="block sm-12 md-6 lg-4">
     <div class="container">
       <div class="block sm-12">
@@ -15,7 +31,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('close')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -38,7 +54,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('code')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'code'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -59,7 +75,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('info')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'info'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -81,7 +97,47 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('menu')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'menu'</span><span class="token punctuation">)</span></span></code></pre>
+      </div>
+    </div>
+  </div>
+  <div class="block sm-12 md-6 lg-4">
+    <div class="container">
+      <div class="block sm-12">
+        <div class="container">
+          <div class="block sm-9">
+            <h4>Arrow-left</h4>
+          </div>
+          <div class="block sm-3"><span class="icon">
+              <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <title>arrow-left</title>
+                <rect x="2.98" y="20.56" width="26.05" height="4.56" rx="2.28" ry="2.28" transform="translate(18.19 -4.96) rotate(39.52)"></rect>
+                <rect x="2.98" y="6.88" width="26.05" height="4.56" rx="2.28" ry="2.28" transform="translate(-2.17 12.28) rotate(-39.52)"></rect>
+              </svg></span></div>
+        </div>
+      </div>
+      <div class="block sm-12">
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'arrow-left'</span><span class="token punctuation">)</span></span></code></pre>
+      </div>
+    </div>
+  </div>
+  <div class="block sm-12 md-6 lg-4">
+    <div class="container">
+      <div class="block sm-12">
+        <div class="container">
+          <div class="block sm-9">
+            <h4>Arrow-right</h4>
+          </div>
+          <div class="block sm-3"><span class="icon">
+              <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <title>arrow-right</title>
+                <rect x="2.98" y="20.56" width="26.05" height="4.56" rx="2.28" ry="2.28" transform="translate(42.87 30.27) rotate(140.48)"></rect>
+                <rect x="2.98" y="6.88" width="26.05" height="4.56" rx="2.28" ry="2.28" transform="translate(22.51 26.41) rotate(-140.48)"></rect>
+              </svg></span></div>
+        </div>
+      </div>
+      <div class="block sm-12">
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'arrow-right'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -101,7 +157,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('codepen')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'codepen'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -120,7 +176,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('facebook')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'facebook'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -139,7 +195,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('github')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'github'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -160,7 +216,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('instagram')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'instagram'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -179,7 +235,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('linkedin')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'linkedin'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -198,7 +254,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('pinterest')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'pinterest'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -218,7 +274,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('stackoverflow')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'stackoverflow'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -237,7 +293,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('twitter')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'twitter'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
@@ -256,7 +312,7 @@
         </div>
       </div>
       <div class="block sm-12">
-        <pre><code>+icon('youtube')</code></pre>
+        <pre class="language-pug"><code class="language-pug"><span class="token mixin"><span class="token name function">+icon</span><span class="token punctuation">(</span><span class="token string">'youtube'</span><span class="token punctuation">)</span></span></code></pre>
       </div>
     </div>
   </div>
