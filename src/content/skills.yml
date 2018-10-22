@@ -22,7 +22,7 @@ development:
   -
     category: css
     title: CSS
-    overall: 90
+    overall: 85
     skills:
       -
         name: CSS3
@@ -51,7 +51,7 @@ development:
   -
     category: javascript
     title: JavaScript
-    overall: 85
+    overall: 95
     skills:
       -
         name: ES2015/ES6
@@ -73,10 +73,13 @@ development:
         rating: 60
       -
         name: Redux
-        rating: 40
+        rating: 60
       -
         name: React
-        rating: 40
+        rating: 70
+      -
+        name: Vue
+        rating: 50
   -
     category: wordpress
     title: WordPress
@@ -107,7 +110,7 @@ design:
         rating: 85
       -
         name: Photoshop
-        rating: 50
+        rating: 60
   -
     category: ui-ux
     title: UI/UX
