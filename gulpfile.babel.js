@@ -530,6 +530,14 @@ export function removeAPIAttr() {
 const generateAPIFile = gulp.series(buildAPI, removeAPIAttr);
 export {generateAPIFile};
 
+export function generateSitemap() {
+  return gulp.src(`${settings.dest.dist}/**/*.html`, {read: false})
+    .pipe($.sitemap({
+      siteUrl: settings.pages.metadata.site.url
+    }))
+    .pipe(gulp.dest(settings.dest.dist));
+}
+
 export function clean() {
   if (DEPLOY) {
     return del(settings.dest.dist);
@@ -595,7 +603,8 @@ const start = gulp.series(
   DEPLOY ?
     gulp.series(
       buildSitePages,
-      generateAPIFile
+      generateAPIFile,
+      generateSitemap
     ) :
     TEST ?
       gulp.series(
