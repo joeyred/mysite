@@ -46,7 +46,7 @@
     </url>
     <url>
         <loc>http://www.brianhayes.me/projects/hbgi/</loc>
-        <lastmod>2018-10-16T03:31:04.345Z</lastmod>
+        <lastmod>2018-10-23T17:29:45.938Z</lastmod>
     </url>
     <url>
         <loc>http://www.brianhayes.me/projects/mtap/</loc>
@@ -75,6 +75,30 @@
     <url>
         <loc>http://www.brianhayes.me/styleguide/typography/</loc>
         <lastmod>2018-10-22T20:35:25.008Z</lastmod>
+    </url>
+    <url>
+        <loc>http://www.brianhayes.me/docs/pug/icon/</loc>
+        <lastmod>2018-10-16T03:31:04.342Z</lastmod>
+    </url>
+    <url>
+        <loc>http://www.brianhayes.me/docs/pug/card/</loc>
+        <lastmod>2018-10-16T03:31:04.341Z</lastmod>
+    </url>
+    <url>
+        <loc>http://www.brianhayes.me/docs/pug/skill/</loc>
+        <lastmod>2018-10-16T03:31:04.343Z</lastmod>
+    </url>
+    <url>
+        <loc>http://www.brianhayes.me/docs/pug/pane/</loc>
+        <lastmod>2018-10-16T03:31:04.342Z</lastmod>
+    </url>
+    <url>
+        <loc>http://www.brianhayes.me/docs/pug/social-icon-bar/</loc>
+        <lastmod>2018-10-16T03:31:04.343Z</lastmod>
+    </url>
+    <url>
+        <loc>http://www.brianhayes.me/docs/pug/titled-callout/</loc>
+        <lastmod>2018-10-16T03:31:04.344Z</lastmod>
     </url>
     <url>
         <loc>http://www.brianhayes.me/docs/javascript/animate/</loc>
@@ -115,29 +139,5 @@
     <url>
         <loc>http://www.brianhayes.me/docs/javascript/responsive/</loc>
         <lastmod>2018-08-20T23:20:56.392Z</lastmod>
-    </url>
-    <url>
-        <loc>http://www.brianhayes.me/docs/pug/card/</loc>
-        <lastmod>2018-10-16T03:31:04.341Z</lastmod>
-    </url>
-    <url>
-        <loc>http://www.brianhayes.me/docs/pug/icon/</loc>
-        <lastmod>2018-10-16T03:31:04.342Z</lastmod>
-    </url>
-    <url>
-        <loc>http://www.brianhayes.me/docs/pug/pane/</loc>
-        <lastmod>2018-10-16T03:31:04.342Z</lastmod>
-    </url>
-    <url>
-        <loc>http://www.brianhayes.me/docs/pug/skill/</loc>
-        <lastmod>2018-10-16T03:31:04.343Z</lastmod>
-    </url>
-    <url>
-        <loc>http://www.brianhayes.me/docs/pug/social-icon-bar/</loc>
-        <lastmod>2018-10-16T03:31:04.343Z</lastmod>
-    </url>
-    <url>
-        <loc>http://www.brianhayes.me/docs/pug/titled-callout/</loc>
-        <lastmod>2018-10-16T03:31:04.344Z</lastmod>
     </url>
 </urlset>
