@@ -1,8 +1,8 @@
 import {AssetConfigParser} from '../utils';
 
 const DEFAULTS = {
-  source: 'imgs',
-  destination: 'imgs',
+  source:            'imgs',
+  destination:       'imgs',
   optimizationLevel: 7,
   progressive:       true,
   interlaced:        true,
