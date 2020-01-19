@@ -8,11 +8,12 @@ import _ from 'lodash';
 
 import {
   url,
-  generateNavObject
+  generateNavObject,
+  borderGradiantString
 } from './helpers';
 import runMetalsmith from '../runMetalsmith';
-import {loadData} from '../../utils';
-import {DEPLOY, DIR, PAGES, COLLECTIONS} from '../../config';
+import {loadData, removeFileExtension} from '../../utils';
+import {DEBUG, DEPLOY, DIR, PAGES, COLLECTIONS} from '../../config';
 
 // const DEPLOY = Boolean(yargs.argv.production);
 
@@ -22,14 +23,16 @@ const transformers = {
 
 const filters = {
   markdown: function(block) {
-    return filters.markdown.render(block, {html: true});
+    return transformers.markdown.render(block, {html: true});
   }
 };
 
 function getContent(files) {
   const output = {};
+  let file;
   for (let i = 0; i < files.length; i++) {
-    output[files[i]] = loadData(`${DIR.src}/${PAGES.data}/${files[i]}`);
+    file = removeFileExtension(files[i]);
+    output[file] = loadData(`${DIR.src}/${PAGES.data}/${files[i]}`);
   }
   return output;
 }
@@ -71,10 +74,13 @@ export function generateSitemap() {
 export function buildSite(done) {
   const siteData = getContent(PAGES.data_files);
   const internalLink = url(DEPLOY, PAGES.url);
+  if (DEBUG) {
+    console.log('siteData:\n', siteData);
+  }
   const msOptions = {
     metadata: {
       build:   {production: DEPLOY},
-      site:    PAGES.url,
+      site:    PAGES,
       data:    siteData,
       _,
       // NOTE For backwards compatability. Use `transformers` instead.
@@ -84,7 +90,8 @@ export function buildSite(done) {
         // NOTE For backwards compatability. Use `internalLink` instead.
         url: internalLink,
         internalLink,
-        generateNavObject
+        generateNavObject,
+        borderGradiantString
       }
     },
     workingDir:  process.cwd(),
