@@ -11,6 +11,7 @@
 //   stackoverflow: https://stackoverflow.com/users/5331958/joeyred
 
 import {specificKeysToNewObject} from '../utils';
+import {DEBUG} from '../config';
 
 const DEFAULTS = {
   title:       'Gingabulous',
@@ -31,7 +32,7 @@ const DEFAULTS = {
 };
 
 export default function parse(config) {
-  return Object.assign(
+  const output = Object.assign(
     {},
     DEFAULTS,
     specificKeysToNewObject(
@@ -48,4 +49,8 @@ export default function parse(config) {
       ]
     )
   );
+  if (DEBUG) {
+    console.log(output);
+  }
+  return output;
 }
