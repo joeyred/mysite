@@ -117,6 +117,11 @@ export function getFileExtension(filepath) {
   return filepathArray[extensionIndex];
 }
 
+export function removeFileExtension(file) {
+  const filepathArray = file.split('.');
+  return filepathArray[0];
+}
+
 export function loadYmlData(filepath) {
   const file = fs.readFileSync(filepath, 'utf8');
   return yaml.load(file);
