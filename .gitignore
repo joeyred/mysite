@@ -5,6 +5,7 @@ dist
 build
 src/metalsmith/mixins/mixins.pug
 src/content/brianhayes.json
+src/content/treehouse.json
 
 # Code Dump Files
 dump.js
