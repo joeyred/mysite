@@ -40,6 +40,7 @@ const {
 export const DEPLOY = Boolean(yargs.argv.production);
 export const FULLTEST = Boolean(yargs.argv.fulltest);
 export const TEST = Boolean(yargs.argv.test);
+export const DEBUG = Boolean(yargs.argv['debug-mode']);
 
 /**
  * First level directory paths.
