@@ -1,7 +1,7 @@
 title: Brian Hayes
 description: >
   The personal professional website and portfolio for Brian Hayes.
-url: http://www.brianhayes.me
+url: https://www.brianhayes.me
 # url: https://joeyred.github.io/mysite
 email: bjoeyhayes@gmail.com
 social:
@@ -14,11 +14,16 @@ social:
 servers:
   port: 8000
 
+# Directories
 source: src
 destination: build
 templates: metalsmith
 styles: scss
+data: content
 # Content
+data_files:
+  - treehouse.json
+  - skills.yml
 collections:
   # Pens
   pens:
@@ -39,6 +44,7 @@ collections:
     precompile: true
   # Documentation
   docs:
+    output: true
     defaults:
       type: 'doc'
       api:
@@ -60,7 +66,6 @@ assets:
       - pages
       - projects
 
-
   # Scripts
   scripts:
     partials:
@@ -68,12 +73,14 @@ assets:
       - modules/util.*.js
       - '**/!(app).js'
       - app.js
-    test:
-      partials:
-        - modules/core.js
-        - modules/util.*.js
-        - modules/**.js
 
   # Images
   images:
     optimization: 7
+
+tests:
+  scripts:
+    partials:
+      - modules/core.js
+      - modules/util.*.js
+      - modules/**.js

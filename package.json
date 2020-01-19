@@ -17,116 +17,75 @@
   },
   "homepage": "https://github.com/joeyred/mysite#readme",
   "devDependencies": {
-    "babel-preset-env": "^1.1.8",
-    "browser-sync": "^2.18.7",
-    "chai": "^3.5.0",
-    "chai-jquery": "^2.0.0",
-    "clean-stack": "^1.1.1",
-    "del": "^2.2.2",
-    "fs": "0.0.1-security",
-    "gulp": "github:gulpjs/gulp#4.0",
-    "gulp-autoprefixer": "^3.1.1",
-    "gulp-babel": "^6.1.2",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.26.7",
+    "chai": "^4.2.0",
+    "chai-jquery": "^2.1.0",
+    "clean-stack": "^2.2.0",
+    "debug": "^4.1.1",
+    "del": "^5.1.0",
+    "fancy-log": "^1.3.3",
+    "fs": "0.0.2",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.0",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-dom": "^0.9.17",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-dom": "^1.0.0",
     "gulp-front-matter": "^1.3.0",
     "gulp-gh-pages": "^0.5.4",
-    "gulp-if": "^2.0.2",
-    "gulp-ignore": "^2.0.2",
-    "gulp-imagemin": "^3.1.1",
-    "gulp-load-plugins": "^1.5.0",
-    "gulp-merge-json": "^1.0.0",
+    "gulp-if": "^3.0.0",
+    "gulp-ignore": "^3.0.0",
+    "gulp-imagemin": "^6.1.0",
+    "gulp-load-plugins": "^2.0.1",
+    "gulp-merge-json": "^1.3.1",
     "gulp-merge-media-queries": "^0.2.1",
     "gulp-metalsmith": "^1.1.0",
     "gulp-pixrem": "^1.0.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-remote-src": "^0.4.3",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-sitemap": "^6.0.1",
-    "gulp-sourcemaps": "^2.4.1",
-    "gulp-uglify": "^2.0.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-remote-src": "^0.4.4",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sitemap": "^7.4.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
     "gulp-uncss": "^1.0.6",
     "gulp-util": "^3.0.8",
-    "gulpsmith": "^0.5.5",
-    "js-yaml": "^3.10.0",
+    "gulpsmith": "^0.6.0",
+    "js-yaml": "^3.13.1",
     "jstransformer": "^1.0.0",
-    "jstransformer-markdown-it": "^2.0.0",
-    "lodash": "^4.17.4",
+    "jstransformer-markdown-it": "^2.1.0",
+    "lodash": "^4.17.15",
     "metalsmith": "^2.3.0",
     "metalsmith-branch": "0.0.5",
     "metalsmith-build-info": "^1.0.1",
     "metalsmith-collection-metadata": "^0.1.0",
     "metalsmith-collections": "^0.9.0",
-    "metalsmith-debug": "^1.1.0",
-    "metalsmith-debug-ui": "^0.1.1",
+    "metalsmith-debug": "^1.2.0",
+    "metalsmith-debug-ui": "^0.3.2",
     "metalsmith-each": "^0.1.1",
-    "metalsmith-layouts": "^1.8.1",
-    "metalsmith-linkcheck": "^0.3.0",
-    "metalsmith-markdown": "^0.2.1",
-    "metalsmith-permalinks": "^0.5.0",
-    "metalsmith-prism": "^3.1.0",
+    "metalsmith-ignore": "^1.0.0",
+    "metalsmith-layouts": "^2.3.1",
+    "metalsmith-linkcheck": "^0.3.4",
+    "metalsmith-markdown": "^1.2.0",
+    "metalsmith-permalinks": "^2.2.0",
+    "metalsmith-prism": "^3.1.1",
     "metalsmith-pug": "^2.0.0",
     "metalsmith-rename": "^1.0.0",
     "metalsmith-writemetadata": "^0.4.5",
-    "mocha": "^3.2.0",
+    "mocha": "^6.2.0",
     "object-assign": "^4.1.1",
-    "object-assign-deep": "^0.3.1",
-    "pug": "^2.0.0-rc.1",
-    "run-sequence": "^1.2.2",
-    "sinon": "^2.1.0",
-    "sinon-chai": "^2.9.0",
-    "yargs": "^6.6.0"
-  },
-  "xo": {
-    "env": [
-      "browser",
-      "node",
-      "jquery"
-    ],
-    "space": true,
-    "globals": [
-      "Debug",
-      "Overlay",
-      "Gingabulous",
-      "Helper"
-    ],
-    "rules": {
-      "space-before-function-paren": [
-        "error",
-        "never"
-      ],
-      "indent": [
-        "error",
-        2,
-        {
-          "outerIIFEBody": 0
-        }
-      ],
-      "wrap-iife": [
-        "error",
-        "any"
-      ],
-      "key-spacing": [
-        "error",
-        {
-          "align": "value"
-        }
-      ],
-      "no-multi-spaces": [
-        "error",
-        {
-          "exceptions": {
-            "Property": true,
-            "VariableDeclarator": true
-          }
-        }
-      ],
-      "quote-props": [
-        "error",
-        "consistent-as-needed"
-      ]
-    }
+    "object-assign-deep": "^0.4.0",
+    "plugin-error": "^1.0.1",
+    "pug": "^2.0.4",
+    "replace-ext": "^1.0.0",
+    "run-sequence": "^2.2.1",
+    "sinon": "^7.4.1",
+    "sinon-chai": "^3.3.0",
+    "through2": "^3.0.1",
+    "yargs": "^14.0.0"
   }
 }
