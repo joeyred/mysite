@@ -9,6 +9,7 @@ import _ from 'lodash';
 import {
   url,
   generateNavObject,
+  parseDate,
   borderGradiantString
 } from './helpers';
 import runMetalsmith from '../runMetalsmith';
@@ -90,6 +91,7 @@ export function buildSite(done) {
         // NOTE For backwards compatability. Use `internalLink` instead.
         url: internalLink,
         internalLink,
+        parseDate,
         generateNavObject,
         borderGradiantString
       }

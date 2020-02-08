@@ -64,7 +64,7 @@ export function watch() {
   }
   if (FULLTEST || !TEST) {
     gulp.watch(
-      `${DIR.src}/${PAGES.templates}/**/*`,
+      [`${DIR.src}/${PAGES.templates}/**/*`, './config.yml'],
       gulp.series(buildSite, generateAPI, reload)
     );
   }

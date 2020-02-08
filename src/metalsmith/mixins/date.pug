@@ -1,0 +1,8 @@
+mixin date(date)
+  - var parsed = helpers.parseDate(date, 'full');
+  .date-container
+    span
+      span.date-month #{parsed.month}
+      span.date-day #{parsed.day},
+      span.date-year #{parsed.year}
+      

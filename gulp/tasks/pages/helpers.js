@@ -3,6 +3,36 @@ import endsWith from 'lodash/endsWith';
 import round from 'lodash/round';
 import capitalize from 'lodash/capitalize';
 
+/**
+ * Adds suffix to number passed.
+ *
+ * @method _addSuffixToNumber
+ *
+ * @param  {number}          number - The number to have a suffix added to.
+ *
+ * @return {string}                 - Number with suffix added.
+ */
+function addSuffixToNumber(number) {
+  // Get remainder of `number` divided by 10.
+  var lastDigit = number % 10;
+  // Get remainder of `number` divided by 100.
+  var lastTwoDigits = number % 100;
+  // If lastDigit is 1 but last two digits not 1, return with added "st".
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+    return number + 'st';
+  }
+  // If lastDigit is 2 but second to last digit is not 1, return with added "nd".
+  if (lastDigit === 2 && lastTwoDigits !== 12) {
+    return number + 'nd';
+  }
+  // If lastDigit is 2 but second to last digit is not 1, return with added "rd".
+  if (lastDigit === 3 && lastTwoDigits !== 13) {
+    return number + 'rd';
+  }
+  // For all other numbers, return with added "th".
+  return number + 'th';
+}
+
 export function url(deploy, baseURL) {
   // Remove final forward slash from the baseURL if it exists
   if (endsWith(baseURL, '/')) {
@@ -70,6 +100,58 @@ export const generateNavObject = (data) => {
     }
   }
   return {depth, output};
+};
+
+export const parseDate = (date, display) => {
+  const dateArray = date.split('-');
+  const months = {
+    full: [
+      'January',
+      'Feburary',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ],
+    abbrv: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'June',
+      'July',
+      'Aug',
+      'Sept',
+      'Oct',
+      'Nov',
+      'Dec'
+    ]
+  };
+
+  const year = dateArray[0];
+  const month =
+    display === 'full' ?
+      months.full[dateArray[1] - 1] :
+      display === 'abbreviate' ?
+        months.abbrv[dateArray[1] - 1] :
+        dateArray[1];
+  const day =
+    display === 'full' || display === 'abbreviate' ?
+      addSuffixToNumber(parseFloat(dateArray[2])) :
+      dateArray[2];
+
+  return {
+    year,
+    month,
+    day
+  };
 };
 
 // NOTE This probably doesnt need to exist

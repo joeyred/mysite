@@ -129,7 +129,7 @@ $font-family_mono:        "Roboto Mono", monospace;
 $font-weight_mono:        300;
 // Code Blocks
 $code-block_font-size: to-rem(10);
-$code-block_padding: to-rem(16) to-rem(16);
+$code-block_padding: to-rem(12) to-rem(10);
 $code-block_margin: gld($spacing-unit_base, 10) 0;
 $code-block_background: $color-black;
 // Inline Code

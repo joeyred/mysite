@@ -1,0 +1,26 @@
+extends default.pug
+
+include ../mixins/tags.pug
+include ../mixins/date.pug
+
+block content
+  - var authorData = author ? data.authors[author] : false;
+  article.post
+    header.post-header
+      .conatiner.post-title
+        .block.sm-12
+          h1.post-title= title
+      .container.post-meta
+        .block.sm-6.post-author
+          if authorData
+            span.author-prefix By
+            span.author-name #{authorData.first_name} #{authorData.last_name}
+        .block.sm-6.post-date
+          +date(date)
+      .container.post-tags
+        .block.sm-12
+          +tags(tags)
+    .post-main-content
+      block main
+    
+    .post-footer

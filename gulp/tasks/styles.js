@@ -8,6 +8,7 @@ import rename from 'gulp-rename';
 import gulpIf from 'gulp-if';
 import yargs from 'yargs';
 
+import {servers} from './server';
 import {STYLES} from '../config';
 
 const DEPLOY = Boolean(yargs.argv.production);
@@ -33,5 +34,12 @@ export function styles() {
         gulpIf(DEPLOY, PATH.dist, PATH.build),
         {sourcemaps: true}
       )
+    )
+    .pipe(
+      servers.dev.stream({ // Inject Styles
+        // Force source map exclusion.
+        // *This fixes reloading issue on each file change*
+        match: '**/*.css'
+      })
     );
 }

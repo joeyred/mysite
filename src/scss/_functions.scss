@@ -73,7 +73,7 @@
 
   $golden: 1.618;
 
-  @if $level <= 10 && $level != 0 {
+  @if $level <= 10 and $level != 0 {
     @if $decrease {
 
       $gld10: $base / $golden;

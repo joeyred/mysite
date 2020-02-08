@@ -24,7 +24,15 @@ data: content
 data_files:
   - treehouse.json
   - skills.yml
+  - authors.yml
 collections:
+  # Posts
+  posts:
+    output: true
+    defaults:
+      type: 'pen'
+      extends: '../../layouts/post.pug'
+      author: brianhayes
   # Pens
   pens:
     output: true
