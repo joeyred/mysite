@@ -14,34 +14,33 @@ The mixin was written to take a file object from a collection, thus making it id
 iteration.
 
 ```pug
-+card(data, classes, horizontal)
++card(data, options)
 ```
 ## Params
-### The Data Object
 
-This mixin is only set up to handle certain pieces of metadata. Including more in
-the object than this mixin uses won't hurt anything, the extra bits just won't be used.
+### `data`
+| Params                  | Type     | Description                                                      |
+|-------------------------|----------|------------------------------------------------------------------|
+| `path`                  | *String* | The relative filepath of the post this card represents.          |
+| `type`                  | *String* | The type of post this card represents.                           |
+| `title`                 | *String* | The title of the card.                                           |
+| `description`           | *String* | Description for the card.                                        |
+| `thumbnail`             | *Object* | Object containing data for the thumbnail.                        |
+| `thumbnail.image`       | *String* | image path for the `src` attribute of the `img` element.         |
+| `thumbnail.title`       | *String* | title of the image for the `title` attribute.                    |
+| `thumbnail.description` | *String* | description of the image for the `alt` attribute.                |
+| `tags`                  | *Array*  | array of tags for the represented post.                          |
+| `api`                   | *Object* | an object containing API specific data.                          |
+| `api.namespace`         | *String* | the namespace to use to generate the proper `data-inject` value. |
 
-#### What is actually used in the mixin
+### `options`
+| Params | Type | Description |
+|--------|------|-------------|
+| `responsive` | *String* | String passed to the `data-responsive` attribute. see [The JavaScript Responsive Module Doc](/docs/javascript/responsive/) for more info. |
+| `animation` | *String* | String passed to `data-animation` attribute. See [The JavaScript Animation Module](/docs/javascript/animate/) for more info. | 
+| `classes` | *String* | any css classes that should be added to the parent element. |
+| `horizontal` | *Boolean* | whether the card should have a horizontal or vertical layout. *NOTE*: This defaults to `true`, but as of now there are no styles to handle a vertical layout should this be set to `false`. |
 
-- `data.path` - *String* - The relative filepath of the post this card represents.
-- `data.type` - *String* - The type of post this card represents.
-- `data.title` - *String* - The title of the card.
-- `data.description` - *String* - Description for the card.
-- `data.thumbnail` - *Object* - Object containing data for the thumbnail.
-- `data.thumbnail.image` - *String* - image path for the `src` attribute of the `img` element.
-- `data.thumbnail.title` - *String* - title of the image for the `title` attribute.
-- `data.thumbnail.description` - *String* - description of the image for the `alt` attribute.
-- `data.tags` - *Array* - array of tags for the represented post.
-- `data.api` - *Object* - an object containing API specific data.
-- `data.api.namespace` - *String* - the namespace to use to generate the proper `data-inject` value.
-
-### Other Params
-
-- `classes` - *String* - any css classes that should be added to the parent element.
-- `horizontal` - *Boolean* - whether the card should have a horizontal or vertical
-layout. *NOTE*: This defaults to `true`, but as of now there are no styles to handle
-a vertical layout should this be set to `false`.
 
 ## How To Use
 

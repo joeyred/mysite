@@ -1,13 +1,11 @@
 import metalsmith from 'metalsmith';
-// import pug from 'metalsmith-pug';
 import permalinks from 'metalsmith-permalinks';
 import collection from 'metalsmith-collections';
 import collectionMetadata from 'metalsmith-collection-metadata';
-// import branch from 'metalsmith-branch';
 import prism from 'metalsmith-prism';
 import ignore from 'metalsmith-ignore';
-// import each from 'metalsmith-each';
-// import debugUI from 'metalsmith-debug-ui';
+import changed from 'metalsmith-changed';
+import {report} from 'metalsmith-debug-ui';
 
 import gingabulousLayouts from '../plugins/metalsmith-gingabulous-pug';
 
@@ -23,19 +21,23 @@ function runMetalsmith(config, done) {
     collections,
     pugOptions
   } = config;
-  // debug(config);
   // console.log(config);
   metalsmith(workingDir)
     .metadata(metadata)
     .source(src)
     .destination(dest)
     .clean(false)
+
     .use(collection(collections.defined))
+    .use(report('After Collections Gathered'))
     .use(collectionMetadata(collections.defaults))
+    .use(report('Collection Defaults Handled'))
     // This needs to replace the old del task for collections that aren't
     // outputted
-    .use(ignore())
+    .use(ignore(collections.ignore))
+    .use(changed())
     .use(gingabulousLayouts(pugOptions))
+    .use(report('Pug Processed'))
     .use(
       prism({
         preLoad: ['markup-templating', 'clike', 'markup']

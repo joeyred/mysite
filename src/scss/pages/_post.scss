@@ -1,0 +1,48 @@
+.post-header {
+  padding: #{$spacing-unit_vertical + $topbar_height} 0 $spacing-unit_vertical;
+  margin: -#{$topbar_height} 0 $spacing-unit_vertical;
+  background: $color-black;
+
+  .post-title {
+    font-size: to-rem(28);
+    @include mq('md') {
+      font-size: to-rem(36);
+    }
+    @include mq('lg') {
+      font-size: to-rem(42);
+    }
+  }
+
+  .post-author {
+    .author-prefix {
+      font-size: to-rem(12);
+      margin-right: to-rem(5);
+    }
+  }
+
+  .post-date {
+    text-align: right;
+
+    span {
+      font-size: to-rem(12);
+      span {
+        margin-right: to-rem(5);
+      }
+    }
+  }
+
+  .post-tags {
+    ul {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      // align-items: center;
+      // align-content: center;
+      margin: $vertical-rhythm auto 0;
+
+      &.tags {
+        font-size: to-rem(14);
+      }
+    }
+  }
+}
