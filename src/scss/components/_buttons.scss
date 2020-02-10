@@ -24,6 +24,10 @@ a.button {
     background: darken($button_background, 20%);
   }
 
+  &.compact {
+    padding: 0.625rem;
+    letter-spacing: 2px;
+  }
   span {
     flex: auto;
   }

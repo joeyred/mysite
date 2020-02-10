@@ -1,7 +1,7 @@
 ---
-title: "Blog Post Test"
-date: 2018-10-2
-permalink: posts/test/
+title: "It's Another Fun Test of a Post"
+date: 2019-12-2
+permalink: posts/test2/
 author: brianhayes
 description: >
   This is a test post to make sure things are working. Still don't know exactly
