@@ -1,0 +1,42 @@
+extends ../layouts/default.pug
+
+include ../mixins/tags.pug
+include ../mixins/date.pug
+
+block content
+  - var posts = _.filter(collections.posts, function(o) {return !o.draft;});
+  //- - console.log(collections.posts);
+  //- - console.log(posts);
+  - var author;
+  .container
+    .block.sm-12
+      h1 My Blog
+  .post-list-container.container
+    .block.sm-12
+      ul.post-list
+        each post in collections.posts
+          - author = post.author ? data.authors[post.author] : false;
+          li.post-item
+            article
+              .conatiner
+                .block.sm-12
+                  h1.post-item-title= post.title
+              .conatiner
+                .block.sm-12
+                  .post-item-description
+                    p= post.description
+              .container.post-meta
+                .block.sm-6.post-author
+                  if author
+                    span.author-prefix By
+                    span.author-name #{author.first_name} #{author.last_name}
+                .block.sm-6.post-date
+                  +date(post.date)
+              .container.post-tags
+                .block.sm-12
+                  +tags(post.tags)
+              .container
+                .block.sm-12.read-more
+                    a.button.compact(href=helpers.internalLink(post.permalink)) Read More
+              
+          
