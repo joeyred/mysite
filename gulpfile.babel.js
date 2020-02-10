@@ -75,10 +75,10 @@ const start = gulp.series(
   clean,
   getTreehouseJSON,
   TEST ?
+    gulp.parallel(styles, scripts, tests) :
     FULLTEST ?
-      gulp.parallel(styles, scripts, tests, images) :
-      gulp.parallel(styles, scripts, tests) :
-    gulp.parallel(styles, scripts, images),
+      gulp.parallel(styles, scripts, tests, rootAssets, images) :
+      gulp.parallel(styles, scripts, rootAssets, images),
   DEPLOY ?
     gulp.series(buildSite, generateAPI, generateSitemap) :
     TEST ?
