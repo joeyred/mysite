@@ -27,7 +27,7 @@ function runMetalsmith(config, done) {
     .source(src)
     .destination(dest)
     .clean(false)
-    .use(changed())
+
     .use(collection(collections.defined))
     .use(report('After Collections Gathered'))
     .use(collectionMetadata(collections.defaults))
@@ -35,6 +35,7 @@ function runMetalsmith(config, done) {
     // This needs to replace the old del task for collections that aren't
     // outputted
     .use(ignore(collections.ignore))
+    .use(changed())
     .use(gingabulousLayouts(pugOptions))
     .use(report('Pug Processed'))
     .use(
