@@ -35,7 +35,8 @@ block panes
           h4 Demo
         .block.sm-12
           h4 Code
-
+  +pane('project', 'above', 'project-pane', {api: 'api'})
+    .inject-wrapper(data-inject-bind='content')
 //- Content
 block content
   .container
