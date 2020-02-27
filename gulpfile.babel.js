@@ -38,7 +38,8 @@ export {images};
 export {getTreehouseJSON, generateSitemap, buildSite};
 
 // API
-export const generateAPI = gulp.series(buildAPI, removeAPIAttr);
+// export const generateAPI = gulp.series(buildAPI, removeAPIAttr);
+export {buildAPI, removeAPIAttr};
 
 export function clean() {
   if (DEPLOY) {
@@ -65,7 +66,7 @@ export function watch() {
   if (FULLTEST || !TEST) {
     gulp.watch(
       [`${DIR.src}/${PAGES.templates}/**/*`, './config.yml'],
-      gulp.series(buildSite, generateAPI, reload)
+      gulp.series(buildSite, buildAPI, reload)
     );
   }
 }
@@ -74,16 +75,12 @@ export function watch() {
 const start = gulp.series(
   clean,
   getTreehouseJSON,
-  TEST ?
-    gulp.parallel(styles, scripts, tests) :
-    FULLTEST ?
-      gulp.parallel(styles, scripts, tests, rootAssets, images) :
+  TEST ? gulp.parallel(styles, scripts, tests) :
+    FULLTEST ? gulp.parallel(styles, scripts, tests, rootAssets, images) :
       gulp.parallel(styles, scripts, rootAssets, images),
-  DEPLOY ?
-    gulp.series(buildSite, generateAPI, generateSitemap) :
-    TEST ?
-      gulp.series(startServers, watch) :
-      gulp.series(buildSite, generateAPI, startServers, watch)
+  DEPLOY ? gulp.series(buildSite, buildAPI, removeAPIAttr, generateSitemap) :
+    TEST ? gulp.series(startServers, watch) :
+      gulp.series(buildSite, buildAPI, startServers, watch)
 );
 
 export {start};
