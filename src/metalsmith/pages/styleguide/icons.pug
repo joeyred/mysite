@@ -4,7 +4,8 @@ title: Icons
 order: 7
 ---
 
-include ../../mixins/mixins.pug
+include ../../mixins/titled-callout.pug
+include ../../mixins/icons.pug
 -
   var icons = [
   //- Custom Icons
@@ -26,7 +27,7 @@ include ../../mixins/mixins.pug
     +titledCallout('Overview')
       :markdown
         Icons on this site are all inline SVGs. The use of SVG linking caused too many 
-        issues for how little of a spped difference there was. Because of this it is 
+        issues for how little of a speed difference there was. Because of this it is 
         best to use the pug mixin for icons.
     
 

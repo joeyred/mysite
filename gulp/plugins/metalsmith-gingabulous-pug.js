@@ -18,48 +18,48 @@ block ${refs.blockName}
   .container
     .block!= transformedContent
 
+
 `;
 }
 
 function gingabulousLayouts(options) {
-  const parsedOptions = Object.assign({}, options);
+  const parsedOptions = Object.assign({}, {
+    /**
+     * determines if files will be fully processed or not.
+     * If `false` then they will.
+     * @default inPlace
+     * @type {Boolean}
+     */
+    inPlace: false
+  }, options);
 
   return (files, metalsmith, done) => {
     setImmediate(done);
-
+    // check for any locals passed to the pug options object and merge them.
     const data = Object.assign({}, parsedOptions.locals, metalsmith.metadata());
-
+    // debug(data);
     // Loop through all files
     Object.keys(files).forEach((filename) => {
-      // get the file extension
+      // Get the file extension
       const ext = path.extname(filename);
+      // Set conditonals
+      const isMarkdown = ext === '.md';
+      const isPug = ext === '.pug';
+      const inPlace = parsedOptions.inPlace;
+      let isPartial = false;
       debug(`current file: ${filename}`);
       debug(ext);
-
       // if it isnt a pug or markdown file, then ignore.
-      if (ext === '.pug' || ext === '.md') {
+      if (isPug || isMarkdown) {
         let file = files[filename];
-        let dir = path.dirname(filename);
         let contents = file.contents.toString();
-        // NOTE might not need this
-        let name = path.basename(filename, ext);
-        // debug('got this far');
-        // Does name and filename equal the same damn thing??
-        debug(`filename: ${filename}\n name: ${name}`);
-
-        if (path.extname(name) === '') {
-          name = path.basename(filename, ext) + '.html'
-        }
-
-        if (dir !== '.') {
-          name = `${dir}/${name}`
-        }
 
         // Check if the file is a markdown file
         // if so, convert it to valid pug
-        if (path.extname(filename) === '.md') {
+        if (isMarkdown) {
           debug(`${filename} is a markdown file`);
           const transformedContent = markdown.render(contents);
+
           // Check for any options passed in file data
           const refs = {};
           if (file.extends) {
@@ -68,33 +68,46 @@ function gingabulousLayouts(options) {
           if (file.block_name) {
             refs.blockName = file.block_name;
           }
-          file.transformedContent = transformedContent;
-          // convert file contents from markdown to pug
-          contents = markdownToPug(refs);
+
+          // If `inPlace` is true, then the file will remain as an HTML partial
+          if (inPlace) {
+            debug('HTML Partial Created')
+            contents = transformedContent;
+            isPartial = true;
+          } else {
+            file.transformedContent = transformedContent;
+            // convert file contents from markdown to pug
+            contents = markdownToPug(refs);
+          }
         }
 
+        if (!isPartial) {
+          // parse file data and global data
+          const locals = Object.assign({}, data, file);
 
-        const locals = Object.assign(data, file);
+          const pugOptions = Object.assign({}, parsedOptions, {
+            filename: path.join(metalsmith.source(), filename),
+            locals
+          });
+          // Compile pug to html
+          const compiled = pug.compile(contents, pugOptions);
 
-        const pugOptions = Object.assign(parsedOptions, {
-          filename: path.join(metalsmith.source(), filename),
-          locals
-        })
-        // Compile pug to html
-        const compiled = pug.compile(contents, pugOptions);
-        name = replaceExtension(filename, '.html');
-        file.contents = Buffer.from(compiled(locals));
+          contents = Buffer.from(compiled(locals));
+        }
 
+        // Assign the new contents of the file
+        file.contents = contents;
+        // Remove old file
         delete files[filename];
-
-        files[name] = file;
+        // Create a new file
+        files[replaceExtension(filename, '.html')] = file;
       } else {
         debug('stuff did not match');
-        return;
+        return; // eslint-disable-line no-useless-return
       }
       // return;
     });
-  }
+  };
 }
 
 module.exports = gingabulousLayouts;

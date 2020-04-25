@@ -49,6 +49,7 @@ collections:
         namespace: 'projects'
   # Styleguide
   styleguide:
+    output: false
     precompile: true
   # Documentation
   docs:

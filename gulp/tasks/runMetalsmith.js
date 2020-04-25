@@ -1,4 +1,5 @@
 import metalsmith from 'metalsmith';
+import branch from 'metalsmith-branch';
 import permalinks from 'metalsmith-permalinks';
 import collection from 'metalsmith-collections';
 import collectionMetadata from 'metalsmith-collection-metadata';
@@ -10,7 +11,7 @@ import {report} from 'metalsmith-debug-ui';
 import gingabulousLayouts from '../plugins/metalsmith-gingabulous-pug';
 
 // QUESTION Do I still need to solve any precompiling issues for markdown
-// in metadata, or pug for that matter? (style guide stuff).
+// in metadata, or pug for that matter? (styleguide stuff).
 
 function runMetalsmith(config, done) {
   const {
@@ -21,13 +22,17 @@ function runMetalsmith(config, done) {
     collections,
     pugOptions
   } = config;
+
   // console.log(config);
   metalsmith(workingDir)
     .metadata(metadata)
     .source(src)
     .destination(dest)
     .clean(false)
-
+    .use(branch()
+      .pattern(collections.precompile)
+      .use(gingabulousLayouts({inPlace: true, ...pugOptions}))
+    )
     .use(collection(collections.defined))
     .use(report('After Collections Gathered'))
     .use(collectionMetadata(collections.defaults))
@@ -47,6 +52,7 @@ function runMetalsmith(config, done) {
     //   unique: true
     // }))
     .use(permalinks())
+    .use(report('Permalinks Done'))
     .build(function(error) {
       if (error) {
         done();
