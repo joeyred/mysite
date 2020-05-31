@@ -86,10 +86,15 @@ class Expand {
     }
   }
   _eventMatches(dataAttr, event) {
+    // Find the first element with the data attr
     const element = this.element.querySelector(`[${dataAttr}]`);
+
+    // These two conditions only exist due to the chance that `event.target.path`
+    // is not supported and a polyfill is used instead.
     let conditionOne = false;
     let conditionTwo = false;
 
+    // polyfill for Safari
     const findElementWithDataAttr = (_element) => {
       if (
         _element.hasAttribute(dataAttr) &&
