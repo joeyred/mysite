@@ -1,0 +1,125 @@
+---
+title: "CropShop Apps for Picfoams"
+date: 2020-7-2
+description: >
+  Two apps built to add new major functionality to Picfoams Shopify website.
+  Adding powerful image uploading and editing, as well as shopping cart integration 
+  in the form of a client-side React app, and a way to properly manage custom products
+  and retrieve print ready versions of the customer uploaded images for printing. 
+featured: true
+wrapperClass: cropshop
+tags: 
+  - webApp 
+  - react 
+  - imageEditing
+thumbnail:
+  image: /assets/imgs/projects/cropshop/FINAL_mark-nobg@4x.png
+  title: CropShop Mark Logo
+  description: The mark logo of the CropShop application.
+---
+
+extends ../../layouts/project.pug
+
+block main
+  article.container
+    header#overview.full-size-section.header.block.sm-12.container
+      .block.sm-12
+        h1.cropshop-title CropShop 
+          small For Shopify
+
+      //- Images
+      .images-container.block.sm-12
+        .images-inner
+          .image-foreground
+            .client-side-app
+              .screen
+                img(src=helpers.internalLink('assets/imgs/projects/cropshop/CropShop_Demo.gif'))
+              .phone
+                img(src=helpers.internalLink('assets/imgs/projects/cropshop/phone-model.svg'))
+              
+          .image-background
+            .image-background-child.admin-example-1
+              img(src=helpers.internalLink('assets/imgs/projects/cropshop/tile-edit@2x.png'))
+            .image-background-child.admin-example-2
+              img(src=helpers.internalLink('assets/imgs/projects/cropshop/order-view@2x.png'))
+      //- To The Project
+      .to-client-website.block.sm-12
+        a(href='https://picfoams.com' target='_blank').button See it on PicFoams
+      //- Description
+      .description.block.sm-12
+        p=description
+
+    section#problem.full-size-section.block.sm-12.md-6.container.sm-no-gutters.colored-section.yellow
+      .block.sm-12
+        h2 The Problem
+      .block.sm-12
+        :markdown
+          PicFoams previous solution for uploading and editing custom photos by customers to allow them to purchase custom printed wall tiles was hard to use, broken on smaller screens, and extremely cumbersome to manage. The process was also limited to uploading a single file at a time for each specific product, making it extremely time consuming for the customer.
+
+          The Administration side of the app also created a new product for each custom image ordered as a tile, and thus created a hard to manage and cluttered expereince.
+
+
+    section#solution.full-size-section.block.sm-12.md-6.container.sm-no-gutters.colored-section.cyan
+      .block.sm-12
+        h2 The Solution
+      .block.sm-12
+        :markdown
+          Create a custom application to replace the previous one in use. This app would:
+
+          - Allow for multiple image uploads at a single time, as well as editing those images.
+          - Allow the user to add multiple items, and quantities of those items, to the shop cart.  
+          - Create a way to add custom metafields to products in a quick and easy to manage UI.
+          - Provide product metadata for custom images without creating new products.
+
+          The original intent was to have Filestack provide most of the overall functionality with their file picker widget, but it was quickly found that beyond file uploading, the rest simply couldn't be used in a way to achieve what the Client desired, and so a more custom solution was required.
+
+    section#result.container.colored-section.purple
+      .block.sm-12
+        h2 The Result
+      .block.sm-12
+        :markdown
+            A duo of apps, both built with React, one a Shopify App, and the other meant to run on the shop website.
+
+            ### The App on the Shop
+      
+      .block.sm-12.mobile-demo-section
+        :markdown
+          Powered by Filestack, The images would be uploaded, served, and edited via their quick and robust API. Integrated into a React and Redux powered client-side mini application. The new app is quick, easy, and gets customers adding multiple items to their cart without frustration.
+
+        
+        .mobile-demo-container
+          .client-side-app
+            .screen
+              img(src=helpers.internalLink('assets/imgs/projects/cropshop/CropShop_Demo.gif'))
+            .phone
+              img(src=helpers.internalLink('assets/imgs/projects/cropshop/phone-model.svg'))
+
+        
+        :markdown
+          This did require some creative solutions to get around Shopify's rather limited AJAX API, as well as having to use a mostly custom editor, as Filestack's editor could not provide the kind of functionality the Client wanted.
+      
+      .block.sm-12
+        :markdown
+          ### The Shopify App
+
+          While it doesn't look like much, a decent amount went in to making a lot of things "just work" behind the scenes.
+
+          - Easy snippet generation for adding custom code to the site as needed.
+          - A page generated upon install that provides a custom AJAX API for product data required by the shop facing application.
+          - Injection of all required front-end assets.
+          - Custom button content blocks for use with Shopify's home page editor.
+          - A custom Order view page that showed all of the image uploads, with options to zip them all up and download them, or get them individually. This process also actively edited the metadata of the files so they would be 300dpi and be perfectly ready to just drop into the Client's printing program of choice without any further need for editing.
+          - A custom Product editing page to add required custom metafields to determine display and print dimensions of offered tile sizes.
+          - More stuff I'm not going to list in fear of invoking the PTSD from some of the more eye-twitching parts of this project!
+
+      .block.sm-12.admin-demo-section
+        h4 The Product Editing View
+        img.admin-example(src=helpers.internalLink('assets/imgs/projects/cropshop/tile-edit@2x.png')).bottom-margin
+        p A simple UI. Select your collection of custom photo tile products, and then add in the proper dimensions.
+        p Display is what the user sees, and Print is what is used for the actual aspect ratio.
+      .block.sm-12.admin-demo-section
+        h4 The Order View
+        img.admin-example(src=helpers.internalLink('assets/imgs/projects/cropshop/order-view@2x.png')).bottom-margin
+        p A super easy page to get all of the custom product images from each order. All without the need to generate a new product for each custom image.
+        p The files are converted on the fly so there's no need to take up any CDN/Bucket storage than strictly necessary.
+
