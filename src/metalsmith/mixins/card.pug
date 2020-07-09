@@ -3,9 +3,12 @@ include icons.pug
 //-**
 //- @mixin Card
 //- 
-//- @param {Object} data - Contains content to fill out the card.
-//- @param {Bool}   horizontal - If `true`, add `.horizontal` class to `.card`.
-//-
+//- @param  {Object}   data               - Contains content to fill out the card.
+//- @param  {Object}   options            - any options to be passed.
+//- @param  {Boolean}  options.horizontal - `true` if the orientation is horizontal, `false` if vertical.
+//- @param  {String}  options.animation   - The name of the animation to pass to `data-animation`.
+//- @param  {String}  options.responsive  - The option string to pass to `data-responsive. 
+//- @param  {String}  options.classes     - Any custom css classes to be applied.
 //-*
 mixin card(data, options)
   - options = options || {}; 
@@ -19,12 +22,18 @@ mixin card(data, options)
   - var isHorizontal = options.horizontal || true;
   - var animate = options.animation || false;
   - var atts = {};
+
+  //- Check for an animation to pass
   if options.animation 
     - atts['data-animation'] = options.animation;
+
+  //- Check for responsive options to be passed
   if options.responsive
     - atts['data-responsive'] = options.responsive;
+  
   //- Handle extra classes
   - var classes = options.classes || '';
+
   //- Card
   .card(
     class={horizontal: isHorizontal === true}

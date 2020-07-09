@@ -51,6 +51,10 @@ body {
     weight: $font-body_weight;
   }
 
+  @include mq('lg') {
+    font-size: to-rem(20);
+  }
+
   color: $font-body_color;
   font-feature-settings: "kern" 1;
   font-kerning: normal;
@@ -152,7 +156,7 @@ h2 {
 
 // Paragraphs
 p {
-  margin-bottom: $spacing-unit_vertical-paragraph;
+  margin-bottom: $vertical-rhythm;
 
   &:last-child {
     // margin-bottom: $spacing-unit_vertical;
