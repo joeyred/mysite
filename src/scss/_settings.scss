@@ -47,7 +47,7 @@ $active-breakpoints: (
 // The Grid
 // --------
 $grid_gutter: $spacing-unit_base / 2;
-$grid_container_max-width: to-rem(1200);
+$grid_container_max-width: to-rem(980);
 
 // Color
 // -----
@@ -116,6 +116,14 @@ $font-heading_sizes: (
     h5: 18,
     h6: 16,
   ),
+  lg: (
+    h1: 36,
+    h2: 30,
+    h3: 26,
+    h4: 22,
+    h5: 20,
+    h6: 18,
+  )
 );
 // Section Heading
 $section-heading_padding: to-rem(16) to-rem(10);
@@ -148,8 +156,8 @@ $horizontal-rule_border: 2px solid #ccc;
 $horizontal-rule_margin-bottom: 10px;
 // Lists
 $list_margin-left:        gld($spacing-unit_base, 9);
-$list_margin-bottom:      $spacing-unit_vertical;
-$list-item_margin-bottom: to-rem(10);
+$list_margin-bottom:      $vertical-rhythm * 2;
+$list-item_margin-bottom: $vertical-rhythm;
 // Blockquotes
 $blockquote-margin_left:  gld($spacing-unit_base, 9);
 $blockquote-border_color: $color-purple;
