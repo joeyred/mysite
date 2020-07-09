@@ -1,0 +1,67 @@
+@mixin colored-section($_base-bg-color, $_text-color) {
+  // background: scale-color($_base-bg-color, $alpha: -30%);
+  background: $_base-bg-color;
+  color: $_text-color;
+
+  h1, h2 {
+    color: $_text-color;
+    background: darken($_base-bg-color, 20%);
+  }
+  h3, h4, h5, h6 {
+    color: scale-color($_base-bg-color, $lightness: -70%);
+  }
+  .icon > svg {
+    fill: darken($_base-bg-color, 30%);
+  }
+  .button {
+    background: darken($_base-bg-color, 30%);
+    color: $_text-color;
+
+    &:hover {
+      background: darken($_base-bg-color, 50%);
+    }
+  }
+}
+
+@mixin generate-colored-sections($gcs_palette) {
+  $gcs_palette-colors: map-keys($gcs_palette);
+
+  @each $gcs_color in $gcs_palette-colors {
+    $gcs_value: map-get($gcs_palette, $gcs_color);
+
+    // Default text color
+    $gcs_text-color: $color-white;
+    // @debug #{$gcs_color};
+    @debug $gcs_color;
+    // Handle text color for lighter backgrounds
+    @if "#{$gcs_color}" == "yellow" or "#{$gcs_color}" == "green" or "#{$gcs_color}" == "cyan" or "#{$gcs_color}" == "pink" {
+      @debug "black text is true";
+      $gcs_text-color: $color-black;
+    } @else {
+      @debug "white text is default";
+      $gcs_text-color: $color-white;
+    }
+
+    // @if "#{$gcs_color}" == "red" or "#{$gcs_color}" == "purple" or "#{$gcs_color}" == "blue" or "#{$gcs_color}" == "orange" {
+    //   @debug "white text is true";
+    //   $gcs_text-color: $color-white;
+    // }
+
+    &.#{$gcs_color} {
+      @include colored-section($gcs_value, $gcs_text-color);
+    }
+  }
+}
+
+.colored-section {
+
+  padding-bottom: $vertical-rhythm;
+
+  h2 {
+    padding: $vertical-rhythm $grid_gutter;
+    margin-left: -#{$grid_gutter};
+    margin-right: -#{$grid_gutter};
+  }
+
+  @include generate-colored-sections($color-palette);
+}
