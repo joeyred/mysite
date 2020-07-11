@@ -32,13 +32,13 @@
     // Default text color
     $gcs_text-color: $color-white;
     // @debug #{$gcs_color};
-    @debug $gcs_color;
+    // @debug $gcs_color;
     // Handle text color for lighter backgrounds
     @if "#{$gcs_color}" == "yellow" or "#{$gcs_color}" == "green" or "#{$gcs_color}" == "cyan" or "#{$gcs_color}" == "pink" {
-      @debug "black text is true";
+      // @debug "black text is true";
       $gcs_text-color: $color-black;
     } @else {
-      @debug "white text is default";
+      // @debug "white text is default";
       $gcs_text-color: $color-white;
     }
 
