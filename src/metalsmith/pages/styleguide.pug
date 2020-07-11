@@ -22,11 +22,11 @@ block title
   title= title
 
 block content
-  section.wrapper.header
+  .wrapper.header
     .container
-      .block
+      .block.sm-12
         h1.sg-page-heading
-          | The Super Awesome Great (and stuff) Styleguide
+          | The Super Awesome Great Styleguide
 
   - var sortedSyleguides = _.sortBy(collections.styleguide, 'order');
   //- - console.log(sortedSyleguides);
@@ -34,11 +34,11 @@ block content
   each guide in sortedSyleguides
     - var sgClass =  'sg-' + guide.class;
     
-    section(id=guide.class class=sgClass)
-      .section-heading.wrapper
+    article.sg-section(id=guide.class class=sgClass)
+      header.section-heading.wrapper
         .container
           .block.sm-12
             h1= guide.title
-      .wrapper
+      .main-content.wrapper
         .container
           .block!= guide.contents
