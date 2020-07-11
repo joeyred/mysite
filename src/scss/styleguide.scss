@@ -15,6 +15,20 @@
 
   main {
     color: $color-grey_lighter;
+    padding-top: 0;
+  }
+  .sg-page-heading {
+    color: $color-black;
+    background: $color-red;
+    font-size: 2.6rem;
+    margin-bottom: 0;
+    padding: $topbar_height $grid_gutter;
+    margin-left: -#{$grid_gutter};
+    margin-right: -#{$grid_gutter};
+    
+  }
+  .sg-section {
+    padding-bottom: 6rem;
   }
   // .debug {
   //   padding: 2rem 1rem;
@@ -207,5 +221,11 @@
       text-align: center;
       padding-top: 2rem;
     }
+  }
+}
+
+.sg-forms {
+  .dark-bg-example {
+    background: $color-black;
   }
 }

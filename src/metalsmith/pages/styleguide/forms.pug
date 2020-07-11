@@ -1,0 +1,54 @@
+---
+class: forms
+title: Forms
+order: 6
+---
+
+include ../../mixins/titled-callout.pug 
+
+.container
+  .block.sm-12
+    +titledCallout('Overview')
+      :markdown
+        Basic form styles, mainly meant for contact forms.
+  
+.container
+  .block.sm-12.md-6
+    form.container
+      .block.sm-12
+        h3 Dark
+      .block.sm-12
+        .input-container
+          label(for='name') Name
+          input(type='text' name='name' id='name' placeholder='John Smith')
+          
+      .block.sm-12
+        .input-container
+          label(for='email') Email
+          input(type='email' name='replyto' id='email' placeholder='johnsmith22@gmail.com')
+      .block.sm-12
+        .input-container
+          label Message
+          textarea(name='message')
+      .block.sm-12
+        button.button(type='submit') Send
+        
+  .block.sm-12.md-6.dark-bg-example
+    form.container.light
+      .block.sm-12
+        h3 Light
+      .block.sm-12
+        .input-container
+          label(for='name') Name
+          input(type='text' name='name' id='name' placeholder='John Smith')
+          
+      .block.sm-12
+        .input-container
+          label(for='email') Email
+          input(type='email' name='replyto' id='email' placeholder='johnsmith22@gmail.com')
+      .block.sm-12
+        .input-container
+          label Message
+          textarea(name='message')
+      .block.sm-12
+        button.button(type='submit') Send

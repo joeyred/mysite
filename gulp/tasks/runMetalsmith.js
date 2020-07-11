@@ -50,7 +50,7 @@ function runMetalsmith(config, done) {
     // outputted
     ms.use(ignore(collections.ignore));
 
-    if (!DEPLOY) ms.use(changed());
+    if (!DEPLOY) ms.use(changed({ forcePattern: [ 'styleguide.pug', 'styleguide/**/*' ] }));
 
     ms.use(gingabulousLayouts(pugOptions));
 

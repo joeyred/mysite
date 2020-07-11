@@ -1,3 +1,4 @@
+include ../mixins/forms.pug
 - 
   var links = [
     ['/', 'Home'],
@@ -11,7 +12,8 @@
     .block.sm-12
       h2 Hire Me, or Get in Touch
     .block.sm-12.md-6.email
-      a(href="mailto:bjoeyhayes@gmail.com") BJoeyHayes@gmail.com
+      //- a(href="mailto:bjoeyhayes@gmail.com") BJoeyHayes@gmail.com
+      +contactForm('footer-contact-form', 'https://formspree.io/xyynnaqa', { light: true })
     .block.sm-12.md-6.social-icons
       +socialIconBar(
         'twitter',

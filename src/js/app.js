@@ -219,3 +219,25 @@ Gingabulous.animationSeries(
 // console.log(Gingabulous);
 init();
 }();
+
+
+
+// const renderWidget = element => {
+
+// }
+
+const recaptchaOnLoadCallback = () => {
+  const contactForms = document.querySelectorAll('.recaptcha');
+  console.log('Look at me!');
+  console.log(contactForms);
+  for (let i = 0; i < contactForms.length; i++) {
+    console.log(contactForms[i].attributes.id);
+    grecaptcha.render(contactForms[i], {
+      sitekey: '6LcpNbAZAAAAAHfgedRaf3SdTgjiWjoS4NGSUTNq',
+      theme: 'dark'
+    });
+  }
+};
+
+
+

@@ -37,6 +37,7 @@
       width: 20%;
       background: $color-grey_darker;
       height: 100vh;
+      overflow-y: auto;
       // padding-top: $spacing-unit_vertical;
     }
   }
@@ -60,14 +61,15 @@
     }
   }
 }
+
 .main-nav {
   display: flex;
   flex-flow: column;
   align-content: center;
   justify-content: center;
   text-align: center;
-
   margin-bottom: $spacing-unit_vertical;
+
   .icon-bar {
     a.icon {
       > svg {
@@ -75,6 +77,7 @@
       }
     }
   }
+
   a {
     padding: 0.25rem;
     font-size: 1rem;
@@ -95,11 +98,13 @@
     margin-right: -#{$grid_gutter};
     background: $color-black;
   }
+
   h3 {
     font-size: 1.1rem;
     margin-top: 0;
     margin-bottom: 0.5rem;
   }
+
   ul {
     padding-left: 1rem;
     margin-bottom: 1rem;
@@ -111,12 +116,15 @@ ul.nav-vertical {
   list-style: none;
   margin-left: 0;
   padding-left: 0;
+
   li {
     padding: to-rem(5);
+
     a {
       display: block;
       color: $color-white;
       letter-spacing: 1px;
+
       &:hover {
         color: $navigation-color_link-hover;
       }
@@ -128,10 +136,12 @@ ul.nav-horizontal {
   list-style: none;
   margin-left: 0;
   padding-left: 0;
+
   li {
     display: inline-block;
     padding-right: to-rem(16);
     margin-bottom: $spacing-unit_vertical-paragraph;
+
     a {
       letter-spacing: 2px;
     }
@@ -146,6 +156,7 @@ ul.nav-horizontal {
 
 .contact-email {
   margin-left: 1rem;
+
   a {
     letter-spacing: 2px;
   }

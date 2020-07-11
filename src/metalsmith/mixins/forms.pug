@@ -1,0 +1,55 @@
+
+
+
+mixin contactForm(id, action, options)
+  - const atts = {};
+  - options = options || {};
+  - const subject = options.subject ? options.subject : 'New Message From brianhayes.me!';
+
+  - atts.method = options.method ? options.method : 'POST'; 
+
+  if options.light
+    - atts.class = 'light';
+  
+
+  form.container(id=id action=action)&attributes(atts)
+      input(type='hidden' name='_subject' value=subject)
+      .block.sm-12
+        .input-container
+          label(for='name') Name
+          input(type='text' name='name' id='name' placeholder='John Smith')
+          
+      .block.sm-12
+        .input-container
+          label(for='email') Email
+          input(type='email' name='_replyto' id='email' placeholder='johnsmith22@gmail.com')
+      .block.sm-12
+        .input-container
+          label Message
+          textarea(name='message')
+      .block.sm-12
+        .recaptcha(id=`g-recaptcha-${id}`)
+      .block.sm-12
+        button.button(type='submit') Send
+
+//-
+  @mixin input
+
+  @param {Object} args
+  @param {String} args.type - Type of text based input.
+  @param {String} args.id
+  @param {String} args.name
+  @param {String} args.placeholder
+  @param {String} args.label
+
+
+//- mixin textField(id, args)
+  - var { id } = args;
+  - var type = args.type ? args.type : 'text';
+  - var name = args.name ? args.name : id;
+  - var label = args.label ? args.label : args.name ? args.name : id;
+
+  
+  .input-container.text
+    label(for=name)=label
+    input(type=type name=name id=id placeholder=)

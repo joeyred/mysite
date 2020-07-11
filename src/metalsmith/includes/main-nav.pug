@@ -1,3 +1,4 @@
+include ../mixins/forms.pug
 - 
   var links = [
     ['/', 'Home'],
@@ -41,7 +42,8 @@
         'linkedin'
       )
     .block.sm-12.contact-email
-      h3 My Email
+      h3 Send a Message
     .block.sm-12
-      a(href="mailto:bjoeyhayes@gmail.com") BJoeyHayes@gmail.com
+      //- a(href="mailto:bjoeyhayes@gmail.com") BJoeyHayes@gmail.com
+      +contactForm('nav-contact-form', 'https://formspree.io/xyynnaqa')
       
