@@ -58,7 +58,7 @@ function gingabulousLayouts(options) {
         // if so, convert it to valid pug
         if (isMarkdown) {
           debug(`${filename} is a markdown file`);
-          const transformedContent = markdown.render(contents);
+          const transformedContent = markdown.render(contents, { html: true });
 
           // Check for any options passed in file data
           const refs = {};
