@@ -1,7 +1,7 @@
 form {
   margin-bottom: $vertical-rhythm;
   text-align: left;
-  
+
   .input-container {
     position: relative;
     display: block;
@@ -66,6 +66,10 @@ form {
     .input-container {
       background: $color-grey_darker;
     }
+  }
+
+  .recaptcha {
+    margin-bottom: $vertical-rhythm;
   }
 }
 

@@ -5,8 +5,11 @@ if build.production
 else
   script(src=helpers.url('/assets/js/app.js'))
 
+script(src='https://www.google.com/recaptcha/api.js?onload=recaptchaOnLoadCallback&render=explicit' async='' defer='')
+
 if build.production
   script.
     window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
     ga('create', 'UA-128068543-1', 'auto'); ga('send', 'pageview')
   script(src='https://www.google-analytics.com/analytics.js' async='' defer='')
+  

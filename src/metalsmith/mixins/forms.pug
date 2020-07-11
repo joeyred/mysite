@@ -4,12 +4,16 @@
 mixin contactForm(id, action, options)
   - const atts = {};
   - options = options || {};
+  - const subject = options.subject ? options.subject : 'New Message From brianhayes.me!';
+
   - atts.method = options.method ? options.method : 'POST'; 
 
   if options.light
     - atts.class = 'light';
+  
 
   form.container(id=id action=action)&attributes(atts)
+      input(type='hidden' name='_subject' value=subject)
       .block.sm-12
         .input-container
           label(for='name') Name
@@ -18,11 +22,13 @@ mixin contactForm(id, action, options)
       .block.sm-12
         .input-container
           label(for='email') Email
-          input(type='email' name='replyto' id='email' placeholder='johnsmith22@gmail.com')
+          input(type='email' name='_replyto' id='email' placeholder='johnsmith22@gmail.com')
       .block.sm-12
         .input-container
           label Message
           textarea(name='message')
+      .block.sm-12
+        .recaptcha(id=`g-recaptcha-${id}`)
       .block.sm-12
         button.button(type='submit') Send
 
