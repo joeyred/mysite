@@ -1,14 +1,24 @@
 ### CropShop for Shopify --[link to portfolio page][1]--
 
-Two eCommerce based applications meant to add Image uploading, editing, and adding to a shopping cart functionality in a Shopify store so customers can have them printed on various materials.
+- React
+- Redux
+- Jest
+- SCSS
+- CSS Modules
+- Koa
+- MongoDB
+- Webpack
+- Filestack
+- Sentry
+- Shopify
+- GraphQL
+- Heroku
 
-#### The Shopify Application
+Two eCommerce based applications meant to add Image uploading, editing, and shopping cart integration in a Shopify store so customers can have them printed on various materials.
 
-Uses React, Next.js, Koa, CSS, Webpack, MongoDB, Filestack API and is hosted via Heroku. Provides the user with a method by which to inject needed assets to the website, a button creator for opening the client side app on the storefront, a custom page for managing, zipping and downloading custom images on orders, and a custom product management page, for adding required dimension information.  
+The Shopify application gave custom administration pages for downloading customer image files for printing, custom metafields for products, templates, snippets, and automatic asset injection for the storefront.
 
-#### The Client Side Application
-
-Uses React, Redux, SCSS, Filestack JavaScript SDK, Sentry, and many custom utilities and components.
+The storefront facing app handled image uploading, editing, adding items to the Shopify cart, and adding the proper field info on each product so the purchased items with custom images attached are easily and consistently handled.
 
 <!-- ### Application Height Units
 
@@ -20,7 +30,18 @@ An animation utility that is extremely lightweight, while being insanely powerfu
 
 ### My Personal Site --[link to portfolio page][2]--
 
-a build system from the ground up using Gulp, Metalsmith, a huge amount of custom built utilities, plugins, parsers, etc... as well as from scratch JavaScript, SCSS, and Pug templates to build out the website.
+- JavaScript
+- SCSS
+- Gulp
+- Metalsmith
+- Pug
+- GitHub Pages
+
+Built from the ground up. The built site has zero third party dependencies, and is built from a mobile-first mindset. Powered by a small JavaScript and SCSS library written from scratch.
+
+The build pipeline is a mix of third party tools, and a lot of custom modules and plugins.
+
+The process is meant to not only create a reflection of me, but my path of learning in web development. Something that is always ongoing.
 
 [1]: https://brianhayes.me/projects/cropshop
 [2]: https://brianhayes.me/projects/about-this-site

@@ -32,6 +32,11 @@ main.content {
 
     h1 {
       margin-bottom: $vertical-rhythm;
+
+      @include mq('lg') {
+        font-size: 2.6rem;
+        margin-bottom: 0;
+      }
       small {
         display: block;
         color: $color-grey_light
@@ -39,6 +44,19 @@ main.content {
     }
     .icon-bar {
       margin-bottom: 0;
+
+      .icon {
+        > svg {
+          fill: $color-grey;
+          transition: fill 100ms ease-in;
+        }
+
+        &:hover {
+          > svg {
+            fill: $color-cyan;
+          }
+        }
+      }
     }
 
 
@@ -75,6 +93,10 @@ main.content {
         h4,
         h5,
         h6 {
+          color: darken($_color-value, 20%);
+        }
+
+        h3 + ul {
           color: darken($_color-value, 20%);
         }
       }
@@ -125,14 +147,42 @@ main.content {
         margin-top: 0;
       }
 
+      + ul {
+        list-style: none;
+        margin-left: 0;
+        margin-bottom: 0.5rem;
+        padding-left: 0;
+
+        li {
+          display: inline;
+          letter-spacing: 2px;
+          // margin-right: 0.5em;
+          margin-right: -5px;
+          font-size: 0.8em;
+          
+
+          &::after {
+            content: '-';
+            color: $color-grey_dark;
+            margin: 0 0.25rem
+          }
+
+          &:last-child {
+            &::after {
+              content: ' ';
+            }
+          }
+        }
+      }
+
       small {
-        display: inline-block;
+        display: inline-block; // fix wrapping issue
       }
     }
 
     h4 {
       font-size: 1.1em;
-      margin: $vertical-rhythm 0 0.5rem;
+      margin: 0.5rem 0 0.3rem;
     }
 
     > *:last-child {
