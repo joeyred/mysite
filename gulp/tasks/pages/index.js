@@ -6,6 +6,8 @@ import sitemap from 'gulp-sitemap';
 // import yargs from 'yargs';
 import _ from 'lodash';
 
+import markdownSmall from 'markdown-it-small';
+
 import {
   url,
   generateNavObject,
@@ -24,7 +26,15 @@ const transformers = {
 
 const filters = {
   markdown: function(block) {
-    return transformers.markdown.render(block, {html: true});
+    return transformers.markdown.render(
+      block, 
+      {
+        html: true,
+        plugins: [
+          markdownSmall
+        ]
+      }
+    );
   }
 };
 

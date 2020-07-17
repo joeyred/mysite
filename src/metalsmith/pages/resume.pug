@@ -1,0 +1,76 @@
+extends ../layouts/default.pug
+
+include ../mixins/titled-callout.pug
+include ../mixins/skill.pug
+include ../mixins/social-icon-bar.pug
+
+block append stylesheets
+  if build.production
+    link(
+      rel='stylesheet'
+      href=helpers.url('/assets/css/resume.min.css')
+    )
+  else
+    link(
+      rel='stylesheet'
+      href=helpers.url('/assets/css/resume.css')
+    )
+
+block content
+  - var activeBreakpoints = 'sm';
+  - var tabAnimation = 'expandingTabs';
+
+  .wrapper
+    article.resume.container
+      header.main-header.block.sm-12
+        .container.sm-align-middle
+          .block.sm-3.lg-2
+            .image-container
+              img(src=helpers.internalLink('assets/imgs/main/mark_logo.svg'))
+          .block.sm-9.lg-10
+            .container.sm-align-middle
+              .block.sm-12.lg-6
+                h1 Brian Hayes
+                  small Web Developer
+              .block.sm-12.lg-6
+                +socialIconBar(
+                  'twitter',
+                  'github',
+                  'codepen',
+                  'stackoverflow',
+                  'linkedin'
+                )
+      
+      //- Main Body
+      .block.sm-12
+        .container
+          .block.sm-12.md-7.md-order-2.right-align-column
+            //- Experience
+            section
+              +titledCallout('Experience', 'orange', true, activeBreakpoints, tabAnimation)
+                .container
+                  .block.sm-12
+                    include:markdown ../content/resume/experience.md
+
+          .block.sm-12.md-5.md-order-1.left-align-column
+            .container
+              //- About Me
+              section.block.sm-12
+                +titledCallout('About Me', 'purple', true, activeBreakpoints, tabAnimation)
+                  .container
+                    .block.sm-12
+                      p.
+                        Creatively driven and technical minded. I love coming up with the vision just as much as I love bringing it to life. I've done a lot of WordPress Development, including Genesis projects, most of which was custom work. I do graphic design, UI/UX design, write a lot with JavaScript, including Node.js, and will learn anything if it means making a cool idea come to life.
+              //- Education
+              section.block.sm-12
+                +titledCallout('Education', 'blue', true, activeBreakpoints, tabAnimation)
+                  .container
+                    .block.sm-12
+                      include:markdown ../content/resume/education.md
+
+              //- Skills
+              //- section.block.sm-12
+              //-   +titledCallout('Skills', 'yellow', true, activeBreakpoints, tabAnimation)
+              //-     .container
+              //-       .block.sm-12
+          

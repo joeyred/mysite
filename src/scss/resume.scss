@@ -1,0 +1,232 @@
+@import
+  "functions",
+  "settings",
+  // "utility",
+  "mixins"
+;
+
+main.content {
+  padding-top: 0;
+}
+
+.resume {
+  
+  header.main-header {
+    background: $color-black;
+    padding-top: $topbar_height;
+    padding-bottom: $vertical-rhythm;
+    
+    margin-bottom: $vertical-rhythm * 2;
+
+    @include mq('lg') {
+      padding-top: $vertical-rhythm;
+    }
+
+    .image-container {
+      // padding: 0.3rem;
+      @include mq('md') {
+        padding: 1em;
+        max-width: 10rem;
+      }
+    }
+
+    h1 {
+      margin-bottom: $vertical-rhythm;
+
+      @include mq('lg') {
+        font-size: 2.6rem;
+        margin-bottom: 0;
+      }
+      small {
+        display: block;
+        color: $color-grey_light
+      }
+    }
+    .icon-bar {
+      margin-bottom: 0;
+
+      .icon {
+        > svg {
+          fill: $color-grey;
+          transition: fill 100ms ease-in;
+        }
+
+        &:hover {
+          > svg {
+            fill: $color-cyan;
+          }
+        }
+      }
+    }
+
+
+  }
+}
+
+@mixin generate_titled-callout-color-classes {
+
+  $_palette: map-keys($color-palette);
+
+  @each $_color in $_palette {
+    $_color-value: map-get($color-palette, $_color);
+    // @debug $color-value;
+    // @debug $color;
+    &.#{$_color} {
+
+      .titled-callout-heading {
+        h1,
+        h2,
+        h3 {
+          color: $_color-value;
+          border-left-color: $_color-value;
+        }
+      }
+
+      .titled-callout-content-wrapper {
+        // NOTE maybe replace lighten() with a function so both this and whats in settings
+        //      ends up with the same percentage value, editable from one location.
+        background: lighten($_color-value, 33%);
+      }
+      .titled-callout-content {
+        border-left-color: $_color-value;
+
+        h4,
+        h5,
+        h6 {
+          color: darken($_color-value, 20%);
+        }
+
+        h3 + ul {
+          color: darken($_color-value, 20%);
+        }
+      }
+    }
+  }
+}
+
+.titled-callout {
+    margin-bottom: $spacing-unit_vertical;
+    color: $color-black;
+  .titled-callout-heading {
+    background: $titled-callout_title_background-color;
+    padding-left: $titled-callout_title_left-extension;
+    margin-left: -#{$titled-callout_title_left-extension};
+    margin-right: $titled-callout_content_right-extension;
+    margin-bottom: 0;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+
+    h1,
+    h2,
+    h3 {
+      color: $titled-callout_primary-color;
+      margin-bottom: 0;
+      border-left: $titled-callout_border-left-size solid $titled-callout_border-left-color;
+      padding: $titled-callout_title-padding;
+    }
+  }
+
+  .titled-callout-content-wrapper {
+    background: $titled-callout_content_background-color;
+    margin-left: $titled-callout_border-left-size;
+    padding: 0 0 $titled-callout_content_bottom-extension;
+  }
+
+  .titled-callout-content {
+
+    border-left: $titled-callout_border-left-size solid $titled-callout_border-left-color;
+    padding: 1.5rem 1rem 0;
+    margin-left: -#{$titled-callout_border-left-size};
+
+    h3 {
+      margin: $vertical-rhythm 0 0.5rem;
+      text-transform: uppercase;
+      color: $color-black;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      + ul {
+        list-style: none;
+        margin-left: 0;
+        margin-bottom: 0.5rem;
+        padding-left: 0;
+
+        li {
+          display: inline;
+          letter-spacing: 2px;
+          // margin-right: 0.5em;
+          margin-right: -5px;
+          font-size: 0.8em;
+          
+
+          &::after {
+            content: '-';
+            color: $color-grey_dark;
+            margin: 0 0.25rem
+          }
+
+          &:last-child {
+            &::after {
+              content: ' ';
+            }
+          }
+        }
+      }
+
+      small {
+        display: inline-block; // fix wrapping issue
+      }
+    }
+
+    h4 {
+      font-size: 1.1em;
+      margin: 0.5rem 0 0.3rem;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+
+  }
+
+  &.no-content {
+    .titled-callout-content-wrapper {
+      padding-bottom: 0;
+    }
+  }
+
+  @include generate_titled-callout-color-classes;
+
+  &[data-expand] {
+    margin-bottom: $spacing-unit_base;
+    .titled-callout-heading {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+
+      h2 {
+        flex: 1 0 auto;
+      }
+    }
+  }
+
+  &[data-expand="collapsed"],
+  &[data-expand="inactive"] {
+    .titled-callout-heading {
+      .icon-button {
+        // flex: 0 1 0;
+        opacity: 0;
+        padding: 0;
+        width: 0;
+      }
+    }
+
+  }
+  &[data-expand="expanded"] {
+    .icon-button {
+      flex: 0 1;
+    }
+  }
+}
