@@ -3,8 +3,10 @@ main.content {
   min-height: 100vh;
 }
 
-.site-inner {
+.site-inner,
+.pane[data-responsive-sate="active"] {
   @include mq('xl') {
     width: 80%;
+    max-width: 80%;
   }
 }

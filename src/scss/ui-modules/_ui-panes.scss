@@ -14,6 +14,11 @@ $pane_transition: transform 300ms ease-out;
   width: 100vw;
   min-height: 100vh;
   padding: 0;
+
+  @include mq('xl') {
+    width: 80%;
+    flex: 0 0 80%;
+  }
 }
 .pane[data-responsive-state="active"],
 .main-pane {
