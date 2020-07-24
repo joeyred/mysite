@@ -5,11 +5,11 @@ url: https://www.brianhayes.me
 # url: https://joeyred.github.io/mysite
 email: bjoeyhayes@gmail.com
 social:
-  twitter: https://twitter.com/BJoeyHayes
-  linkedin: https://www.linkedin.com/in/bjoeyhayes/
+  twitter: https://twitter.com/BrianDoesCode
+  linkedin: https://www.linkedin.com/in/briandoescode/
   github: https://github.com/joeyred
   codepen: https://codepen.io/joeyred/
-  stackoverflow: https://stackoverflow.com/users/5331958/joeyred
+  stackoverflow: https://stackoverflow.com/story/brianhayes
 
 servers:
   port: 8000
